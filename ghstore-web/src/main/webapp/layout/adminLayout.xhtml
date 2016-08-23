@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">
+		
+<h:head>
+		<h:outputStylesheet name="adminLayout.css" library="css" />
+</h:head>
+<h:body style="background-color:#000000">
+	<div id="page">
+		<div id="adminHeader">
+			<ui:insert name="adminHeader">
+				<h:form>
+					<p:menubar>
+						<p:menuitem value="Inicio" 
+								outcome="/admin/adminMain.xhtml" 
+								icon="ui-icon-home" >
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Produtos" 
+								outcome="/admin/productMain.xhtml" 
+								icon="ui-icon-gear">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Relatórios" 
+								outcome="/admin/productMain.xhtml"
+								icon="ui-icon-document">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Indicadores" 
+								outcome="/admin/productMain.xhtml"
+								icon="ui-icon-lightbulb">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Usuários" 
+								outcome="/admin/productMain.xhtml"
+								icon="ui-icon-gear">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Status de Pedidos" 
+								outcome="/admin/productMain.xhtml"
+								icon="ui-icon-signal">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Gerenciar Página Principal" 
+								outcome="/admin/productMain.xhtml"
+								icon="ui-icon-gear">
+							
+						</p:menuitem>
+						
+					</p:menubar>
+				</h:form>
+			</ui:insert>
+		</div>
+		<div id="menuBar">
+			<ui:insert name="menuBar">
+				
+			</ui:insert>
+		</div>
+		<div id="messages-container">
+			<div id="messages">
+				<ui:insert name="messages">
+					<p:growl id="messages"></p:growl>					
+				</ui:insert>
+			</div>
+		</div>
+		<div id="side-bar">
+			<div id="sidebar">
+				<ui:insert name="sidebar"/>
+			</div>
+		</div>
+		<div id="content-container">
+			<div id="content">
+				<ui:insert name="content"/>
+			</div>
+		</div>
+		
+		<div id="footer-container">
+			<div id="footer">
+				
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

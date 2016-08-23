@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:pe="http://primefaces.org/ui/extensions">
+	<ui:composition template="/layout/adminLayout.xhtml">
+		<h:head>
+			<title>GHStore - Salvar Produto</title>
+			<h:outputStylesheet name="baseStyles.css" library="css" />						
+		</h:head>
+		<ui:define name="messages">
+			<p:growl id="messages"></p:growl>
+		</ui:define>
+		<ui:define name="sidebar">
+			<ui:include src="/admin/productMenu.xhtml"/>
+		</ui:define>
+		<ui:define name="content">
+			<h:form id="form_content">
+				
+					<p:panelGrid columns="2" >
+						<p:outputLabel for="name" value="Nome:"/>
+						<p:inputText id="name" 
+									value="#{adminProductMB.name}" 
+									maxlength="50"/>
+						
+						<p:outputLabel for="category" value="Categoria:" />
+						<p:selectOneMenu id="category" 
+										value="#{adminProductMB.category}">
+							<f:selectItems value="#{adminProductMB.categoryList}"
+										var="cat"
+										itemValue="#{cat.description}"
+										itemLabel="#{cat.description}"/>
+						</p:selectOneMenu>
+											
+						<p:outputLabel value="Subcategoria:" for="subcategory" />
+	        			<p:autoComplete id="subcategory" 
+	        							dropdown="true" 
+	        							value="#{adminProductMB.subcategory}" 
+	        							completeMethod="#{adminProductMB.fillSubcategory}"/>
+	        							
+	        			<h:outputLabel for="price" value="Preço (R$):" style="font-weight:bold"/>                   
+			            						
+						<pe:inputNumber id="price" value="#{adminProductMB.price}" 
+                               decimalSeparator="," thousandSeparator=".">
+                		</pe:inputNumber>
+                		
+                		<h:outputLabel for="stock" value="Estoque:" style="font-weight:bold"/>		
+						<pe:inputNumber id="stock" value="#{adminProductMB.stock}" 
+                               minValue="0" decimalPlaces="0">
+                		</pe:inputNumber>
+                		
+                		<p:panelGrid columns="1">
+	                		<p:outputLabel for="fileUpload" value="Foto:" style="font-weight:bold" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+	                		<p:fileUpload id="fileUpload" 
+	                					fileUploadListener="#{adminProductMB.doUpload}"
+	                          			label="Procurar..."
+	                          			auto="false"
+	                          			update="img">
+	                        </p:fileUpload>
+	                        <p:graphicImage id="img" url="#{adminProductMB.imagePath}" width="100" height="100"/>
+                         </p:panelGrid>
+					</p:panelGrid>
+					<p:panelGrid columns="1">
+                       <p:outputLabel for="description" value="Descrição:"/>
+                       <p:inputTextarea id="description" 
+                       					value="#{adminProductMB.description}" 
+                       					rows="5" cols="40"  
+                       					counter="display" 
+                       					maxlength="250" 
+                       					counterTemplate="{0} caracteres restantes." 
+                       					autoResize="false"/> 
+                       <h:outputText id="display" />
+	                   <p:panelGrid columns="3">
+		                   	<p:commandButton actionListener="#{adminProductMB.save}" value="Confirmar" id="confirm" update=":form_content,:messages">
+		                   		<p:confirm header="Produto" message="Confirmar cadastro?"/>
+		                   	</p:commandButton>
+		                   	<p:commandButton value="Cancelar" id="cancel" actionListener="#{redirectMB.redirectToProductMenu}">
+		                   		<p:confirm header="Produto" message="Cancelar cadastro?"/>
+		                   	</p:commandButton>
+		                   	<p:commandButton value="Limpar Campos" update="form_content" id="clear" actionListener="#{adminProductMB.clearFields}" >
+		                   		<p:confirm header="Produto" message="Tem certeza que deseja limpar dodos os campos?"/>
+			                </p:commandButton>
+	                   </p:panelGrid>
+                    </p:panelGrid>
+                    
+                    <p:confirmDialog severity="alert"
+							 global="true" 
+							 widgetVar="dialog">  
+				        <p:commandButton id="save"	value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />			                                
+				        <p:commandButton id="ignore"  value="Não"  type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+					</p:confirmDialog>
+			</h:form>	
+		</ui:define>
+	</ui:composition>
+</html>

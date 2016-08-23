@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">
+		
+<h:head>
+		
+</h:head>
+<h:body style="background-color:#000000">
+	<h:outputStylesheet name="clientLayout.css" library="css" />
+	<h:outputStylesheet name="baseStyles.css" library="css" />
+	<div id="page">
+		<div id="clientHeader">
+			<ui:insert name="clientHeader">
+				<h:form>
+					<p:panelGrid cols="6">
+						<div>colocar Logo</div>
+						<p:button id="searchSite" value="Buscar"/>
+						<p:watermark for="pdSearch" value="Buscar Produto..." />
+						<p:inputText id="pdSearch"/>
+						<p:button id="btnRedirLogin" value="Login" />
+						<p:button id="btnRedirSignUp" value="Cadastre-se" />
+						<p:button id="btnShoppingCart" value="Carrinho de compras" outcome="/clientuser/shoppingCart.xhtml"/>
+					</p:panelGrid>
+					
+					<p:menubar>
+						<p:menuitem value="Inicio" 
+								outcome="/clientuser/clientHome.xhtml" 
+								icon="ui-icon-home" >
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Colecionáveis" 
+								outcome="/clientuser/actionFigures.xhtml" 
+								icon="ui-icon-gear">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Acessórios" 
+								outcome="/clientuser/accessory.xhtml"
+								icon="ui-icon-document">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="HQs" 
+								outcome="/clientuser/hqs.xhtml"
+								icon="ui-icon-lightbulb">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Mangás" 
+								outcome="/clientuser/mangas.xhtml"
+								icon="ui-icon-gear">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Camisas" 
+								outcome="/clientuser/shirts.xhtml"
+								icon="ui-icon-signal">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Jogos de Tabuleiro" 
+								outcome="/clientuser/boardGames.xhtml"
+								icon="ui-icon-gear">
+							
+						</p:menuitem>
+						
+						<p:menuitem value="Como comprar" 
+								outcome="/admin/productMain.xhtml"
+								icon="ui-icon-gear">
+							
+						</p:menuitem>
+						
+					</p:menubar>
+				</h:form>
+				<h:form id="page">
+					<p:panel>
+						<ui:insert name="page">
+						</ui:insert>						
+					</p:panel>
+				</h:form>
+			</ui:insert>
+		</div>
+		<div id="menuBar">
+			<ui:insert name="menuBar">
+				
+			</ui:insert>
+		</div>
+		<div id="messages-container">
+			<div id="messages">
+				<ui:insert name="messages">
+					<p:growl id="messages"></p:growl>					
+				</ui:insert>
+			</div>
+		</div>
+		<div id="side-bar">
+			<div id="sidebar">
+				<ui:insert name="sidebar"/>
+			</div>
+		</div>
+		<div id="content-container">
+			<div id="content">
+				<ui:insert name="content"/>
+			</div>
+		</div>
+		
+		<div id="footer-container">
+			<div id="footer">
+				
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

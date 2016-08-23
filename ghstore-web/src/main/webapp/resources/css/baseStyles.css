@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+
+.ui-panelgrid>*>tr,
+.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}

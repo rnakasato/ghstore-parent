@@ -1,0 +1,31 @@
+@CHARSET "ISO-8859-1";
+html, body { 
+    margin: 0; 
+    height: 100%; 
+}
+#adminHeader{
+	
+}
+
+#menuBar{
+	
+}
+
+#messages-container{
+	
+}
+
+#footer-container{
+	
+}
+#side-bar{
+	float:left !important;
+	width:20%;
+	height:1000px
+}
+#content-container{
+	float:left !important;
+	height:1000px;
+	width:80%;
+}
+

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:pe="http://primefaces.org/ui/extensions">
+	<ui:composition template="/layout/adminLayout.xhtml">
+		<h:head>
+			<title>GHStore - Salvar Produto</title>
+			<h:outputStylesheet name="baseStyles.css" library="css" />						
+		</h:head>
+		<ui:define name="sidebar">
+			<ui:include src="/admin/productMenu.xhtml"/>
+		</ui:define>
+		<ui:define name="content">
+			<h:form id="form_content">
+					<p:watermark for="name" value="Buscar Produto..." />
+					<p:panelGrid id="filters" columns="2" style="width:100%">
+						<p:commandButton icon="ui-icon-search" value="Buscar" actionListener="#{adminProductMB.listProducts}" update="productTable"/>
+						<p:inputText id="name" value="#{adminProductMB.filter.name}" />
+						<p:outputLabel for="category" value="Categoria:" />
+						<p:selectOneMenu id="category" 
+										value="#{adminProductMB.filter.category.description}">
+							<f:selectItem itemValue="null" itemLabel="Todos"/>
+							<f:selectItems value="#{adminProductMB.categoryList}"
+										var="cat"
+										itemValue="#{cat.description}"
+										itemLabel="#{cat.description}"/>
+						</p:selectOneMenu>
+						<p:outputLabel for="status" value="Status:" />
+						<p:selectOneRadio id="status" value="#{adminProductMB.filter.status}">
+							<f:selectItem itemLabel="Disponível" itemValue="1"/>
+							<f:selectItem itemLabel="Indisponível" itemValue="2"/>
+							<f:selectItem itemLabel="Todos" itemValue="0"/>
+						</p:selectOneRadio>
+						<p:commandButton value="Limpar filtros" actionListener="#{adminProductMB.clearFilter}" update="form_content"/>
+					</p:panelGrid>		
+					<p:dataTable var="prod" 
+								id="productTable" 
+								value="#{adminProductMB.productList}"
+								paginator="true"
+								selection="#{adminProductMB.product}"
+								rowKey="#{prod.id}"
+								rows="15"	
+								style="width:100%">
+								
+						<p:column selectionMode="single" style="width:16px;text-align:center"/>		
+						<p:column headerText="Nome">
+    						<!-- row record -->
+    						<h:outputText value="#{prod.name}"/>
+		    			</p:column>
+		    			<p:column headerText="Categoria">
+    						<!-- row record -->
+    						<h:outputText value="#{prod.storeCategory.description}"/>
+		    			</p:column>
+		    			<p:column headerText="Estoque">
+    						<!-- row record -->
+    						<h:outputText value="#{prod.stock}"/>
+		    			</p:column>
+		    			<p:column headerText="Preço unitário">
+    						<!-- row record -->
+    						<h:outputText value="#{prod.price}"/>
+		    			</p:column>
+					</p:dataTable>
+					<p:panelGrid columns="3">
+		                   	<p:commandButton actionListener="#{redirectMB.redirectToUpdate(adminProductMB.product)}" value="Alterar Selecionado" id="update" update=":form_content,:messages"/>
+		                   	<p:commandButton value="Voltar" id="cancel" actionListener="#{redirectMB.redirectToProductMenu}" icon="ui-icon-arrowreturnthick-1-w"/>
+		                   	<p:commandButton value="Limpar resultados" update="form_content" id="clear" actionListener="#{adminProductMB.clearTableResults}" >
+		                   		<p:confirm header="Produto" message="Tem certeza que deseja limpar os resultados da pesquisa?"/>
+			                </p:commandButton>
+	                  </p:panelGrid>
+					
+                    
+                    <p:confirmDialog severity="alert"
+							 global="true" 
+							 widgetVar="dialog">  
+				        <p:commandButton id="save"	value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />			                                
+				        <p:commandButton id="ignore"  value="Não"  type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+					</p:confirmDialog>
+			</h:form>	
+		</ui:define>
+	</ui:composition>
+</html>
