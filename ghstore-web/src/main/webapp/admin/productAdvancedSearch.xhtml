@@ -23,7 +23,7 @@
 						<p:outputLabel for="category" value="Categoria:" />
 						<p:selectOneMenu id="category" 
 										value="#{adminProductMB.filter.category.description}">
-							<f:selectItem itemValue="null" itemLabel="Todos"/>
+							<f:selectItem itemLabel="Todos"/>
 							<f:selectItems value="#{adminProductMB.categoryList}"
 										var="cat"
 										itemValue="#{cat.description}"
@@ -117,12 +117,15 @@
 				                
 				 				<h:outputText value="Subcategoria" />
 				                <h:outputText value="#{adminProductMB.product.subcategory.description}"/>
+				                
+				                <h:outputText value="Tags" />
+				                <h:outputText value="#{formatterMB.formatTagList(adminProductMB.product.tagList)}"/>
 				 				
 				                <h:outputText value="Preço" />
 				                <h:outputText value="R$#{adminProductMB.product.price}" />
 				                
 				                <h:outputText value="Data de início de venda" />
-				                <h:outputText value="#{adminProductMB.product.insertdate}" />
+				                <h:outputText value="#{adminProductMB.product.insertDate}" />
 				            </p:panelGrid>
 				        </p:outputPanel>
 				    </p:dialog>                    

@@ -1,15 +1,16 @@
 package com.nakasato.ghstore.core;
 
-import java.sql.SQLException;
 import java.util.List;
 
+import com.nakasato.ghstore.core.filter.Filter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
-public interface IDAO {
-	public void save(AbstractDomainEntity entity) throws SQLException;
-	public void update(AbstractDomainEntity entity) throws SQLException;
-	public void delete(AbstractDomainEntity entity) throws SQLException;
-	public List<AbstractDomainEntity> find(AbstractDomainEntity entity)throws SQLException;
-	public List<AbstractDomainEntity> findAll()throws SQLException;
+public interface IDAO <T extends AbstractDomainEntity> {
+	public void save(T entity) throws Exception;
+	public void delete(T entity) throws Exception;
+	public void update(T entity) throws Exception;
+	public T findById(T entity) throws Exception;
+	public List<T> find(AbstractDomainEntity filter) throws Exception;
+	public List<T> findAll() throws Exception;
 
 }

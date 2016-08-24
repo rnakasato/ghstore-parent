@@ -3,12 +3,12 @@ package com.nakasato.ghstore.core;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
-public interface IFacade {
-	public Result save(AbstractDomainEntity entity);
-	public Result update(AbstractDomainEntity entity);
-	public Result delete(AbstractDomainEntity entity);
-	public Result find(AbstractDomainEntity entity);
-	public Result findAll(AbstractDomainEntity entity);
-	public Result view(AbstractDomainEntity entity);
-	public Result doRules(AbstractDomainEntity entity, Integer parameter);
+public interface IFacade<T extends AbstractDomainEntity> {
+	public Result<T> save(T entity);
+	public Result<T> update(T entity);
+	public Result<T> delete(T entity);
+	public Result<T> find(T entity);
+	public Result<T> findAll(T entity);
+	public Result<T> view(T entity);
+	public Result<T>doRules(T entity, Integer parameter);
 }

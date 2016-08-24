@@ -5,18 +5,15 @@ import java.util.Map;
 
 import com.nakasato.ghstore.core.IDAO;
 import com.nakasato.ghstore.core.dao.impl.ProductDAO;
-import com.nakasato.ghstore.core.dao.impl.RelationDAO;
 import com.nakasato.ghstore.core.dao.impl.StoreCategoryDAO;
 import com.nakasato.ghstore.core.dao.impl.SubcategoryDAO;
 import com.nakasato.ghstore.core.dao.impl.TagDAO;
 import com.nakasato.ghstore.core.filter.impl.ProductFilter;
 import com.nakasato.ghstore.core.filter.impl.TagFilter;
-import com.nakasato.ghstore.core.table.enums.EProductTag;
 import com.nakasato.ghstore.domain.Product;
 import com.nakasato.ghstore.domain.StoreCategory;
 import com.nakasato.ghstore.domain.Subcategory;
 import com.nakasato.ghstore.domain.Tag;
-import com.nakasato.ghstore.relation.RelationProductTag;
 
 public class FactoryDAO {
 		
@@ -33,9 +30,7 @@ public class FactoryDAO {
 			// TEMPORÁRIO ATÉ ADIÇÃO DOS FILTROS
 			daoMap.put(ProductFilter.class.getName(), new ProductDAO());
 			daoMap.put(TagFilter.class.getName(), new TagDAO());
-			
-			// MAPA PARA ENTIDADES FRACAS
-			daoMap.put(RelationProductTag.class.getName(), new RelationDAO(EProductTag.TABLE_NAME,EProductTag.IDPRODUCT));
+
 		}
 	}
 	

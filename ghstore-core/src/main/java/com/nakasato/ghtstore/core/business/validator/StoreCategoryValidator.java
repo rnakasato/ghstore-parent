@@ -1,6 +1,5 @@
 package com.nakasato.ghtstore.core.business.validator;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.nakasato.ghstore.core.IDAO;
@@ -12,29 +11,32 @@ import com.nakasato.ghstore.factory.impl.FactoryDAO;
 import com.nakasato.ghtstore.core.business.Validator;
 
 /**
- * Responsável por verificar se a categoria do produto a ser salvo
- * existe no banco de dados, caso não exista, deverá ser cancelada a operação
+ * Responsável por verificar se a categoria do produto a ser salvo existe no
+ * banco de dados, caso não exista, deverá ser cancelada a operação
+ * 
  * @author Rafael
  *
  */
-public class StoreCategoryValidator extends Validator{
+public class StoreCategoryValidator extends Validator {
 
 	@Override
 	public String validate(AbstractDomainEntity entity) {
-		Product p = (Product) entity;		
+		Product p = (Product) entity;
 		msg = null;
 		IDAO dao;
 		try {
 			dao = FactoryDAO.build(StoreCategory.class.getName());
-			List<AbstractDomainEntity> scList = dao.find(p.getStoreCategory());
-			if(ListUtils.isListEmpty(scList)){
+			List<StoreCategory> scList = (List<StoreCategory>) dao.find(p.getStoreCategory());
+			if (ListUtils.isListEmpty(scList)) {
 				msg = "Categoria inválida";
+			}else{
+				p.setStoreCategory(scList.get(0));
 			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-		return msg;		
+			msg = "Erro inesperado";
+		}
+		return msg;
 	}
 
 }

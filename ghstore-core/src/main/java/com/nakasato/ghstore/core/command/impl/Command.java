@@ -4,7 +4,7 @@ import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.IFacade;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
-public abstract class Command implements ICommand{
+public abstract class Command<T extends AbstractDomainEntity> implements ICommand<T>{
 	protected IFacade facade;
 	protected AbstractDomainEntity entity;
 	protected Integer parameter;

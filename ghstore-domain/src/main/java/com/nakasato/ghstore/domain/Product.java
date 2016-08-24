@@ -32,6 +32,7 @@ public class Product extends AbstractDomainEntity implements Serializable {
 	private Date updateDate;
 	private Integer status;
 	private List<Tag> tagList;
+	private Double weight;
 
 	public String getName() {
 		return name;
@@ -124,6 +125,14 @@ public class Product extends AbstractDomainEntity implements Serializable {
 
 	public void setTagList(List<Tag> tagList) {
 		this.tagList = tagList;
+	}
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
 	}
 
 	@Override

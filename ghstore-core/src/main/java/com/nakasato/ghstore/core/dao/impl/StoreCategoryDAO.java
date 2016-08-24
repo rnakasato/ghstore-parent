@@ -1,143 +1,110 @@
 package com.nakasato.ghstore.core.dao.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.nakasato.ghstore.core.table.enums.EStoreCategory;
+import com.nakasato.core.util.enums.EOperation;
+import com.nakasato.ghstore.core.ICommand;
+import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.StoreCategory;
+import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
-public class StoreCategoryDAO extends AbstractDAO{
-	
-	
-	
-	public StoreCategoryDAO() {
-		super(EStoreCategory.TABLE_NAME, EStoreCategory.PK);
-	}
-	
-	/**
-	 * O Método save não será utilizado porque as store_category serão pré cadastradas no banco
-	 */
-	@Override
-	public void save(AbstractDomainEntity entity) throws SQLException {
+public class StoreCategoryDAO extends AbstractDAO<StoreCategory> {
 
-		
-	}
-	
-	/**
-	 * O Método save não será utilizado porque as store_category não poderão ser excluidas via sistema, serão manipuladas diretamente no banco
-	 */
 	@Override
-	public void delete(AbstractDomainEntity entity) {
-		
-	}
-	;
-	
-	/**
-	 * O Método save não será utilizado porque as store_category não poderão ser excluidas atualizadas via sistema, serão manipuladas diretamente no banco
-	 */
-	@Override
-	public void update(AbstractDomainEntity entity) throws SQLException {
-		
-		
-	}
-
-	
-	@Override
-	public List<AbstractDomainEntity> find(AbstractDomainEntity entity) throws SQLException {
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		StoreCategory storeCategory = (StoreCategory)entity;
-		
-		List<AbstractDomainEntity> resultList = null;
-		
-		StringBuilder sql = new StringBuilder();
-		
+	public List<StoreCategory> find(AbstractDomainEntity entity) {
+		StoreCategory storeCategory = (StoreCategory) entity;
 		boolean isDescriptionEmpty = StringUtils.isEmpty(storeCategory.getDescription());
 		boolean isIdNull = (storeCategory.getId() == null);
-		
-		sql.append(" SELECT * FROM ").append(EStoreCategory.TABLE_NAME)
-		.append(" WHERE 1=1 ");
-		
-		if(!isIdNull){
-			sql.append(" AND ");
-			sql.append(EStoreCategory.PK).append(" = ?");
-		}
-		
-		if(!isDescriptionEmpty){
-			sql.append(" AND ");
-			sql.append(EStoreCategory.DESCRIPTION).append(" like ?");
-		}
-		try {
-			openConnection();
-			pst = connection.prepareStatement(sql.toString());
-			
-			int index = 1;
-			if(!isIdNull){
-				pst.setInt(index++, storeCategory.getId());
-			}
-			
-			if(!isDescriptionEmpty){
-				pst.setString(index++, "%"+storeCategory.getDescription()+"%");			
-			}
-			rs = pst.executeQuery();
-			resultList = new ArrayList<>();
-			while (rs.next()) {
-				StoreCategory s = new StoreCategory();
-				s.setId(rs.getInt(EStoreCategory.PK));
-				s.setDescription(rs.getString(EStoreCategory.DESCRIPTION));
-				s.setInsertDate(rs.getDate(EStoreCategory.INSERTDATE));
-				resultList.add(s);					
-			}				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally{
-			releaseResources(connection, pst, rs);
-		}
-		return resultList;			
-	}
-	
 
+		List<StoreCategory> storeCategoryList = null;
+		try {
+			openSession();
+
+			StringBuilder jpql = new StringBuilder();
+			jpql.append(" FROM StoreCategory s").append(" WHERE 1=1 ");
+
+			if (!isIdNull) {
+				jpql.append(" AND s.id = :id");
+			}
+
+			if (!isDescriptionEmpty) {
+				jpql.append(" AND UPPER(s.description) like :description");
+
+			}
+
+			Query query = session.createQuery(jpql.toString());
+
+			if (!isIdNull) {
+				query.setParameter("id", storeCategory.getId());
+			}
+
+			if (!isDescriptionEmpty) {
+				query.setParameter("description", "%" + storeCategory.getDescription().toUpperCase() + "%");
+			}
+
+			storeCategoryList = (List<StoreCategory>) query.getResultList();
+
+			closeSession();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			cancelSession();
+			throw e;
+		}
+		return storeCategoryList;
+
+	}
 
 	/**
-	 * O Método findAll não será utilizado porque no momento não há sentido para retornar todas as categorias
-	 */	
+	 * O Método findAll não será utilizado porque no momento não há sentido para
+	 * retornar todas as categorias
+	 */
 	@Override
-	public List<AbstractDomainEntity> findAll() throws SQLException {
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		
-		List<AbstractDomainEntity> storeCategoryList = new ArrayList<AbstractDomainEntity>();
-		
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM ").append(EStoreCategory.TABLE_NAME);
-				
+	public List<StoreCategory> findAll() {
+		List<StoreCategory> storeCategoryList = null;
 		try {
-			openConnection();
-			pst = connection.prepareStatement(sql.toString());
-			
-			rs = pst.executeQuery();
-			
-			while (rs.next()) {
-				StoreCategory s = new StoreCategory();
-				s.setId(rs.getInt(EStoreCategory.PK));
-				s.setDescription(rs.getString(EStoreCategory.DESCRIPTION));		
-				s.setInsertDate(rs.getDate(EStoreCategory.INSERTDATE));
-				storeCategoryList.add(s);
-			}
-			
-		} catch (SQLException e) {
+			openSession();
+
+			StringBuilder jpql = new StringBuilder();
+			jpql.append(" FROM StoreCategory ");
+
+			Query query = session.createQuery(jpql.toString());
+
+			storeCategoryList = query.getResultList();
+
+			closeSession();
+		} catch (RuntimeException e) {
 			e.printStackTrace();
-		}finally {
-			releaseResources(connection, pst, rs);
+			cancelSession();
+			throw e;
 		}
 		return storeCategoryList;
 	}
+	
+	@Override
+	public void save(StoreCategory entity) {
+	}
 
-		
+	@Override
+	public void update(StoreCategory entity) {
+	}
+
+	public static void main(String[] args) throws Exception{
+		StoreCategory sc = new StoreCategory();
+		sc.setDescription("acessórios");
+		ICommand command = new FactoryCommand().build(sc,EOperation.FIND);
+		Result result = command.execute();
+		if(result != null){
+			List<StoreCategory> list = result.getEntityList();
+			for (StoreCategory storeCategory : list) {
+				System.out.println("ID: " + storeCategory.getId());
+				System.out.println("DESCRIPTION: " + storeCategory.getDescription());
+				System.out.println("INSERTDATE: " + storeCategory.getInsertDate());
+			}
+		}		
+	}
 }

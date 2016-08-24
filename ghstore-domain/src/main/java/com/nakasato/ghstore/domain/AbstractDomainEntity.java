@@ -1,11 +1,12 @@
 package com.nakasato.ghstore.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class AbstractDomainEntity implements IEntity{
-	
+public abstract class AbstractDomainEntity implements IEntity, Serializable {
+
 	private Integer id;
-	private Date insertdate;
+	private Date insertDate;
 
 	public Integer getId() {
 		return id;
@@ -15,17 +16,17 @@ public abstract class AbstractDomainEntity implements IEntity{
 		this.id = id;
 	}
 
-	public Date getInsertdate() {
-		return insertdate;
+	public Date getInsertDate() {
+		return insertDate;
 	}
 
-	public void setInsertDate(Date insertdate) {
-		this.insertdate = insertdate;
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
 	}
-	
-	public boolean isEmpty(){
+
+	public boolean isEmpty() {
 		boolean result = false;
-		if(id == null){
+		if (id == null) {
 			result = true;
 		}
 		return result;

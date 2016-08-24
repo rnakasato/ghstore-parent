@@ -40,6 +40,16 @@
 	        							dropdown="true" 
 	        							value="#{adminProductMB.subcategory}" 
 	        							completeMethod="#{adminProductMB.fillSubcategory}"/>
+	        			
+	        			<p:outputLabel value="Tags:" for="tags" />
+	        			<p:autoComplete id="tags" 
+	        							multiple="true" 
+	        							value="#{adminProductMB.tagList}" 
+	        							completeMethod="#{adminProductMB.fillTags}"
+	        							forceSelection="false"
+	        							var="tag" itemLabel="#{tag.description}" itemValue="#{tag}" 
+	        							converter="tagConverter"
+	        							/>
 	        							
 	        			<h:outputLabel for="price" value="Preço (R$):" style="font-weight:bold"/>                   
 			            						

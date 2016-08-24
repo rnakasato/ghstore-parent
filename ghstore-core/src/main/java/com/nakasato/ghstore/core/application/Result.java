@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
-public class Result {
+public class Result<T extends AbstractDomainEntity> {
 	
 
 	private String msg;
-	private List<AbstractDomainEntity> entityList;
+	private List<T> entityList;
 	/**
 	 * Método de recuperação do campo msg
 	 *
@@ -30,7 +30,7 @@ public class Result {
 	 *
 	 * @return valor do campo entityList
 	 */
-	public List<AbstractDomainEntity> getEntityList() {
+	public List<T> getEntityList() {
 		return entityList;
 	}
 	/**
@@ -38,7 +38,7 @@ public class Result {
 	 *
 	 * @param entidades Atributo da Classe
 	 */
-	public void setEntityList(List<AbstractDomainEntity> entityList) {
+	public void setEntityList(List<T> entityList) {
 		this.entityList = entityList;
 	
 	}

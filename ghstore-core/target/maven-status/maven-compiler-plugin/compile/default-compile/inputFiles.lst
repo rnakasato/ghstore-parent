@@ -10,7 +10,6 @@ C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\co
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\command\impl\CommandUpdate.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\validator\ProductRequiredFieldsValidator.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\IFacade.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\dao\impl\RelationDAO.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\dao\impl\TagDAO.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\filler\SubcategoryFiller.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\filter\impl\ProductFilter.java
@@ -19,7 +18,6 @@ C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\co
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\table\enums\EShoppingCart.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\table\enums\EStoreCategory.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\dao\impl\ShoppingCartDAO.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\rules\DeleteProductTagRelation.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\product\util\ProductSort.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\command\impl\CommandFind.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\ICommand.java
@@ -32,9 +30,9 @@ C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\co
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\filter\impl\TagFilter.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\util\ImageUtils.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\product\util\CompareProductByPrice.java
+C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\hibernate\HibernateUtil.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\filter\impl\OperatorFilter.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\factory\impl\FactoryPostStrategy.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\rules\SaveProductTags.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\payment\Payment.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\product\util\CompareProductByStatus.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\table\enums\EUser.java
@@ -44,7 +42,8 @@ C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\co
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\table\enums\ESubcategory.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\product\util\CompareProductBySell.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\table\enums\EProductTag.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\rules\UpdateProductTagRelation.java
+C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\filler\TagSaveUpdateFiller.java
+C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\util\StringUtils.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\table\enums\EOrder.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\table\enums\EOrderItem.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\filler\TagFiller.java
@@ -59,7 +58,6 @@ C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\co
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\table\enums\EUserType.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\IDAO.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\factory\impl\FactoryComparator.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\rules\SaveProductTagRelation.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\dao\impl\StoreCategoryDAO.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\core\util\enums\ECustomRules.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\core\util\enums\EOperation.java

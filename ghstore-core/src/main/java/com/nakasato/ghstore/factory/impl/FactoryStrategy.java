@@ -12,9 +12,7 @@ import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.Product;
 import com.nakasato.ghtstore.core.business.filler.StoreCategoryFiller;
 import com.nakasato.ghtstore.core.business.filler.SubcategoryFiller;
-import com.nakasato.ghtstore.core.business.filler.TagFiller;
-import com.nakasato.ghtstore.core.business.rules.DeleteProductTagRelation;
-import com.nakasato.ghtstore.core.business.rules.SaveProductTags;
+import com.nakasato.ghtstore.core.business.filler.TagSaveUpdateFiller;
 import com.nakasato.ghtstore.core.business.validator.PriceValidator;
 import com.nakasato.ghtstore.core.business.validator.ProductRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.StockValidator;
@@ -67,21 +65,23 @@ public class FactoryStrategy {
 		rnsSave.add(new StockValidator());
 		rnsSave.add(new PriceValidator());
 		rnsSave.add(new StoreCategoryValidator());
-		rnsSave.add(new SaveProductTags());
+		rnsSave.add(new StoreCategoryFiller());
+		rnsSave.add(new SubcategoryFiller());
+		rnsSave.add(new TagSaveUpdateFiller());
+		
 		
 		// Adicionando regras de negócio para alterar um Product
 		rnsUpdate.add(new ProductRequiredFieldsValidator());
 		rnsUpdate.add(new StockValidator());
 		rnsUpdate.add(new PriceValidator());
 		rnsUpdate.add(new StoreCategoryValidator());
-		rnsUpdate.add(new SaveProductTags());
+		rnsUpdate.add(new StoreCategoryFiller());
+		rnsUpdate.add(new SubcategoryFiller());
+		rnsUpdate.add(new TagSaveUpdateFiller());
 		
 		// Adicionando regras de negócio para buscar um Product
 		rnsFind.add(new StoreCategoryFiller());
 		rnsFind.add(new SubcategoryFiller());
-
-		// Adicionando regras de negócio para deletar um Product
-		rnsDelete.add(new DeleteProductTagRelation());
 		
 		// Insere as regras de negócio por operação 
 		rnsProduct.put(EOperation.SAVE, rnsSave);
