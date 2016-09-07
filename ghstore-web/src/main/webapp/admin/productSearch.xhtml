@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/layout/adminLayout.xhtml">
+	<h:head>
+		<title>GHStore - Salvar Produto</title>
+		<h:outputStylesheet name="adminLayout.css" library="css" />
+		<h:outputStylesheet name="baseStyles.css" library="css" />
+	</h:head>
+	<ui:define name="sidebar">
+		<ui:include src="/admin/productFilter.xhtml" />
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="form_content">
+			
+			<p:dataTable var="prod" id="productTable"
+				value="#{adminProductMB.productList}" paginator="true"
+				selection="#{adminProductMB.product}" rowKey="#{prod.id}" rows="15"
+				style="width:100%">
+				<f:facet name="header">
+					<p:outputLabel value="Resultados"/>
+				</f:facet>
+				<p:ajax event="rowSelectRadio" update=":form_content:gridButtons" listener="#{adminProductMB.select}" />
+				<p:ajax event="rowUnselect" update=":form_content:gridButtons" listener="#{adminProductMB.unSelect}"/>  
+				
+				<p:column selectionMode="single"
+					style="width:16px;text-align:center" />
+				<p:column headerText="Nome">
+					<!-- row record -->
+					<h:outputText value="#{prod.name}" />
+				</p:column>
+				<p:column headerText="Categoria">
+					<!-- row record -->
+					<h:outputText value="#{prod.storeCategory.description}" />
+				</p:column>
+				<p:column headerText="Subcategoria">
+					<!-- row record -->
+					<h:outputText value="#{prod.subcategory.description}" />
+				</p:column>
+				<p:column headerText="Estoque">
+					<!-- row record -->
+					<h:outputText value="#{prod.stock}" />
+				</p:column>
+				<p:column headerText="Preço unitário">
+					<!-- row record -->
+					<h:outputText value="#{prod.price}" />
+				</p:column>
+				<p:column headerText="Status">
+					<!-- row record -->
+					<h:outputText value="#{prod.statusDesc}" />
+				</p:column>
+			</p:dataTable>
+			<p:panelGrid styleClass="baseGrid" id="gridButtons" columns="5">
+			
+			
+				<p:commandButton id="btnNewProduct" 
+					value="Cadastrar produto" 
+					update=":messages " 
+					actionListener="#{redirectMB.redirectToSaveProduct()}" />
+					
+				<p:commandButton id="btnUpdateProduct"
+					value="Alterar produto"
+					update=":messages "
+					disabled="#{adminProductMB.isSelected == null || adminProductMB.isSelected == false }"
+					actionListener="#{redirectMB.redirectToUpdate(adminProductMB.product)}" />
+					
+				<p:commandButton id="delete"
+					value="Excluir produto selecionado"
+					update="productTable,:messages" 
+					disabled="#{adminProductMB.isSelected == null || adminProductMB.isSelected == false }"
+					actionListener="#{adminProductMB.delete}">
+					<p:confirm header="Produto"
+						message="Tem certeza que deseja excluir o produto selecionado?" />
+				</p:commandButton>
+				
+				<p:commandButton id="btnDetail" 
+					value="Detalhes do produto"
+					disabled="#{adminProductMB.isSelected == null || adminProductMB.isSelected == false }"
+					update=":form_content:prodDetail, :messages "
+					actionListener="#{adminProductMB.showProductDetails}" />
+									
+			</p:panelGrid>
+			<p:dialog id="productDetail" header="Produto" widgetVar="prodDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+				width="512px">
+				<p:outputPanel id="prodDetail" >
+					<p:panelGrid styleClass="baseGrid" columns="1" rendered="true"
+						columnClasses="label,value">
+						<f:facet name="header">
+							<p:graphicImage
+								value="#{adminProductMB.getImagePath(adminProductMB.product)}"
+								style="width:256px;heigth:256px" />
+						</f:facet>
+						
+						<p:row style="text-align:left">
+							<h:outputText value="Nome: " />
+							<h:outputText value="#{adminProductMB.product.name}" />
+						</p:row>
+						
+						<p:row style="text-align:left">
+							<h:outputText value="Categoria: " />
+							<h:outputText
+								value="#{adminProductMB.product.storeCategory.description}" />
+						</p:row>
+
+						<p:row style="text-align:left">
+							<h:outputText value="Subcategoria: " />
+							<h:outputText
+								value="#{adminProductMB.product.subcategory.description}" />
+						</p:row>
+
+						<p:row style="text-align:left">
+							<h:outputText value="Tags: " />
+							<h:outputText
+								value="#{formatterMB.formatTagList(adminProductMB.product.tagList)}" />
+						</p:row>
+						
+						<p:row style="text-align:left">
+							<h:outputText value="Preço: " />
+							<h:outputText value="R$#{adminProductMB.product.price}" />
+						</p:row>
+						
+						<p:row style="text-align:left">
+							<h:outputText value="Início de venda: " />
+							<h:outputText value="#{adminProductMB.product.insertDate}" />
+						</p:row>
+
+						
+						<p:row style="text-align:left">
+							<h:outputText value="Descrição: " />							
+						</p:row>
+						<p:row style="text-align:left">
+							<h:outputText value="#{adminProductMB.product.description}" />
+						</p:row>
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+			<p:confirmDialog severity="alert" global="true" widgetVar="dialog">
+				<p:commandButton id="save" value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton id="ignore" value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

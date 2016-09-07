@@ -1,27 +1,19 @@
 package com.nakasato.ghstore.core.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.nakasato.core.util.enums.EOperation;
-import com.nakasato.ghstore.core.ICommand;
-import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.filter.impl.ProductFilter;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.Product;
-import com.nakasato.ghstore.domain.StoreCategory;
-import com.nakasato.ghstore.domain.Subcategory;
-import com.nakasato.ghstore.domain.Tag;
-import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class ProductDAO extends AbstractDAO<Product>{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> find(AbstractDomainEntity entity) {
 		ProductFilter filter = (ProductFilter) entity; 
@@ -121,6 +113,7 @@ public class ProductDAO extends AbstractDAO<Product>{
 		return productList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> findAll() {
 		List<Product> productList = null;

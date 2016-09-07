@@ -1,40 +1,43 @@
 @CHARSET "ISO-8859-1";
-html, body { 
-    margin: 0; 
-    height: 100%; 
+
+html, body {
+	margin: 0;
+	height: 100%;
 }
-#adminHeader{
+
+#adminHeader {
 	
 }
 
-#menuBar{
+#menuBar {
 	
 }
 
-#messages-container{
+#messages-container {
 	
 }
 
-#footer-container{
+#footer-container {
 	
 }
-#side-bar{
-	float:left !important;
-	width:25%;
-	height:1000px
-}
-#content-container{
-	float:left !important;
-	height:1000px;
-	width:75%;
+
+#side-bar {
+	float: left !important;
+	width: 25%;
+	height: 1000px
 }
 
-.inputAmount input
-{
-	width:60px;	
+#content-container {
+	float: left !important;
+	height: 1000px;
+	width: 75%;
 }
 
-.floatGridContent td{
-	float:left;
+.inputAmount input {
+	width: 60px;
+}
+
+.floatGridContent td {
+	float: left;
 }
 }

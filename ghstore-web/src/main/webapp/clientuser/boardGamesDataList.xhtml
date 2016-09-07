@@ -1,47 +1,44 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html 	xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://xmlns.jcp.org/jsf/html"
-		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:p="http://primefaces.org/ui">
-	<h:body>
-		<ui:composition>
-			<h:form id="form_content">		
-				<p:dataGrid var="prod" 
-						id="productTable" 
-						value="#{boardGamesMB.productList}"
-						paginator="true"
-						selection="#{boardGamesMB.product}"
-						rowKey="#{prod.id}"
-						rows="15"	
-						columns="5"
-						style="width:100%">
-						<f:facet name="header" style="align:left">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition>
+		<h:form id="form_content">
+			<p:dataGrid var="prod" id="productTable"
+				value="#{boardGamesMB.productList}" paginator="true"
+				selection="#{boardGamesMB.product}" rowKey="#{prod.id}" rows="15"
+				columns="5" style="width:100%">
+				<f:facet name="header" style="align:left">
 				            Jogos de Tabuleiro
 				        </f:facet>
-										 
-				        <p:panel style="text-align:center">
-				            <h:panelGrid columns="1" style="width:100%">
-				            	<p:commandLink actionListener="#{redirectMB.redirectToProductPage(boardGamesMB.product)}">
-				            		<p:graphicImage name="#{boardGamesMB.getImagePath(prod)}"/>
-				            		<f:setPropertyActionListener value="#{prod}" target="#{boardGamesMB.product}" />
-				            	</p:commandLink>
-				                <h:outputText value="#{prod.name}" />
-				                <h:outputText value="R$ #{formatterMB.formatCurrency(prod.price)}" />
-				                <h:outputText value="#{prod.statusDesc}" />
-				            </h:panelGrid>
-				        </p:panel>
-						
-				</p:dataGrid>	
-						              
-                <p:confirmDialog severity="alert"
-					 global="true" 
-			 		widgetVar="dialog">  
-        				<p:commandButton id="save"	value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />			                                
-        				<p:commandButton id="ignore"  value="Não"  type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-				</p:confirmDialog>
-			</h:form>	
-		</ui:composition>
-	</h:body>		
+
+				<p:panel style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:commandLink
+							actionListener="#{redirectMB.redirectToProductPage(boardGamesMB.product)}">
+							<p:graphicImage name="#{boardGamesMB.getImagePath(prod)}" />
+							<f:setPropertyActionListener value="#{prod}"
+								target="#{boardGamesMB.product}" />
+						</p:commandLink>
+						<h:outputText value="#{prod.name}" />
+						<h:outputText value="R$ #{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText value="#{prod.statusDesc}" />
+					</h:panelGrid>
+				</p:panel>
+
+			</p:dataGrid>
+
+			<p:confirmDialog severity="alert" global="true" widgetVar="dialog">
+				<p:commandButton id="save" value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton id="ignore" value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:composition>
+</h:body>
 </html>

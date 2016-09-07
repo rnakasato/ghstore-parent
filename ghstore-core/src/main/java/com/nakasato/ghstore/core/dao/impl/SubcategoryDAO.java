@@ -6,15 +6,12 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.nakasato.core.util.enums.EOperation;
-import com.nakasato.ghstore.core.ICommand;
-import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.Subcategory;
-import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Subcategory> find(AbstractDomainEntity entity) {
 		Subcategory subcategory = (Subcategory) entity;
@@ -78,6 +75,7 @@ public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 		return subCategoryList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Subcategory> findAll() {
 		List<Subcategory> subcategoryList = null;
@@ -100,7 +98,7 @@ public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 		return subcategoryList;
 	}
 
-	public static void main(String[] args) throws Exception {
+	/*public static void main(String[] args) throws Exception {
 
 		Subcategory sc = new Subcategory();
 		sc.setDescription("subcategoria teste");
@@ -116,6 +114,6 @@ public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 		}
 
 		Runtime.getRuntime().exit(0);
-	}
+	}*/
 
 }

@@ -2,6 +2,7 @@ package com.nakasato.ghstore.web.mb;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
@@ -31,6 +33,7 @@ import com.nakasato.ghstore.domain.StoreCategory;
 import com.nakasato.ghstore.domain.Subcategory;
 import com.nakasato.ghstore.domain.Tag;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
+import com.nakasato.web.util.Redirector;
 
 @ManagedBean(name = "productMB")
 @ViewScoped
@@ -46,6 +49,7 @@ public class ProductMB extends BaseMB implements Serializable {
 	protected String category;
 	protected String subcategory;
 	protected Double price;
+	protected Double weight;
 	protected Integer stock;
 	protected String image;
 	protected String description;
@@ -97,12 +101,22 @@ public class ProductMB extends BaseMB implements Serializable {
 			Command command;
 			command = FactoryCommand.build(tag, EOperation.FIND);
 			tagList = command.execute().getEntityList();
+			boolean exists = false;
+
 			if (ListUtils.isListEmpty(tagList)) {
 				tagList = new ArrayList<>();
-				tagList.add(tag);
-			}else{
-				tagList.add(tag);
+			} else {
+				for (Tag t : tagList) {
+					if (t.getDescription().equals(query)) {
+						exists = true;
+						break;
+					}
+				}
 			}
+			if(!exists){
+				tagList.add(tag);				
+			}
+
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -186,7 +200,11 @@ public class ProductMB extends BaseMB implements Serializable {
 				ctx.addMessage(null, new FacesMessage("Erro ao cadastrar produto", result.getMsg()));
 			} else {
 				ctx.addMessage(null, new FacesMessage("Produto cadastrado"));
-				clearFields();
+				Flash flash = ctx.getExternalContext().getFlash();
+				flash.setKeepMessages(true);
+				;
+				flash.setRedirect(true);
+				Redirector.redirectTo(ctx.getExternalContext(), "/admin/productSearch.jsf?faces-redirect=true");
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -216,7 +234,11 @@ public class ProductMB extends BaseMB implements Serializable {
 				ctx.addMessage(null, new FacesMessage("Erro ao atualizar produto", result.getMsg()));
 			} else {
 				ctx.addMessage(null, new FacesMessage("Produto alterado"));
-				clearFields();
+				Flash flash = ctx.getExternalContext().getFlash();
+				flash.setKeepMessages(true);
+				;
+				flash.setRedirect(true);
+				Redirector.redirectTo(ctx.getExternalContext(), "/admin/productSearch.jsf?faces-redirect=true");
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -237,6 +259,7 @@ public class ProductMB extends BaseMB implements Serializable {
 					ctx.addMessage(null, new FacesMessage("Erro ao excluir produto", result.getMsg()));
 				} else {
 					ctx.addMessage(null, new FacesMessage("Produto excluído"));
+					super.select(null);
 				}
 				product = null;
 				listProducts();
@@ -272,6 +295,7 @@ public class ProductMB extends BaseMB implements Serializable {
 		p.setImage(image);
 		p.setPrice(price);
 		p.setStock(stock);
+		p.setWeight(weight);
 		p.setTagList(tagList);
 		p.setInsertDate(new Date());
 		StoreCategory st = new StoreCategory();
@@ -352,7 +376,7 @@ public class ProductMB extends BaseMB implements Serializable {
 
 	public String getImagePath() {
 		if (image != null) {
-			ImagePath = SaveDirectory.IMG_DIR + image;
+			ImagePath = SaveDirectory.REQUEST_IMG_DIR + image;
 		} else {
 			ImagePath = "default.jpg";
 		}
@@ -362,7 +386,7 @@ public class ProductMB extends BaseMB implements Serializable {
 	public String getImagePath(Product product) {
 		String path;
 		if (product != null) {
-			path = SaveDirectory.IMG_DIR + product.getImage();
+			path = SaveDirectory.REQUEST_IMG_DIR + product.getImage();
 		} else {
 			path = "default.jpg";
 		}
@@ -386,6 +410,7 @@ public class ProductMB extends BaseMB implements Serializable {
 		image = null;
 		description = null;
 		tagList = null;
+		weight = null;
 	}
 
 	public List<Product> getProductList() {
@@ -422,6 +447,7 @@ public class ProductMB extends BaseMB implements Serializable {
 	public void clearTableResults() {
 		product = null;
 		productList = null;
+		super.unSelect(null);
 	}
 
 	public void clearFilter() {
@@ -464,6 +490,14 @@ public class ProductMB extends BaseMB implements Serializable {
 
 	public void setTagList(List<Tag> tagList) {
 		this.tagList = tagList;
+	}
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
 	}
 
 }

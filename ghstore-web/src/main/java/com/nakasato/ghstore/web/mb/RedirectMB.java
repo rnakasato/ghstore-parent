@@ -42,18 +42,17 @@ public class RedirectMB {
 		String url = "/admin/productMain.jsf?faces-redirect=true";
 		Redirector.redirectTo(context, url);
 	}
-
-	public void redirectToUpdateSearch() {
+	
+	public void redirectToProductSearch() {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-		String url = "/admin/productUpdateSearch.jsf?faces-redirect=true";
+		String url = "/admin/productSearch.jsf?faces-redirect=true";
 		Redirector.redirectTo(context, url);
 	}
 
 	public void redirectToUpdate(Product product) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext context = ctx.getExternalContext();
 		if(product != null && !product.isEmpty()){
-			
-			ExternalContext context = ctx.getExternalContext();
 			context.getFlash().put("product", product);
 			String url = "/admin/productUpdate.jsf?faces-redirect=true";
 			Redirector.redirectTo(context, url);
@@ -62,10 +61,17 @@ public class RedirectMB {
 		}
 	}
 	
+	public void redirectToSaveProduct() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext context = ctx.getExternalContext();
+		String url = "/admin/productSave.jsf?faces-redirect=true";
+		Redirector.redirectTo(context, url);
+	}
+		
 	public void redirectToProductPage(Product product){
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		if(product != null && !product.isEmpty()){	
-			ExternalContext context = ctx.getExternalContext();
+		ExternalContext context = ctx.getExternalContext();
+		if(product != null && !product.isEmpty()){				
 			context.getFlash().put("product", product);
 			String url = "/clientuser/productPage.jsf?faces-redirect=true";
 			Redirector.redirectTo(context, url);

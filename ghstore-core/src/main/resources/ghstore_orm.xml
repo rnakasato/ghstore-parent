@@ -61,6 +61,7 @@
         <property name="description" type="string" column="DESCRIPTION"/>
         <property name="name" type="string" column="NAME"/>
         <property name="price" type="double" column="PRICE"/>
+        <property name="weight" type="double" column="WEIGHT"/>
         <property name="stock" type="integer" column="STOCK"/>
         <property name="image" type="string" column="IMAGE_PATH"/>        
         

@@ -1,54 +1,68 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html 	xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://xmlns.jcp.org/jsf/html"
-		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:p="http://primefaces.org/ui"
-		xmlns:pe="http://primefaces.org/ui/extensions">
-	<ui:composition template="/layout/clientLayout.xhtml">		
-		<ui:define name="content">
-			<h:form id="form_content">		
-				<p:panelGrid columns="2">
-					<p:panelGrid id="operations" columns="1">
-						<f:facet name="header">
-				        	<p:graphicImage value="#{productDetailMB.getImagePath(productDetailMB.product)}" style="width:256px;heigth:256px"/> 
-				        </f:facet>
-				        <p:commandButton id="addWishlist" value="Adicionar à lista de desejos"/>
-				        <p:panelGrid columns="3">
-				        	<p:commandButton id="remAmount" value="-" style="width:60px" actionListener="#{productDetailMB.removeAmount}" update=":form_content:productAmount"/>
-				        	<pe:inputNumber id="productAmount" value="#{productDetailMB.amount}" 
-                               minValue="1" maxValue="#{productDetailMB.maxValue}" decimalPlaces="0" styleClass="inputAmount">
-                			</pe:inputNumber>
-				        	<p:commandButton id="addAmount" value="+" style="width:60px" actionListener="#{productDetailMB.addAmount}" update=":form_content:productAmount"/>
-				        </p:panelGrid>
-				        <p:commandButton id="addToCart" value="Adicionar ao Carrinho" 
-				        				actionListener="#{userSessionMB.addCartItem(productDetailMB.product,productDetailMB.amount)}"
-				        				update=":messages">				        				
-				        </p:commandButton>				        	
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/layout/clientLayout.xhtml">
+	<ui:define name="content">
+		<h:form id="form_content">
+			<p:panelGrid columns="2">
+				<p:panelGrid id="operations" columns="1">
+					<f:facet name="header">
+						<p:graphicImage
+							value="#{productDetailMB.getImagePath(productDetailMB.product)}"
+							style="width:256px;heigth:256px" />
+					</f:facet>
+					<p:commandButton id="addWishlist"
+						value="Adicionar à lista de desejos" />
+					<p:panelGrid columns="3">
+						<p:commandButton id="remAmount" value="-" style="width:60px"
+							actionListener="#{productDetailMB.removeAmount}"
+							update=":form_content:productAmount" />
+						<pe:inputNumber id="productAmount"
+							value="#{productDetailMB.amount}" minValue="1"
+							maxValue="#{productDetailMB.maxValue}" decimalPlaces="0"
+							styleClass="inputAmount">
+						</pe:inputNumber>
+						<p:commandButton id="addAmount" value="+" style="width:60px"
+							actionListener="#{productDetailMB.addAmount}"
+							update=":form_content:productAmount" />
 					</p:panelGrid>
-					<p:panelGrid id="information" columns="2" styleClass="floatGridContent">
-		                <h:outputText value="#{productDetailMB.product.name}" />
-		                <h:outputText value="" />
-		 								 				
-		                <h:outputText value="Preço: " />
-		                <h:outputText value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
-		 
-		                <h:outputText value="Categoria: " />
-		                <h:outputText value="#{productDetailMB.product.storeCategory.description}"/>
-		                
-		 				<h:outputText value="Descrição:" />
-		 				<h:outputText value=""/>
-		 				
-		                <h:outputText value="#{productDetailMB.product.subcategory.description}"/>
-		                <h:outputText value=""/>
-		                
-		                <h:outputText value="#{productDetailMB.product.description}" />
-		                <h:outputText value=""/>
-		                <p:commandButton id="return" value="Voltar" actionListener="#{redirectMB.redirectBack()}"/>
-					</p:panelGrid>
+					<p:commandButton id="addToCart" value="Adicionar ao Carrinho"
+						actionListener="#{userSessionMB.addCartItem(productDetailMB.product,productDetailMB.amount)}"
+						update=":messages">
+					</p:commandButton>
 				</p:panelGrid>
-			</h:form>			        
-		</ui:define>
-	</ui:composition>			
+				<p:panelGrid id="information" columns="2"
+					styleClass="floatGridContent">
+					<h:outputText value="#{productDetailMB.product.name}" />
+					<h:outputText value="" />
+
+					<h:outputText value="Preço: " />
+					<h:outputText
+						value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
+
+					<h:outputText value="Categoria: " />
+					<h:outputText
+						value="#{productDetailMB.product.storeCategory.description}" />
+
+					<h:outputText value="Descrição:" />
+					<h:outputText value="" />
+
+					<h:outputText
+						value="#{productDetailMB.product.subcategory.description}" />
+					<h:outputText value="" />
+
+					<h:outputText value="#{productDetailMB.product.description}" />
+					<h:outputText value="" />
+					<p:commandButton id="return" value="Voltar"
+						actionListener="#{redirectMB.redirectBack()}" />
+				</p:panelGrid>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition>
+		<h:form id="productFilter" style="height:100%;width:100%">
+			<p:watermark for="inputName" value="Buscar Produto..." />
+			<p:panelGrid styleClass="baseGrid" columns="2" style="width:100%">
+				<f:facet name="header">
+					<p:outputLabel value="Filtros"/>
+				</f:facet>
+
+				<p:outputLabel id="labelName" value="Nome: " for="inputName" />
+				<p:inputText id="inputName" value="#{adminProductMB.filter.name}" />
+
+				<p:outputLabel id="labelCategory" for="selectCategory"
+					value="Categoria:" />
+				<p:selectOneMenu id="selectCategory"
+					value="#{adminProductMB.filter.category.description}">
+					<f:selectItem itemLabel="Todos" />
+					<f:selectItems value="#{adminProductMB.categoryList}" var="cat"
+						itemValue="#{cat.description}" itemLabel="#{cat.description}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel id="labelSubcategory" value="Subcategoria:"
+					for="inputSubcategory" />
+				<p:autoComplete id="inputSubcategory" dropdown="true"
+					value="#{adminProductMB.filter.subcategory.description}"
+					completeMethod="#{adminProductMB.fillSubcategory}" />
+
+
+				<p:outputLabel id="labelStatus" for="selectStatus" value="Status:" />
+				<p:selectOneRadio id="selectStatus"
+					value="#{adminProductMB.filter.status}">
+					<f:selectItem itemLabel="Disponível" itemValue="1" />
+					<f:selectItem itemLabel="Indisponível" itemValue="2" />
+					<f:selectItem itemLabel="Todos" itemValue="0" />
+				</p:selectOneRadio>
+
+
+				<p:outputLabel for="orderby" value="Ordenar por:" />
+				<p:selectOneMenu id="orderby" value="#{adminProductMB.order}">
+					<f:selectItems value="#{adminProductMB.orderTypeList}" var="orderP"
+						itemValue="#{orderP.id}" itemLabel="#{orderP.description}" />
+				</p:selectOneMenu>
+			</p:panelGrid>
+
+			<p:panelGrid styleClass="baseGrid" columns="2" style="width:100%">
+				<p:commandButton icon="ui-icon-search" value="Buscar"
+					actionListener="#{adminProductMB.listProducts}"
+					update=":form_content:productTable" />
+				<p:commandButton value="Limpar filtros"
+					actionListener="#{adminProductMB.clearFilter}"
+					update="form_content" />
+			</p:panelGrid>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

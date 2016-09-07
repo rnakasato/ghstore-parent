@@ -8,14 +8,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import com.nakasato.core.util.enums.EComparator;
-import com.nakasato.ghstore.core.IFacade;
+import com.nakasato.core.util.enums.EOperation;
+import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.filter.impl.ProductFilter;
-import com.nakasato.ghstore.core.impl.Facade;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.core.util.OrderByType;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.Product;
 import com.nakasato.ghstore.domain.StoreCategory;
+import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 @ManagedBean (name="adminProductMB")
 public class AdminProductMB extends ProductMB{
@@ -26,10 +27,10 @@ public class AdminProductMB extends ProductMB{
 	private static final long serialVersionUID = 1L;
 	
 	@PostConstruct
-	public void init() {
+	public void init(){
 		setBaseFilter(new ProductFilter());
 		filter = (ProductFilter) getBaseFilter();
-		IFacade f = new Facade();
+		
 		product = (Product) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("product");
 		if (product != null) {
 			name = product.getName();
@@ -41,8 +42,14 @@ public class AdminProductMB extends ProductMB{
 			status = product.getStatus();
 			tagList = product.getTagList();
 		}
-		StoreCategory storeCategory = new StoreCategory();
-		List<AbstractDomainEntity> ctList = f.findAll(storeCategory).getEntityList();
+		List<AbstractDomainEntity> ctList = null;
+		try{
+			ICommand commandFind = FactoryCommand.build(new StoreCategory(), EOperation.FIND);
+			ctList = commandFind.execute().getEntityList();
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		
 		if (!ListUtils.isListEmpty(ctList)) {
 			categoryList = new ArrayList<>();
 			for (AbstractDomainEntity e : ctList) {
@@ -56,7 +63,6 @@ public class AdminProductMB extends ProductMB{
 		orderTypeList.add(new OrderByType(EComparator.PRODUCT_PRICE, "Preço"));
 		orderTypeList.add(new OrderByType(EComparator.PRODUCT_STATUS, "Status"));
 		orderTypeList.add(new OrderByType(EComparator.PRODUCT_STOCK, "Estoque"));
-		// orderTypeList.add(new OrderByType(EComparator.PRODUCT_SELL, "Nome"));
 		listProducts();
 		
 	}
