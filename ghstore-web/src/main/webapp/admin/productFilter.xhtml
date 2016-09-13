@@ -16,12 +16,15 @@
 
 				<p:outputLabel id="labelName" value="Nome: " for="inputName" />
 				<p:inputText id="inputName" value="#{adminProductMB.filter.name}" />
-
+				
+				<p:outputLabel id="labelCode" value="Código do produto: " for="inputCode" />
+				<p:inputText id="inputCode" value="#{adminProductMB.filter.code}" />
+				
 				<p:outputLabel id="labelCategory" for="selectCategory"
 					value="Categoria:" />
 				<p:selectOneMenu id="selectCategory"
 					value="#{adminProductMB.filter.category.description}">
-					<f:selectItem itemLabel="Todos" />
+					<f:selectItem itemLabel="Todos" itemValue="#{null}"/>
 					<f:selectItems value="#{adminProductMB.categoryList}" var="cat"
 						itemValue="#{cat.description}" itemLabel="#{cat.description}" />
 				</p:selectOneMenu>

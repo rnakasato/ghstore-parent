@@ -14,7 +14,7 @@ import com.nakasato.ghstore.domain.enums.EStatus;
  * @author Rafael
  *
  */
-public class Product extends AbstractDomainEntity implements Serializable {
+public class Product extends DomainSpecificEntity implements Serializable {
 	/**
 	 * 
 	 */
@@ -28,7 +28,6 @@ public class Product extends AbstractDomainEntity implements Serializable {
 	private Double price;
 	private Integer stock;
 	private String image;
-	private String description;
 	private Date updateDate;
 	private Integer status;
 	private List<Tag> tagList;
@@ -85,14 +84,6 @@ public class Product extends AbstractDomainEntity implements Serializable {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public Date getUpdateDate() {

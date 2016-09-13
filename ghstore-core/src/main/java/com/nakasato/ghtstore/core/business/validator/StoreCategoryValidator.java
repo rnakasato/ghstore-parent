@@ -3,6 +3,7 @@ package com.nakasato.ghtstore.core.business.validator;
 import java.util.List;
 
 import com.nakasato.ghstore.core.IDAO;
+import com.nakasato.ghstore.core.filter.impl.StoreCategoryFilter;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.Product;
@@ -26,7 +27,11 @@ public class StoreCategoryValidator extends Validator {
 		IDAO dao;
 		try {
 			dao = FactoryDAO.build(StoreCategory.class.getName());
-			List<StoreCategory> scList = (List<StoreCategory>) dao.find(p.getStoreCategory());
+			StoreCategoryFilter filter = new StoreCategoryFilter();
+			filter.setDescription(p.getStoreCategory().getDescription());
+			filter.setId(p.getStoreCategory().getId());
+			
+			List<StoreCategory> scList = (List<StoreCategory>) dao.find(filter);
 			if (ListUtils.isListEmpty(scList)) {
 				msg = "Categoria inválida";
 			}else{

@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.nakasato.ghstore.core.filter.impl.SubcategoryFilter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.Subcategory;
 
@@ -14,7 +15,8 @@ public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Subcategory> find(AbstractDomainEntity entity) {
-		Subcategory subcategory = (Subcategory) entity;
+		SubcategoryFilter subcategory = (SubcategoryFilter) entity;
+		
 		boolean isDescriptionEmpty = StringUtils.isEmpty(subcategory.getDescription());
 		boolean isIdNull = (subcategory.getId() == null);
 		boolean isStoreCategoryEmpty = (subcategory.getStoreCategory() == null
@@ -97,23 +99,5 @@ public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 		}
 		return subcategoryList;
 	}
-
-	/*public static void main(String[] args) throws Exception {
-
-		Subcategory sc = new Subcategory();
-		sc.setDescription("subcategoria teste");
-		ICommand command = new FactoryCommand().build(sc, EOperation.FIND);
-		Result result = command.execute();
-		if (result != null) {
-			List<Subcategory> list = result.getEntityList();
-			for (Subcategory subcategory : list) {
-				System.out.println("DESCRIPTION: " + subcategory.getDescription());
-				System.out.println("ID: " + subcategory.getId());
-				System.out.println("INSERTDATE: " + subcategory.getInsertDate());
-			}
-		}
-
-		Runtime.getRuntime().exit(0);
-	}*/
 
 }

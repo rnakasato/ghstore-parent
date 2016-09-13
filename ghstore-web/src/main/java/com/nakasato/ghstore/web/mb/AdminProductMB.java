@@ -44,7 +44,7 @@ public class AdminProductMB extends ProductMB{
 		}
 		List<AbstractDomainEntity> ctList = null;
 		try{
-			ICommand commandFind = FactoryCommand.build(new StoreCategory(), EOperation.FIND);
+			ICommand commandFind = FactoryCommand.build(new StoreCategory(), EOperation.FINDALL);
 			ctList = commandFind.execute().getEntityList();
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();

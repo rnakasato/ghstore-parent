@@ -7,6 +7,7 @@ public abstract class AbstractDomainEntity implements IEntity, Serializable {
 
 	private Integer id;
 	private Date insertDate;
+	private String description;
 
 	public Integer getId() {
 		return id;
@@ -22,6 +23,14 @@ public abstract class AbstractDomainEntity implements IEntity, Serializable {
 
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public boolean isEmpty() {

@@ -7,14 +7,16 @@ import com.nakasato.ghstore.domain.Product;
 import com.nakasato.ghstore.domain.Tag;
 import com.nakasato.ghtstore.core.business.Filler;
 
-public class TagSaveUpdateFiller extends Filler{
+public class TagSaveUpdateFiller extends Filler {
 
 	@Override
 	public String fill(AbstractDomainEntity entity) {
-		if(entity instanceof Product){
+		if (entity instanceof Product) {
 			Product product = (Product) entity;
 			for (Tag tag : product.getTagList()) {
-				tag.setInsertDate(new Date());
+				if (tag.getId() != null && tag.getInsertDate() == null) {
+					tag.setInsertDate(new Date());
+				}
 			}
 		}
 		return null;

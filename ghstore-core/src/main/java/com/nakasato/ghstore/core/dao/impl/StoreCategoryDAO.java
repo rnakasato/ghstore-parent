@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.nakasato.ghstore.core.filter.impl.StoreCategoryFilter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.StoreCategory;
 
@@ -14,9 +15,9 @@ public class StoreCategoryDAO extends AbstractDAO<StoreCategory> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<StoreCategory> find(AbstractDomainEntity entity) {
-		StoreCategory storeCategory = (StoreCategory) entity;
-		boolean isDescriptionEmpty = StringUtils.isEmpty(storeCategory.getDescription());
-		boolean isIdNull = (storeCategory.getId() == null);
+		StoreCategoryFilter filter = (StoreCategoryFilter) entity;
+		boolean isDescriptionEmpty = StringUtils.isEmpty(filter.getDescription());
+		boolean isIdNull = (filter.getId() == null);
 
 		List<StoreCategory> storeCategoryList = null;
 		try {
@@ -37,11 +38,11 @@ public class StoreCategoryDAO extends AbstractDAO<StoreCategory> {
 			Query query = session.createQuery(jpql.toString());
 
 			if (!isIdNull) {
-				query.setParameter("id", storeCategory.getId());
+				query.setParameter("id", filter.getId());
 			}
 
 			if (!isDescriptionEmpty) {
-				query.setParameter("description", "%" + storeCategory.getDescription().toUpperCase() + "%");
+				query.setParameter("description", "%" + filter.getDescription().toUpperCase() + "%");
 			}
 
 			storeCategoryList = (List<StoreCategory>) query.getResultList();
@@ -82,7 +83,7 @@ public class StoreCategoryDAO extends AbstractDAO<StoreCategory> {
 		}
 		return storeCategoryList;
 	}
-	
+
 	@Override
 	public void save(StoreCategory entity) {
 	}
@@ -91,18 +92,4 @@ public class StoreCategoryDAO extends AbstractDAO<StoreCategory> {
 	public void update(StoreCategory entity) {
 	}
 
-//	public static void main(String[] args) throws Exception{
-//		StoreCategory sc = new StoreCategory();
-//		sc.setDescription("acessórios");
-//		ICommand command = new FactoryCommand().build(sc,EOperation.FIND);
-//		Result result = command.execute();
-//		if(result != null){
-//			List<StoreCategory> list = result.getEntityList();
-//			for (StoreCategory storeCategory : list) {
-//				System.out.println("ID: " + storeCategory.getId());
-//				System.out.println("DESCRIPTION: " + storeCategory.getDescription());
-//				System.out.println("INSERTDATE: " + storeCategory.getInsertDate());
-//			}
-//		}		
-//	}
 }

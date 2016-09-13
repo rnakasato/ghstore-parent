@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.nakasato.core.util.enums.EComparator;
-import com.nakasato.ghstore.core.product.util.CompareProductByCat;
-import com.nakasato.ghstore.core.product.util.CompareProductByName;
-import com.nakasato.ghstore.core.product.util.CompareProductByPrice;
-import com.nakasato.ghstore.core.product.util.CompareProductBySell;
-import com.nakasato.ghstore.core.product.util.CompareProductByStatus;
-import com.nakasato.ghstore.core.product.util.CompareProductByStock;
+import com.nakasato.ghstore.core.product.comparator.CompareProductByCat;
+import com.nakasato.ghstore.core.product.comparator.CompareProductByName;
+import com.nakasato.ghstore.core.product.comparator.CompareProductByPrice;
+import com.nakasato.ghstore.core.product.comparator.CompareProductBySell;
+import com.nakasato.ghstore.core.product.comparator.CompareProductByStatus;
+import com.nakasato.ghstore.core.product.comparator.CompareProductByStock;
 
 public class FactoryComparator {
 private static Map<Integer,Comparator> comparatorMap;

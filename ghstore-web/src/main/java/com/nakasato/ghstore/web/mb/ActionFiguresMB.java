@@ -5,7 +5,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.nakasato.ghstore.core.filter.impl.ProductFilter;
-import com.nakasato.ghstore.core.table.enums.EStoreCategory;
 import com.nakasato.ghstore.domain.StoreCategory;
 
 @ManagedBean(name = "actionFiguresMB")

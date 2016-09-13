@@ -22,6 +22,8 @@ import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.command.impl.Command;
 import com.nakasato.ghstore.core.filter.impl.ProductFilter;
+import com.nakasato.ghstore.core.filter.impl.SubcategoryFilter;
+import com.nakasato.ghstore.core.filter.impl.TagFilter;
 import com.nakasato.ghstore.core.product.util.ProductSort;
 import com.nakasato.ghstore.core.util.ImageUtils;
 import com.nakasato.ghstore.core.util.ListUtils;
@@ -69,15 +71,15 @@ public class ProductMB extends BaseMB implements Serializable {
 	}
 
 	public List<String> fillSubcategory(String query) {
-		Subcategory subcategory = new Subcategory();
+		SubcategoryFilter filter = new SubcategoryFilter();
 		List<String> acSubcategory = null;
-		subcategory.setDescription(query);
+		filter.setDescription(query);
 		StoreCategory sc = new StoreCategory();
 		sc.setDescription(getCategory());
-		subcategory.setStoreCategory(sc);
+		filter.setStoreCategory(sc);
 		try {
 			Command command;
-			command = FactoryCommand.build(subcategory, EOperation.FIND);
+			command = FactoryCommand.build(filter, EOperation.FIND);
 			List<AbstractDomainEntity> scList = command.execute().getEntityList();
 			acSubcategory = new ArrayList<>();
 			if (!ListUtils.isListEmpty(scList)) {
@@ -95,11 +97,11 @@ public class ProductMB extends BaseMB implements Serializable {
 
 	public List<Tag> fillTags(String query) {
 		List<Tag> tagList = null;
-		Tag tag = new Tag();
-		tag.setDescription(query);
+		TagFilter filter = new TagFilter();
+		filter.setDescription(query);
 		try {
 			Command command;
-			command = FactoryCommand.build(tag, EOperation.FIND);
+			command = FactoryCommand.build(filter, EOperation.FIND);
 			tagList = command.execute().getEntityList();
 			boolean exists = false;
 
@@ -114,6 +116,8 @@ public class ProductMB extends BaseMB implements Serializable {
 				}
 			}
 			if(!exists){
+				Tag tag = new Tag();
+				tag.setDescription(query);
 				tagList.add(tag);				
 			}
 
@@ -161,7 +165,7 @@ public class ProductMB extends BaseMB implements Serializable {
 		try {
 			Command command;
 			command = FactoryCommand.build(filter, EOperation.FIND);
-			List<AbstractDomainEntity> products = command.execute().getEntityList();
+			List<Product> products = command.execute().getEntityList();
 			if (products != null && !products.isEmpty()) {
 				productList = new ArrayList<>();
 				for (AbstractDomainEntity e : products) {
@@ -197,9 +201,9 @@ public class ProductMB extends BaseMB implements Serializable {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 
 			if (!StringUtils.isEmpty(result.getMsg())) {
-				ctx.addMessage(null, new FacesMessage("Erro ao cadastrar produto", result.getMsg()));
+				ctx.addMessage(null, new FacesMessage(result.getMsg(), result.getMsg()));
 			} else {
-				ctx.addMessage(null, new FacesMessage("Produto cadastrado"));
+				ctx.addMessage(null, new FacesMessage("Produto cadastrado com código: " + p.getCode()));
 				Flash flash = ctx.getExternalContext().getFlash();
 				flash.setKeepMessages(true);
 				;
@@ -222,7 +226,9 @@ public class ProductMB extends BaseMB implements Serializable {
 		}
 
 		p.setInsertDate(product.getInsertDate());
+		p.setWeight(product.getWeight());
 		p.setUpdateDate(new Date());
+		p.setCode(product.getCode());
 
 		try {
 			Command command;
@@ -231,7 +237,7 @@ public class ProductMB extends BaseMB implements Serializable {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 
 			if (!StringUtils.isEmpty(result.getMsg())) {
-				ctx.addMessage(null, new FacesMessage("Erro ao atualizar produto", result.getMsg()));
+				ctx.addMessage(null, new FacesMessage(result.getMsg(), result.getMsg()));
 			} else {
 				ctx.addMessage(null, new FacesMessage("Produto alterado"));
 				Flash flash = ctx.getExternalContext().getFlash();
@@ -402,6 +408,7 @@ public class ProductMB extends BaseMB implements Serializable {
 
 	public void clearFields() {
 		product = null;
+		product = new Product();
 		name = null;
 		category = null;
 		subcategory = null;

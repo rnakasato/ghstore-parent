@@ -9,9 +9,7 @@ import com.nakasato.ghstore.core.IFacade;
 import com.nakasato.ghstore.core.IStrategy;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.factory.impl.FactoryCustomStrategy;
 import com.nakasato.ghstore.factory.impl.FactoryDAO;
-import com.nakasato.ghstore.factory.impl.FactoryPostStrategy;
 import com.nakasato.ghstore.factory.impl.FactoryStrategy;
 
 public class Facade<T extends AbstractDomainEntity> implements IFacade<T> {
@@ -41,7 +39,6 @@ public class Facade<T extends AbstractDomainEntity> implements IFacade<T> {
 				e.printStackTrace();
 				result.setMsg("Erro inesperado ao salvar!");
 			}
-			runPostRules(entity, EOperation.SAVE);
 		} else {
 			result.setMsg(msg);
 		}
@@ -68,7 +65,6 @@ public class Facade<T extends AbstractDomainEntity> implements IFacade<T> {
 				e.printStackTrace();
 				result.setMsg("Não foi possível realizar a alteração!");
 			}
-			runPostRules(entity, EOperation.UPDATE);
 		} else {
 			result.setMsg(msg);
 		}
@@ -155,32 +151,12 @@ public class Facade<T extends AbstractDomainEntity> implements IFacade<T> {
 		return messages;
 	}
 
-	private String runPostRules(T entity, String operation) {
-		StringBuilder msg = null;
-		List<IStrategy> rules = FactoryPostStrategy.build(entity, operation);
-		if (rules != null) {
-			msg = new StringBuilder();
-			for (IStrategy s : rules) {
-				String m = s.process(entity);
-				if (m != null) {
-					msg.append(m);
-					break;
-				}
-			}
-		}
-		String messages = null;
-		if (msg.length() > 0) {
-			messages = msg.toString();
-		}
-		return messages;
-	}
-
 	@Override
 	public Result<T> findAll(T entity) {
 		Result<T> result = new Result<T>();
 		String classNm = entity.getClass().getName();
 
-		String msg = runRules(entity, EOperation.FIND);
+		String msg = runRules(entity, EOperation.FINDALL);
 
 		if (msg == null) {
 			try {
@@ -200,25 +176,7 @@ public class Facade<T extends AbstractDomainEntity> implements IFacade<T> {
 
 	@Override
 	public Result<T> doRules(T entity, Integer parameter) {
-		Result<T> result = new Result<T>();
-		StringBuilder msg = null;
-		List<IStrategy> rules = FactoryCustomStrategy.build(entity, parameter);
-		if (rules != null) {
-			msg = new StringBuilder();
-			for (IStrategy s : rules) {
-				String m = s.process(entity);
-				if (m != null) {
-					msg.append(m);
-					break;
-				}
-			}
-		}
-		String messages = null;
-		if (msg.length() > 0) {
-			messages = msg.toString();
-			result.setMsg(messages);
-		}
-		return result;
+		return null;
 	}
 
 }

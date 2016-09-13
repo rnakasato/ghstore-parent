@@ -44,7 +44,7 @@
         </id>
         <property name="insertDate" type="date" column="INSERTDATE"/>
         <property name="description" type="string" column="DESCRIPTION"/>
-        <bag name="productList" table="DE_PRODUCT_TAG" inverse="true" lazy="true">
+       <bag name="productList" table="DE_PRODUCT_TAG" inverse="true" lazy="true">
         	<key column="IDTAG"/>
         	<many-to-many class="com.nakasato.ghstore.domain.Product" column="IDPRODUCT"/>
     	</bag>
@@ -56,6 +56,7 @@
         		<param name="sequence_name">SQ_PRODUCT</param>
         	</generator>            
         </id>
+		<property name="code" type="string" column="COD_PRODUCT"/>
         <property name="insertDate" type="date" column="INSERTDATE"/>
         <property name="updateDate" type="date" column="UPDATEDATE"/>
         <property name="description" type="string" column="DESCRIPTION"/>
@@ -72,7 +73,7 @@
         	<column name="IDSUBCATEGORY" not-null="true"/>
         </many-to-one>
         
-        <bag name="tagList" table="DE_PRODUCT_TAG" lazy="false" cascade="all">
+        <bag name="tagList" table="DE_PRODUCT_TAG" lazy="false" cascade="save-update">
         	<key column="IDPRODUCT"/>
         	<many-to-many class="com.nakasato.ghstore.domain.Tag" column="IDTAG"/>
     	</bag>

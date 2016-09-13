@@ -20,31 +20,39 @@ public class ProductRequiredFieldsValidator extends Validator{
 		msg = null;
 		Product p = (Product) entity;		
 		if(StringUtils.isEmpty(p.getName())){
-			appendMsg("O campo \"Nome\" é obrigatório!");
+			appendMsg("Nome");
 		}
 		
 		if(StringUtils.isEmpty(p.getDescription())){
-			appendMsg("O campo \"Descrição\" é obrigatório!");
+			appendMsg("Descrição");
 		}
 		
 		if(p.getStoreCategory() == null || (( p.getStoreCategory().getId() == null) && StringUtils.isEmpty(p.getStoreCategory().getDescription()))){
-			appendMsg("O campo \"Categoria\" é obrigatório");
+			appendMsg("Categoria");
 		}
 		
 		if(p.getSubcategory() == null || ( ( p.getSubcategory().getId() == null) && StringUtils.isEmpty(p.getSubcategory().getDescription()))){
-			appendMsg("O campo \"Subcategoria\" é obrigatório");
+			appendMsg("Subcategoria");
+		}
+		
+		if(p.getTagList() == null || p.getTagList().isEmpty()){
+			appendMsg("Tags");
+		}
+		
+		if(p.getWeight() == null){
+			appendMsg("Peso");
 		}
 		
 		if(p.getStock() == null){
-			appendMsg("O campo \"Estoque\" é obrigatório");
+			appendMsg("Estoque");
 		}
 		
 		if(p.getImage() == null){
-			appendMsg("O campo \"Foto do produto\" é obrigatório");
+			appendMsg("Foto do produto");
 		}
 		
 		if(p.getPrice() == null){
-			appendMsg("O campo \"Preço de venda (Un)\" é obrigatório");
+			appendMsg("Preço");
 		}
 		if(sbMessaage != null && sbMessaage.length() > 0){
 			msg = sbMessaage.toString();
@@ -55,9 +63,10 @@ public class ProductRequiredFieldsValidator extends Validator{
 	private void appendMsg(String message){
 		if(sbMessaage == null){
 			sbMessaage = new StringBuilder();
+			sbMessaage.append("O(s) campo(s) é(são) obrigatório(s): \n");
 		}
 		if(sbMessaage.length() > 0){
-			sbMessaage.append("\n");
+			sbMessaage.append(", ");
 		}
 		sbMessaage.append(message);	
 	}
