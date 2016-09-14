@@ -33,7 +33,7 @@ public class ProductDAO extends AbstractDAO<Product> {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append(" FROM Product p").append(" WHERE 1=1 ");
+			jpql.append(" FROM Product p").append(" WHERE 1=1 AND p.active = true ");
 
 			if (!isIdNull) {
 				jpql.append(" AND p.id = :id");

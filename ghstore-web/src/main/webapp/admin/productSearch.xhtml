@@ -30,33 +30,33 @@
 				
 				<p:column selectionMode="single"
 					style="width:16px;text-align:center" />
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" style="width:14%">
 					<!-- row record -->
-					<h:outputText value="#{prod.name}" />
+					<p:outputLabel value="#{prod.name}" title="#{prod.name}" />
 				</p:column>
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width:16%">
 					<!-- row record -->
-					<h:outputText value="#{prod.code}" />
+					<p:outputLabel value="#{prod.code}" title="#{prod.code}"/>
 				</p:column>
-				<p:column headerText="Categoria">
+				<p:column headerText="Categoria" style="width:14%">
 					<!-- row record -->
-					<h:outputText value="#{prod.storeCategory.description}" />
+					<p:outputLabel value="#{prod.storeCategory.description}" title="#{prod.storeCategory.description}"/>
 				</p:column>
-				<p:column headerText="Subcategoria">
+				<p:column headerText="Subcategoria" style="width:14%">
 					<!-- row record -->
-					<h:outputText value="#{prod.subcategory.description}" />
+					<p:outputLabel value="#{prod.subcategory.description}" title="#{prod.subcategory.description}"/>
 				</p:column>
-				<p:column headerText="Estoque">
+				<p:column headerText="Estoque" style="width:14%">
 					<!-- row record -->
-					<h:outputText value="#{prod.stock}" />
+					<p:outputLabel value="#{prod.stock}" title="#{prod.stock}"/>
 				</p:column>
-				<p:column headerText="Preço unitário">
+				<p:column headerText="Preço unitário" style="width:14%">
 					<!-- row record -->
-					<h:outputText value="#{prod.price}" />
+					<p:outputLabel value="#{prod.price}" title="#{prod.price}"/>
 				</p:column>
-				<p:column headerText="Status">
+				<p:column headerText="Status" style="width:14%">
 					<!-- row record -->
-					<h:outputText value="#{prod.statusDesc}" />
+					<p:outputLabel value="#{prod.statusDesc}" title="#{prod.statusDesc}" />
 				</p:column>
 			</p:dataTable>
 			<p:panelGrid styleClass="baseGrid" id="gridButtons" columns="5">
@@ -86,13 +86,13 @@
 					value="Detalhes do produto"
 					disabled="#{adminProductMB.isSelected == null || adminProductMB.isSelected == false }"
 					update=":form_content:prodDetail, :messages "
-					actionListener="#{adminProductMB.showProductDetails}" />
-									
+					onclick="PF('prodDialog').show()" />
+							
 			</p:panelGrid>
 			<p:dialog id="productDetail" header="Produto" widgetVar="prodDialog"
 				modal="true" showEffect="fade" hideEffect="fade" resizable="false"
-				width="512px">
-				<p:outputPanel id="prodDetail" >
+				width="512px" position="center top">
+				<p:outputPanel id="prodDetail" style="align:center">
 					<p:panelGrid styleClass="baseGrid" columns="1" rendered="true"
 						columnClasses="label,value">
 						<f:facet name="header">
@@ -102,46 +102,47 @@
 						</f:facet>
 						
 						<p:row style="text-align:left">
-							<h:outputText value="Nome: " />
-							<h:outputText value="#{adminProductMB.product.name}" />
+							<p:outputLabel value="Nome: " />
+							<p:outputLabel value="#{adminProductMB.product.name}" />
 						</p:row>
 						
 						<p:row style="text-align:left">
-							<h:outputText value="Categoria: " />
-							<h:outputText
+							<p:outputLabel value="Categoria: " />
+							<p:outputLabel
 								value="#{adminProductMB.product.storeCategory.description}" />
 						</p:row>
 
 						<p:row style="text-align:left">
-							<h:outputText value="Subcategoria: " />
-							<h:outputText
+							<p:outputLabel value="Subcategoria: " />
+							<p:outputLabel
 								value="#{adminProductMB.product.subcategory.description}" />
 						</p:row>
 
 						<p:row style="text-align:left">
-							<h:outputText value="Tags: " />
-							<h:outputText
+							<p:outputLabel value="Tags: " />
+							<p:outputLabel
 								value="#{formatterMB.formatTagList(adminProductMB.product.tagList)}" />
 						</p:row>
 						
 						<p:row style="text-align:left">
-							<h:outputText value="Preço: " />
-							<h:outputText value="R$#{adminProductMB.product.price}" />
+							<p:outputLabel value="Preço: " />
+							<p:outputLabel value="R$#{adminProductMB.product.price}" />
 						</p:row>
 						
 						<p:row style="text-align:left">
-							<h:outputText value="Início de venda: " />
-							<h:outputText value="#{adminProductMB.product.insertDate}" />
+							<p:outputLabel value="Início de venda: " />
+							<p:outputLabel value="#{adminProductMB.product.insertDate}" />
 						</p:row>
 
 						
 						<p:row style="text-align:left">
-							<h:outputText value="Descrição: " />							
+							<p:outputLabel value="Descrição: " />							
 						</p:row>
 						<p:row style="text-align:left">
-							<h:outputText value="#{adminProductMB.product.description}" />
+							<p:outputLabel value="#{adminProductMB.product.description}" />
 						</p:row>
 					</p:panelGrid>
+					<p:commandButton value="Fechar" onclick="PF('prodDialog').hide()"/>
 				</p:outputPanel>
 			</p:dialog>
 			<p:confirmDialog severity="alert" global="true" widgetVar="dialog">
@@ -150,6 +151,35 @@
 				<p:commandButton id="ignore" value="Não" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
+			
+			<p:dialog id="addStockDialog" header="Adicionar estoque" widgetVar="stockDialog"
+				modal="true" resizable="false"
+				width="512px" >
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Estoque atual: " />
+					<p:outputLabel value="#{adminProductMB.product.stock}" />
+				</p:panelGrid>				
+				<p:panelGrid id="gridChangeStock" columns="3">
+					<p:commandButton id="removeButton" value="-" type="button" style="width:25%" 
+						update=":form_content:gridChangeStock"  immediate="true"/>
+					<pe:inputNumber id="inputStock" value="#{adminProductMB.stock}"
+						minValue="#{adminProductMB.minStock}" decimalPlaces="0" 
+						decimalSeparator="," 
+						thousandSeparator="." maxValue="9999" />
+					<p:commandButton id="addButton" value="+" type="button"	style="width:25%"  
+						update=":form_content:gridChangeStock" immediate="true"/>
+				</p:panelGrid>
+				<p:panelGrid id="gridStockButtons" columns="2">
+					<p:commandButton actionListener="#{adminProductMB.update}"
+						value="Confirmar" id="confirm"  >
+						<p:confirm header="Produto" message="Confirmar Alteração?" immediate="true"/>
+					</p:commandButton>
+					<p:commandButton value="Cancelar" id="cancel"
+						onclick="PF('stockDialog').hide();">
+					</p:commandButton>
+				</p:panelGrid>
+			</p:dialog>
+			
 		</h:form>
 
 	</ui:define>

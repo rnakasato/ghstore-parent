@@ -39,7 +39,7 @@
 				<p:row>
 					<p:outputLabel value="Subcategoria:" for="subcategory" style="font-weight:bold ; width:40%" />
 					<p:autoComplete id="subcategory" dropdown="true"
-						value="#{adminProductMB.subcategory}"
+						value="#{adminProductMB.subcategory}" maxlength="30"
 						completeMethod="#{adminProductMB.fillSubcategory}" style="width:60%"/>
 				</p:row>
 				
@@ -49,7 +49,7 @@
 						value="#{adminProductMB.tagList}"
 						completeMethod="#{adminProductMB.fillTags}" forceSelection="false"
 						var="tag" itemLabel="#{tag.description}" itemValue="#{tag}"
-						converter="tagConverter" style="width:80%"/>
+						converter="tagConverter" style="width:80%" maxlength="30"/>
 				</p:row>
 				
 				<p:row>

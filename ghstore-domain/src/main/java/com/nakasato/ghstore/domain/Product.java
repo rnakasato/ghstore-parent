@@ -32,6 +32,7 @@ public class Product extends DomainSpecificEntity implements Serializable {
 	private Integer status;
 	private List<Tag> tagList;
 	private Double weight;
+	private Boolean active;
 
 	public String getName() {
 		return name;
@@ -124,6 +125,14 @@ public class Product extends DomainSpecificEntity implements Serializable {
 
 	public void setWeight(Double weight) {
 		this.weight = weight;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@Override

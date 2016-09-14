@@ -45,7 +45,7 @@
 					<p:autoComplete id="subcategory" dropdown="true"
 						value="#{adminProductMB.subcategory}"
 						completeMethod="#{adminProductMB.fillSubcategory}"
-						style="width:60%" />
+						style="width:60%" maxlength="30"/>
 				</p:row>
 
 				<p:row>
@@ -55,7 +55,7 @@
 						value="#{adminProductMB.tagList}"
 						completeMethod="#{adminProductMB.fillTags}" forceSelection="false"
 						var="tag" itemLabel="#{tag.description}" itemValue="#{tag}"
-						converter="tagConverter" style="width:80%" />
+						converter="tagConverter" style="width:80%" maxlength="30"/>
 				</p:row>
 
 				<p:row>
@@ -86,7 +86,7 @@
 					<h:outputLabel for="stock" value="Adicionar/remover estoque"
 						style="font-weight:bold" />
 					<pe:inputNumber id="stock" value="#{adminProductMB.stock}"
-						minValue="#{adminProductMB.minStock}" decimalPlaces="0">
+						minValue="#{adminProductMB.minStock}" decimalPlaces="0" maxValue="9999">
 					</pe:inputNumber>
 				</p:row>
 

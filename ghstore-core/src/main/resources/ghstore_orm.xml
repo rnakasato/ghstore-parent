@@ -65,6 +65,7 @@
         <property name="weight" type="double" column="WEIGHT"/>
         <property name="stock" type="integer" column="STOCK"/>
         <property name="image" type="string" column="IMAGE_PATH"/>        
+        <property name="active" type="boolean" column="ACTIVE"/>
         
         <many-to-one name="storeCategory" class="com.nakasato.ghstore.domain.StoreCategory" fetch="join" lazy="false">
         	<column name="IDSTORECATEGORY" not-null="true"/>

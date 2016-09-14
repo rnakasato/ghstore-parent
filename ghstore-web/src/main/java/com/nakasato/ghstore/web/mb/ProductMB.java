@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
@@ -196,6 +197,7 @@ public class ProductMB extends BaseMB implements Serializable {
 		p.setInsertDate(new Date());
 		try {
 			Command command;
+			p.setActive(true);
 			command = FactoryCommand.build(p, EOperation.SAVE);
 			Result result = command.execute();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -229,7 +231,7 @@ public class ProductMB extends BaseMB implements Serializable {
 		p.setWeight(product.getWeight());
 		p.setUpdateDate(new Date());
 		p.setCode(product.getCode());
-
+		p.setActive(product.getActive());
 		try {
 			Command command;
 			command = FactoryCommand.build(p, EOperation.UPDATE);
@@ -258,7 +260,8 @@ public class ProductMB extends BaseMB implements Serializable {
 		if (product != null && !product.isEmpty()) {
 			try {
 				Command command;
-				command = FactoryCommand.build(product, EOperation.DELETE);
+				product.setActive(false);
+				command = FactoryCommand.build(product, EOperation.UPDATE);
 				Result result = command.execute();
 
 				if (!StringUtils.isEmpty(result.getMsg())) {
@@ -405,7 +408,7 @@ public class ProductMB extends BaseMB implements Serializable {
 		}
 		return getImagePath();
 	}
-
+	
 	public void clearFields() {
 		product = null;
 		product = new Product();
@@ -458,11 +461,11 @@ public class ProductMB extends BaseMB implements Serializable {
 	}
 
 	public void clearFilter() {
-		name = null;
-		category = null;
-		status = null;
-		subcategory = null;
-		status = 0;
+		filter.setName(null);
+		filter.getCategory().setDescription(null);
+		filter.setStatus(0);
+		filter.setCode(null);
+		filter.getSubcategory().setDescription(null);
 		tagList = null;
 		listProducts();
 	}
