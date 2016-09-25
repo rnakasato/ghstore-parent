@@ -13,4 +13,13 @@ public class Redirector {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void redirectToExternalPage(ExternalContext context, String pageToRedirect){
+		String url = pageToRedirect;
+		try{
+			context.redirect(url);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 }

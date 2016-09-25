@@ -39,7 +39,7 @@ public class RedirectMB {
 	
 	public void redirectToProductMenu() {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-		String url = "/admin/productMain.jsf?faces-redirect=true";
+		String url = "/admin/productSearch.jsf?faces-redirect=true";
 		Redirector.redirectTo(context, url);
 	}
 	

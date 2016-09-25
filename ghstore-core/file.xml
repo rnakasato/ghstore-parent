@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CalcPrecoResponse>
+    <CalcPrecoResult>
+        <Servicos>
+            <cServico>
+                <Codigo>1234</Codigo>
+                <Valor>0.0</Valor>
+                <ValorMaoPropria>0.0</ValorMaoPropria>
+                <ValorAvisoRecebimento>0.0</ValorAvisoRecebimento>
+                <ValorValorDeclarado>0.0</ValorValorDeclarado>
+                <ValorSemAdicionais>10.0</ValorSemAdicionais>
+            </cServico>
+        </Servicos>
+    </CalcPrecoResult>
+</CalcPrecoResponse>

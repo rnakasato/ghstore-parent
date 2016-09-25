@@ -21,7 +21,6 @@ C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\co
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\Complementor.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\command\impl\CommandFind.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\ICommand.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\util\DefaultConnection.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\core\util\enums\EComparator.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\dao\impl\AbstractDAO.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\factory\impl\FactoryCommand.java
@@ -34,15 +33,12 @@ C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\co
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\product\comparator\CompareProductByStock.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\complementor\ComplementProductCode.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\complementor\ComplementTags.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\factory\impl\FactoryPostStrategy.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\payment\Payment.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\product\comparator\CompareProductBySell.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\product\comparator\CompareProductByCat.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\validator\StockValidator.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\factory\impl\FactoryCustomStrategy.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\factory\impl\FactoryStrategy.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\filler\TagSaveUpdateFiller.java
-C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\util\StringUtils.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghtstore\core\business\filler\TagFiller.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\impl\Facade.java
 C:\Meus Documentos\Eclipse Projects\ghstore-parent\ghstore-core\src\main\java\com\nakasato\ghstore\core\IStrategy.java

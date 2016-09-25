@@ -20,7 +20,7 @@
 					<h:panelGrid columns="1" style="width:100%">
 						<p:commandLink
 							actionListener="#{redirectMB.redirectToProductPage(mangasMB.product)}">
-							<p:graphicImage name="#{mangasMB.getImagePath(prod)}" />
+							<p:graphicImage value="#{mangasMB.getImagePath(prod)}" style="width:192px;heigth:192"/>
 							<f:setPropertyActionListener value="#{prod}"
 								target="#{mangasMB.product}" />
 						</p:commandLink>

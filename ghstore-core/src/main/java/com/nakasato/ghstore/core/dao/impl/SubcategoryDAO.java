@@ -63,7 +63,7 @@ public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 					query.setParameter("storeCategoryId", subcategory.getStoreCategory().getId());
 				} else if (StringUtils.isNotEmpty(subcategory.getStoreCategory().getDescription())) {
 					query.setParameter("storeCategoryDescription",
-							"%" + subcategory.getDescription().toUpperCase() + "%");
+							"%" + subcategory.getStoreCategory().getDescription().toUpperCase() + "%");
 				}
 			}
 			subCategoryList = (List<Subcategory>) query.getResultList();

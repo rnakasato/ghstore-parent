@@ -8,10 +8,11 @@
     <name>parent</name>
 
   
-    <modules>
+    <modules>	
           <module>ghstore-domain</module>
 		  <module>ghstore-core</module>
 		  <module>ghstore-web</module>
+		  <module>pagseguro-api</module>
     </modules>
 
     <!-- Propriedades -->

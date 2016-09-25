@@ -39,34 +39,6 @@ public class StoreCategoryFiller extends Filler {
 					}
 				}
 
-			} else if (entity != null && entity instanceof ProductFilter) {
-
-				ProductFilter filter = (ProductFilter) entity;
-
-				if (!ListUtils.isListEmpty(filter.getStoreCategoryList())) {
-					for (StoreCategory category : filter.getStoreCategoryList()) {
-						StoreCategoryFilter categoryFilter = new StoreCategoryFilter();
-						categoryFilter.setDescription(category.getDescription());
-						categoryFilter.setId(category.getId());
-						command = new FactoryCommand().build(categoryFilter, EOperation.FIND);
-						List<AbstractDomainEntity> storeCategoryList = command.execute().getEntityList();
-						if (!ListUtils.isListEmpty(storeCategoryList)) {
-							category = (StoreCategory) storeCategoryList.get(0);
-						}
-					}
-				} else if (!filter.getCategory().isEmpty()
-						&& !StringUtils.isEmpty(filter.getCategory().getDescription())) {
-					filter.getCategory().setId(null);
-					StoreCategoryFilter categoryFilter = new StoreCategoryFilter();
-					categoryFilter.setDescription(filter.getCategory().getDescription());
-					categoryFilter.setId(filter.getCategory().getId());
-					command = new FactoryCommand().build(categoryFilter, EOperation.FIND);
-
-					List<AbstractDomainEntity> storeCategoryList = command.execute().getEntityList();
-					if (!ListUtils.isListEmpty(storeCategoryList)) {
-						filter.setCategory((StoreCategory) storeCategoryList.get(0));
-					}
-				}
 			}
 
 		} catch (ClassNotFoundException e) {

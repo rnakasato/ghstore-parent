@@ -19,7 +19,7 @@
 					<h:panelGrid columns="1" style="width:100%">
 						<p:commandLink
 							actionListener="#{redirectMB.redirectToProductPage(hqMB.product)}">
-							<p:graphicImage name="#{hqMB.getImagePath(prod)}" />
+							<p:graphicImage value="#{hqMB.getImagePath(prod)}" style="width:192px;heigth:192"/>
 							<f:setPropertyActionListener value="#{prod}"
 								target="#{hqMB.product}" />
 						</p:commandLink>

@@ -42,30 +42,6 @@ public class SubcategoryFiller extends Filler {
 						product.getSubcategory().setStoreCategory(product.getStoreCategory());
 					}
 				}
-			} else if (entity != null && entity instanceof ProductFilter) {
-				ProductFilter filter = (ProductFilter) entity;
-				if (!ListUtils.isListEmpty(filter.getSelectedSubcategoryIds())) {
-					filter.setSubcategoryList(new ArrayList<>());
-					for (String id : filter.getSelectedSubcategoryIds()) {
-						SubcategoryFilter subcategoryFilter = new SubcategoryFilter();
-						subcategoryFilter.setId(Integer.parseInt(id));
-						command = FactoryCommand.build(subcategoryFilter, EOperation.FIND);
-						List<AbstractDomainEntity> subcategoryList = command.execute().getEntityList();
-						if (!ListUtils.isListEmpty(subcategoryList)) {
-							filter.getSubcategoryList().add((Subcategory) subcategoryList.get(0));
-						}
-					}
-				} else if (!filter.getSubcategory().isEmpty()) {
-					filter.getSubcategory().setId(null);
-					SubcategoryFilter subcategoryFilter = new SubcategoryFilter();
-					subcategoryFilter.setDescription(filter.getSubcategory().getDescription());
-					subcategoryFilter.setId(filter.getSubcategory().getId());
-					command = FactoryCommand.build(subcategoryFilter, EOperation.FIND);
-					List<AbstractDomainEntity> subcategoryList = command.execute().getEntityList();
-					if (!ListUtils.isListEmpty(subcategoryList)) {
-						filter.setSubcategory((Subcategory) subcategoryList.get(0));
-					}
-				}
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

@@ -13,9 +13,10 @@ public class ShoppingCart extends AbstractDomainEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<ShoppingCartItem> shoppingCartList;
 	private Double totalValue;
+	private Long totalWeight;
 	private Address address;
 	private User owner;
-	
+
 	public List<ShoppingCartItem> getShoppingCartList() {
 		return shoppingCartList;
 	}
@@ -52,13 +53,21 @@ public class ShoppingCart extends AbstractDomainEntity implements Serializable {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
-	
+
 	public Address getAddress() {
 		return address;
 	}
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Long getTotalWeight() {
+		return totalWeight;
+	}
+	
+	public void setTotalWeight(Long totalWeight) {
+		this.totalWeight = totalWeight;
 	}
 
 	@Override

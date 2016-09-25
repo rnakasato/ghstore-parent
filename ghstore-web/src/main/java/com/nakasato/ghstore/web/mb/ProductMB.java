@@ -2,7 +2,6 @@ package com.nakasato.ghstore.web.mb;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,14 +11,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
-import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 
 import com.nakasato.core.util.enums.EOperation;
-import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.command.impl.Command;
 import com.nakasato.ghstore.core.filter.impl.ProductFilter;
@@ -58,7 +55,6 @@ public class ProductMB extends BaseMB implements Serializable {
 	protected String description;
 	protected List<StoreCategory> categoryList;
 	protected List<Subcategory> subcategoryList;
-	// private List<Subcategory> selectedSubcategoryList;
 	protected List<Product> productList;
 	protected String ImagePath;
 	protected Integer status;
@@ -130,12 +126,15 @@ public class ProductMB extends BaseMB implements Serializable {
 	}
 
 	public void fillSubcategoryByCategory(StoreCategory storeCategory) {
-		Subcategory subcategory = new Subcategory();
-		subcategory.setStoreCategory(storeCategory);
+//		Subcategory subcategory = new Subcategory();
+//		subcategory.setStoreCategory(storeCategory);
+		SubcategoryFilter filter = new SubcategoryFilter();
+		filter.setStoreCategory(storeCategory);
+		
 
 		try {
 			Command command;
-			command = FactoryCommand.build(subcategory, EOperation.FIND);
+			command = FactoryCommand.build(filter, EOperation.FIND);
 
 			List<AbstractDomainEntity> scList = command.execute().getEntityList();
 			List<Subcategory> subcategoryList = new ArrayList<>();

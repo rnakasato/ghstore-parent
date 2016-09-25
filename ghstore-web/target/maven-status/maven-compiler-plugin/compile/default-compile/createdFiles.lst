@@ -14,6 +14,5 @@ com\nakasato\ghstore\web\mb\AdminProductMB.class
 com\nakasato\ghstore\web\mb\MangasMB.class
 com\nakasato\ghstore\servlet\ImageServlet.class
 com\nakasato\ghstore\web\mb\ShoppingCartMB.class
-com\nakasato\ghstore\web\converter\StoreCategoryConverter.class
 com\nakasato\ghstore\web\mb\BoardGamesMB.class
 com\nakasato\ghstore\web\mb\ProductMB.class

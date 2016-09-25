@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import com.nakasato.ghstore.core.payment.Payment;
+import com.nakasato.ghstore.core.payment.utils.PaymentUtil;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.domain.Address;
 import com.nakasato.ghstore.domain.City;
@@ -52,6 +52,7 @@ public class UserSessionMB extends BaseMB {
 			cart = new ShoppingCart();
 			cart.setShoppingCartList(new ArrayList<>());
 			cart.setTotalValue(0d);
+			cart.setTotalWeight(0L);
 		}
 		Address address = new Address();
 		address.setCep("08725640");
@@ -67,12 +68,12 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void finishPayment() {
-//		if (this.cart != null && !ListUtils.isListEmpty(cart.getShoppingCartList())) {
-//			String pagseguroPage = Payment.createPayment(cart, loggedUser);
-//			Redirector.redirectToExternalPage(FacesContext.getCurrentInstance().getExternalContext(), pagseguroPage);
-//		} else {
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Não há itens no carrinho de compras"));
-//		}
+		if (this.cart != null && !ListUtils.isListEmpty(cart.getShoppingCartList())) {
+			String pagseguroPage = PaymentUtil.createPayment(cart, loggedUser);
+			Redirector.redirectToExternalPage(FacesContext.getCurrentInstance().getExternalContext(), pagseguroPage);
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Não há itens no carrinho de compras"));
+		}
 	}
 
 	public void removeCartItem(Product product) {
@@ -104,12 +105,7 @@ public class UserSessionMB extends BaseMB {
 		FacesMessage msg;
 
 		if (amount > 0) {
-			ShoppingCartItem cartItem = new ShoppingCartItem();
-			cartItem.setAmount(amount);
-			cartItem.setProduct(product);
-			cartItem.setTotalValue(amount * product.getPrice());
 			List<ShoppingCartItem> itemList = cart.getShoppingCartList();
-
 			boolean alreadyExists = false;
 			int index = 0;
 			for (ShoppingCartItem item : itemList) {
@@ -119,12 +115,39 @@ public class UserSessionMB extends BaseMB {
 				}
 				index++;
 			}
+
 			if (alreadyExists) {
-				ShoppingCartItem scItem = itemList.get(index);
-				scItem.setAmount(scItem.getAmount() + amount);
-			} else {
-				cart.addItem(cartItem);
+				ShoppingCartItem cartItem = itemList.get(index);
+				
+				// remove peso e valor do total do carrinho
+				cart.setTotalValue(cart.getTotalValue() - cartItem.getTotalValue());
+				cart.setTotalWeight(cart.getTotalWeight() - cartItem.getTotalWeigth());
+				
+				// carrega novos valores do item
+				Integer totalAmount = cartItem.getAmount() + amount;
+				cartItem.setAmount(totalAmount);
+				cartItem.setTotalValue(totalAmount * cartItem.getProduct().getPrice());
+				Long weight = cartItem.getProduct().getWeight().longValue();
+				cartItem.setTotalWeigth(totalAmount * weight);
+				
+
 				cart.setTotalValue(cart.getTotalValue() + cartItem.getTotalValue());
+				cart.setTotalWeight(cart.getTotalWeight() + cartItem.getTotalWeigth());
+			} else {
+				ShoppingCartItem cartItem = new ShoppingCartItem();
+				cartItem.setAmount(amount);
+				cartItem.setProduct(product);
+				cartItem.setTotalValue(amount * product.getPrice());
+				
+				Long weight = product.getWeight().longValue();
+				cartItem.setTotalWeigth(amount * weight);
+				
+				cart.addItem(cartItem);
+
+				cart.setTotalValue(cart.getTotalValue() + cartItem.getTotalValue());
+
+				cart.setTotalWeight(cart.getTotalWeight() + cartItem.getTotalWeigth());
+
 			}
 			StringBuilder message = new StringBuilder();
 			message.append("Produto adicionado no carrinho de compras");

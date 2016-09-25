@@ -57,6 +57,10 @@ public class Address extends AbstractDomainEntity implements Serializable{
 	public String getCep() {
 		return cep;
 	}
+	
+	public String getFormattedCep(){
+		return cep.replace("-", "");
+	}
 
 	public void setCep(String cep) {
 		this.cep = cep;
