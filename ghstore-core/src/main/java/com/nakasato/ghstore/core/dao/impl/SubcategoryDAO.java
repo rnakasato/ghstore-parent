@@ -43,7 +43,7 @@ public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 				if (subcategory.getStoreCategory().getId() != null) {
 					jpql.append(" AND s.storeCategory.id = :storeCategoryId");
 				} else if (StringUtils.isNotEmpty(subcategory.getStoreCategory().getDescription())) {
-					jpql.append(" AND UPPER(s.storeCategory.description) = :storeCategoryDescription");
+					jpql.append(" AND UPPER(s.storeCategory.description) like :storeCategoryDescription");
 				}
 
 			}
