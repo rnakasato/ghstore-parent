@@ -44,7 +44,7 @@
         </id>
         <property name="insertDate" type="date" column="INSERTDATE"/>
         <property name="description" type="string" column="DESCRIPTION"/>
-       <bag name="productList" table="DE_PRODUCT_TAG" inverse="true" lazy="true">
+        <bag name="productList" table="DE_PRODUCT_TAG" inverse="true" lazy="true">
         	<key column="IDTAG"/>
         	<many-to-many class="com.nakasato.ghstore.domain.Product" column="IDPRODUCT"/>
     	</bag>
@@ -80,6 +80,208 @@
     	</bag>
         
     </class> 
-  
+    
+    <class name="com.nakasato.ghstore.domain.Product" table="DE_PRODUCT">
+        <id name="id" column="IDPRODUCT">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_PRODUCT</param>
+        	</generator>            
+        </id>
+		<property name="code" type="string" column="COD_PRODUCT"/>
+        <property name="insertDate" type="date" column="INSERTDATE"/>
+        <property name="updateDate" type="date" column="UPDATEDATE"/>
+        <property name="description" type="string" column="DESCRIPTION"/>
+        <property name="name" type="string" column="NAME"/>
+        <property name="price" type="double" column="PRICE"/>
+        <property name="weight" type="double" column="WEIGHT"/>
+        <property name="stock" type="integer" column="STOCK"/>
+        <property name="image" type="string" column="IMAGE_PATH"/>        
+        <property name="active" type="boolean" column="ACTIVE"/>
+        
+        <many-to-one name="storeCategory" class="com.nakasato.ghstore.domain.StoreCategory" fetch="join" lazy="false">
+        	<column name="IDSTORECATEGORY" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="subcategory" class="com.nakasato.ghstore.domain.Subcategory" lazy="false" cascade="save-update" >
+        	<column name="IDSUBCATEGORY" not-null="true"/>
+        </many-to-one>
+        
+        <bag name="tagList" table="DE_PRODUCT_TAG" lazy="false" cascade="save-update">
+        	<key column="IDPRODUCT"/>
+        	<many-to-many class="com.nakasato.ghstore.domain.Tag" column="IDTAG"/>
+    	</bag>
+        
+    </class> 
+    
+    <class name="com.nakasato.ghstore.domain.UserType" table="DE_USERTYPE">
+        <id name="id" column="IDUSERTYPE">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_TAG</param>
+        	</generator>            
+        </id>
+        <property name="insertDate" column="INSERTDATE"/>
+        <property name="name" column="NAME"/>
+        <property name="code" column="COD_TYPE"/>       	
+    </class>
+    
+    <class name="com.nakasato.ghstore.domain.User" table="DE_USER">
+        <id name="id" column="IDUSER">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_USER</param>
+        	</generator>            
+        </id>
+        <discriminator column="IDUSERTYPE" insert="false" />
+        
+        <property name="name" column="NAME"/>
+        <property name="cpf" column="CPF"/>       	
+        <property name="sex" column="SEX"/>
+        <property name="birthDate" column="BIRTHDATE"/>
+        <property name="username" column="USERNAME"/>
+        <property name="password" column="PASSWORD"/>
+        <property name="email" column="EMAIL"/>
+        <property name="insertDate" column="INSERTDATE"/>
+        
+        <many-to-one name="homeAddress" class="com.nakasato.ghstore.domain.Address" fetch="join" lazy="false">
+        	<column name="IDADDRESS" not-null="true"/>
+        </many-to-one>
+        
+        <many-to-one name="userType" class="com.nakasato.ghstore.domain.UserType" fetch="join" lazy="false">
+        	<column name="IDUSERTYPE" not-null="true"/>
+        </many-to-one>       
+		        
+        <subclass name="com.nakasato.ghstore.domain.Customer" discriminator-value="1">
+        	
+	<!-- 		<many-to-one name="wishList" class="com.nakasato.ghstore.domain.Wishlist" lazy="false" cascade="save-update" >
+        		<column name="IDWISHLIST" not-null="true"/>
+    	    </many-to-one>
+     -->	    
+<!--     	    <many-to-one name="shoppingCart" class="com.nakasato.ghstore.domain.ShoppingCart" fetch="join" lazy="false">
+	        	<column name="IDSHOPPINGCART" not-null="true"/>
+	        </many-to-one> -->
+			  
+			<bag name="orderList" table="DE_ORDER" inverse="true" fetch="join" lazy="true">
+			    <key column="IDUSER" />
+			    <one-to-many class="com.nakasato.ghstore.domain.Order" />
+			</bag>
+			
+<!-- 			<bag name="deliveryAddressList" table="DE_USER_ADDRESS" inverse="true" fetch="join" lazy="true">
+			    <key column="IDUSER" />
+			    <one-to-many class="com.nakasato.ghstore.domain.Address" />
+			</bag>	 -->
+	    </subclass>
+
+    </class>
+    
+    <class name="com.nakasato.ghstore.domain.Order" table="DE_ORDER">
+        <id name="id" column="IDORDER">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_ORDER</param>
+        	</generator>            
+        </id>
+        
+        <property name="code" column="COD_ORDER"/>
+     	<property name="insertDate" column="INSERTDATE"/>
+     	<property name="deliverDate" column="DELIVERDATE"/>
+     	
+     	<many-to-one name="customer" class="com.nakasato.ghstore.domain.Customer" lazy="false" cascade="save-update" >
+			<column name="IDUSER" not-null="true"/>
+	    </many-to-one>
+	    
+	    <many-to-one name="orderStatus" class="com.nakasato.ghstore.domain.OrderStatus" lazy="false" cascade="save-update" >
+			<column name="IDORDERSTATUS" not-null="true"/>
+	    </many-to-one>
+   			
+	    <bag name="orderItemList" table="DE_ORDERITEM" inverse="true" fetch="join" lazy="true">
+			<key column="IDORDERITEM" />
+			<one-to-many class="com.nakasato.ghstore.domain.OrderItem" />
+		</bag>	    
+		 
+    </class>
+    
+    <class name="com.nakasato.ghstore.domain.OrderItem" table="DE_ORDERITEM">
+        <id name="id" column="IDORDERITEM">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_ORDERITEM</param>
+        	</generator>            
+        </id>
+     	<property name="insertDate" column="INSERTDATE"/>
+     	<property name="amount" column="AMOUNT"/>
+     	<property name="totalWeigth" column="WEIGHT"/>
+     	<property name="totalValue" column="VALUE"/>
+        
+        <many-to-one name="product" class="com.nakasato.ghstore.domain.Product" lazy="false" cascade="save-update" >
+			<column name="IDPRODUCT" not-null="true"/>
+	    </many-to-one>
+	    
+    </class>    
+   
+   <class name="com.nakasato.ghstore.domain.Address" table="DE_ADDRESS">
+        <id name="id" column="IDADDRESS">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_ADDRESS</param>
+        	</generator>            
+        </id>
+     	<property name="insertDate" column="INSERTDATE"/>
+     	<property name="neighborhood" column="NEIGHBORHOOD"/>
+     	<property name="street" column="STREET"/>
+     	<property name="complement" column="COMPLEMENT"/>
+     	<property name="cep" column="CEP"/>
+     	<property name="number" column="HNUMBER"/>
+        
+        <many-to-one name="city" class="com.nakasato.ghstore.domain.City" lazy="false" cascade="save-update" >
+			<column name="IDCITY" not-null="true"/>
+	    </many-to-one>
+	    
+    </class>    
+   
+   <class name="com.nakasato.ghstore.domain.City" table="DE_CITY">
+        <id name="id" column="IDCITY">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_CITY</param>
+        	</generator>            
+        </id>
+     	<property name="uf" column="UF"/>
+     	<property name="name" column="NAME"/>
+        
+        <many-to-one name="state" class="com.nakasato.ghstore.domain.State" lazy="false" cascade="save-update" >
+			<column name="IDSTATE" not-null="true"/>
+	    </many-to-one>
+	    
+    </class>    
+    
+   <class name="com.nakasato.ghstore.domain.State" table="DE_STATE">
+        <id name="id" column="IDSTATE">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_STATE</param>
+        	</generator>            
+        </id>
+     	<property name="acronym" column="UF"/>
+     	<property name="description" column="NAME"/>
+    </class>       
+   
+   
+   <class name="com.nakasato.ghstore.domain.OrderStatus" table="DE_ORDERSTATUS">
+        <id name="id" column="IDORDERSTATUS">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_ORDERSTATUS</param>
+        	</generator>            
+        </id>
+     	<property name="insertDate" column="INSERTDATE"/>
+        <property name="description" column="NAME"/>
+        <property name="code" column="COD_TYPE"/>        
+    </class>
+    
+    
+    <class name="com.nakasato.ghstore.domain.Wishlist" table="DE_WISHLIST">
+        <id name="id" column="IDWISHLIST">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_TAG</param>
+        	</generator>            
+        </id>
+		<bag name="productList" table="DE_PRODUCT" inverse="true" fetch="join" lazy="true">
+			<key column="IDWISHLIST" />
+			<one-to-many class="com.nakasato.ghstore.domain.Wishlist" />
+		</bag>
+    </class>
+
 
 </hibernate-mapping>

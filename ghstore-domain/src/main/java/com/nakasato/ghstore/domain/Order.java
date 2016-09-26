@@ -1,27 +1,21 @@
 package com.nakasato.ghstore.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Order extends AbstractDomainEntity {
-	private Integer codOrder;
-	private List<OrderItem> orderItemList;
+public class Order extends DomainSpecificEntity {
+	private Set<OrderItem> orderItemList;
 	private Double totalValue;
 	private OrderStatus orderStatus;
+	private Date deliverDate;
+	private Customer customer;
 
-	public Integer getCodOrder() {
-		return codOrder;
-	}
-
-	public void setCodOrder(Integer codOrder) {
-		this.codOrder = codOrder;
-	}
-
-	public List<OrderItem> getOrderItemList() {
+	public Set<OrderItem> getOrderItemList() {
 		return orderItemList;
 	}
 
-	public void setOrderItemList(List<OrderItem> orderItemList) {
+	public void setOrderItemList(Set<OrderItem> orderItemList) {
 		this.orderItemList = orderItemList;
 	}
 
@@ -41,11 +35,27 @@ public class Order extends AbstractDomainEntity {
 		this.orderStatus = orderStatus;
 	}
 
+	public Date getDeliverDate() {
+		return deliverDate;
+	}
+
+	public void setDeliverDate(Date deliverDate) {
+		this.deliverDate = deliverDate;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	public void addItem(Product product, Integer amount) {
 		OrderItem item = new OrderItem();
 		boolean exists = false;
 		if (orderItemList == null) {
-			orderItemList = new ArrayList<>();
+			orderItemList = new HashSet<>();
 		}
 		for (OrderItem oItem : orderItemList) {
 			if (oItem.getProduct().getId() == product.getId()) {

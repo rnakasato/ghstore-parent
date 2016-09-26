@@ -14,6 +14,7 @@ import com.nakasato.ghstore.core.dao.impl.StoreCategoryDAO;
 import com.nakasato.ghstore.core.dao.impl.SubcategoryDAO;
 import com.nakasato.ghstore.core.dao.impl.SysUserDAO;
 import com.nakasato.ghstore.core.dao.impl.TagDAO;
+import com.nakasato.ghstore.core.dao.impl.UserTypeDAO;
 import com.nakasato.ghstore.core.filter.impl.ProductFilter;
 import com.nakasato.ghstore.core.filter.impl.StoreCategoryFilter;
 import com.nakasato.ghstore.core.filter.impl.SubcategoryFilter;
@@ -28,6 +29,7 @@ import com.nakasato.ghstore.domain.StoreCategory;
 import com.nakasato.ghstore.domain.Subcategory;
 import com.nakasato.ghstore.domain.SysUser;
 import com.nakasato.ghstore.domain.Tag;
+import com.nakasato.ghstore.domain.UserType;
 
 public class FactoryDAO {
 
@@ -46,6 +48,8 @@ public class FactoryDAO {
 			daoMap.put(State.class.getName(), new StateDAO());
 			daoMap.put(Order.class.getName(), new OrderDAO());
 			daoMap.put(ShoppingCart.class.getName(), new ShoppingCartDAO());
+			daoMap.put(UserType.class.getName(), new UserTypeDAO());
+			
 
 			// TEMPORÁRIO ATÉ ADIÇÃO DOS FILTROS
 			daoMap.put(ProductFilter.class.getName(), new ProductDAO());

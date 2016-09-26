@@ -7,46 +7,50 @@ import javax.persistence.Query;
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
+import com.nakasato.ghstore.core.hibernate.HibernateUtil;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.City;
+import com.nakasato.ghstore.domain.State;
+import com.nakasato.ghstore.domain.UserType;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
-public class CityDAO extends AbstractDAO<City>{
+public class UserTypeDAO extends AbstractDAO<UserType>{
 
 	@Override
-	public List<City> find(AbstractDomainEntity filter) throws Exception {
+	public List<UserType> find(AbstractDomainEntity filter) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<City> findAll() throws Exception {
-		List<City> cityList = null;
+	public List<UserType> findAll() throws Exception {
+		List<UserType> userTypeList = null;
 		try {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append(" FROM City ");
+			jpql.append(" FROM UserType ");
 
 			Query query = session.createQuery(jpql.toString());
 
-			cityList = query.getResultList();
+			userTypeList = query.getResultList();
 
 			closeSession();
 		} catch (RuntimeException e) {
 			cancelSession();
 		}
-		return cityList;
+		return userTypeList;
 	}
 	
 	public static void main(String[] args) throws Exception{
-		ICommand command = FactoryCommand.build(new City(), EOperation.FINDALL);
+		ICommand command = FactoryCommand.build(new UserType(), EOperation.FINDALL);
 		Result r = command.execute();
-		List<City> cityList = r.getEntityList();
-		for (City city : cityList) {
-			System.out.println(city.getName());
+		List<UserType> list = r.getEntityList();
+		for (UserType userType : list) {
+			System.out.println(userType.getName());
 		}
-		
+		Thread t = new Thread();
+		t.sleep(5000);
+		HibernateUtil.shutdown();
 	}
 	
 	

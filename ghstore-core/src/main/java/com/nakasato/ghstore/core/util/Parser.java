@@ -1,7 +1,7 @@
 package com.nakasato.ghstore.core.util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.nakasato.ghstore.domain.Order;
 import com.nakasato.ghstore.domain.OrderItem;
@@ -21,7 +21,7 @@ public class Parser {
 		
 		if(shoppingCart.getTotalValue() != null && shoppingCart.getTotalValue() > 0 ){
 			order = new Order();			
-			List<OrderItem> orderItemList = new ArrayList<>(); 
+			Set<OrderItem> orderItemList = new HashSet<>(); 
 			
 			for(ShoppingCartItem cartItem: shoppingCart.getShoppingCartList()){
 				OrderItem orderItem = new OrderItem();

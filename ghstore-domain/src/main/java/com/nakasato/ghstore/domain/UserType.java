@@ -1,6 +1,6 @@
 package com.nakasato.ghstore.domain;
 
-public class UserType extends AbstractDomainEntity{
+public class UserType extends DomainSpecificEntity{
 	private String name;
 
 	public String getName() {
