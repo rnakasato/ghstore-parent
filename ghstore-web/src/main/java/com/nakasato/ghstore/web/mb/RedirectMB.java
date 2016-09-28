@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import com.nakasato.ghstore.domain.Product;
 import com.nakasato.web.util.Redirector;
@@ -72,9 +73,19 @@ public class RedirectMB {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext context = ctx.getExternalContext();
 		if(product != null && !product.isEmpty()){				
+			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			String uri = request.getRequestURI();
+			uri = uri.replace("ghstore-web/", "");
+			userSessionMB.setOldPage(uri);
+			
+			
 			context.getFlash().put("product", product);
 			String url = "/clientuser/productPage.jsf?faces-redirect=true";
 			Redirector.redirectTo(context, url);
+			
+			
+			
+			
 		}else{
 			ctx.addMessage(null, new FacesMessage("Selecione um produto para comprar"));
 		}
