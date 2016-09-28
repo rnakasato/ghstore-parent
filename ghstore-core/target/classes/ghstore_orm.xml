@@ -187,7 +187,7 @@
 			<column name="IDORDERSTATUS" not-null="true"/>
 	    </many-to-one>
    			
-	    <bag name="orderItemList" table="DE_ORDERITEM" inverse="true" lazy="false">
+	    <bag name="orderItemList" table="DE_ORDERITEM" inverse="true" lazy="false" cascade="save-update">
 			<key column="IDORDERITEM" />
 			<one-to-many class="com.nakasato.ghstore.domain.OrderItem" />
 		</bag>	    
@@ -206,6 +206,10 @@
         
         <many-to-one name="product" class="com.nakasato.ghstore.domain.Product" lazy="false" cascade="save-update" >
 			<column name="IDPRODUCT" not-null="true"/>
+	    </many-to-one>
+	    
+	    <many-to-one name="order" class="com.nakasato.ghstore.domain.Order" lazy="false" >
+			<column name="IDORDER" not-null="true"/>
 	    </many-to-one>
 	    
     </class>    

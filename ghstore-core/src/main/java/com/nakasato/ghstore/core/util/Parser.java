@@ -48,6 +48,7 @@ public class Parser {
 					orderItem.setProduct(cartItem.getProduct());
 					orderItem.setTotalValue(cartItem.getTotalValue());
 					orderItem.setTotalWeigth(cartItem.getTotalWeigth());
+					orderItem.setOrder(order);
 					orderItemList.add(orderItem);
 					totalValue += cartItem.getTotalValue();
 				}
