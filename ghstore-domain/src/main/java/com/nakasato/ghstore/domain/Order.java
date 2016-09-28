@@ -1,21 +1,22 @@
 package com.nakasato.ghstore.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class Order extends DomainSpecificEntity {
-	private Set<OrderItem> orderItemList;
+	private List<OrderItem> orderItemList;
 	private Double totalValue;
 	private OrderStatus orderStatus;
 	private Date deliverDate;
 	private Customer customer;
 
-	public Set<OrderItem> getOrderItemList() {
+	public List<OrderItem> getOrderItemList() {
 		return orderItemList;
 	}
 
-	public void setOrderItemList(Set<OrderItem> orderItemList) {
+	public void setOrderItemList(List<OrderItem> orderItemList) {
 		this.orderItemList = orderItemList;
 	}
 
@@ -55,7 +56,7 @@ public class Order extends DomainSpecificEntity {
 		OrderItem item = new OrderItem();
 		boolean exists = false;
 		if (orderItemList == null) {
-			orderItemList = new HashSet<>();
+			orderItemList = new ArrayList();
 		}
 		for (OrderItem oItem : orderItemList) {
 			if (oItem.getProduct().getId() == product.getId()) {

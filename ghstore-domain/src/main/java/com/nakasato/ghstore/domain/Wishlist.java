@@ -1,33 +1,33 @@
 package com.nakasato.ghstore.domain;
 
-import java.util.Set;
+import java.util.List;
 
 public class Wishlist extends AbstractDomainEntity {
-	private Set<Product> productList;
-	private Set<Product> newItems;
-	private Set<Product> removedItems;
+	private List<Product> productList;
+	private List<Product> newItems;
+	private List<Product> removedItems;
 
-	public Set<Product> getProductList() {
+	public List<Product> getProductList() {
 		return productList;
 	}
 
-	public void setProductList(Set<Product> productList) {
+	public void setProductList(List<Product> productList) {
 		this.productList = productList;
 	}
 
-	public Set<Product> getNewItems() {
+	public List<Product> getNewItems() {
 		return newItems;
 	}
 
-	public void setNewItems(Set<Product> newItems) {
+	public void setNewItems(List<Product> newItems) {
 		this.newItems = newItems;
 	}
 
-	public Set<Product> getRemovedItems() {
+	public List<Product> getRemovedItems() {
 		return removedItems;
 	}
 
-	public void setRemovedItems(Set<Product> removedItems) {
+	public void setRemovedItems(List<Product> removedItems) {
 		this.removedItems = removedItems;
 	}
 

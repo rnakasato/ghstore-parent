@@ -156,39 +156,43 @@ public class FreteUtil {
 	}
 
 	public static Double getShippingCost(ShoppingCart cart) {
-		SOAPMessage soapResponse = getShippingResponse(cart);
-		Double value = null;
 
-		try {
-
-			Document document = soapResponse.getSOAPBody().extractContentAsDocument();
-			File responseXML = new File("output.xml");
-			Transformer transformer = TransformerFactory.newInstance().newTransformer();
-			Result output = new StreamResult(responseXML);
-			Source input = new DOMSource(document);
-
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-			transformer.transform(input, output);
-
-			String cost = "";
-			Path path = Paths.get(responseXML.getPath());
-			List<String> xmlLines = Files.readAllLines(path);
-			for (String line : xmlLines) {
-				if (line.contains("Valor")) {
-					cost = line;
-					break;
+		Double value = 0D;
+		if(cart.getShoppingCartList() != null && !cart.getShoppingCartList().isEmpty()){
+			SOAPMessage soapResponse = getShippingResponse(cart);
+			
+			try {
+				
+				Document document = soapResponse.getSOAPBody().extractContentAsDocument();
+				File responseXML = new File("output.xml");
+				Transformer transformer = TransformerFactory.newInstance().newTransformer();
+				Result output = new StreamResult(responseXML);
+				Source input = new DOMSource(document);
+				
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+				transformer.transform(input, output);
+				
+				String cost = "";
+				Path path = Paths.get(responseXML.getPath());
+				List<String> xmlLines = Files.readAllLines(path);
+				for (String line : xmlLines) {
+					if (line.contains("Valor")) {
+						cost = line;
+						break;
+					}
+					
 				}
-
+				cost = cost.replace("<Valor>", "");
+				cost = cost.replace("</Valor>", "");
+				cost = cost.replace(",", ".");
+				cost = cost.trim();
+				
+				value = Double.valueOf(cost);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			cost = cost.replace("<Valor>", "");
-			cost = cost.replace("</Valor>", "");
-			cost = cost.replace(",", ".");
-			cost = cost.trim();
-
-			value = Double.valueOf(cost);
-		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 
 		return value;

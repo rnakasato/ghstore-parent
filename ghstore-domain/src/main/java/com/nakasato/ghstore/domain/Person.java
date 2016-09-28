@@ -9,7 +9,6 @@ public abstract class Person extends AbstractDomainEntity {
 	private String cpf;
 	private Date birthDate;
 	private String sex;
-	private Address homeAddress;
 	private List<Phone> phoneList;
 
 	public String getName() {
@@ -42,14 +41,6 @@ public abstract class Person extends AbstractDomainEntity {
 
 	public void setSex(String sex) {
 		this.sex = sex;
-	}
-
-	public Address getHomeAddress() {
-		return homeAddress;
-	}
-
-	public void setHomeAddress(Address homeAddress) {
-		this.homeAddress = homeAddress;
 	}
 
 	public List<Phone> getPhoneList() {

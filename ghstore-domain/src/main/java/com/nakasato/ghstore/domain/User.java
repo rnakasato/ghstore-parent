@@ -1,10 +1,13 @@
 package com.nakasato.ghstore.domain;
 
+import java.util.Date;
+
 public abstract class User extends Person {
 	private String username;
 	private String password;
 	private String email;
 	private UserType userType;
+	private Date updateDate;
 
 	public String getUsername() {
 		return username;
@@ -36,6 +39,14 @@ public abstract class User extends Person {
 
 	public void setUserType(UserType userType) {
 		this.userType = userType;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }

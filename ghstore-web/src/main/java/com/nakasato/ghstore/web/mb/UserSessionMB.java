@@ -9,16 +9,22 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import com.nakasato.core.util.enums.EOperation;
+import com.nakasato.ghstore.core.ICommand;
+import com.nakasato.ghstore.core.application.Result;
+import com.nakasato.ghstore.core.filter.impl.CustomerFilter;
 import com.nakasato.ghstore.core.payment.utils.PaymentUtil;
 import com.nakasato.ghstore.core.util.ListUtils;
+import com.nakasato.ghstore.core.util.Parser;
 import com.nakasato.ghstore.domain.Address;
-import com.nakasato.ghstore.domain.City;
 import com.nakasato.ghstore.domain.Customer;
+import com.nakasato.ghstore.domain.Order;
 import com.nakasato.ghstore.domain.Phone;
 import com.nakasato.ghstore.domain.Product;
 import com.nakasato.ghstore.domain.ShoppingCart;
 import com.nakasato.ghstore.domain.ShoppingCartItem;
 import com.nakasato.ghstore.domain.User;
+import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.web.util.Redirector;
 
 @ManagedBean(name = "userSessionMB")
@@ -29,7 +35,7 @@ public class UserSessionMB extends BaseMB {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private User loggedUser;
+	private Customer loggedUser;
 	private ShoppingCart cart;
 	private ShoppingCartItem selectedItem;
 	private String oldPage;
@@ -38,41 +44,65 @@ public class UserSessionMB extends BaseMB {
 	@PostConstruct
 	public void init() {
 		// Temporário para testes
-		loggedUser = new Customer();
-		loggedUser.setCpf("430.748.958-61");
-		loggedUser.setEmail("rafaelnakasato@outlook.com");
-		loggedUser.setName("Rafael Nakasato");
-		Phone phone = new Phone();
-		phone.setDdd(11);
-		phone.setNumber(12345678);
-		loggedUser.setPhoneList(new ArrayList<>());
-		loggedUser.getPhoneList().add(phone);
-
+		if (loggedUser == null) {
+			try{
+				CustomerFilter f = new CustomerFilter();
+				ICommand commandFindAll = FactoryCommand.build(f, EOperation.FINDALL);
+				Result result = commandFindAll.execute();
+				loggedUser  = (Customer)result.getEntityList().get(0);
+				
+				Phone phone = new Phone();
+				phone.setDdd(11);
+				phone.setNumber(47221177);
+				
+				List<Phone> phoneList = new ArrayList<>();
+				phoneList.add(phone);
+				loggedUser.setPhoneList(phoneList);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
 		if (cart == null) {
 			cart = new ShoppingCart();
 			cart.setShoppingCartList(new ArrayList<>());
 			cart.setTotalValue(0d);
 			cart.setTotalWeight(0L);
+			cart.setOwner(loggedUser);
 		}
-		Address address = new Address();
-		address.setCep("08725640");
-		City city = new City();
-		city.setName("Mogi das Cruzes");
-		city.setUf("SP");
-		address.setCity(city);
-		address.setNeighborhood("Pindorama");
-		address.setStreet("TESTE");
-		address.setNumber(11);
-		address.setComplement("Complemento Teste");
+		Address address = loggedUser.getDeliveryAddressList().get(0);
+		
 		cart.setAddress(address);
 	}
 
 	public void finishPayment() {
-		if (this.cart != null && !ListUtils.isListEmpty(cart.getShoppingCartList())) {
-			String pagseguroPage = PaymentUtil.createPayment(cart, loggedUser);
-			Redirector.redirectToExternalPage(FacesContext.getCurrentInstance().getExternalContext(), pagseguroPage);
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Não há itens no carrinho de compras"));
+		try{
+			
+			if (this.cart != null && !ListUtils.isListEmpty(cart.getShoppingCartList())) {
+				String pagseguroPage = PaymentUtil.createPayment(cart, loggedUser);
+				Order order = Parser.parseShoppingCartToOrder(cart);
+				List<Order> orderList = loggedUser.getOrderList();
+				if(orderList == null){
+					orderList = new ArrayList<>();
+				}
+				orderList.add(order);
+				loggedUser.setOrderList(orderList);
+				ICommand commandUpdate = FactoryCommand.build(loggedUser, EOperation.UPDATE);
+				commandUpdate.execute();
+				
+				
+				cart = new ShoppingCart();
+				cart.setShoppingCartList(new ArrayList<>());
+				cart.setTotalValue(0d);
+				cart.setTotalWeight(0L);
+				cart.setOwner(loggedUser);
+				
+				Redirector.redirectToExternalPage(FacesContext.getCurrentInstance().getExternalContext(), pagseguroPage);
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Não há itens no carrinho de compras"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 
@@ -118,18 +148,17 @@ public class UserSessionMB extends BaseMB {
 
 			if (alreadyExists) {
 				ShoppingCartItem cartItem = itemList.get(index);
-				
+
 				// remove peso e valor do total do carrinho
 				cart.setTotalValue(cart.getTotalValue() - cartItem.getTotalValue());
 				cart.setTotalWeight(cart.getTotalWeight() - cartItem.getTotalWeigth());
-				
+
 				// carrega novos valores do item
 				Integer totalAmount = cartItem.getAmount() + amount;
 				cartItem.setAmount(totalAmount);
 				cartItem.setTotalValue(totalAmount * cartItem.getProduct().getPrice());
 				Long weight = cartItem.getProduct().getWeight().longValue();
 				cartItem.setTotalWeigth(totalAmount * weight);
-				
 
 				cart.setTotalValue(cart.getTotalValue() + cartItem.getTotalValue());
 				cart.setTotalWeight(cart.getTotalWeight() + cartItem.getTotalWeigth());
@@ -138,10 +167,10 @@ public class UserSessionMB extends BaseMB {
 				cartItem.setAmount(amount);
 				cartItem.setProduct(product);
 				cartItem.setTotalValue(amount * product.getPrice());
-				
+
 				Long weight = product.getWeight().longValue();
 				cartItem.setTotalWeigth(amount * weight);
-				
+
 				cart.addItem(cartItem);
 
 				cart.setTotalValue(cart.getTotalValue() + cartItem.getTotalValue());
@@ -175,11 +204,11 @@ public class UserSessionMB extends BaseMB {
 		this.selectedItem = selectedItem;
 	}
 
-	public User getLoggedUser() {
+	public Customer getLoggedUser() {
 		return loggedUser;
 	}
 
-	public void setLoggedUser(User loggedUser) {
+	public void setLoggedUser(Customer loggedUser) {
 		this.loggedUser = loggedUser;
 	}
 

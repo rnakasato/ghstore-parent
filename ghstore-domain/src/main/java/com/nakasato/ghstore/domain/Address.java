@@ -72,9 +72,5 @@ public class Address extends AbstractDomainEntity implements Serializable{
 		return super.isEmpty();
 	}
 	
-	@Override
-    public String toString(){
-		
-		return null;
-    }
+
 }

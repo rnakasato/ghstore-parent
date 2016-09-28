@@ -139,15 +139,12 @@
         <property name="password" column="PASSWORD"/>
         <property name="email" column="EMAIL"/>
         <property name="insertDate" column="INSERTDATE"/>
-        
-        <many-to-one name="homeAddress" class="com.nakasato.ghstore.domain.Address" fetch="join" lazy="false">
-        	<column name="IDADDRESS" not-null="true"/>
-        </many-to-one>
+        <property name="updateDate" column="UPDATEDATE"/>
         
         <many-to-one name="userType" class="com.nakasato.ghstore.domain.UserType" fetch="join" lazy="false">
         	<column name="IDUSERTYPE" not-null="true"/>
         </many-to-one>       
-		        
+		          
         <subclass name="com.nakasato.ghstore.domain.Customer" discriminator-value="1">
         	
 	<!-- 		<many-to-one name="wishList" class="com.nakasato.ghstore.domain.Wishlist" lazy="false" cascade="save-update" >
@@ -158,15 +155,15 @@
 	        	<column name="IDSHOPPINGCART" not-null="true"/>
 	        </many-to-one> -->
 			  
-			<bag name="orderList" table="DE_ORDER" inverse="true" fetch="join" lazy="true">
+			<bag name="orderList" table="DE_ORDER" inverse="true" lazy="false" cascade="save-update">
 			    <key column="IDUSER" />
 			    <one-to-many class="com.nakasato.ghstore.domain.Order" />
 			</bag>
 			
-<!-- 			<bag name="deliveryAddressList" table="DE_USER_ADDRESS" inverse="true" fetch="join" lazy="true">
+ 			<bag name="deliveryAddressList" table="DE_USER_ADDRESS" inverse="false" lazy="false" cascade="save-update" >
 			    <key column="IDUSER" />
-			    <one-to-many class="com.nakasato.ghstore.domain.Address" />
-			</bag>	 -->
+			    <many-to-many class="com.nakasato.ghstore.domain.Address" column="IDADDRESS"/>
+			</bag>	 
 	    </subclass>
 
     </class>
@@ -186,11 +183,11 @@
 			<column name="IDUSER" not-null="true"/>
 	    </many-to-one>
 	    
-	    <many-to-one name="orderStatus" class="com.nakasato.ghstore.domain.OrderStatus" lazy="false" cascade="save-update" >
+	    <many-to-one name="orderStatus" class="com.nakasato.ghstore.domain.OrderStatus" lazy="false" >
 			<column name="IDORDERSTATUS" not-null="true"/>
 	    </many-to-one>
    			
-	    <bag name="orderItemList" table="DE_ORDERITEM" inverse="true" fetch="join" lazy="true">
+	    <bag name="orderItemList" table="DE_ORDERITEM" inverse="true" lazy="false">
 			<key column="IDORDERITEM" />
 			<one-to-many class="com.nakasato.ghstore.domain.OrderItem" />
 		</bag>	    
@@ -203,7 +200,6 @@
         		<param name="sequence_name">SQ_ORDERITEM</param>
         	</generator>            
         </id>
-     	<property name="insertDate" column="INSERTDATE"/>
      	<property name="amount" column="AMOUNT"/>
      	<property name="totalWeigth" column="WEIGHT"/>
      	<property name="totalValue" column="VALUE"/>
@@ -227,7 +223,7 @@
      	<property name="cep" column="CEP"/>
      	<property name="number" column="HNUMBER"/>
         
-        <many-to-one name="city" class="com.nakasato.ghstore.domain.City" lazy="false" cascade="save-update" >
+        <many-to-one name="city" class="com.nakasato.ghstore.domain.City" lazy="false" >
 			<column name="IDCITY" not-null="true"/>
 	    </many-to-one>
 	    
@@ -265,9 +261,8 @@
         		<param name="sequence_name">SQ_ORDERSTATUS</param>
         	</generator>            
         </id>
-     	<property name="insertDate" column="INSERTDATE"/>
-        <property name="description" column="NAME"/>
-        <property name="code" column="COD_TYPE"/>        
+        <property name="description" column="DESCRIPTION"/>
+        <property name="code" column="COD_STATUS"/>        
     </class>
     
     

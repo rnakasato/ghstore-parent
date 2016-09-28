@@ -1,12 +1,12 @@
 package com.nakasato.ghstore.domain;
 
-import java.util.Set;
+import java.util.List;
 
 public class Customer extends User {
 	private Wishlist wishlist;
-	private Set<Order> orderList;
+	private List<Order> orderList;
 	private ShoppingCart shoppingCart;
-	private Set<Address> deliveryAddressList;
+	private List<Address> deliveryAddressList;
 
 	public Wishlist getWishlist() {
 		return wishlist;
@@ -16,11 +16,11 @@ public class Customer extends User {
 		this.wishlist = wishlist;
 	}
 
-	public Set<Order> getOrderList() {
+	public List<Order> getOrderList() {
 		return orderList;
 	}
 
-	public void setOrderList(Set<Order> orderList) {
+	public void setOrderList(List<Order> orderList) {
 		this.orderList = orderList;
 	}
 
@@ -32,11 +32,11 @@ public class Customer extends User {
 		this.shoppingCart = shoppingCart;
 	}
 
-	public Set<Address> getDeliveryAddressList() {
+	public List<Address> getDeliveryAddressList() {
 		return deliveryAddressList;
 	}
 
-	public void setDeliveryAddressList(Set<Address> deliveryAddressList) {
+	public void setDeliveryAddressList(List<Address> deliveryAddressList) {
 		this.deliveryAddressList = deliveryAddressList;
 	}
 

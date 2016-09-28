@@ -145,7 +145,7 @@ public class Facade<T extends AbstractDomainEntity> implements IFacade<T> {
 			}
 		}
 		String messages = null;
-		if (msg.length() > 0) {
+		if (msg != null && msg.length() > 0) {
 			messages = msg.toString();
 		}
 		return messages;

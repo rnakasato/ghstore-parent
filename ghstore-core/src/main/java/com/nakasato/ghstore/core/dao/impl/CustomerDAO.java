@@ -1,22 +1,133 @@
 package com.nakasato.ghstore.core.dao.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Query;
+
+import org.hibernate.Hibernate;
+
+import com.nakasato.core.util.enums.EOperation;
+import com.nakasato.ghstore.core.ICommand;
+import com.nakasato.ghstore.core.application.Result;
+import com.nakasato.ghstore.core.filter.impl.CustomerFilter;
+import com.nakasato.ghstore.core.hibernate.HibernateUtil;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
+import com.nakasato.ghstore.domain.Address;
+import com.nakasato.ghstore.domain.City;
 import com.nakasato.ghstore.domain.Customer;
+import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class CustomerDAO extends AbstractDAO<Customer>{
 
 	@Override
 	public List<Customer> find(AbstractDomainEntity filter) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		CustomerFilter customerFilter = (CustomerFilter) filter;
+		List<Customer> customerList = null;
+		try {
+			openSession();
+
+			StringBuilder jpql = new StringBuilder();
+			jpql.append(" FROM Customer ");
+			if(customerFilter.getLoadAddress() != null && customerFilter.getLoadAddress()){
+				jpql.append(" JOIN FETCH Address ");
+			}
+
+			Query query = session.createQuery(jpql.toString());
+
+			customerList = query.getResultList();
+
+			closeSession();
+		} catch (RuntimeException e) {
+			cancelSession();
+			e.printStackTrace();
+		}
+		return customerList;
 	}
 
 	@Override
 	public List<Customer> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Customer> customerList = null;
+		try {
+			openSession();
+
+			StringBuilder jpql = new StringBuilder();
+			jpql.append(" FROM Customer ");
+
+			Query query = session.createQuery(jpql.toString());
+
+			customerList = query.getResultList();
+
+			closeSession();
+		} catch (RuntimeException e) {
+			cancelSession();
+		}
+		return customerList;
+	}
+	
+	public static void main(String[] args) {
+		
+		try {
+//			Customer customer = new Customer();
+//
+//			ICommand findType = FactoryCommand.build(new UserType(), EOperation.FINDALL);
+//			Result r = findType.execute();
+//			List<UserType> list = r.getEntityList();
+//			
+//			for (UserType userType : list) {
+//				if(userType.getCode().equals(UserType.COD_CUSTOMER)){
+//					customer.setUserType(userType);
+//					break;
+//				}
+//			}
+//			
+//			customer.setBirthDate(new Date());
+//			customer.setCpf("78965412311");
+//			customer.setEmail("teste@mail.com");
+//			customer.setInsertDate(new Date());
+//			customer.setName("Fulano da Silva");
+//			customer.setPassword("123456789");
+//			customer.setSex("M");
+//			customer.setUsername("fusilva");
+//			customer.setUpdateDate(new Date());
+			CustomerFilter f = new CustomerFilter();
+//			f.setLoadAddress(true);
+			ICommand cFIndALl = FactoryCommand.build(f, EOperation.FIND);
+			Result rCustomer = cFIndALl.execute();
+			Customer customer = (Customer)rCustomer.getEntityList().get(0);
+			System.out.println(customer.getName());
+			//
+//			Address ad = new Address();
+//			ICommand command = FactoryCommand.build(new City(), EOperation.FINDALL);
+//			Result rCity = command.execute();
+//			List<City> cityList = rCity.getEntityList();
+//			ad.setCity(cityList.get(0));
+//			ad.setCep("08725640");
+//			ad.setInsertDate(new Date());
+//			ad.setNeighborhood("Bairro testeE");
+//			ad.setNumber(123);
+//			ad.setStreet("Rua testeE");
+//
+//			
+//			//
+//			List<Address> addressSet = new ArrayList<>();
+//			if(customer.getDeliveryAddressList() != null){
+//				addressSet = customer.getDeliveryAddressList();
+//			}
+//			addressSet.add(ad);
+//			
+//			ICommand cSave = FactoryCommand.build(customer, EOperation.UPDATE);
+//			cSave.execute();
+			HibernateUtil.shutdown();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 
 }
