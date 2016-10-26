@@ -6,10 +6,10 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.nakasato.ghstore.core.filter.impl.ProductFilter;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Product;
+import com.nakasato.ghstore.domain.filter.impl.ProductFilter;
+import com.nakasato.ghstore.domain.product.Product;
 
 public class ProductDAO extends AbstractDAO<Product> {
 

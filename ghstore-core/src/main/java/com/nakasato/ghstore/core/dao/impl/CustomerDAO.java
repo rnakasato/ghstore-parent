@@ -1,22 +1,18 @@
 package com.nakasato.ghstore.core.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
 
-import org.hibernate.Hibernate;
+import org.apache.commons.lang3.StringUtils;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
-import com.nakasato.ghstore.core.filter.impl.CustomerFilter;
 import com.nakasato.ghstore.core.hibernate.HibernateUtil;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Address;
-import com.nakasato.ghstore.domain.City;
-import com.nakasato.ghstore.domain.Customer;
+import com.nakasato.ghstore.domain.filter.impl.CustomerFilter;
+import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class CustomerDAO extends AbstractDAO<Customer>{
@@ -29,13 +25,21 @@ public class CustomerDAO extends AbstractDAO<Customer>{
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append(" FROM Customer ");
+			jpql.append(" FROM Customer c");
 			if(customerFilter.getLoadAddress() != null && customerFilter.getLoadAddress()){
-				jpql.append(" JOIN FETCH Address ");
+				jpql.append(" JOIN FETCH Address a");
 			}
-
+			jpql.append(" LEFT JOIN FETCH c.coupons cp");
+			jpql.append(" WHERE 1=1 ");
+			if(StringUtils.isNotEmpty(customerFilter.getUserName())){
+				jpql.append(" AND c.username = :username");
+			}
+			
 			Query query = session.createQuery(jpql.toString());
 
+			if(StringUtils.isNotEmpty(customerFilter.getUserName())){
+				query.setParameter("username", customerFilter.getUserName());
+			}
 			customerList = query.getResultList();
 
 			closeSession();
@@ -97,6 +101,17 @@ public class CustomerDAO extends AbstractDAO<Customer>{
 			Result rCustomer = cFIndALl.execute();
 			Customer customer = (Customer)rCustomer.getEntityList().get(0);
 			System.out.println(customer.getName());
+			
+//			Phone phone = new Phone();
+//			phone.setNumber(123456789);
+//			phone.setDdd(11);
+//			phone.setUser(customer);
+//			phone.setInsertDate(new Date());
+//			
+//			List<Phone> phones= new ArrayList<>();
+//			phones.add(phone);
+//			customer.setPhoneList(phones);
+			
 			//
 //			Address ad = new Address();
 //			ICommand command = FactoryCommand.build(new City(), EOperation.FINDALL);

@@ -11,6 +11,12 @@
 		<title>GHStore</title>
 		<h:outputStylesheet name="baseStyles.css" library="css" />
 	</h:head>
+	<ui:define name="metadate">
+		<f:metadata>
+			<f:event listener="#{userSessionMB.processOrder()}" type="preRenderView"/>
+			<f:viewParam name="idpagseguro" value="#{userSessionMB.transactionCode}" />
+		</f:metadata>
+	</ui:define>
 	<ui:define name="content">
 		<h:form id="form_content">
 			<p:dataGrid id="recomendationDataGrid" columns="8" paginator="false"

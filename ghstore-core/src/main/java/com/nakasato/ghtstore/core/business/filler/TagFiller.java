@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
-import com.nakasato.ghstore.core.filter.impl.TagFilter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Product;
-import com.nakasato.ghstore.domain.Tag;
+import com.nakasato.ghstore.domain.filter.impl.TagFilter;
+import com.nakasato.ghstore.domain.product.Product;
+import com.nakasato.ghstore.domain.product.Tag;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghtstore.core.business.Filler;
 

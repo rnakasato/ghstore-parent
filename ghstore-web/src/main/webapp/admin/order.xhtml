@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/layout/adminLayout.xhtml">
+	<h:head>
+		<title>GHStore - Salvar Produto</title>
+		<h:outputStylesheet name="adminLayout.css" library="css" />
+		<h:outputStylesheet name="baseStyles.css" library="css" />
+	</h:head>
+	
+	<ui:define name="sidebar">
+		<ui:include src="/admin/order/orderFilter.xhtml" />
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form id="form_content">
+
+			<ui:include src="/admin/order/orderDataList.xhtml" />
+
+			<ui:include src="/admin/order/orderDetailDialog.xhtml" />
+
+			<p:confirmDialog severity="alert" global="true" widgetVar="dialog">
+				<p:commandButton id="save" value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton id="ignore" value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+		
+
+	</ui:define>
+</ui:composition>
+</html>

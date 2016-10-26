@@ -7,7 +7,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import com.nakasato.ghstore.domain.Tag;
+import com.nakasato.ghstore.domain.product.Tag;
 
 @FacesConverter("tagConverter")
 public class TagConverter implements Converter{

@@ -2,7 +2,7 @@ package com.nakasato.ghstore.core.product.comparator;
 
 import java.util.Comparator;
 
-import com.nakasato.ghstore.domain.Product;
+import com.nakasato.ghstore.domain.product.Product;
 
 public class CompareProductByStock implements Comparator<Product>{
 	public int compare(Product o1, Product o2) {

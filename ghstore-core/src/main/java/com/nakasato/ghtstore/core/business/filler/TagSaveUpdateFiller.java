@@ -3,8 +3,8 @@ package com.nakasato.ghtstore.core.business.filler;
 import java.util.Date;
 
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Product;
-import com.nakasato.ghstore.domain.Tag;
+import com.nakasato.ghstore.domain.product.Product;
+import com.nakasato.ghstore.domain.product.Tag;
 import com.nakasato.ghtstore.core.business.Filler;
 
 public class TagSaveUpdateFiller extends Filler {

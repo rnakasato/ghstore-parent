@@ -1,7 +1,6 @@
 package com.nakasato.ghstore.core;
 
 import com.nakasato.ghstore.core.application.Result;
-import com.nakasato.ghstore.core.filter.Filter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
 public interface IFacade<T extends AbstractDomainEntity> {
@@ -11,5 +10,5 @@ public interface IFacade<T extends AbstractDomainEntity> {
 	public Result<T> find(T filter);
 	public Result<T> findAll(T entity);
 	public Result<T> view(T entity);
-	public Result<T>doRules(T entity, Integer parameter);
+	public Result<T>doRules(T entity, String ruleName);
 }

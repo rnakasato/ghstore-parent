@@ -9,11 +9,10 @@ import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.hibernate.HibernateUtil;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.State;
-import com.nakasato.ghstore.domain.UserType;
+import com.nakasato.ghstore.domain.user.UserType;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
-public class UserTypeDAO extends AbstractDAO<UserType>{
+public class UserTypeDAO extends DomainSpecificEntityDAO<UserType>{
 
 	@Override
 	public List<UserType> find(AbstractDomainEntity filter) throws Exception {

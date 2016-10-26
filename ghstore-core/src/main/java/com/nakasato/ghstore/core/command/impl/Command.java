@@ -2,8 +2,8 @@ package com.nakasato.ghstore.core.command.impl;
 
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.IFacade;
-import com.nakasato.ghstore.core.filter.Filter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
+import com.nakasato.ghstore.domain.filter.Filter;
 
 public abstract class Command<T extends AbstractDomainEntity> implements ICommand<T> {
 	protected IFacade facade;

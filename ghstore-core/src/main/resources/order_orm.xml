@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.nakasato.ghstore.domain.order.Order" table="DE_ORDER">
+		<id name="id" column="IDORDER">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_ORDER</param>
+			</generator>
+		</id>
+
+		<property name="code" column="COD_ORDER" />
+		<property name="insertDate" column="INSERTDATE" />
+		<property name="deliverDate" column="DELIVERDATE" />
+		<property name="totalValue" column="TOTAL_VALUE" />
+		<property name="transactionCode" column="TRANSACTION_CODE" />
+
+		<many-to-one name="customer"
+			class="com.nakasato.ghstore.domain.user.Customer" lazy="false"
+			cascade="save-update">
+			<column name="IDUSER" not-null="true" />
+		</many-to-one>
+
+		<many-to-one name="deliverAddress"
+			class="com.nakasato.ghstore.domain.user.Address" lazy="false"
+			cascade="save-update">
+			<column name="IDADDRESS" not-null="true" />
+		</many-to-one>
+
+		<many-to-one name="orderStatus"
+			class="com.nakasato.ghstore.domain.order.OrderStatus" lazy="false">
+			<column name="IDORDERSTATUS" not-null="true" />
+		</many-to-one>
+
+		<bag name="orderItemList" table="DE_ORDERITEM" inverse="true"
+			lazy="false" cascade="save-update">
+			<key column="IDORDER" />
+			<one-to-many class="com.nakasato.ghstore.domain.order.OrderItem" />
+		</bag>
+		
+		<bag name="productReturnList" table="DE_PRODUCT_RETURN" inverse="true"
+			lazy="false" cascade="save-update">
+			<key column="IDORDER" />
+			<one-to-many class="com.nakasato.ghstore.domain.productreturn.ProductReturn" />
+		</bag>
+	</class>
+
+	<class name="com.nakasato.ghstore.domain.order.OrderItem" table="DE_ORDERITEM">
+		<id name="id" column="IDORDERITEM">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_ORDERITEM</param>
+			</generator>
+		</id>
+		<property name="amount" column="AMOUNT" />
+		<property name="totalWeigth" column="WEIGHT" />
+		<property name="totalValue" column="VALUE" />
+
+		<many-to-one name="product"
+			class="com.nakasato.ghstore.domain.product.Product" lazy="false">
+			<column name="IDPRODUCT" not-null="true" />
+		</many-to-one>
+
+		<many-to-one name="order"
+			class="com.nakasato.ghstore.domain.order.Order" lazy="false">
+			<column name="IDORDER" not-null="true" />
+		</many-to-one>
+
+	</class>
+
+	<class name="com.nakasato.ghstore.domain.order.OrderStatus"
+		table="DE_ORDERSTATUS">
+		<id name="id" column="IDORDERSTATUS">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_ORDERSTATUS</param>
+			</generator>
+		</id>
+		<property name="description" column="DESCRIPTION" />
+		<property name="code" column="COD_STATUS" />
+	</class>
+
+
+	<class name="com.nakasato.ghstore.domain.productreturn.ProductReturn"
+		table="DE_PRODUCT_RETURN">
+		<id name="id" column="IDRETURN">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_PRODUCT_RETURN</param>
+			</generator>
+		</id>
+
+		<property name="reason" column="REASON" />
+		<property name="insertDate" column="INSERTDATE" />
+		<property name="totalValue" column="TOTAL_VALUE" />
+
+		<many-to-one name="order"
+			class="com.nakasato.ghstore.domain.order.Order" lazy="false">
+			<column name="IDORDER" not-null="true" />
+		</many-to-one>
+
+		<bag name="returnedItems" table="DE_RETURN_ITEM" inverse="true"
+			lazy="false" cascade="save-update">
+			<key column="IDRETURN" />
+			<one-to-many class="com.nakasato.ghstore.domain.productreturn.ReturnedItem" />
+		</bag>
+	</class>
+
+	<class name="com.nakasato.ghstore.domain.productreturn.ReturnedItem"
+		table="DE_RETURN_ITEM">
+		<id name="id" column="IDRETURNITEM">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_RETURN_ITEM</param>
+			</generator>
+		</id>
+
+		<property name="insertDate" column="INSERTDATE" />
+		<property name="amount" column="AMOUNT" />
+		<property name="originalAmount" column="ORIGINAL_AMOUNT" />
+		<property name="totalValue" column="TOTAL_VALUE" />
+
+		<many-to-one name="productReturn"
+			class="com.nakasato.ghstore.domain.productreturn.ProductReturn" lazy="false">
+			<column name="IDRETURN" not-null="true" />
+		</many-to-one>
+
+		<many-to-one name="product"
+			class="com.nakasato.ghstore.domain.product.Product" lazy="false">
+			<column name="IDPRODUCT" not-null="true" />
+		</many-to-one>
+
+	</class>
+	
+	
+	<class name="com.nakasato.ghstore.domain.productexchange.ProductExchange"
+		table="DE_PRODUCT_EXCHANGE">
+		<id name="id" column="IDEXCHANGE">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_PRODUCT_EXCHANGE</param>
+			</generator>
+		</id>
+
+		<property name="reason" column="REASON" />
+		<property name="insertDate" column="INSERTDATE" />
+		<property name="totalValue" column="TOTAL_VALUE" />
+
+		<many-to-one name="order"
+			class="com.nakasato.ghstore.domain.order.Order" lazy="false">
+			<column name="IDORDER" not-null="true" />
+		</many-to-one>
+
+		<bag name="exchangeItems" table="DE_EXCHANGE_ITEM" inverse="true"
+			lazy="false" cascade="save-update">
+			<key column="IDEXCHANGE" />
+			<one-to-many class="com.nakasato.ghstore.domain.productexchange.ExchangeItem" />
+		</bag>
+	</class>
+	
+	<class name="com.nakasato.ghstore.domain.productexchange.ExchangeItem"
+		table="DE_EXCHANGE_ITEM">
+		<id name="id" column="IDEXCHANGEITEM">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_EXCHANGE_ITEM</param>
+			</generator>
+		</id>
+
+		<property name="insertDate" column="INSERTDATE" />
+		<property name="amount" column="AMOUNT" />
+		<property name="originalAmount" column="ORIGINAL_AMOUNT" />
+		<property name="totalValue" column="TOTAL_VALUE" />
+
+		<many-to-one name="productExchange"
+			class="com.nakasato.ghstore.domain.productexchange.ProductExchange" lazy="false">
+			<column name="IDEXCHANGE" not-null="true" />
+		</many-to-one>
+
+		<many-to-one name="product"
+			class="com.nakasato.ghstore.domain.product.Product" lazy="false">
+			<column name="IDPRODUCT" not-null="true" />
+		</many-to-one>
+
+	</class>
+	
+	<class name="com.nakasato.ghstore.domain.productexchange.DiscountCoupon"
+		table="DE_COUPON">
+		<id name="id" column="IDCOUPON">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_COUPON</param>
+			</generator>
+		</id>
+
+		<property name="insertDate" column="INSERTDATE" />
+		<property name="used" column="USED" />
+		
+		<many-to-one name="order"
+			class="com.nakasato.ghstore.domain.order.Order" lazy="false">
+			<column name="IDORDER" not-null="true" />
+		</many-to-one>
+		
+		<many-to-one name="customer"
+			class="com.nakasato.ghstore.domain.user.Customer" lazy="false">
+			<column name="IDUSER" not-null="true" />
+		</many-to-one>
+
+	</class>
+
+</hibernate-mapping>

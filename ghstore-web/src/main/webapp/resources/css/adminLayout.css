@@ -33,6 +33,11 @@ html, body {
 	width: 68%;
 }
 
+#centerText{
+	text-align:center;
+}
+
+
 .baseGrid.ui-panelgrid>*>tr,
 .baseGrid.ui-panelgrid .ui-panelgrid-cell {
     border: none;

@@ -40,4 +40,17 @@ html, body {
 .floatGridContent td {
 	float: left;
 }
+
+.centerPage{
+	position: absolute;
+    height: 100px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 50%;
+    margin-left: -100px;
+    width: 200px;
+	
+}
+
 }

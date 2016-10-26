@@ -3,7 +3,7 @@ package com.nakasato.ghstore.core.dao.impl;
 import java.util.List;
 
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.ShoppingCart;
+import com.nakasato.ghstore.domain.shopping.cart.ShoppingCart;
 
 public class ShoppingCartDAO extends AbstractDAO<ShoppingCart> {
 

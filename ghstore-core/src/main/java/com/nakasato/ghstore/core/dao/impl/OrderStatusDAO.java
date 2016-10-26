@@ -8,9 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
-import com.nakasato.ghstore.core.filter.impl.OrderStatusFilter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.OrderStatus;
+import com.nakasato.ghstore.domain.filter.impl.OrderStatusFilter;
+import com.nakasato.ghstore.domain.order.OrderStatus;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class OrderStatusDAO extends AbstractDAO<OrderStatus> {
@@ -67,7 +67,7 @@ public class OrderStatusDAO extends AbstractDAO<OrderStatus> {
 	
 	public static void main(String[] args) throws Exception{
 		OrderStatusFilter filter = new OrderStatusFilter();
-		filter.setCode(OrderStatus.COD_PENDENTE);
+		filter.setCode(OrderStatus.COD_AGUARDANDO_PAGAMENTO);
 		ICommand commandFind = FactoryCommand.build(filter, EOperation.FIND);
 		List<OrderStatus> statusList = commandFind.execute().getEntityList();
 		

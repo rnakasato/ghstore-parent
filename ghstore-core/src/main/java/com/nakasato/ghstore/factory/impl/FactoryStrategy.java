@@ -7,19 +7,49 @@ import java.util.Map;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.IStrategy;
-import com.nakasato.ghstore.core.filter.impl.ProductFilter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Product;
+import com.nakasato.ghstore.domain.carrier.PaymentCreationCarrier;
+import com.nakasato.ghstore.domain.filter.impl.CustomerFilter;
+import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
+import com.nakasato.ghstore.domain.filter.impl.ProductExchangeFilter;
+import com.nakasato.ghstore.domain.filter.impl.ProductFilter;
+import com.nakasato.ghstore.domain.filter.impl.ProductReturnFilter;
+import com.nakasato.ghstore.domain.order.Order;
+import com.nakasato.ghstore.domain.product.Product;
+import com.nakasato.ghstore.domain.productexchange.ProductExchange;
+import com.nakasato.ghstore.domain.productreturn.ProductReturn;
+import com.nakasato.ghstore.domain.user.Customer;
+import com.nakasato.ghtstore.core.business.complementor.ComplementCustomer;
+import com.nakasato.ghtstore.core.business.complementor.ComplementCustomerCoupon;
+import com.nakasato.ghtstore.core.business.complementor.ComplementCustomerUpdate;
+import com.nakasato.ghtstore.core.business.complementor.ComplementDiscountOrder;
 import com.nakasato.ghtstore.core.business.complementor.ComplementInsertDate;
+import com.nakasato.ghtstore.core.business.complementor.ComplementOrderProductStock;
 import com.nakasato.ghtstore.core.business.complementor.ComplementProductCode;
+import com.nakasato.ghtstore.core.business.complementor.ComplementProductExchange;
+import com.nakasato.ghtstore.core.business.complementor.ComplementProductExchangeProductStock;
+import com.nakasato.ghtstore.core.business.complementor.ComplementProductReturn;
+import com.nakasato.ghtstore.core.business.complementor.ComplementProductReturnProductStock;
 import com.nakasato.ghtstore.core.business.complementor.ComplementTags;
+import com.nakasato.ghtstore.core.business.filler.PaymentCreationFiller;
 import com.nakasato.ghtstore.core.business.filler.StoreCategoryFiller;
 import com.nakasato.ghtstore.core.business.filler.SubcategoryFiller;
 import com.nakasato.ghtstore.core.business.filler.TagSaveUpdateFiller;
+import com.nakasato.ghtstore.core.business.validator.CustomerCEPValidator;
+import com.nakasato.ghtstore.core.business.validator.EmailValidator;
 import com.nakasato.ghtstore.core.business.validator.PriceValidator;
-import com.nakasato.ghtstore.core.business.validator.ProductRequiredFieldsValidator;
+import com.nakasato.ghtstore.core.business.validator.ProductExchangeAmountValidator;
+import com.nakasato.ghtstore.core.business.validator.ProductReturnAmountValidator;
 import com.nakasato.ghtstore.core.business.validator.StockValidator;
 import com.nakasato.ghtstore.core.business.validator.StoreCategoryValidator;
+import com.nakasato.ghtstore.core.business.validator.TransactionCodeValidator;
+import com.nakasato.ghtstore.core.business.validator.UserBirthDateValidator;
+import com.nakasato.ghtstore.core.business.validator.UserCPFValidator;
+import com.nakasato.ghtstore.core.business.validator.UserPhoneValidator;
+import com.nakasato.ghtstore.core.business.validator.fields.ProductExchangeRequiredFieldsValidator;
+import com.nakasato.ghtstore.core.business.validator.fields.ProductRequiredFieldsValidator;
+import com.nakasato.ghtstore.core.business.validator.fields.ProductReturnRequiredFieldsValidator;
+import com.nakasato.ghtstore.core.business.validator.fields.UserRequiredFieldsValidator;
 
 public class FactoryStrategy {
 
@@ -31,7 +61,16 @@ public class FactoryStrategy {
 	 * (salvar,alterar,consultar,excluir)
 	 */
 	private static Map<String, Map<String, List<IStrategy>>> rns;
+
 	private static Map<String, List<IStrategy>> rnsProduct;
+	private static Map<String, List<IStrategy>> rnsCustomer;
+	private static Map<String, List<IStrategy>> rnsOrder;
+	private static Map<String, List<IStrategy>> rnsProductReturn;
+	private static Map<String, List<IStrategy>> rnsProductExchange;
+	
+	private static Map<String, List<IStrategy>> rnsPaymentCreationCarrier;
+	
+	
 
 	public static List<IStrategy> build(AbstractDomainEntity entity, String operation) {
 		if (rns == null) {
@@ -55,9 +94,136 @@ public class FactoryStrategy {
 		rns.put(ProductFilter.class.getName(), rnsProduct);
 		initProductRns();
 
+		// Inicialização do mapa de regras de negócio do usuário
+		rnsCustomer = new HashMap<>();
+		rns.put(Customer.class.getName(), rnsCustomer);
+		rns.put(CustomerFilter.class.getName(), rnsCustomer);
+		initCustomerRns();
+
+		rnsOrder = new HashMap<>();
+		rns.put(Order.class.getName(), rnsOrder);
+		rns.put(OrderFilter.class.getName(), rnsOrder);
+		initOrderRns();
+		
+		rnsProductReturn = new HashMap<>();
+		rns.put(ProductReturn.class.getName(), rnsProductReturn);
+		rns.put(ProductReturnFilter.class.getName(), rnsProductReturn);
+		initProductReturnRns();
+		
+		rnsProductExchange  = new HashMap<>();
+		rns.put(ProductExchange.class.getName(), rnsProductExchange);
+		rns.put(ProductExchangeFilter.class.getName(), rnsProductExchange);
+		initProductExchangeRns();
+		
+		
+		rnsPaymentCreationCarrier = new HashMap<>();
+		rns.put(PaymentCreationCarrier.class.getName(), rnsPaymentCreationCarrier);
+		initPaymentCreationRns();
+		
+		
+		
+	}
+	
+	private static void initPaymentCreationRns(){
+		List<IStrategy> rnsFind = new ArrayList<>();
+		rnsFind.add(new PaymentCreationFiller());
+		rnsPaymentCreationCarrier.put(EOperation.FIND, rnsFind);
+	}
+	
+	private static void initCustomerRns() {
+		List<IStrategy> rnsSave = new ArrayList<>();
+		List<IStrategy> rnsUpdate = new ArrayList<>();
+		// Não há regras para a busca de usuário
+		List<IStrategy> rnsFind = new ArrayList<>();
+		List<IStrategy> rnsDelete = new ArrayList<>();
+
+		// Adicionando regras de negócio para salvar um Usuário
+		rnsSave.add(new UserRequiredFieldsValidator());
+		rnsSave.add(new UserCPFValidator());
+		rnsSave.add(new UserBirthDateValidator());
+		rnsSave.add(new CustomerCEPValidator());
+		rnsSave.add(new UserPhoneValidator());
+		rnsSave.add(new EmailValidator());
+		rnsSave.add(new ComplementCustomer());
+		// Verificar se Nome de usuário e CPF já existem
+
+		rnsUpdate.add(new UserCPFValidator());
+		rnsUpdate.add(new CustomerCEPValidator());
+		rnsUpdate.add(new ComplementCustomerUpdate());
+		
+		// Insere as regras de negócio por operação
+		rnsCustomer.put(EOperation.SAVE, rnsSave);
+		rnsCustomer.put(EOperation.UPDATE, rnsUpdate);
+		rnsCustomer.put(EOperation.DELETE, rnsDelete);
+		rnsCustomer.put(EOperation.FIND, rnsFind);
+
+	}
+	
+	private static void initOrderRns(){
+		List<IStrategy> rnsSave = new ArrayList<>();
+		List<IStrategy> rnsUpdate = new ArrayList<>();
+		// Não há regras para a busca de usuário
+		List<IStrategy> rnsFind = new ArrayList<>();
+		List<IStrategy> rnsDelete = new ArrayList<>();
+
+		// Adicionando regras de negócio para salvar um Pedido
+		rnsSave.add(new TransactionCodeValidator());
+		rnsSave.add(new ComplementOrderProductStock());		
+		rnsSave.add(new ComplementDiscountOrder());
+		
+		// Insere as regras de negócio por operação
+		rnsOrder.put(EOperation.SAVE, rnsSave);
+		rnsOrder.put(EOperation.UPDATE, rnsUpdate);
+		rnsOrder.put(EOperation.DELETE, rnsDelete);
+		rnsOrder.put(EOperation.FIND, rnsFind);
+		
+	}
+	
+	private static void initProductReturnRns(){
+		List<IStrategy> rnsSave = new ArrayList<>();
+		List<IStrategy> rnsUpdate = new ArrayList<>();
+		// Não há regras para a busca de usuário
+		List<IStrategy> rnsFind = new ArrayList<>();
+		List<IStrategy> rnsDelete = new ArrayList<>();
+
+		// Adicionando regras de negócio para salvar uma devolução
+		rnsSave.add(new ProductReturnRequiredFieldsValidator());
+		rnsSave.add(new ProductReturnAmountValidator());
+		rnsSave.add(new ComplementProductReturn());
+		rnsSave.add(new ComplementProductReturnProductStock());
+				
+		// Insere as regras de negócio por operação
+		rnsProductReturn.put(EOperation.SAVE, rnsSave);
+		rnsProductReturn.put(EOperation.UPDATE, rnsUpdate);
+		rnsProductReturn.put(EOperation.DELETE, rnsDelete);
+		rnsProductReturn.put(EOperation.FIND, rnsFind);
+		
+	}
+	
+	private static void initProductExchangeRns(){
+		List<IStrategy> rnsSave = new ArrayList<>();
+		List<IStrategy> rnsUpdate = new ArrayList<>();
+		// Não há regras para a busca de usuário
+		List<IStrategy> rnsFind = new ArrayList<>();
+		List<IStrategy> rnsDelete = new ArrayList<>();
+
+		// Adicionando regras de negócio para salvar uma devolução
+		rnsSave.add(new ProductExchangeRequiredFieldsValidator());
+		rnsSave.add(new ProductExchangeAmountValidator());
+		rnsSave.add(new ComplementProductExchange());
+		rnsSave.add(new ComplementProductExchangeProductStock());
+		rnsSave.add(new ComplementCustomerCoupon());
+				
+		// Insere as regras de negócio por operação
+		rnsProductExchange.put(EOperation.SAVE, rnsSave);
+		rnsProductExchange.put(EOperation.UPDATE, rnsUpdate);
+		rnsProductExchange.put(EOperation.DELETE, rnsDelete);
+		rnsProductExchange.put(EOperation.FIND, rnsFind);
+		
 	}
 
 	private static void initProductRns() {
+
 		List<IStrategy> rnsSave = new ArrayList<>();
 		List<IStrategy> rnsUpdate = new ArrayList<>();
 		// Não há regras para a busca de produto

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dialog id="amountDialog" header="Quantidade do produto" widgetVar="amountDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+			style="width:500px">
+			<p:outputPanel id="amount" style="text-align:left;width:500px">
+				<p:panelGrid columns="1" style="text-align:center;width:500px">
+					<p:row>
+						<p:commandButton value="-" style="width:50px"
+							actionListener="#{userSessionMB.removeAmount()}"
+							update=":form_content:inputChangeAmount">
+						</p:commandButton>
+
+						<p:inputText id="inputChangeAmount"
+							value="#{userSessionMB.newAmount}" />
+
+						<p:commandButton value="+" style="width:50px"
+							actionListener="#{userSessionMB.addAmount()}"							
+							update=":form_content:inputChangeAmount">
+						</p:commandButton>
+					</p:row>
+					<p:row>
+						<p:commandButton value="Alterar" style="width:120px;padding-right:10px"
+							actionListener="#{userSessionMB.saveNewItemAmount()}"
+							update=":form_content">
+						</p:commandButton>
+						
+						<p:commandButton value="Cancelar" style="width:120px"
+							onclick="PF('amountDialog').hide()"
+							update=":form_content">
+						</p:commandButton>
+					</p:row>
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+
+	</ui:composition>
+</h:body>
+</html>

@@ -16,7 +16,7 @@ public abstract class DomainSpecificEntityDAO<T extends DomainSpecificEntity> ex
 		try {
 			openSession();
 			StringBuilder jpql = new StringBuilder();
-			jpql.append(" SELECT * FROM ").append(entity.getClass().getName()).append(" d ");
+			jpql.append(" FROM ").append(entity.getClass().getName()).append(" d ");
 			jpql.append(" WHERE d.code = :code");
 			super.openSession();
 			Query query = session.createQuery(jpql.toString());

@@ -65,6 +65,10 @@ public class Phone {
     public String getNumber() {
         return this.number;
     }
+    
+    public String getFormattedNumber(){
+    	return String.format("xxxxx-xxxx", number);
+    }
 
     /**
      * Sets the area code

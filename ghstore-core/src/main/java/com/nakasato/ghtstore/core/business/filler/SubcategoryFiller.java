@@ -1,6 +1,5 @@
 package com.nakasato.ghtstore.core.business.filler;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,12 +7,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
-import com.nakasato.ghstore.core.filter.impl.ProductFilter;
-import com.nakasato.ghstore.core.filter.impl.SubcategoryFilter;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Product;
-import com.nakasato.ghstore.domain.Subcategory;
+import com.nakasato.ghstore.domain.filter.impl.SubcategoryFilter;
+import com.nakasato.ghstore.domain.product.Product;
+import com.nakasato.ghstore.domain.product.Subcategory;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghtstore.core.business.Filler;
 

@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.nakasato.ghstore.domain.product.StoreCategory" table="DE_STORECATEGORY">
+        <id name="id" column="IDSTORECATEGORY">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_STORECATEGORY</param>
+        	</generator>            
+        </id>
+        <property name="insertDate" type="date" column="INSERTDATE"/>
+        <property name="description" type="string" column="DESCRIPTION"/>
+    </class>
+    
+    <class name="com.nakasato.ghstore.domain.product.Subcategory" table="DE_SUBCATEGORY">
+        <id name="id" column="IDSUBCATEGORY">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_SUBCATEGORY</param>
+        	</generator>            
+        </id>
+        <property name="insertDate" type="date" column="INSERTDATE"/>
+        <property name="description" type="string" column="DESCRIPTION"/>
+        <many-to-one name="storeCategory" column="IDSTORECATEGORY" class="com.nakasato.ghstore.domain.product.StoreCategory" not-null="true" lazy="false"/>
+    </class>
+    
+   	<class name="com.nakasato.ghstore.domain.product.Subcategory" table="DE_SUBCATEGORY">
+        <id name="id" column="IDSUBCATEGORY">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_SUBCATEGORY</param>
+        	</generator>            
+        </id>
+        <property name="insertDate" type="date" column="INSERTDATE"/>
+        <property name="description" type="string" column="DESCRIPTION"/>
+        <many-to-one name="storeCategory" column="IDSTORECATEGORY" class="com.nakasato.ghstore.domain.product.StoreCategory" not-null="true" lazy="false"/>
+    </class> 
+    
+    <class name="com.nakasato.ghstore.domain.product.Tag" table="DE_TAG">
+        <id name="id" column="IDTAG">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_TAG</param>
+        	</generator>            
+        </id>
+        <property name="insertDate" type="date" column="INSERTDATE"/>
+        <property name="description" type="string" column="DESCRIPTION"/>
+        <bag name="productList" table="DE_PRODUCT_TAG" inverse="true" lazy="true">
+        	<key column="IDTAG"/>
+        	<many-to-many class="com.nakasato.ghstore.domain.product.Product" column="IDPRODUCT"/>
+    	</bag>
+    </class>
+	
+	<class name="com.nakasato.ghstore.domain.product.Product" table="DE_PRODUCT">
+        <id name="id" column="IDPRODUCT">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_PRODUCT</param>
+        	</generator>            
+        </id>
+		<property name="code" type="string" column="COD_PRODUCT"/>
+        <property name="insertDate" type="date" column="INSERTDATE"/>
+        <property name="updateDate" type="date" column="UPDATEDATE"/>
+        <property name="description" type="string" column="DESCRIPTION"/>
+        <property name="name" type="string" column="NAME"/>
+        <property name="price" type="double" column="PRICE"/>
+        <property name="weight" type="double" column="WEIGHT"/>
+        <property name="stock" type="integer" column="STOCK"/>
+        <property name="image" type="string" column="IMAGE_PATH"/>        
+        <property name="active" type="boolean" column="ACTIVE"/>
+        
+        <many-to-one name="storeCategory" class="com.nakasato.ghstore.domain.product.StoreCategory" fetch="join" lazy="false">
+        	<column name="IDSTORECATEGORY" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="subcategory" class="com.nakasato.ghstore.domain.product.Subcategory" lazy="false" cascade="save-update" >
+        	<column name="IDSUBCATEGORY" not-null="true"/>
+        </many-to-one>
+        
+        <bag name="tagList" table="DE_PRODUCT_TAG" lazy="false" cascade="save-update">
+        	<key column="IDPRODUCT"/>
+        	<many-to-many class="com.nakasato.ghstore.domain.product.Tag" column="IDTAG"/>
+    	</bag>
+        
+    </class> 
+    
+    <class name="com.nakasato.ghstore.domain.product.Product" table="DE_PRODUCT">
+        <id name="id" column="IDPRODUCT">
+            <generator class="sequence">
+        		<param name="sequence_name">SQ_PRODUCT</param>
+        	</generator>            
+        </id>
+		<property name="code" type="string" column="COD_PRODUCT"/>
+        <property name="insertDate" type="date" column="INSERTDATE"/>
+        <property name="updateDate" type="date" column="UPDATEDATE"/>
+        <property name="description" type="string" column="DESCRIPTION"/>
+        <property name="name" type="string" column="NAME"/>
+        <property name="price" type="double" column="PRICE"/>
+        <property name="weight" type="double" column="WEIGHT"/>
+        <property name="stock" type="integer" column="STOCK"/>
+        <property name="image" type="string" column="IMAGE_PATH"/>        
+        <property name="active" type="boolean" column="ACTIVE"/>
+        
+        <many-to-one name="storeCategory" class="com.nakasato.ghstore.domain.product.StoreCategory" fetch="join" lazy="false">
+        	<column name="IDSTORECATEGORY" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="subcategory" class="com.nakasato.ghstore.domain.product.Subcategory" lazy="false" cascade="save-update" >
+        	<column name="IDSUBCATEGORY" not-null="true"/>
+        </many-to-one>
+        
+        <bag name="tagList" table="DE_PRODUCT_TAG" lazy="false" cascade="save-update">
+        	<key column="IDPRODUCT"/>
+        	<many-to-many class="com.nakasato.ghstore.domain.product.Tag" column="IDTAG"/>
+    	</bag>
+        
+    </class> 
+   
+</hibernate-mapping>

@@ -6,9 +6,9 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.nakasato.ghstore.core.filter.impl.TagFilter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Tag;
+import com.nakasato.ghstore.domain.filter.impl.TagFilter;
+import com.nakasato.ghstore.domain.product.Tag;
 
 public class TagDAO extends AbstractDAO<Tag> {
 

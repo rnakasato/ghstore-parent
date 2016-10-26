@@ -15,13 +15,20 @@
 	<div id="page">
 		<div id="clientHeader">
 			<ui:insert name="clientHeader">
-				<h:form>
-					<p:panelGrid cols="6">
+				<h:form id="formUserBar">
+					<p:panelGrid id="gridUserBar" cols="6">
 						<div>colocar Logo</div>
 						<p:button id="searchSite" value="Buscar" />
 						<p:watermark for="pdSearch" value="Buscar Produto..." />
 						<p:inputText id="pdSearch" />
-						<p:button id="btnRedirLogin" value="Login" />
+						<p:button id="btnRedirLogin" value="Login" rendered="#{!loginMB.loggedIn}" outcome="/clientuser/login.xhtml"/>
+						<p:commandButton id="btnRedirLogout" 
+							value="Logout"
+							update=":formUserBar" 
+							rendered="#{loginMB.loggedIn}" 
+							actionListener="#{loginMB.doLogout()}"
+							>
+						</p:commandButton>
 						<p:button id="btnRedirSignUp" value="Cadastre-se" />
 						<p:button id="btnShoppingCart" value="Carrinho de compras"
 							outcome="/clientuser/shoppingCart.xhtml" />
@@ -64,7 +71,7 @@
 						</p:menuitem>
 
 						<p:menuitem value="Como comprar"
-							outcome="/admin/productMain.xhtml" icon="ui-icon-gear">
+							outcome="/clientuser/clientHome.xhtml" icon="ui-icon-gear">
 
 						</p:menuitem>
 

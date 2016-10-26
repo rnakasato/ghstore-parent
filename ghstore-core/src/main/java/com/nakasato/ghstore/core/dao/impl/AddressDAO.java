@@ -1,6 +1,5 @@
 package com.nakasato.ghstore.core.dao.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -9,8 +8,7 @@ import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Address;
-import com.nakasato.ghstore.domain.City;
+import com.nakasato.ghstore.domain.user.Address;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class AddressDAO extends AbstractDAO<Address>{

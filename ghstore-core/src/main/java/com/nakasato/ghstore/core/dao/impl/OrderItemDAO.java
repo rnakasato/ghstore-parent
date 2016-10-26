@@ -7,10 +7,10 @@ import javax.persistence.Query;
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
-import com.nakasato.ghstore.core.filter.impl.ProductFilter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.OrderItem;
-import com.nakasato.ghstore.domain.Product;
+import com.nakasato.ghstore.domain.filter.impl.ProductFilter;
+import com.nakasato.ghstore.domain.order.OrderItem;
+import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class OrderItemDAO extends AbstractDAO<OrderItem>{

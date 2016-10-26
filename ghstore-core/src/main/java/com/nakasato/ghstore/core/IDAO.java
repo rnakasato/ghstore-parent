@@ -2,7 +2,6 @@ package com.nakasato.ghstore.core;
 
 import java.util.List;
 
-import com.nakasato.ghstore.core.filter.Filter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
 public interface IDAO <T extends AbstractDomainEntity> {

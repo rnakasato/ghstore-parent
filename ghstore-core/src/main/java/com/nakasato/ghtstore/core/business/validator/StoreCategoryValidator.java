@@ -3,11 +3,11 @@ package com.nakasato.ghtstore.core.business.validator;
 import java.util.List;
 
 import com.nakasato.ghstore.core.IDAO;
-import com.nakasato.ghstore.core.filter.impl.StoreCategoryFilter;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Product;
-import com.nakasato.ghstore.domain.StoreCategory;
+import com.nakasato.ghstore.domain.filter.impl.StoreCategoryFilter;
+import com.nakasato.ghstore.domain.product.Product;
+import com.nakasato.ghstore.domain.product.StoreCategory;
 import com.nakasato.ghstore.factory.impl.FactoryDAO;
 import com.nakasato.ghtstore.core.business.Validator;
 

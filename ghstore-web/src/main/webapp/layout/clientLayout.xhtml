@@ -13,18 +13,34 @@
 	<h:outputStylesheet name="clientLayout.css" library="css" />
 	<h:outputStylesheet name="baseStyles.css" library="css" />
 	<div id="page">
+
+		<p:ajaxStatus onstart="PF('loadingDialog').show()"
+			onsuccess="PF('loadingDialog').hide()" />
+		<ui:include src="/public/loading.xhtml" />
+		
 		<div id="clientHeader">
 			<ui:insert name="clientHeader">
-				<h:form>
-					<p:panelGrid cols="6">
+				<h:form id="formUserBar">
+					<p:panelGrid id="gridUserBar" cols="6">
 						<div>colocar Logo</div>
 						<p:button id="searchSite" value="Buscar" />
 						<p:watermark for="pdSearch" value="Buscar Produto..." />
 						<p:inputText id="pdSearch" />
-						<p:button id="btnRedirLogin" value="Login" />
-						<p:button id="btnRedirSignUp" value="Cadastre-se" />
+						<p:button id="btnRedirLogin" value="Login"
+							rendered="#{!loginMB.loggedIn}" outcome="/clientuser/login.xhtml" />
+						<p:commandButton id="btnRedirLogout" value="Logout"
+							update=":formUserBar" rendered="#{loginMB.loggedIn}"
+							actionListener="#{loginMB.doLogout()}">
+						</p:commandButton>
+						<p:button id="btnRedirSignUp" value="Cadastre-se"
+							rendered="#{!loginMB.loggedIn}"
+							outcome="/clientuser/signup/customerSave.xhtml" />
 						<p:button id="btnShoppingCart" value="Carrinho de compras"
 							outcome="/clientuser/shoppingCart.xhtml" />
+							
+						<p:button id="btnOder" value="Pedidos"
+							rendered="#{loginMB.loggedIn}"
+							outcome="/clientuser/logged/order.xhtml" />	
 					</p:panelGrid>
 
 					<p:menubar>

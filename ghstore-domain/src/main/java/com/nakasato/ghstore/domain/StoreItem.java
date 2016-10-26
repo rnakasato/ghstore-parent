@@ -1,5 +1,7 @@
 package com.nakasato.ghstore.domain;
 
+import com.nakasato.ghstore.domain.product.Product;
+
 public abstract class StoreItem extends AbstractDomainEntity {
 	private Product product;
 	private Integer amount;

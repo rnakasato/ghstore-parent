@@ -4,6 +4,7 @@ com\nakasato\ghstore\web\mb\AccessoryMB.class
 com\nakasato\ghstore\web\mb\ActionFiguresMB.class
 com\nakasato\ghstore\web\mb\ProductDetailMB.class
 com\nakasato\web\util\Redirector.class
+com\nakasato\ghstore\web\mb\LoginMB.class
 com\nakasato\ghstore\web\mb\ShirtMB.class
 com\nakasato\ghstore\web\mb\FormatterMB.class
 com\nakasato\ghstore\web\mb\BaseMB.class
@@ -15,4 +16,6 @@ com\nakasato\ghstore\web\mb\MangasMB.class
 com\nakasato\ghstore\servlet\ImageServlet.class
 com\nakasato\ghstore\web\mb\ShoppingCartMB.class
 com\nakasato\ghstore\web\mb\BoardGamesMB.class
+com\nakasato\ghstore\web\listener\AccessListener.class
+com\nakasato\ghstore\web\mb\CustomerMB.class
 com\nakasato\ghstore\web\mb\ProductMB.class

@@ -1,7 +1,7 @@
 package com.nakasato.ghtstore.core.business.validator;
 
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Product;
+import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghtstore.core.business.Validator;
 
 /**

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dialog id="orderDetail" header="Pedido" widgetVar="orderDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+			width="512px" position="center top">
+			<p:outputPanel id="panelDetail" style="align:center">
+				<p:panelGrid styleClass="baseGrid" columns="1" rendered="true"
+					columnClasses="label,value">
+					
+					<p:row style="text-align:left">
+						<p:outputLabel value="Código do pedido: " style="font-weight:bold" />
+						<p:outputLabel value="#{adminOrderMB.selectedOrder.code}" />
+					</p:row>
+					
+					<p:row style="text-align:left">
+						<p:outputLabel value="Código de transação PagSeguro: " style="font-weight:bold" />
+						<p:outputLabel value="#{adminOrderMB.selectedOrder.transactionCode}" />
+					</p:row>
+					
+					<p:row style="text-align:left">
+						<p:outputLabel value="Status do pedido: " style="font-weight:bold" />
+						<p:outputLabel value="#{adminOrderMB.selectedOrder.orderStatus.description}" />
+					</p:row>
+
+					<p:row style="text-align:left">
+						<p:outputLabel value="Comprador: " style="font-weight:bold" />
+						<p:outputLabel value="#{adminOrderMB.selectedOrder.customer.name}" />
+					</p:row>
+					
+					<p:row style="text-align:left">
+						<p:outputLabel value="Endereço de entrega: " style="font-weight:bold" />
+						<p:outputLabel value="#{adminOrderMB.selectedOrder.deliverAddress.formattedAddress}" />
+					</p:row>
+					
+					<p:row style="text-align:left">
+						<p:outputLabel value="CEP: " style="font-weight:bold" />
+						<p:outputLabel value="#{formatterMB.formatCEP(adminOrderMB.selectedOrder.deliverAddress.cep)}" />
+					</p:row>
+
+					<p:row style="text-align:left">
+						<p:outputLabel value="Nome de usuário: " style="font-weight:bold" />
+						<p:outputLabel
+							value="#{adminOrderMB.selectedOrder.customer.username}" />
+					</p:row>
+
+					<p:row style="text-align:left">
+						<p:outputLabel value="E-mail: " style="font-weight:bold" />
+						<p:outputLabel
+							value="#{adminOrderMB.selectedOrder.customer.email}" />
+					</p:row>
+					
+					<p:row style="text-align:left">
+						<p:outputLabel value="Valor total: " style="font-weight:bold"/>
+						<p:outputLabel value="#{formatterMB.formatCurrency(adminOrderMB.selectedOrder.totalValue)}"/>
+					</p:row>
+					
+					<p:row style="text-align:left">
+						<ui:include src="/admin/order/orderItemDataList.xhtml" />
+					</p:row>
+
+				</p:panelGrid>
+				
+				<p:commandButton value="Fechar" onclick="PF('orderDialog').hide()" />
+			</p:outputPanel>
+		</p:dialog>
+	</ui:composition>
+</h:body>
+</html>

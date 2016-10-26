@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dialog id="addStockDialog" header="Adicionar estoque"
+			widgetVar="stockDialog" modal="true" resizable="false" width="512px">
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Estoque atual: " />
+				<p:outputLabel value="#{adminProductMB.product.stock}" />
+			</p:panelGrid>
+			<p:panelGrid id="gridChangeStock" columns="3">
+				<p:commandButton id="removeButton" value="-" type="button"
+					style="width:25%" update=":form_content:gridChangeStock"
+					immediate="true" />
+				<pe:inputNumber id="inputStock" value="#{adminProductMB.stock}"
+					minValue="#{adminProductMB.minStock}" decimalPlaces="0"
+					decimalSeparator="," thousandSeparator="." maxValue="9999" />
+				<p:commandButton id="addButton" value="+" type="button"
+					style="width:25%" update=":form_content:gridChangeStock"
+					immediate="true" />
+			</p:panelGrid>
+			<p:panelGrid id="gridStockButtons" columns="2">
+				<p:commandButton actionListener="#{adminProductMB.update}"
+					value="Confirmar" id="confirm">
+					<p:confirm header="Produto" message="Confirmar Alteração?"
+						immediate="true" />
+				</p:commandButton>
+				<p:commandButton value="Cancelar" id="cancel"
+					onclick="PF('stockDialog').hide();">
+				</p:commandButton>
+			</p:panelGrid>
+		</p:dialog>
+	</ui:composition>
+</h:body>
+</html>

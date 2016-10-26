@@ -1,7 +1,9 @@
 com\nakasato\ghstore\core\dao\impl\StateDAO.class
 com\nakasato\ghstore\core\product\comparator\CompareProductByStock.class
 com\nakasato\ghstore\core\IStrategy.class
+com\nakasato\ghstore\core\dao\impl\AddressDAO.class
 com\nakasato\ghstore\core\IDAO.class
+com\nakasato\ghstore\core\payment\utils\PaymentUtil.class
 com\nakasato\ghstore\core\hibernate\HibernateUtil.class
 com\nakasato\ghstore\core\dao\impl\SysUserDAO.class
 com\nakasato\ghtstore\core\business\complementor\ComplementInsertDate.class
@@ -11,6 +13,7 @@ com\nakasato\ghtstore\core\business\validator\StoreCategoryValidator.class
 com\nakasato\ghstore\core\dao\impl\OrderDAO.class
 com\nakasato\ghtstore\core\business\filler\TagSaveUpdateFiller.class
 com\nakasato\ghstore\core\util\OrderByType.class
+com\nakasato\ghstore\core\payment\utils\FreteUtil.class
 com\nakasato\ghstore\core\util\Parser.class
 com\nakasato\ghtstore\core\business\AbstractStrategy.class
 com\nakasato\ghtstore\core\business\validator\StockValidator.class
@@ -25,6 +28,7 @@ com\nakasato\ghtstore\core\business\complementor\ComplementTags.class
 com\nakasato\ghstore\core\dao\impl\CityDAO.class
 com\nakasato\ghstore\core\application\Result.class
 com\nakasato\ghstore\core\util\FormatUtils.class
+com\nakasato\ghstore\core\dao\impl\UserTypeDAO.class
 com\nakasato\ghstore\core\product\comparator\CompareProductByName.class
 com\nakasato\ghtstore\core\business\complementor\ComplementProductCode.class
 com\nakasato\ghtstore\core\business\filler\TagFiller.class
@@ -37,18 +41,20 @@ com\nakasato\ghstore\core\product\util\ProductSort.class
 com\nakasato\ghstore\factory\impl\FactoryComparator.class
 com\nakasato\ghtstore\core\business\filler\SubcategoryFiller.class
 com\nakasato\ghstore\core\dao\impl\OrderStatusDAO.class
-com\nakasato\ghstore\core\payment\Payment.class
+com\nakasato\ghtstore\core\business\FieldsValidator.class
 com\nakasato\ghstore\core\dao\impl\CustomerDAO.class
 com\nakasato\ghstore\core\dao\impl\ShoppingCartDAO.class
 com\nakasato\ghstore\core\dao\impl\SubcategoryDAO.class
 com\nakasato\ghstore\core\product\comparator\CompareProductByPrice.class
 com\nakasato\ghstore\core\command\impl\CommandDelete.class
+com\nakasato\ghstore\core\dao\impl\OrderItemDAO.class
 com\nakasato\ghstore\factory\impl\FactoryCommand.class
 com\nakasato\ghstore\core\command\impl\CommandFind.class
 com\nakasato\ghstore\core\util\ImageUtils.class
 com\nakasato\ghstore\core\dao\impl\StoreCategoryDAO.class
 com\nakasato\ghstore\core\command\impl\CommandFindAll.class
 com\nakasato\ghtstore\core\business\validator\PriceValidator.class
+com\nakasato\ghstore\factory\impl\FactoryCustomStrategy.class
 com\nakasato\ghstore\core\IDomainSpecificEntityDAO.class
 com\nakasato\ghstore\factory\impl\FactoryDAO.class
 com\nakasato\ghstore\core\dao\impl\ProductDAO.class

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.nakasato.ghstore.domain.Product;
+import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.factory.impl.FactoryComparator;
 
 public class ProductSort {

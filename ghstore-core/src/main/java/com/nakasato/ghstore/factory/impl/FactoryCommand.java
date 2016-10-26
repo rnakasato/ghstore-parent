@@ -10,8 +10,8 @@ import com.nakasato.ghstore.core.command.impl.CommandFind;
 import com.nakasato.ghstore.core.command.impl.CommandFindAll;
 import com.nakasato.ghstore.core.command.impl.CommandSave;
 import com.nakasato.ghstore.core.command.impl.CommandUpdate;
-import com.nakasato.ghstore.core.filter.Filter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
+import com.nakasato.ghstore.domain.filter.Filter;
 
 public class FactoryCommand {
 	private static Map<String, Command> commandMap;

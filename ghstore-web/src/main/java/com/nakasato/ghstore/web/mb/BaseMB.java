@@ -1,20 +1,24 @@
 package com.nakasato.ghstore.web.mb;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
-import com.nakasato.ghstore.core.filter.Filter;
+import com.nakasato.ghstore.domain.filter.Filter;
 
 public abstract class BaseMB implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
-	// @ManagedProperty(value="#{userSessionMB}")
-	// protected UserSessionMB userSessionMB;
 	private Filter baseFilter;
 	private Boolean isSelected;
-
+	
 	public Filter getBaseFilter() {
 		return baseFilter;
 	}
@@ -22,32 +26,36 @@ public abstract class BaseMB implements Serializable {
 	public void setBaseFilter(Filter filter) {
 		this.baseFilter = filter;
 	}
-	
-	public void select(SelectEvent event){
+
+	public void select(SelectEvent event) {
 		isSelected = true;
 	}
-	
-	public void unSelect(UnselectEvent event){
+
+	public void unSelect(UnselectEvent event) {
 		isSelected = false;
 	}
 
 	public Boolean getIsSelected() {
 		return isSelected;
 	}
-
 	
+	public abstract void clearFilter();
 
-	// public void setPageUrl(String page){
-	// if(this.userSessionMB.getOldPage() != null &&
-	// this.userSessionMB.getNewPage() != null){
-	// if(!this.userSessionMB.getOldPage().equals(userSessionMB.getNewPage())){
-	// userSessionMB.setOldPage(userSessionMB.getNewPage());
-	// }
-	// userSessionMB.setNewPage(page);
-	// }else{
-	// userSessionMB.setOldPage(page);
-	// userSessionMB.setNewPage(page);
-	// }
-	// }
+	public void addMessage(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(msg));
+	}
+	
+	public void addRedirectMessage(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext ext = context.getExternalContext();
+		ext.getFlash().setKeepMessages(true);
+		ext.getFlash().setRedirect(true);
+		context.addMessage(null, new FacesMessage(msg));
+	}
+	
+	public Date getToday(){
+		return new Date();
+	}
 
 }

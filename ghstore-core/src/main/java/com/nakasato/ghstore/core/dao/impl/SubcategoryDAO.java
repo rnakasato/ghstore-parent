@@ -6,9 +6,9 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.nakasato.ghstore.core.filter.impl.SubcategoryFilter;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
-import com.nakasato.ghstore.domain.Subcategory;
+import com.nakasato.ghstore.domain.filter.impl.SubcategoryFilter;
+import com.nakasato.ghstore.domain.product.Subcategory;
 
 public class SubcategoryDAO extends AbstractDAO<Subcategory> {
 

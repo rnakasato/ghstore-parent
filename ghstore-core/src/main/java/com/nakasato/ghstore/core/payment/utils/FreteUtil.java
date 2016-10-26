@@ -27,8 +27,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 
-import com.nakasato.ghstore.domain.Address;
-import com.nakasato.ghstore.domain.ShoppingCart;
+import com.nakasato.ghstore.domain.shopping.cart.ShoppingCart;
+import com.nakasato.ghstore.domain.user.Address;
 
 public class FreteUtil {
 	public static final String CEP_DESTINO = "08751300";

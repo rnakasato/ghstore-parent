@@ -3,11 +3,11 @@ package com.nakasato.ghstore.core.payment.utils;
 import java.math.BigDecimal;
 
 import com.nakasato.ghstore.core.util.FormatUtils;
-import com.nakasato.ghstore.domain.Address;
-import com.nakasato.ghstore.domain.Customer;
-import com.nakasato.ghstore.domain.ShoppingCart;
-import com.nakasato.ghstore.domain.ShoppingCartItem;
-import com.nakasato.ghstore.domain.User;
+import com.nakasato.ghstore.domain.shopping.cart.ShoppingCart;
+import com.nakasato.ghstore.domain.shopping.cart.ShoppingCartItem;
+import com.nakasato.ghstore.domain.user.Address;
+import com.nakasato.ghstore.domain.user.Customer;
+import com.nakasato.ghstore.domain.user.User;
 
 import br.com.uol.pagseguro.domain.Item;
 import br.com.uol.pagseguro.domain.checkout.Checkout;
@@ -55,8 +55,8 @@ public class PaymentUtil {
 		checkout.setSender(
 			user.getName(),
 			user.getEmail(),
-			user.getPhoneList().get(0).getDdd().toString(),
-			user.getPhoneList().get(0).getNumber().toString(),
+			user.getPhoneList().get(0).getDdd(),
+			user.getPhoneList().get(0).getNumber(),
 			DocumentType.CPF,
 			user.getCpf()
 		);

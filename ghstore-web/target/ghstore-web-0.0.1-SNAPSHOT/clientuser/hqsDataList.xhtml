@@ -19,12 +19,13 @@
 					<h:panelGrid columns="1" style="width:100%">
 						<p:commandLink
 							actionListener="#{redirectMB.redirectToProductPage(hqMB.product)}">
-							<p:graphicImage name="#{hqMB.getImagePath(prod)}" />
+							<p:graphicImage value="#{hqMB.getImagePath(prod)}" style="width:192px;heigth:192"/>
 							<f:setPropertyActionListener value="#{prod}"
 								target="#{hqMB.product}" />
 						</p:commandLink>
+						<p:commandButton value="Comprar" actionListener="#{redirectMB.redirectToProductPage(prod)}"/>
 						<h:outputText value="#{prod.name}" />
-						<h:outputText value="R$ #{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText value="#{formatterMB.formatCurrency(prod.price)}" />
 						<h:outputText value="#{prod.statusDesc}" />
 					</h:panelGrid>
 				</p:panel>
