@@ -7,14 +7,14 @@ import com.nakasato.ghstore.domain.user.Address;
 import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghtstore.core.business.Complementor;
 
-public class ComplementCustomerUpdate extends Complementor<Customer>{
+public class ComplementCustomerUpdate extends Complementor < Customer > {
 
-	@Override
-	public String complement(Customer entity) {
-		for (Address address : entity.getDeliveryAddressList()) {
-			address.setCep(FormatUtils.removeHifen(address.getCep()));
+	@ Override
+	public String complement( Customer entity ) {
+		for( Address address: entity.getDeliveryAddressList() ) {
+			address.setCep( FormatUtils.removeHifen( address.getCep() ) );
 		}
-		entity.setUpdateDate(new Date());
+		entity.setUpdateDate( new Date() );
 		return null;
 	}
 

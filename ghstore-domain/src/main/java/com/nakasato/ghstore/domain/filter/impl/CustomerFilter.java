@@ -11,24 +11,24 @@ public class CustomerFilter extends Filter {
 		return loadAddress;
 	}
 
-	public void setLoadAddress(Boolean loadAddress) {
-		this.loadAddress = loadAddress;
+	public void setLoadAddress( Boolean loadAddress ) {
+		this.loadAddress =loadAddress;
 	}
 
 	public Boolean getLoadOrder() {
 		return loadOrder;
 	}
 
-	public void setLoadOrder(Boolean loadOrder) {
-		this.loadOrder = loadOrder;
+	public void setLoadOrder( Boolean loadOrder ) {
+		this.loadOrder =loadOrder;
 	}
 
 	public String getUserName() {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName( String userName ) {
+		this.userName =userName;
 	}
 
 }

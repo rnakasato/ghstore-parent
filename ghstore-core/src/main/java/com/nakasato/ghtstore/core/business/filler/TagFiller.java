@@ -14,23 +14,23 @@ import com.nakasato.ghtstore.core.business.Filler;
 
 public class TagFiller extends Filler {
 
-	@Override
-	public String fill(AbstractDomainEntity entity) {
+	@ Override
+	public String fill( AbstractDomainEntity entity ) {
 		ICommand command;
 		try {
-			Product product = (Product) entity;
-			TagFilter filter = new TagFilter();
-			filter.setProductId(product.getId());
-			command = FactoryCommand.build(filter, EOperation.FIND);
-			List<AbstractDomainEntity> resultList = command.execute().getEntityList();
-			List<Tag> tagList = new ArrayList<>();
-			for (AbstractDomainEntity e : resultList) {
-				Tag t = (Tag) e;
-				tagList.add(t);
+			Product product =( Product ) entity;
+			TagFilter filter =new TagFilter();
+			filter.setProductId( product.getId() );
+			command =FactoryCommand.build( filter, EOperation.FIND );
+			List < AbstractDomainEntity > resultList =command.execute().getEntityList();
+			List < Tag > tagList =new ArrayList<>();
+			for( AbstractDomainEntity e: resultList ) {
+				Tag t =( Tag ) e;
+				tagList.add( t );
 			}
-			product.setTagList(tagList);
+			product.setTagList( tagList );
 
-		} catch (ClassNotFoundException e) {
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 		return null;

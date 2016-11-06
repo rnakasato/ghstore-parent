@@ -7,8 +7,8 @@ public class DomainSpecificEntity extends AbstractDomainEntity {
 		return code;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setCode( String code ) {
+		this.code =code;
 	}
 
 }

@@ -17,31 +17,31 @@ import com.nakasato.ghtstore.core.business.Filler;
 
 public class SubcategoryFiller extends Filler {
 
-	@Override
-	public String fill(AbstractDomainEntity entity) {
+	@ Override
+	public String fill( AbstractDomainEntity entity ) {
 		ICommand command;
 		try {
-			if (entity != null && entity instanceof Product) {
-				Product product = (Product) entity;
-				if (product.getSubcategory() != null && (product.getSubcategory().getId() != null
-						|| !StringUtils.isEmpty(product.getSubcategory().getDescription()))) {
+			if( entity !=null &&entity instanceof Product ) {
+				Product product =( Product ) entity;
+				if( product.getSubcategory() !=null &&( product.getSubcategory().getId() !=null
+						|| !StringUtils.isEmpty( product.getSubcategory().getDescription() ) ) ) {
 
-					SubcategoryFilter filter = new SubcategoryFilter();
-					filter.setId(product.getSubcategory().getId());
-					filter.setDescription(product.getSubcategory().getDescription());
-					command = FactoryCommand.build(filter, EOperation.FIND);
-					List<AbstractDomainEntity> subcategoryList = command.execute().getEntityList();
-					if (!ListUtils.isListEmpty(subcategoryList)) {
-						Subcategory subcategory = new Subcategory();
-						subcategory = (Subcategory) subcategoryList.get(0);
-						product.setSubcategory(subcategory);
+					SubcategoryFilter filter =new SubcategoryFilter();
+					filter.setId( product.getSubcategory().getId() );
+					filter.setDescription( product.getSubcategory().getDescription() );
+					command =FactoryCommand.build( filter, EOperation.FIND );
+					List < AbstractDomainEntity > subcategoryList =command.execute().getEntityList();
+					if( !ListUtils.isListEmpty( subcategoryList ) ) {
+						Subcategory subcategory =new Subcategory();
+						subcategory =( Subcategory ) subcategoryList.get( 0 );
+						product.setSubcategory( subcategory );
 					} else {
-						product.getSubcategory().setInsertDate(new Date());
-						product.getSubcategory().setStoreCategory(product.getStoreCategory());
+						product.getSubcategory().setInsertDate( new Date() );
+						product.getSubcategory().setStoreCategory( product.getStoreCategory() );
 					}
 				}
 			}
-		} catch (ClassNotFoundException e) {
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 		return null;

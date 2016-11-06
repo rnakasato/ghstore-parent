@@ -28,11 +28,11 @@ import com.nakasato.ghstore.web.mb.BaseMB;
 import com.nakasato.ghstore.web.mb.user.LoginMB;
 import com.nakasato.web.util.Redirector;
 
-@ManagedBean(name = "shoppingCartMB")
-@ViewScoped
+@ ManagedBean( name ="shoppingCartMB" )
+@ ViewScoped
 public class ShoppingCartMB extends BaseMB {
 
-	@ManagedProperty(value = "#{loginMB}")
+	@ ManagedProperty( value ="#{loginMB}" )
 	protected LoginMB loginMB;
 
 	private Customer loggedUser;
@@ -42,16 +42,16 @@ public class ShoppingCartMB extends BaseMB {
 	private Address selectedAddress;
 	private Address newAddress;
 
-	private List<State> stateList;
-	private List<City> cityList;
+	private List < State > stateList;
+	private List < City > cityList;
 
 	private boolean saveOperation;
 
-	@PostConstruct
+	@ PostConstruct
 	public void init() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		loggedUser = (Customer) loginMB.getLoggedUser();
-		newAddress = new Address();
+		FacesContext context =FacesContext.getCurrentInstance();
+		loggedUser =( Customer ) loginMB.getLoggedUser();
+		newAddress =new Address();
 		initStateList();
 	}
 
@@ -62,180 +62,179 @@ public class ShoppingCartMB extends BaseMB {
 	public void save() {
 		try {
 
-			ICommand command = FactoryCommand.build(loggedUser, EOperation.SAVE);
-			String msg = command.execute().getMsg();
-			if (StringUtils.isNotEmpty(msg)) {
-				addMessage(msg);
+			ICommand command =FactoryCommand.build( loggedUser, EOperation.SAVE );
+			String msg =command.execute().getMsg();
+			if( StringUtils.isNotEmpty( msg ) ) {
+				addMessage( msg );
 			}
 
-			FacesContext context = FacesContext.getCurrentInstance();
+			FacesContext context =FacesContext.getCurrentInstance();
 
-			Redirector.redirectTo(context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true");
+			Redirector.redirectTo( context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
 
-		} catch (ClassNotFoundException e) {
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 	}
 
 	public void initStateList() {
 		try {
-			ICommand command = FactoryCommand.build(new State(), EOperation.FINDALL);
-			Result result = command.execute();
-			stateList = result.getEntityList();
-		} catch (ClassNotFoundException e) {
+			ICommand command =FactoryCommand.build( new State(), EOperation.FINDALL );
+			Result result =command.execute();
+			stateList =result.getEntityList();
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public void initCityList(AjaxBehaviorEvent event) {
+	public void initCityList( AjaxBehaviorEvent event ) {
 		try {
-			if (selectedState != null) {
-				CityFilter filter = new CityFilter();
-				filter.setStateAcronym(selectedState.getAcronym());
-				ICommand command = FactoryCommand.build(filter, EOperation.FIND);
-				Result result = command.execute();
-				cityList = result.getEntityList();
+			if( selectedState !=null ) {
+				CityFilter filter =new CityFilter();
+				filter.setStateAcronym( selectedState.getAcronym() );
+				ICommand command =FactoryCommand.build( filter, EOperation.FIND );
+				Result result =command.execute();
+				cityList =result.getEntityList();
 			}
-		} catch (ClassNotFoundException e) {
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 	}
 
 	public void addNewAddress() {
-		saveOperation = true;
-		if(newAddress == null){
-			newAddress.setCity(new City());
-			newAddress = new Address();
+		saveOperation =true;
+		if( newAddress ==null ) {
+			newAddress.setCity( new City() );
+			newAddress =new Address();
 		}
-		RequestContext ctx = RequestContext.getCurrentInstance();
-		ctx.execute("PF('addressDialog').show()");
+		RequestContext ctx =RequestContext.getCurrentInstance();
+		ctx.execute( "PF('addressDialog').show()" );
 	}
 
 	public void cancelAddress() {
-		RequestContext ctx = RequestContext.getCurrentInstance();
-		ctx.execute("PF('addressDialog').hide()");
+		RequestContext ctx =RequestContext.getCurrentInstance();
+		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
 	public void addAddress() {
 		try {
-			
-			newAddress.setInsertDate(new Date());
-			loggedUser.getDeliveryAddressList().add(newAddress);
-			ICommand commandUpdate = FactoryCommand.build(loggedUser, EOperation.UPDATE);
+
+			newAddress.setInsertDate( new Date() );
+			loggedUser.getDeliveryAddressList().add( newAddress );
+			ICommand commandUpdate =FactoryCommand.build( loggedUser, EOperation.UPDATE );
 			commandUpdate.execute();
 
-			newAddress = new Address();
-			newAddress.setCity(new City());
-			
-			RequestContext ctx = RequestContext.getCurrentInstance();
-			ctx.execute("PF('addressDialog').hide()");
-		} catch (ClassNotFoundException e) {
-			addMessage("Erro inesperado");
+			newAddress =new Address();
+			newAddress.setCity( new City() );
+
+			RequestContext ctx =RequestContext.getCurrentInstance();
+			ctx.execute( "PF('addressDialog').hide()" );
+		} catch( ClassNotFoundException e ) {
+			addMessage( "Erro inesperado" );
 		}
 	}
 
-	
-	public String getImagePath(Product product) {
+	public String getImagePath( Product product ) {
 		String path;
-		if (product != null) {
-			path = SaveDirectory.REQUEST_IMG_DIR + product.getImage();
+		if( product !=null ) {
+			path =SaveDirectory.REQUEST_IMG_DIR +product.getImage();
 		} else {
-			path = "default.jpg";
+			path ="default.jpg";
 		}
 		return path;
 	}
-	
+
 	public void removeAddress() {
-		List<Address> addressList = loggedUser.getDeliveryAddressList();
-		addressList.remove(newAddress);
+		List < Address > addressList =loggedUser.getDeliveryAddressList();
+		addressList.remove( newAddress );
 	}
 
 	public void changeAddress() {
-		saveOperation = false;
+		saveOperation =false;
 	}
 
 	public void updateAddress() {
-		RequestContext ctx = RequestContext.getCurrentInstance();
-		ctx.execute("PF('addressDialog').hide()");
+		RequestContext ctx =RequestContext.getCurrentInstance();
+		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
 	public Customer getCustomer() {
 		return loggedUser;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.loggedUser = customer;
+	public void setCustomer( Customer customer ) {
+		this.loggedUser =customer;
 	}
 
-	public List<State> getStateList() {
+	public List < State > getStateList() {
 		return stateList;
 	}
 
-	public void setStateList(List<State> stateList) {
-		this.stateList = stateList;
+	public void setStateList( List < State > stateList ) {
+		this.stateList =stateList;
 	}
 
-	public List<City> getCityList() {
+	public List < City > getCityList() {
 		return cityList;
 	}
 
-	public void setCityList(List<City> cityList) {
-		this.cityList = cityList;
+	public void setCityList( List < City > cityList ) {
+		this.cityList =cityList;
 	}
 
 	public State getSelectedState() {
 		return selectedState;
 	}
 
-	public void setSelectedState(State selectedState) {
-		this.selectedState = selectedState;
+	public void setSelectedState( State selectedState ) {
+		this.selectedState =selectedState;
 	}
 
 	public Address getSelectedAddress() {
 		return selectedAddress;
 	}
 
-	public void setSelectedAddress(Address selectedAddress) {
-		this.selectedAddress = selectedAddress;
+	public void setSelectedAddress( Address selectedAddress ) {
+		this.selectedAddress =selectedAddress;
 	}
 
 	public Address getNewAddress() {
 		return newAddress;
 	}
 
-	public void setNewAddress(Address newAddress) {
-		this.newAddress = newAddress;
+	public void setNewAddress( Address newAddress ) {
+		this.newAddress =newAddress;
 	}
 
 	public boolean isSaveOperation() {
 		return saveOperation;
 	}
 
-	public void setSaveOperation(boolean saveOperation) {
-		this.saveOperation = saveOperation;
+	public void setSaveOperation( boolean saveOperation ) {
+		this.saveOperation =saveOperation;
 	}
 
 	public LoginMB getLoginMB() {
 		return loginMB;
 	}
 
-	public void setLoginMB(LoginMB loginMB) {
-		this.loginMB = loginMB;
+	public void setLoginMB( LoginMB loginMB ) {
+		this.loginMB =loginMB;
 	}
 
 	public Customer getLoggedUser() {
 		return loggedUser;
 	}
 
-	public void setLoggedUser(Customer loggedUser) {
-		this.loggedUser = loggedUser;
+	public void setLoggedUser( Customer loggedUser ) {
+		this.loggedUser =loggedUser;
 	}
 
-	@Override
+	@ Override
 	public void clearFilter() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

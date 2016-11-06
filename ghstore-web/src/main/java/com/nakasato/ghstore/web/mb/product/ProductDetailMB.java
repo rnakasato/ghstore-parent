@@ -14,61 +14,61 @@ import com.nakasato.ghstore.domain.filter.impl.ProductFilter;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
-@ManagedBean(name = "productDetailMB")
-@ViewScoped
+@ ManagedBean( name ="productDetailMB" )
+@ ViewScoped
 public class ProductDetailMB extends ProductMB {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID =1L;
 	private Integer amount;
 	private Integer maxValue;
 
 	private String code;
 
-	@PostConstruct
+	@ PostConstruct
 	public void init() {
 
 	}
 
 	public void loadProduct() {
 		try {
-			if (!StringUtils.isEmpty(code) && product == null) {
-				ProductFilter filter = new ProductFilter();
-				filter.setCode(code);
+			if( !StringUtils.isEmpty( code ) &&product ==null ) {
+				ProductFilter filter =new ProductFilter();
+				filter.setCode( code );
 				ICommand commandFind;
-				commandFind = FactoryCommand.build(filter, EOperation.FIND);
-				List<Product> productList = commandFind.execute().getEntityList();
-				if (productList != null && !productList.isEmpty()) {
-					product = productList.get(0);
-					amount = 1;
-					maxValue = product.getStock();
+				commandFind =FactoryCommand.build( filter, EOperation.FIND );
+				List < Product > productList =commandFind.execute().getEntityList();
+				if( productList !=null && !productList.isEmpty() ) {
+					product =productList.get( 0 );
+					amount =1;
+					maxValue =product.getStock();
 				}
 
 			}
 
-		} catch (ClassNotFoundException e) {
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 
 	}
 
 	public void addAmount() {
-		if (amount == null) {
-			amount = 1;
+		if( amount ==null ) {
+			amount =1;
 		}
-		if (amount < product.getStock()) {
-			amount += 1;
+		if( amount <product.getStock() ) {
+			amount +=1;
 		}
 	}
 
 	public void removeAmount() {
-		if (amount == null) {
-			amount = 1;
+		if( amount ==null ) {
+			amount =1;
 		}
-		if (amount > 1) {
-			amount -= 1;
+		if( amount >1 ) {
+			amount -=1;
 		}
 	}
 
@@ -76,28 +76,28 @@ public class ProductDetailMB extends ProductMB {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public void setAmount( Integer amount ) {
+		this.amount =amount;
 	}
 
 	public Integer getMaxValue() {
 		return maxValue;
 	}
 
-	public void setMaxValue(Integer maxValue) {
-		this.maxValue = maxValue;
+	public void setMaxValue( Integer maxValue ) {
+		this.maxValue =maxValue;
 	}
 
 	public void resetPage() {
-		amount = 1;
+		amount =1;
 	}
 
 	public String getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setCode( String code ) {
+		this.code =code;
 	}
 
 }

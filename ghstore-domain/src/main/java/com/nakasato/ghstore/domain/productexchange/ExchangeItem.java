@@ -14,40 +14,40 @@ public class ExchangeItem extends AbstractDomainEntity {
 		return product;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct( Product product ) {
+		this.product =product;
 	}
 
 	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public void setAmount( Integer amount ) {
+		this.amount =amount;
 	}
 
 	public Double getTotalValue() {
 		return totalValue;
 	}
 
-	public void setTotalValue(Double totalValue) {
-		this.totalValue = totalValue;
+	public void setTotalValue( Double totalValue ) {
+		this.totalValue =totalValue;
 	}
 
 	public ProductExchange getProductExchange() {
 		return productExchange;
 	}
 
-	public void setProductExchange(ProductExchange productExchange) {
-		this.productExchange = productExchange;
+	public void setProductExchange( ProductExchange productExchange ) {
+		this.productExchange =productExchange;
 	}
 
 	public Integer getOriginalAmount() {
 		return originalAmount;
 	}
 
-	public void setOriginalAmount(Integer originalAmount) {
-		this.originalAmount = originalAmount;
+	public void setOriginalAmount( Integer originalAmount ) {
+		this.originalAmount =originalAmount;
 	}
 
 }

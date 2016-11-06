@@ -14,41 +14,41 @@ import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.filter.Filter;
 
 public class FactoryCommand {
-	private static Map<String, Command> commandMap;
+	private static Map < String, Command > commandMap;
 
-	public static Command build(AbstractDomainEntity entity, String operation) throws ClassNotFoundException {
-		if (commandMap == null) {
+	public static Command build( AbstractDomainEntity entity, String operation ) throws ClassNotFoundException {
+		if( commandMap ==null ) {
 			initCommands();
 		}
-		Command command = commandMap.get(operation);
-		if (command != null) {
-			command.setEntity(entity);
+		Command command =commandMap.get( operation );
+		if( command !=null ) {
+			command.setEntity( entity );
 		} else {
 			throw new ClassNotFoundException();
 		}
 		return command;
 	}
 
-	public static Command build(AbstractDomainEntity entity, String operation, int parameter)
+	public static Command build( AbstractDomainEntity entity, String operation, int parameter )
 			throws ClassNotFoundException {
-		if (commandMap == null) {
+		if( commandMap ==null ) {
 			initCommands();
 		}
-		Command command = commandMap.get(operation);
-		if (command != null) {
-			if (operation.equals(EOperation.FIND)) {
-				if (entity instanceof Filter) {
-					Filter filter = (Filter) entity;
-					command.setFilter(filter);
+		Command command =commandMap.get( operation );
+		if( command !=null ) {
+			if( operation.equals( EOperation.FIND ) ) {
+				if( entity instanceof Filter ) {
+					Filter filter =( Filter ) entity;
+					command.setFilter( filter );
 				} else {
 					throw new ClassNotFoundException();
 				}
 
 			} else {
-				command.setEntity(entity);
+				command.setEntity( entity );
 			}
 
-			command.setParameter(parameter);
+			command.setParameter( parameter );
 		} else {
 			throw new ClassNotFoundException();
 		}
@@ -56,11 +56,11 @@ public class FactoryCommand {
 	}
 
 	private static void initCommands() {
-		commandMap = new HashMap<>();
-		commandMap.put(EOperation.SAVE, new CommandSave());
-		commandMap.put(EOperation.UPDATE, new CommandUpdate());
-		commandMap.put(EOperation.DELETE, new CommandDelete());
-		commandMap.put(EOperation.FIND, new CommandFind());
-		commandMap.put(EOperation.FINDALL, new CommandFindAll());
+		commandMap =new HashMap<>();
+		commandMap.put( EOperation.SAVE, new CommandSave() );
+		commandMap.put( EOperation.UPDATE, new CommandUpdate() );
+		commandMap.put( EOperation.DELETE, new CommandDelete() );
+		commandMap.put( EOperation.FIND, new CommandFind() );
+		commandMap.put( EOperation.FINDALL, new CommandFindAll() );
 	}
 }

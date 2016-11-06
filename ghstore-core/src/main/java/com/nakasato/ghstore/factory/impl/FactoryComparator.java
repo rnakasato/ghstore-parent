@@ -13,24 +13,23 @@ import com.nakasato.ghstore.core.product.comparator.CompareProductByStatus;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByStock;
 
 public class FactoryComparator {
-private static Map<Integer,Comparator> comparatorMap;
-	
-	private static void initMap(){
-		if(comparatorMap == null){
-			comparatorMap = new HashMap<>();
-			comparatorMap.put(EComparator.PRODUCT_NAME, new CompareProductByName());
-			comparatorMap.put(EComparator.PRODUCT_CATEGORY, new CompareProductByCat());
-			comparatorMap.put(EComparator.PRODUCT_PRICE, new CompareProductByPrice());
-			comparatorMap.put(EComparator.PRODUCT_STATUS, new CompareProductByStatus());
-			comparatorMap.put(EComparator.PRODUCT_STOCK, new CompareProductByStock());
-			comparatorMap.put(EComparator.PRODUCT_SELL, new CompareProductBySell());
+	private static Map < Integer, Comparator > comparatorMap;
+
+	private static void initMap() {
+		if( comparatorMap ==null ) {
+			comparatorMap =new HashMap<>();
+			comparatorMap.put( EComparator.PRODUCT_NAME, new CompareProductByName() );
+			comparatorMap.put( EComparator.PRODUCT_CATEGORY, new CompareProductByCat() );
+			comparatorMap.put( EComparator.PRODUCT_PRICE, new CompareProductByPrice() );
+			comparatorMap.put( EComparator.PRODUCT_STATUS, new CompareProductByStatus() );
+			comparatorMap.put( EComparator.PRODUCT_STOCK, new CompareProductByStock() );
+			comparatorMap.put( EComparator.PRODUCT_SELL, new CompareProductBySell() );
 		}
 	}
-	
-	public static Comparator build(Integer comparatorType){
+
+	public static Comparator build( Integer comparatorType ) {
 		initMap();
-		Comparator c = comparatorMap.get(comparatorType);
+		Comparator c =comparatorMap.get( comparatorType );
 		return c;
 	}
 }
-	

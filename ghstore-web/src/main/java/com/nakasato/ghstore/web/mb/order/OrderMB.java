@@ -12,71 +12,70 @@ import com.nakasato.ghstore.web.mb.BaseMB;
 
 public abstract class OrderMB extends BaseMB {
 	protected OrderFilter filter;
-	protected List<Order> orderResults;
-	protected List<OrderStatus> orderStatusList;
+	protected List < Order > orderResults;
+	protected List < OrderStatus > orderStatusList;
 	protected Order selectedOrder;
-	
+
 	public abstract void listOrders();
-	
-	public void viewDetails(Order order) {
-		selectedOrder = order;		
-		
+
+	public void viewDetails( Order order ) {
+		selectedOrder =order;
+
 	}
 
 	protected void initOrderStatus() {
 		try {
-			ICommand commandFindAll = FactoryCommand.build(new OrderStatus(), EOperation.FINDALL);
-			orderStatusList = commandFindAll.execute().getEntityList();
-		} catch (ClassNotFoundException e) {
+			ICommand commandFindAll =FactoryCommand.build( new OrderStatus(), EOperation.FINDALL );
+			orderStatusList =commandFindAll.execute().getEntityList();
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	protected boolean validateDates() {
-		boolean hasError = false;
-		if ((filter.getStartDate() != null && filter.getEndDate() == null)
-				|| (filter.getStartDate() == null && filter.getEndDate() != null)) {
-			addMessage("Para usar o filtro de data as datas inicial e final devem estar preenchidas!");
-			hasError = true;
-		} else if (filter.getStartDate() != null && filter.getEndDate() != null
-				&& filter.getEndDate().before(filter.getStartDate())) {
-			addMessage("A data final deve ser inferior que a data inicial!");
-			hasError = true;
+		boolean hasError =false;
+		if( ( filter.getStartDate() !=null &&filter.getEndDate() ==null )
+				||( filter.getStartDate() ==null &&filter.getEndDate() !=null ) ) {
+			addMessage( "Para usar o filtro de data as datas inicial e final devem estar preenchidas!" );
+			hasError =true;
+		} else if( filter.getStartDate() !=null &&filter.getEndDate() !=null
+				&&filter.getEndDate().before( filter.getStartDate() ) ) {
+			addMessage( "A data final deve ser inferior que a data inicial!" );
+			hasError =true;
 		}
 		return hasError;
 	}
-	
-	
+
 	public OrderFilter getFilter() {
 		return filter;
 	}
 
-	public void setFilter(OrderFilter filter) {
-		this.filter = filter;
+	public void setFilter( OrderFilter filter ) {
+		this.filter =filter;
 	}
 
-	public List<Order> getOrderResults() {
+	public List < Order > getOrderResults() {
 		return orderResults;
 	}
 
-	public void setOrderResults(List<Order> orderResults) {
-		this.orderResults = orderResults;
+	public void setOrderResults( List < Order > orderResults ) {
+		this.orderResults =orderResults;
 	}
 
-	public List<OrderStatus> getOrderStatusList() {
+	public List < OrderStatus > getOrderStatusList() {
 		return orderStatusList;
 	}
 
-	public void setOrderStatusList(List<OrderStatus> orderStatusList) {
-		this.orderStatusList = orderStatusList;
+	public void setOrderStatusList( List < OrderStatus > orderStatusList ) {
+		this.orderStatusList =orderStatusList;
 	}
 
 	public Order getSelectedOrder() {
 		return selectedOrder;
 	}
 
-	public void setSelectedOrder(Order selectedOrder) {
-		this.selectedOrder = selectedOrder;
+	public void setSelectedOrder( Order selectedOrder ) {
+		this.selectedOrder =selectedOrder;
 	}
-	
+
 }

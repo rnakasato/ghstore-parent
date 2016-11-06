@@ -10,8 +10,8 @@ public class SubcategoryFilter extends Filter {
 		return storeCategory;
 	}
 
-	public void setStoreCategory(StoreCategory storeCategory) {
-		this.storeCategory = storeCategory;
+	public void setStoreCategory( StoreCategory storeCategory ) {
+		this.storeCategory =storeCategory;
 	}
 
 }

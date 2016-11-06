@@ -11,24 +11,24 @@ public class CityFilter extends Filter {
 		return stateAcronym;
 	}
 
-	public void setStateAcronym(String stateAcronym) {
-		this.stateAcronym = stateAcronym;
+	public void setStateAcronym( String stateAcronym ) {
+		this.stateAcronym =stateAcronym;
 	}
 
 	public String getStateName() {
 		return stateName;
 	}
 
-	public void setStateName(String stateName) {
-		this.stateName = stateName;
+	public void setStateName( String stateName ) {
+		this.stateName =stateName;
 	}
 
 	public String getCityName() {
 		return cityName;
 	}
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
+	public void setCityName( String cityName ) {
+		this.cityName =cityName;
 	}
 
 }

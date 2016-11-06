@@ -8,7 +8,7 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID =1L;
 	private City city;
 	private String neighborhood;
 	private String street;
@@ -20,40 +20,40 @@ public class Address extends AbstractDomainEntity implements Serializable {
 		return city;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setCity( City city ) {
+		this.city =city;
 	}
 
 	public String getNeighborhood() {
 		return neighborhood;
 	}
 
-	public void setNeighborhood(String neighborhood) {
-		this.neighborhood = neighborhood;
+	public void setNeighborhood( String neighborhood ) {
+		this.neighborhood =neighborhood;
 	}
 
 	public String getStreet() {
 		return street;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setStreet( String street ) {
+		this.street =street;
 	}
 
 	public String getComplement() {
 		return complement;
 	}
 
-	public void setComplement(String complement) {
-		this.complement = complement;
+	public void setComplement( String complement ) {
+		this.complement =complement;
 	}
 
 	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
-		this.number = number;
+	public void setNumber( Integer number ) {
+		this.number =number;
 	}
 
 	public String getCep() {
@@ -61,31 +61,31 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	}
 
 	public String getFormattedCep() {
-		return cep.replace("-", "");
+		return cep.replace( "-", "" );
 	}
 
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setCep( String cep ) {
+		this.cep =cep;
 	}
 
 	public String getFormattedAddress() {
-		String formattedAddress = null;
-		StringBuilder sb = new StringBuilder();
-		if (getStreet() != null && getCity() != null && getCity().getState() != null) {
-			sb.append(getStreet());
-			sb.append(",");
-			sb.append(getNeighborhood());
-			sb.append(",");
-			sb.append(getCity().getName());
-			sb.append(",");
-			sb.append(getCity().getState().getAcronym());
-			formattedAddress = sb.toString();
+		String formattedAddress =null;
+		StringBuilder sb =new StringBuilder();
+		if( getStreet() !=null &&getCity() !=null &&getCity().getState() !=null ) {
+			sb.append( getStreet() );
+			sb.append( "," );
+			sb.append( getNeighborhood() );
+			sb.append( "," );
+			sb.append( getCity().getName() );
+			sb.append( "," );
+			sb.append( getCity().getState().getAcronym() );
+			formattedAddress =sb.toString();
 		}
 
 		return formattedAddress;
 	}
 
-	@Override
+	@ Override
 	public boolean isEmpty() {
 
 		return super.isEmpty();

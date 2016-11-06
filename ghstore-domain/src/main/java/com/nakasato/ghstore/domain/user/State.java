@@ -12,23 +12,23 @@ public class State extends AbstractDomainEntity {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName( String name ) {
+		this.name =name;
 	}
 
 	public String getAcronym() {
 		return acronym;
 	}
 
-	public void setAcronym(String acronym) {
-		this.acronym = acronym;
+	public void setAcronym( String acronym ) {
+		this.acronym =acronym;
 	}
-	
-	@Override
+
+	@ Override
 	public boolean isEmpty() {
-		boolean result = false;
-		if (StringUtils.isEmpty(name) && super.isEmpty()) {
-			result = true;
+		boolean result =false;
+		if( StringUtils.isEmpty( name ) &&super.isEmpty() ) {
+			result =true;
 		}
 		return false;
 	}

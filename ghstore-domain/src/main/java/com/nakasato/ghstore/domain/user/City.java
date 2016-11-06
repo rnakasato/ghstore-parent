@@ -13,31 +13,31 @@ public class City extends AbstractDomainEntity {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName( String name ) {
+		this.name =name;
 	}
 
 	public State getState() {
 		return state;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setState( State state ) {
+		this.state =state;
 	}
 
 	public String getUf() {
 		return uf;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setUf( String uf ) {
+		this.uf =uf;
 	}
 
-	@Override
+	@ Override
 	public boolean isEmpty() {
-		boolean result = false;
-		if (StringUtils.isEmpty(name) && super.isEmpty()) {
-			result = true;
+		boolean result =false;
+		if( StringUtils.isEmpty( name ) &&super.isEmpty() ) {
+			result =true;
 		}
 		return result;
 	}

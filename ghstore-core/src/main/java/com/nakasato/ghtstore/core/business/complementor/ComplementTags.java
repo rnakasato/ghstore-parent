@@ -12,39 +12,38 @@ import com.nakasato.ghstore.domain.product.Tag;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghtstore.core.business.Complementor;
 
-public class ComplementTags extends Complementor<Product> {
+public class ComplementTags extends Complementor < Product > {
 
-	@Override
-	public String complement(Product entity) {
-		Product p = (Product) entity;
+	@ Override
+	public String complement( Product entity ) {
+		Product p =( Product ) entity;
 		ICommand commandFind;
-		List<Tag> tagList = new ArrayList<Tag>();
-		try{
-			
-			
-			if(p.getTagList() != null){
-				for (Tag t : p.getTagList()) {
-					TagFilter filter = new TagFilter();
-					filter.setDescription(t.getDescription());
-					commandFind = FactoryCommand.build(filter, EOperation.FIND);
-					List<Tag> tags = commandFind.execute().getEntityList();
-					if(tags != null && !tags.isEmpty()){
-						for (Tag tag : tags) {
-							if(tag.getDescription().equals(filter.getDescription())){
-								tagList.add(tag);
+		List < Tag > tagList =new ArrayList < Tag >();
+		try {
+
+			if( p.getTagList() !=null ) {
+				for( Tag t: p.getTagList() ) {
+					TagFilter filter =new TagFilter();
+					filter.setDescription( t.getDescription() );
+					commandFind =FactoryCommand.build( filter, EOperation.FIND );
+					List < Tag > tags =commandFind.execute().getEntityList();
+					if( tags !=null && !tags.isEmpty() ) {
+						for( Tag tag: tags ) {
+							if( tag.getDescription().equals( filter.getDescription() ) ) {
+								tagList.add( tag );
 							}
-						}						
-					}else{
-						t.setInsertDate(new Date());
-						tagList.add(t);
+						}
+					} else {
+						t.setInsertDate( new Date() );
+						tagList.add( t );
 					}
 				}
-				p.setTagList(tagList);
+				p.setTagList( tagList );
 			}
-		}catch (ClassNotFoundException e) {
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
-		}				
-			return null;
+		}
+		return null;
 	}
 
 }

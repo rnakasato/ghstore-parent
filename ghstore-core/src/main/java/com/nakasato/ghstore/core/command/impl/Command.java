@@ -5,7 +5,7 @@ import com.nakasato.ghstore.core.IFacade;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.filter.Filter;
 
-public abstract class Command<T extends AbstractDomainEntity> implements ICommand<T> {
+public abstract class Command < T extends AbstractDomainEntity > implements ICommand < T > {
 	protected IFacade facade;
 	protected AbstractDomainEntity entity;
 	protected Filter filter;
@@ -15,32 +15,32 @@ public abstract class Command<T extends AbstractDomainEntity> implements IComman
 		return facade;
 	}
 
-	public void setFacade(IFacade facade) {
-		this.facade = facade;
+	public void setFacade( IFacade facade ) {
+		this.facade =facade;
 	}
 
 	public AbstractDomainEntity getEntity() {
 		return entity;
 	}
 
-	public void setEntity(AbstractDomainEntity entity) {
-		this.entity = entity;
+	public void setEntity( AbstractDomainEntity entity ) {
+		this.entity =entity;
 	}
 
 	public Integer getParameter() {
 		return parameter;
 	}
 
-	public void setParameter(Integer parameter) {
-		this.parameter = parameter;
+	public void setParameter( Integer parameter ) {
+		this.parameter =parameter;
 	}
 
 	public Filter getFilter() {
 		return filter;
 	}
 
-	public void setFilter(Filter filter) {
-		this.filter = filter;
+	public void setFilter( Filter filter ) {
+		this.filter =filter;
 	}
 
 }

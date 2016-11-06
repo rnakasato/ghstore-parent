@@ -26,8 +26,8 @@ import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghstore.web.mb.BaseMB;
 import com.nakasato.web.util.Redirector;
 
-@ManagedBean(name = "customerMB")
-@ViewScoped
+@ ManagedBean( name ="customerMB" )
+@ ViewScoped
 public class CustomerMB extends BaseMB {
 	private Customer customer;
 	private String passwordConfirmation;
@@ -38,133 +38,132 @@ public class CustomerMB extends BaseMB {
 	private Address selectedAddress;
 	private Address newAddress;
 
-	private List<State> stateList;
-	private List<City> cityList;
+	private List < State > stateList;
+	private List < City > cityList;
 
 	private boolean saveOperation;
 
-	@PostConstruct
+	@ PostConstruct
 	public void init() {
-		customer = new Customer();
-		customer.setDeliveryAddressList(new LinkedList<>());
-		customer.setPhoneList(new LinkedList<>());
+		customer =new Customer();
+		customer.setDeliveryAddressList( new LinkedList<>() );
+		customer.setPhoneList( new LinkedList<>() );
 
-		newPhone = new Phone();
-		selectedAddress = new Address();
-		selectedAddress.setCity(new City());
+		newPhone =new Phone();
+		selectedAddress =new Address();
+		selectedAddress.setCity( new City() );
 
-		newAddress = new Address();
-		newAddress.setCity(new City());
+		newAddress =new Address();
+		newAddress.setCity( new City() );
 
 		initStateList();
 	}
 
 	public void clearFields() {
-		customer = new Customer();
-		customer.setDeliveryAddressList(new LinkedList<>());
-		customer.setPhoneList(new LinkedList<>());
+		customer =new Customer();
+		customer.setDeliveryAddressList( new LinkedList<>() );
+		customer.setPhoneList( new LinkedList<>() );
 
-		newPhone = new Phone();
-		newAddress = new Address();
-		newAddress.setCity(new City());
+		newPhone =new Phone();
+		newAddress =new Address();
+		newAddress.setCity( new City() );
 
 	}
 
 	public void save() {
 		try {
-			boolean samePassword = confirmPassword();
-			if (!samePassword) {
-				addMessage("A confirmação da senha difere da senha");
+			boolean samePassword =confirmPassword();
+			if( !samePassword ) {
+				addMessage( "A confirmação da senha difere da senha" );
 			} else {
 				addPhone();
-				ICommand command = FactoryCommand.build(customer, EOperation.SAVE);
-				String msg = command.execute().getMsg();
-				if(StringUtils.isNotEmpty(msg)){
-					addMessage(msg);
+				ICommand command =FactoryCommand.build( customer, EOperation.SAVE );
+				String msg =command.execute().getMsg();
+				if( StringUtils.isNotEmpty( msg ) ) {
+					addMessage( msg );
 				}
-					
-			}
-			FacesContext context = FacesContext.getCurrentInstance();
-			
-			Redirector.redirectTo(context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true");
 
-		} catch (ClassNotFoundException e) {
+			}
+			FacesContext context =FacesContext.getCurrentInstance();
+
+			Redirector.redirectTo( context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
+
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 	}
 
 	public void initStateList() {
 		try {
-			ICommand command = FactoryCommand.build(new State(), EOperation.FINDALL);
-			Result result = command.execute();
-			stateList = result.getEntityList();
-		} catch (ClassNotFoundException e) {
+			ICommand command =FactoryCommand.build( new State(), EOperation.FINDALL );
+			Result result =command.execute();
+			stateList =result.getEntityList();
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public void initCityList(AjaxBehaviorEvent event) {
+	public void initCityList( AjaxBehaviorEvent event ) {
 		try {
-			if (selectedState != null) {
-				CityFilter filter = new CityFilter();
-				filter.setStateAcronym(selectedState.getAcronym());
-				ICommand command = FactoryCommand.build(filter, EOperation.FIND);
-				Result result = command.execute();
-				cityList = result.getEntityList();
+			if( selectedState !=null ) {
+				CityFilter filter =new CityFilter();
+				filter.setStateAcronym( selectedState.getAcronym() );
+				ICommand command =FactoryCommand.build( filter, EOperation.FIND );
+				Result result =command.execute();
+				cityList =result.getEntityList();
 			}
-		} catch (ClassNotFoundException e) {
+		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 	}
 
 	public void addNewAddress() {
-		saveOperation = true;
-		newAddress = new Address();
-		newAddress.setCity(new City());
-		RequestContext ctx = RequestContext.getCurrentInstance();
-		ctx.execute("PF('addressDialog').show()");
+		saveOperation =true;
+		newAddress =new Address();
+		newAddress.setCity( new City() );
+		RequestContext ctx =RequestContext.getCurrentInstance();
+		ctx.execute( "PF('addressDialog').show()" );
 	}
 
 	public void cancelAddress() {
-		RequestContext ctx = RequestContext.getCurrentInstance();
-		ctx.execute("PF('addressDialog').hide()");
+		RequestContext ctx =RequestContext.getCurrentInstance();
+		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
 	public void addAddress() {
-		customer.getDeliveryAddressList().add(newAddress);
-		newAddress = new Address();
-		newAddress.setCity(new City());
-		RequestContext ctx = RequestContext.getCurrentInstance();
-		ctx.execute("PF('addressDialog').hide()");
+		customer.getDeliveryAddressList().add( newAddress );
+		newAddress =new Address();
+		newAddress.setCity( new City() );
+		RequestContext ctx =RequestContext.getCurrentInstance();
+		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
 	public void removeAddress() {
-		List<Address> addressList = customer.getDeliveryAddressList();
-		addressList.remove(newAddress);
-	}
-	
-	public void changeAddress(){
-		saveOperation = false;
-	}
-	
-	public void updateAddress() {
-		RequestContext ctx = RequestContext.getCurrentInstance();
-		ctx.execute("PF('addressDialog').hide()");
+		List < Address > addressList =customer.getDeliveryAddressList();
+		addressList.remove( newAddress );
 	}
 
+	public void changeAddress() {
+		saveOperation =false;
+	}
+
+	public void updateAddress() {
+		RequestContext ctx =RequestContext.getCurrentInstance();
+		ctx.execute( "PF('addressDialog').hide()" );
+	}
 
 	public void addPhone() {
-		newPhone.setUser(customer);
-		newPhone.setInsertDate(new Date());
-		customer.getPhoneList().add(newPhone);
+		newPhone.setUser( customer );
+		newPhone.setInsertDate( new Date() );
+		customer.getPhoneList().add( newPhone );
 	}
 
 	private boolean confirmPassword() {
-		boolean same = false;
-		if (StringUtils.isNotEmpty(passwordConfirmation) && StringUtils.isNotEmpty(customer.getPassword())
-				&& passwordConfirmation.equals(customer.getPassword())) {
-			same = true;
+		boolean same =false;
+		if( StringUtils.isNotEmpty( passwordConfirmation ) &&StringUtils.isNotEmpty( customer.getPassword() )
+				&&passwordConfirmation.equals( customer.getPassword() ) ) {
+			same =true;
 		}
 		return same;
 	}
@@ -173,79 +172,78 @@ public class CustomerMB extends BaseMB {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomer( Customer customer ) {
+		this.customer =customer;
 	}
 
 	public String getPasswordConfirmation() {
 		return passwordConfirmation;
 	}
 
-	public void setPasswordConfirmation(String passwordConfirmation) {
-		this.passwordConfirmation = passwordConfirmation;
+	public void setPasswordConfirmation( String passwordConfirmation ) {
+		this.passwordConfirmation =passwordConfirmation;
 	}
 
 	public Phone getNewPhone() {
 		return newPhone;
 	}
 
-	public void setNewPhone(Phone newPhone) {
-		this.newPhone = newPhone;
+	public void setNewPhone( Phone newPhone ) {
+		this.newPhone =newPhone;
 	}
 
-	public List<State> getStateList() {
+	public List < State > getStateList() {
 		return stateList;
 	}
 
-	public void setStateList(List<State> stateList) {
-		this.stateList = stateList;
+	public void setStateList( List < State > stateList ) {
+		this.stateList =stateList;
 	}
 
-	public List<City> getCityList() {
+	public List < City > getCityList() {
 		return cityList;
 	}
 
-	public void setCityList(List<City> cityList) {
-		this.cityList = cityList;
+	public void setCityList( List < City > cityList ) {
+		this.cityList =cityList;
 	}
 
 	public State getSelectedState() {
 		return selectedState;
 	}
 
-	public void setSelectedState(State selectedState) {
-		this.selectedState = selectedState;
+	public void setSelectedState( State selectedState ) {
+		this.selectedState =selectedState;
 	}
 
 	public Address getSelectedAddress() {
 		return selectedAddress;
 	}
 
-	public void setSelectedAddress(Address selectedAddress) {
-		this.selectedAddress = selectedAddress;
+	public void setSelectedAddress( Address selectedAddress ) {
+		this.selectedAddress =selectedAddress;
 	}
 
 	public Address getNewAddress() {
 		return newAddress;
 	}
 
-	public void setNewAddress(Address newAddress) {
-		this.newAddress = newAddress;
+	public void setNewAddress( Address newAddress ) {
+		this.newAddress =newAddress;
 	}
 
 	public boolean isSaveOperation() {
 		return saveOperation;
 	}
 
-	public void setSaveOperation(boolean saveOperation) {
-		this.saveOperation = saveOperation;
+	public void setSaveOperation( boolean saveOperation ) {
+		this.saveOperation =saveOperation;
 	}
 
-	@Override
+	@ Override
 	public void clearFilter() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }

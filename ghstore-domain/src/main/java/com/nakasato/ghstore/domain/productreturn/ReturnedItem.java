@@ -14,40 +14,40 @@ public class ReturnedItem extends AbstractDomainEntity {
 		return product;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct( Product product ) {
+		this.product =product;
 	}
 
 	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public void setAmount( Integer amount ) {
+		this.amount =amount;
 	}
 
 	public Double getTotalValue() {
 		return totalValue;
 	}
 
-	public void setTotalValue(Double totalValue) {
-		this.totalValue = totalValue;
+	public void setTotalValue( Double totalValue ) {
+		this.totalValue =totalValue;
 	}
 
 	public Integer getOriginalAmount() {
 		return originalAmount;
 	}
 
-	public void setOriginalAmount(Integer originalAmount) {
-		this.originalAmount = originalAmount;
+	public void setOriginalAmount( Integer originalAmount ) {
+		this.originalAmount =originalAmount;
 	}
 
 	public ProductReturn getProductReturn() {
 		return productReturn;
 	}
 
-	public void setProductReturn(ProductReturn productReturn) {
-		this.productReturn = productReturn;
+	public void setProductReturn( ProductReturn productReturn ) {
+		this.productReturn =productReturn;
 	}
 
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class Subcategory extends AbstractCategory implements Serializable{
+public class Subcategory extends AbstractCategory implements Serializable {
 	/**
 	 * 
 	 */
@@ -15,21 +15,17 @@ public class Subcategory extends AbstractCategory implements Serializable{
 		return storeCategory;
 	}
 
-	public void setStoreCategory(StoreCategory storeCategory) {
-		this.storeCategory = storeCategory;
+	public void setStoreCategory( StoreCategory storeCategory ) {
+		this.storeCategory =storeCategory;
 	}
 
-	@Override
+	@ Override
 	public boolean isEmpty() {
-		boolean isEmpty = false;
-		if(this.getId() == null
-				&& StringUtils.isEmpty(this.getDescription())
-				&& this.getStoreCategory().isEmpty()){
-			isEmpty = true;
+		boolean isEmpty =false;
+		if( this.getId() ==null &&StringUtils.isEmpty( this.getDescription() ) &&this.getStoreCategory().isEmpty() ) {
+			isEmpty =true;
 		}
 		return isEmpty;
 	}
-	
-
 
 }

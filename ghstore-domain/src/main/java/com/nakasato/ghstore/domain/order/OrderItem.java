@@ -9,8 +9,8 @@ public class OrderItem extends StoreItem {
 		return order;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrder( Order order ) {
+		this.order =order;
 	}
 
 }

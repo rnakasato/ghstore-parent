@@ -4,13 +4,12 @@ import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.impl.Facade;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
-public class CommandSave<T extends AbstractDomainEntity> extends Command<T>{
+public class CommandSave < T extends AbstractDomainEntity > extends Command < T > {
 
-	@Override
-	public Result<T> execute() {
-		facade = new Facade<T>();
-		return facade.save(entity);
+	@ Override
+	public Result < T > execute() {
+		facade =new Facade < T >();
+		return facade.save( entity );
 	}
-	
 
 }

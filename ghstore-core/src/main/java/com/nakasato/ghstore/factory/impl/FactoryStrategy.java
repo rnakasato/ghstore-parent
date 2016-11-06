@@ -60,206 +60,201 @@ public class FactoryStrategy {
 	 * contendo todos os Strategies referentes à cada operação
 	 * (salvar,alterar,consultar,excluir)
 	 */
-	private static Map<String, Map<String, List<IStrategy>>> rns;
+	private static Map < String, Map < String, List < IStrategy > > > rns;
 
-	private static Map<String, List<IStrategy>> rnsProduct;
-	private static Map<String, List<IStrategy>> rnsCustomer;
-	private static Map<String, List<IStrategy>> rnsOrder;
-	private static Map<String, List<IStrategy>> rnsProductReturn;
-	private static Map<String, List<IStrategy>> rnsProductExchange;
-	
-	private static Map<String, List<IStrategy>> rnsPaymentCreationCarrier;
-	
-	
+	private static Map < String, List < IStrategy > > rnsProduct;
+	private static Map < String, List < IStrategy > > rnsCustomer;
+	private static Map < String, List < IStrategy > > rnsOrder;
+	private static Map < String, List < IStrategy > > rnsProductReturn;
+	private static Map < String, List < IStrategy > > rnsProductExchange;
 
-	public static List<IStrategy> build(AbstractDomainEntity entity, String operation) {
-		if (rns == null) {
+	private static Map < String, List < IStrategy > > rnsPaymentCreationCarrier;
+
+	public static List < IStrategy > build( AbstractDomainEntity entity, String operation ) {
+		if( rns ==null ) {
 			initMap();
 		}
-		List<IStrategy> operationRules = new ArrayList<>();
-		Map<String, List<IStrategy>> entityRules = rns.get(entity.getClass().getName());
-		if (entityRules != null) {
-			operationRules = entityRules.get(operation);
+		List < IStrategy > operationRules =new ArrayList<>();
+		Map < String, List < IStrategy > > entityRules =rns.get( entity.getClass().getName() );
+		if( entityRules !=null ) {
+			operationRules =entityRules.get( operation );
 		}
 		return operationRules;
 	}
 
 	private static void initMap() {
 		// inicialização do mapa de regras de negócio total
-		rns = new HashMap<>();
+		rns =new HashMap<>();
 
 		// Inicialização do mapa de regras de negócio do produto
-		rnsProduct = new HashMap<>();
-		rns.put(Product.class.getName(), rnsProduct);
-		rns.put(ProductFilter.class.getName(), rnsProduct);
+		rnsProduct =new HashMap<>();
+		rns.put( Product.class.getName(), rnsProduct );
+		rns.put( ProductFilter.class.getName(), rnsProduct );
 		initProductRns();
 
 		// Inicialização do mapa de regras de negócio do usuário
-		rnsCustomer = new HashMap<>();
-		rns.put(Customer.class.getName(), rnsCustomer);
-		rns.put(CustomerFilter.class.getName(), rnsCustomer);
+		rnsCustomer =new HashMap<>();
+		rns.put( Customer.class.getName(), rnsCustomer );
+		rns.put( CustomerFilter.class.getName(), rnsCustomer );
 		initCustomerRns();
 
-		rnsOrder = new HashMap<>();
-		rns.put(Order.class.getName(), rnsOrder);
-		rns.put(OrderFilter.class.getName(), rnsOrder);
+		rnsOrder =new HashMap<>();
+		rns.put( Order.class.getName(), rnsOrder );
+		rns.put( OrderFilter.class.getName(), rnsOrder );
 		initOrderRns();
-		
-		rnsProductReturn = new HashMap<>();
-		rns.put(ProductReturn.class.getName(), rnsProductReturn);
-		rns.put(ProductReturnFilter.class.getName(), rnsProductReturn);
+
+		rnsProductReturn =new HashMap<>();
+		rns.put( ProductReturn.class.getName(), rnsProductReturn );
+		rns.put( ProductReturnFilter.class.getName(), rnsProductReturn );
 		initProductReturnRns();
-		
-		rnsProductExchange  = new HashMap<>();
-		rns.put(ProductExchange.class.getName(), rnsProductExchange);
-		rns.put(ProductExchangeFilter.class.getName(), rnsProductExchange);
+
+		rnsProductExchange =new HashMap<>();
+		rns.put( ProductExchange.class.getName(), rnsProductExchange );
+		rns.put( ProductExchangeFilter.class.getName(), rnsProductExchange );
 		initProductExchangeRns();
-		
-		
-		rnsPaymentCreationCarrier = new HashMap<>();
-		rns.put(PaymentCreationCarrier.class.getName(), rnsPaymentCreationCarrier);
+
+		rnsPaymentCreationCarrier =new HashMap<>();
+		rns.put( PaymentCreationCarrier.class.getName(), rnsPaymentCreationCarrier );
 		initPaymentCreationRns();
-		
-		
-		
+
 	}
-	
-	private static void initPaymentCreationRns(){
-		List<IStrategy> rnsFind = new ArrayList<>();
-		rnsFind.add(new PaymentCreationFiller());
-		rnsPaymentCreationCarrier.put(EOperation.FIND, rnsFind);
+
+	private static void initPaymentCreationRns() {
+		List < IStrategy > rnsFind =new ArrayList<>();
+		rnsFind.add( new PaymentCreationFiller() );
+		rnsPaymentCreationCarrier.put( EOperation.FIND, rnsFind );
 	}
-	
+
 	private static void initCustomerRns() {
-		List<IStrategy> rnsSave = new ArrayList<>();
-		List<IStrategy> rnsUpdate = new ArrayList<>();
+		List < IStrategy > rnsSave =new ArrayList<>();
+		List < IStrategy > rnsUpdate =new ArrayList<>();
 		// Não há regras para a busca de usuário
-		List<IStrategy> rnsFind = new ArrayList<>();
-		List<IStrategy> rnsDelete = new ArrayList<>();
+		List < IStrategy > rnsFind =new ArrayList<>();
+		List < IStrategy > rnsDelete =new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar um Usuário
-		rnsSave.add(new UserRequiredFieldsValidator());
-		rnsSave.add(new UserCPFValidator());
-		rnsSave.add(new UserBirthDateValidator());
-		rnsSave.add(new CustomerCEPValidator());
-		rnsSave.add(new UserPhoneValidator());
-		rnsSave.add(new EmailValidator());
-		rnsSave.add(new ComplementCustomer());
+		rnsSave.add( new UserRequiredFieldsValidator() );
+		rnsSave.add( new UserCPFValidator() );
+		rnsSave.add( new UserBirthDateValidator() );
+		rnsSave.add( new CustomerCEPValidator() );
+		rnsSave.add( new UserPhoneValidator() );
+		rnsSave.add( new EmailValidator() );
+		rnsSave.add( new ComplementCustomer() );
 		// Verificar se Nome de usuário e CPF já existem
 
-		rnsUpdate.add(new UserCPFValidator());
-		rnsUpdate.add(new CustomerCEPValidator());
-		rnsUpdate.add(new ComplementCustomerUpdate());
-		
+		rnsUpdate.add( new UserCPFValidator() );
+		rnsUpdate.add( new CustomerCEPValidator() );
+		rnsUpdate.add( new ComplementCustomerUpdate() );
+
 		// Insere as regras de negócio por operação
-		rnsCustomer.put(EOperation.SAVE, rnsSave);
-		rnsCustomer.put(EOperation.UPDATE, rnsUpdate);
-		rnsCustomer.put(EOperation.DELETE, rnsDelete);
-		rnsCustomer.put(EOperation.FIND, rnsFind);
+		rnsCustomer.put( EOperation.SAVE, rnsSave );
+		rnsCustomer.put( EOperation.UPDATE, rnsUpdate );
+		rnsCustomer.put( EOperation.DELETE, rnsDelete );
+		rnsCustomer.put( EOperation.FIND, rnsFind );
 
 	}
-	
-	private static void initOrderRns(){
-		List<IStrategy> rnsSave = new ArrayList<>();
-		List<IStrategy> rnsUpdate = new ArrayList<>();
+
+	private static void initOrderRns() {
+		List < IStrategy > rnsSave =new ArrayList<>();
+		List < IStrategy > rnsUpdate =new ArrayList<>();
 		// Não há regras para a busca de usuário
-		List<IStrategy> rnsFind = new ArrayList<>();
-		List<IStrategy> rnsDelete = new ArrayList<>();
+		List < IStrategy > rnsFind =new ArrayList<>();
+		List < IStrategy > rnsDelete =new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar um Pedido
-		rnsSave.add(new TransactionCodeValidator());
-		rnsSave.add(new ComplementOrderProductStock());		
-		rnsSave.add(new ComplementDiscountOrder());
-		
+		rnsSave.add( new TransactionCodeValidator() );
+		rnsSave.add( new ComplementOrderProductStock() );
+		rnsSave.add( new ComplementDiscountOrder() );
+
 		// Insere as regras de negócio por operação
-		rnsOrder.put(EOperation.SAVE, rnsSave);
-		rnsOrder.put(EOperation.UPDATE, rnsUpdate);
-		rnsOrder.put(EOperation.DELETE, rnsDelete);
-		rnsOrder.put(EOperation.FIND, rnsFind);
-		
+		rnsOrder.put( EOperation.SAVE, rnsSave );
+		rnsOrder.put( EOperation.UPDATE, rnsUpdate );
+		rnsOrder.put( EOperation.DELETE, rnsDelete );
+		rnsOrder.put( EOperation.FIND, rnsFind );
+
 	}
-	
-	private static void initProductReturnRns(){
-		List<IStrategy> rnsSave = new ArrayList<>();
-		List<IStrategy> rnsUpdate = new ArrayList<>();
+
+	private static void initProductReturnRns() {
+		List < IStrategy > rnsSave =new ArrayList<>();
+		List < IStrategy > rnsUpdate =new ArrayList<>();
 		// Não há regras para a busca de usuário
-		List<IStrategy> rnsFind = new ArrayList<>();
-		List<IStrategy> rnsDelete = new ArrayList<>();
+		List < IStrategy > rnsFind =new ArrayList<>();
+		List < IStrategy > rnsDelete =new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar uma devolução
-		rnsSave.add(new ProductReturnRequiredFieldsValidator());
-		rnsSave.add(new ProductReturnAmountValidator());
-		rnsSave.add(new ComplementProductReturn());
-		rnsSave.add(new ComplementProductReturnProductStock());
-				
+		rnsSave.add( new ProductReturnRequiredFieldsValidator() );
+		rnsSave.add( new ProductReturnAmountValidator() );
+		rnsSave.add( new ComplementProductReturn() );
+		rnsSave.add( new ComplementProductReturnProductStock() );
+
 		// Insere as regras de negócio por operação
-		rnsProductReturn.put(EOperation.SAVE, rnsSave);
-		rnsProductReturn.put(EOperation.UPDATE, rnsUpdate);
-		rnsProductReturn.put(EOperation.DELETE, rnsDelete);
-		rnsProductReturn.put(EOperation.FIND, rnsFind);
-		
+		rnsProductReturn.put( EOperation.SAVE, rnsSave );
+		rnsProductReturn.put( EOperation.UPDATE, rnsUpdate );
+		rnsProductReturn.put( EOperation.DELETE, rnsDelete );
+		rnsProductReturn.put( EOperation.FIND, rnsFind );
+
 	}
-	
-	private static void initProductExchangeRns(){
-		List<IStrategy> rnsSave = new ArrayList<>();
-		List<IStrategy> rnsUpdate = new ArrayList<>();
+
+	private static void initProductExchangeRns() {
+		List < IStrategy > rnsSave =new ArrayList<>();
+		List < IStrategy > rnsUpdate =new ArrayList<>();
 		// Não há regras para a busca de usuário
-		List<IStrategy> rnsFind = new ArrayList<>();
-		List<IStrategy> rnsDelete = new ArrayList<>();
+		List < IStrategy > rnsFind =new ArrayList<>();
+		List < IStrategy > rnsDelete =new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar uma devolução
-		rnsSave.add(new ProductExchangeRequiredFieldsValidator());
-		rnsSave.add(new ProductExchangeAmountValidator());
-		rnsSave.add(new ComplementProductExchange());
-		rnsSave.add(new ComplementProductExchangeProductStock());
-		rnsSave.add(new ComplementCustomerCoupon());
-				
+		rnsSave.add( new ProductExchangeRequiredFieldsValidator() );
+		rnsSave.add( new ProductExchangeAmountValidator() );
+		rnsSave.add( new ComplementProductExchange() );
+		rnsSave.add( new ComplementProductExchangeProductStock() );
+		rnsSave.add( new ComplementCustomerCoupon() );
+
 		// Insere as regras de negócio por operação
-		rnsProductExchange.put(EOperation.SAVE, rnsSave);
-		rnsProductExchange.put(EOperation.UPDATE, rnsUpdate);
-		rnsProductExchange.put(EOperation.DELETE, rnsDelete);
-		rnsProductExchange.put(EOperation.FIND, rnsFind);
-		
+		rnsProductExchange.put( EOperation.SAVE, rnsSave );
+		rnsProductExchange.put( EOperation.UPDATE, rnsUpdate );
+		rnsProductExchange.put( EOperation.DELETE, rnsDelete );
+		rnsProductExchange.put( EOperation.FIND, rnsFind );
+
 	}
 
 	private static void initProductRns() {
 
-		List<IStrategy> rnsSave = new ArrayList<>();
-		List<IStrategy> rnsUpdate = new ArrayList<>();
+		List < IStrategy > rnsSave =new ArrayList<>();
+		List < IStrategy > rnsUpdate =new ArrayList<>();
 		// Não há regras para a busca de produto
-		List<IStrategy> rnsFind = new ArrayList<>();
-		List<IStrategy> rnsDelete = new ArrayList<>();
+		List < IStrategy > rnsFind =new ArrayList<>();
+		List < IStrategy > rnsDelete =new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar um Product
-		rnsSave.add(new ProductRequiredFieldsValidator());
-		rnsSave.add(new StockValidator());
-		rnsSave.add(new PriceValidator());
-		rnsSave.add(new StoreCategoryValidator());
-		rnsSave.add(new StoreCategoryFiller());
-		rnsSave.add(new SubcategoryFiller());
-		rnsSave.add(new ComplementTags());
-		rnsSave.add(new TagSaveUpdateFiller());
-		rnsSave.add(new ComplementInsertDate());
-		rnsSave.add(new ComplementProductCode());
+		rnsSave.add( new ProductRequiredFieldsValidator() );
+		rnsSave.add( new StockValidator() );
+		rnsSave.add( new PriceValidator() );
+		rnsSave.add( new StoreCategoryValidator() );
+		rnsSave.add( new StoreCategoryFiller() );
+		rnsSave.add( new SubcategoryFiller() );
+		rnsSave.add( new ComplementTags() );
+		rnsSave.add( new TagSaveUpdateFiller() );
+		rnsSave.add( new ComplementInsertDate() );
+		rnsSave.add( new ComplementProductCode() );
 
 		// Adicionando regras de negócio para alterar um Product
-		rnsUpdate.add(new ProductRequiredFieldsValidator());
-		rnsUpdate.add(new StockValidator());
-		rnsUpdate.add(new PriceValidator());
-		rnsUpdate.add(new StoreCategoryValidator());
-		rnsUpdate.add(new StoreCategoryFiller());
-		rnsUpdate.add(new SubcategoryFiller());
-		rnsUpdate.add(new ComplementTags());
-		rnsUpdate.add(new TagSaveUpdateFiller());
+		rnsUpdate.add( new ProductRequiredFieldsValidator() );
+		rnsUpdate.add( new StockValidator() );
+		rnsUpdate.add( new PriceValidator() );
+		rnsUpdate.add( new StoreCategoryValidator() );
+		rnsUpdate.add( new StoreCategoryFiller() );
+		rnsUpdate.add( new SubcategoryFiller() );
+		rnsUpdate.add( new ComplementTags() );
+		rnsUpdate.add( new TagSaveUpdateFiller() );
 
 		// Adicionando regras de negócio para buscar um Product
 		// rnsFind.add(new StoreCategoryFiller());
 		// rnsFind.add(new SubcategoryFiller());
 
 		// Insere as regras de negócio por operação
-		rnsProduct.put(EOperation.SAVE, rnsSave);
-		rnsProduct.put(EOperation.UPDATE, rnsUpdate);
-		rnsProduct.put(EOperation.DELETE, rnsDelete);
-		rnsProduct.put(EOperation.FIND, rnsFind);
+		rnsProduct.put( EOperation.SAVE, rnsSave );
+		rnsProduct.put( EOperation.UPDATE, rnsUpdate );
+		rnsProduct.put( EOperation.DELETE, rnsDelete );
+		rnsProduct.put( EOperation.FIND, rnsFind );
 	}
 }

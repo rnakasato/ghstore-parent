@@ -7,7 +7,7 @@ import com.nakasato.ghstore.domain.filter.Filter;
  * @author rafae Descrição:
  */
 public class TagFilter extends Filter {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID =1L;
 
 	private Integer productId;
 
@@ -15,8 +15,8 @@ public class TagFilter extends Filter {
 		return productId;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setProductId( Integer productId ) {
+		this.productId =productId;
 	}
 
 }

@@ -8,23 +8,23 @@ import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghtstore.core.business.Complementor;
 
-public class ComplementCustomerCoupon extends Complementor<ProductExchange> {
+public class ComplementCustomerCoupon extends Complementor < ProductExchange > {
 
-	@Override
-	public String complement(ProductExchange entity) {
+	@ Override
+	public String complement( ProductExchange entity ) {
 		try {
-			Customer customer = entity.getOrder().getCustomer();
+			Customer customer =entity.getOrder().getCustomer();
 
-			DiscountCoupon coupon = new DiscountCoupon();
-			coupon.setCustomer(customer);
-			coupon.setOrder(entity.getOrder());
-			coupon.setUsed(false);
-			coupon.setInsertDate(new Date());
+			DiscountCoupon coupon =new DiscountCoupon();
+			coupon.setCustomer( customer );
+			coupon.setOrder( entity.getOrder() );
+			coupon.setUsed( false );
+			coupon.setInsertDate( new Date() );
 
-			DiscountCouponDAO dao = new DiscountCouponDAO();
-			dao.save(coupon);
+			DiscountCouponDAO dao =new DiscountCouponDAO();
+			dao.save( coupon );
 
-		} catch (Exception e) {
+		} catch( Exception e ) {
 			e.printStackTrace();
 		}
 

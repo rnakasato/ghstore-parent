@@ -53,46 +53,46 @@ import com.nakasato.ghstore.domain.user.UserType;
 
 public class FactoryDAO {
 
-	private static Map<String, IDAO> daoMap;
+	private static Map < String, IDAO > daoMap;
 
 	private static void initMap() {
-		if (daoMap == null) {
-			daoMap = new HashMap<>();
-			daoMap.put(Product.class.getName(), new ProductDAO());
-			daoMap.put(StoreCategory.class.getName(), new StoreCategoryDAO());
-			daoMap.put(Subcategory.class.getName(), new SubcategoryDAO());
-			daoMap.put(Tag.class.getName(), new TagDAO());
-			daoMap.put(Customer.class.getName(), new CustomerDAO());
-			daoMap.put(SysUser.class.getName(), new SysUserDAO());
-			daoMap.put(City.class.getName(), new CityDAO());
-			daoMap.put(State.class.getName(), new StateDAO());
-			daoMap.put(Order.class.getName(), new OrderDAO());
-			daoMap.put(OrderStatus.class.getName(), new OrderStatusDAO());
-			daoMap.put(OrderItem.class.getName(), new OrderItemDAO());
+		if( daoMap ==null ) {
+			daoMap =new HashMap<>();
+			daoMap.put( Product.class.getName(), new ProductDAO() );
+			daoMap.put( StoreCategory.class.getName(), new StoreCategoryDAO() );
+			daoMap.put( Subcategory.class.getName(), new SubcategoryDAO() );
+			daoMap.put( Tag.class.getName(), new TagDAO() );
+			daoMap.put( Customer.class.getName(), new CustomerDAO() );
+			daoMap.put( SysUser.class.getName(), new SysUserDAO() );
+			daoMap.put( City.class.getName(), new CityDAO() );
+			daoMap.put( State.class.getName(), new StateDAO() );
+			daoMap.put( Order.class.getName(), new OrderDAO() );
+			daoMap.put( OrderStatus.class.getName(), new OrderStatusDAO() );
+			daoMap.put( OrderItem.class.getName(), new OrderItemDAO() );
 
-			daoMap.put(ShoppingCart.class.getName(), new ShoppingCartDAO());
-			daoMap.put(UserType.class.getName(), new UserTypeDAO());
-			daoMap.put(Address.class.getName(), new AddressDAO());
-			
-			daoMap.put(ProductReturn.class.getName(), new ProductReturnDAO());
-			daoMap.put(ProductExchange.class.getName(), new ProductExchangeDAO());
-			
-			daoMap.put(DiscountCoupon.class.getName(), new DiscountCouponDAO());
+			daoMap.put( ShoppingCart.class.getName(), new ShoppingCartDAO() );
+			daoMap.put( UserType.class.getName(), new UserTypeDAO() );
+			daoMap.put( Address.class.getName(), new AddressDAO() );
+
+			daoMap.put( ProductReturn.class.getName(), new ProductReturnDAO() );
+			daoMap.put( ProductExchange.class.getName(), new ProductExchangeDAO() );
+
+			daoMap.put( DiscountCoupon.class.getName(), new DiscountCouponDAO() );
 
 			// Filtros
-			daoMap.put(ProductFilter.class.getName(), new ProductDAO());
-			daoMap.put(TagFilter.class.getName(), new TagDAO());
-			daoMap.put(StoreCategoryFilter.class.getName(), new StoreCategoryDAO());
-			daoMap.put(SubcategoryFilter.class.getName(), new SubcategoryDAO());
-			daoMap.put(CustomerFilter.class.getName(), new CustomerDAO());
-			daoMap.put(OrderStatusFilter.class.getName(), new OrderStatusDAO());
-			daoMap.put(CityFilter.class.getName(), new CityDAO());
-			daoMap.put(StateFilter.class.getName(), new StateDAO());
-			daoMap.put(OrderFilter.class.getName(), new OrderDAO());
-			daoMap.put(ProductReturnFilter.class.getName(), new ProductReturnDAO());
-			daoMap.put(ProductExchangeFilter.class.getName(), new ProductExchangeDAO());
-			daoMap.put(DiscountCouponFilter.class.getName(), new DiscountCouponDAO());
-			
+			daoMap.put( ProductFilter.class.getName(), new ProductDAO() );
+			daoMap.put( TagFilter.class.getName(), new TagDAO() );
+			daoMap.put( StoreCategoryFilter.class.getName(), new StoreCategoryDAO() );
+			daoMap.put( SubcategoryFilter.class.getName(), new SubcategoryDAO() );
+			daoMap.put( CustomerFilter.class.getName(), new CustomerDAO() );
+			daoMap.put( OrderStatusFilter.class.getName(), new OrderStatusDAO() );
+			daoMap.put( CityFilter.class.getName(), new CityDAO() );
+			daoMap.put( StateFilter.class.getName(), new StateDAO() );
+			daoMap.put( OrderFilter.class.getName(), new OrderDAO() );
+			daoMap.put( ProductReturnFilter.class.getName(), new ProductReturnDAO() );
+			daoMap.put( ProductExchangeFilter.class.getName(), new ProductExchangeDAO() );
+			daoMap.put( DiscountCouponFilter.class.getName(), new DiscountCouponDAO() );
+
 		}
 	}
 
@@ -100,10 +100,10 @@ public class FactoryDAO {
 	 * @param className
 	 * @return retorna instância de DAO para o Objeto
 	 */
-	public static IDAO build(String className) throws ClassNotFoundException {
+	public static IDAO build( String className ) throws ClassNotFoundException {
 		initMap();
-		IDAO dao = daoMap.get(className);
-		if (dao == null) {
+		IDAO dao =daoMap.get( className );
+		if( dao ==null ) {
 			throw new ClassNotFoundException();
 		}
 		return dao;

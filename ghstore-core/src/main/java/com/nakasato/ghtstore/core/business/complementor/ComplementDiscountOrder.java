@@ -8,30 +8,30 @@ import com.nakasato.ghstore.domain.productexchange.DiscountCoupon;
 import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghtstore.core.business.Complementor;
 
-public class ComplementDiscountOrder extends Complementor<Order> {
+public class ComplementDiscountOrder extends Complementor < Order > {
 
-	@Override
-	public String complement(Order entity) {
+	@ Override
+	public String complement( Order entity ) {
 		try {
-			if (entity.isDiscount()) {
-				Customer customer = entity.getCustomer();
-				List<DiscountCoupon> coupons = customer.getCoupons();
-				DiscountCoupon usedCoupon = null;
-				if (coupons != null) {
-					for (DiscountCoupon discountCoupon : coupons) {
-						if (!discountCoupon.isUsed()) {
-							usedCoupon = discountCoupon;
-							usedCoupon.setUsed(true);
+			if( entity.isDiscount() ) {
+				Customer customer =entity.getCustomer();
+				List < DiscountCoupon > coupons =customer.getCoupons();
+				DiscountCoupon usedCoupon =null;
+				if( coupons !=null ) {
+					for( DiscountCoupon discountCoupon: coupons ) {
+						if( !discountCoupon.isUsed() ) {
+							usedCoupon =discountCoupon;
+							usedCoupon.setUsed( true );
 							break;
 						}
 					}
 				}
-				if(usedCoupon != null){
-					DiscountCouponDAO dao = new DiscountCouponDAO();
-					dao.update(usedCoupon);
+				if( usedCoupon !=null ) {
+					DiscountCouponDAO dao =new DiscountCouponDAO();
+					dao.update( usedCoupon );
 				}
 			}
-		} catch (Exception e) {
+		} catch( Exception e ) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -12,41 +12,41 @@ public class Phone extends AbstractDomainEntity {
 		return ddd;
 	}
 
-	public void setDdd(String ddd) {
-		this.ddd = ddd;
+	public void setDdd( String ddd ) {
+		this.ddd =ddd;
 	}
 
 	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setNumber( String number ) {
+		this.number =number;
 	}
 
 	public User getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser( User user ) {
+		this.user =user;
 	}
 
-	@Override
+	@ Override
 	public int hashCode() {
-		int hash = 1;
-		if (number != null) {
-			hash = number.hashCode() / 97;
+		int hash =1;
+		if( number !=null ) {
+			hash =number.hashCode() /97;
 		}
 		return hash;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
+	@ Override
+	public boolean equals( Object obj ) {
+		return super.equals( obj );
 	}
 
-	@Override
+	@ Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return super.isEmpty();

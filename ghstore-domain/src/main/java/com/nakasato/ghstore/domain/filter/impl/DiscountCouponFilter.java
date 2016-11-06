@@ -10,16 +10,16 @@ public class DiscountCouponFilter extends Filter {
 		return customerId;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomerId( Integer customerId ) {
+		this.customerId =customerId;
 	}
 
 	public Boolean getUsed() {
 		return used;
 	}
 
-	public void setUsed(Boolean used) {
-		this.used = used;
+	public void setUsed( Boolean used ) {
+		this.used =used;
 	}
 
 }

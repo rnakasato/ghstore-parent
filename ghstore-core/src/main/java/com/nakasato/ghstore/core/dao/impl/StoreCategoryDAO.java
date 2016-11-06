@@ -10,45 +10,46 @@ import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.filter.impl.StoreCategoryFilter;
 import com.nakasato.ghstore.domain.product.StoreCategory;
 
-public class StoreCategoryDAO extends AbstractDAO<StoreCategory> {
+public class StoreCategoryDAO extends AbstractDAO < StoreCategory > {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<StoreCategory> find(AbstractDomainEntity entity) {
-		StoreCategoryFilter filter = (StoreCategoryFilter) entity;
-		boolean isDescriptionEmpty = StringUtils.isEmpty(filter.getDescription());
-		boolean isIdNull = (filter.getId() == null);
+	@ SuppressWarnings( "unchecked" )
+	@ Override
+	public List < StoreCategory > find( AbstractDomainEntity entity ) {
+		StoreCategoryFilter filter =( StoreCategoryFilter ) entity;
+		boolean isDescriptionEmpty =StringUtils.isEmpty( filter.getDescription() );
+		boolean isIdNull =( filter.getId() ==null );
 
-		List<StoreCategory> storeCategoryList = null;
+		List < StoreCategory > storeCategoryList =null;
 		try {
 			openSession();
 
-			StringBuilder jpql = new StringBuilder();
-			jpql.append(" FROM StoreCategory s").append(" WHERE 1=1 ");
+			StringBuilder jpql =new StringBuilder();
+			jpql.append( " FROM StoreCategory s" );
+			jpql.append( " WHERE 1=1 " );
 
-			if (!isIdNull) {
-				jpql.append(" AND s.id = :id");
+			if( !isIdNull ) {
+				jpql.append( " AND s.id = :id" );
 			}
 
-			if (!isDescriptionEmpty) {
-				jpql.append(" AND UPPER(s.description) like :description");
+			if( !isDescriptionEmpty ) {
+				jpql.append( " AND UPPER(s.description) like :description" );
 
 			}
 
-			Query query = session.createQuery(jpql.toString());
+			Query query =session.createQuery( jpql.toString() );
 
-			if (!isIdNull) {
-				query.setParameter("id", filter.getId());
+			if( !isIdNull ) {
+				query.setParameter( "id", filter.getId() );
 			}
 
-			if (!isDescriptionEmpty) {
-				query.setParameter("description", "%" + filter.getDescription().toUpperCase() + "%");
+			if( !isDescriptionEmpty ) {
+				query.setParameter( "description", "%" +filter.getDescription().toUpperCase() +"%" );
 			}
 
-			storeCategoryList = (List<StoreCategory>) query.getResultList();
+			storeCategoryList =( List < StoreCategory > ) query.getResultList();
 
 			closeSession();
-		} catch (RuntimeException e) {
+		} catch( RuntimeException e ) {
 			e.printStackTrace();
 			cancelSession();
 			throw e;
@@ -61,22 +62,22 @@ public class StoreCategoryDAO extends AbstractDAO<StoreCategory> {
 	 * O Método findAll não será utilizado porque no momento não há sentido para
 	 * retornar todas as categorias
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<StoreCategory> findAll() {
-		List<StoreCategory> storeCategoryList = null;
+	@ SuppressWarnings( "unchecked" )
+	@ Override
+	public List < StoreCategory > findAll() {
+		List < StoreCategory > storeCategoryList =null;
 		try {
 			openSession();
 
-			StringBuilder jpql = new StringBuilder();
-			jpql.append(" FROM StoreCategory ");
+			StringBuilder jpql =new StringBuilder();
+			jpql.append( " FROM StoreCategory " );
 
-			Query query = session.createQuery(jpql.toString());
+			Query query =session.createQuery( jpql.toString() );
 
-			storeCategoryList = query.getResultList();
+			storeCategoryList =query.getResultList();
 
 			closeSession();
-		} catch (RuntimeException e) {
+		} catch( RuntimeException e ) {
 			e.printStackTrace();
 			cancelSession();
 			throw e;
@@ -84,12 +85,12 @@ public class StoreCategoryDAO extends AbstractDAO<StoreCategory> {
 		return storeCategoryList;
 	}
 
-	@Override
-	public void save(StoreCategory entity) {
+	@ Override
+	public void save( StoreCategory entity ) {
 	}
 
-	@Override
-	public void update(StoreCategory entity) {
+	@ Override
+	public void update( StoreCategory entity ) {
 	}
 
 }

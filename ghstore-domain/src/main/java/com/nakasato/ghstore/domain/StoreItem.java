@@ -12,32 +12,32 @@ public abstract class StoreItem extends AbstractDomainEntity {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public void setAmount( Integer amount ) {
+		this.amount =amount;
 	}
 
 	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct( Product product ) {
+		this.product =product;
 	}
 
 	public Double getTotalValue() {
 		return totalValue;
 	}
 
-	public void setTotalValue(Double totalValue) {
-		this.totalValue = totalValue;
+	public void setTotalValue( Double totalValue ) {
+		this.totalValue =totalValue;
 	}
 
 	public Long getTotalWeigth() {
 		return totalWeigth;
 	}
 
-	public void setTotalWeigth(Long totalWeigth) {
-		this.totalWeigth = totalWeigth;
+	public void setTotalWeigth( Long totalWeigth ) {
+		this.totalWeigth =totalWeigth;
 	}
 
 }

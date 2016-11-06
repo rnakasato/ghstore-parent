@@ -16,8 +16,8 @@ public class ShoppingCart extends AbstractDomainEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private List<ShoppingCartItem> shoppingCartList;
+	private static final long serialVersionUID =1L;
+	private List < ShoppingCartItem > shoppingCartList;
 	private Double totalValue;
 	private Long totalWeight;
 	private Address address;
@@ -25,32 +25,32 @@ public class ShoppingCart extends AbstractDomainEntity implements Serializable {
 	private boolean process;
 	private boolean discount;
 
-	public List<ShoppingCartItem> getShoppingCartList() {
+	public List < ShoppingCartItem > getShoppingCartList() {
 		return shoppingCartList;
 	}
 
-	public void setShoppingCartList(List<ShoppingCartItem> shoppingCartList) {
-		this.shoppingCartList = shoppingCartList;
+	public void setShoppingCartList( List < ShoppingCartItem > shoppingCartList ) {
+		this.shoppingCartList =shoppingCartList;
 	}
 
 	public Double getTotalValue() {
 		return totalValue;
 	}
 
-	public void setTotalValue(Double totalValue) {
-		this.totalValue = totalValue;
+	public void setTotalValue( Double totalValue ) {
+		this.totalValue =totalValue;
 	}
 
-	public void addItem(ShoppingCartItem cartItem) {
-		if (shoppingCartList == null) {
-			shoppingCartList = new ArrayList<>();
+	public void addItem( ShoppingCartItem cartItem ) {
+		if( shoppingCartList ==null ) {
+			shoppingCartList =new ArrayList<>();
 		}
-		shoppingCartList.add(cartItem);
+		shoppingCartList.add( cartItem );
 	}
 
-	public void removeItem(ShoppingCartItem cartItem) {
-		if (shoppingCartList != null) {
-			shoppingCartList.remove(cartItem);
+	public void removeItem( ShoppingCartItem cartItem ) {
+		if( shoppingCartList !=null ) {
+			shoppingCartList.remove( cartItem );
 		}
 	}
 
@@ -58,43 +58,43 @@ public class ShoppingCart extends AbstractDomainEntity implements Serializable {
 		return owner;
 	}
 
-	public void setOwner(Customer owner) {
-		this.owner = owner;
+	public void setOwner( Customer owner ) {
+		this.owner =owner;
 	}
 
 	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddress( Address address ) {
+		this.address =address;
 	}
 
 	public Long getTotalWeight() {
 		return totalWeight;
 	}
 
-	public void setTotalWeight(Long totalWeight) {
-		this.totalWeight = totalWeight;
+	public void setTotalWeight( Long totalWeight ) {
+		this.totalWeight =totalWeight;
 	}
 
 	public boolean isProcess() {
 		return process;
 	}
 
-	public void setProcess(boolean process) {
-		this.process = process;
+	public void setProcess( boolean process ) {
+		this.process =process;
 	}
 
 	public boolean isDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(boolean discount) {
-		this.discount = discount;
+	public void setDiscount( boolean discount ) {
+		this.discount =discount;
 	}
 
-	@Override
+	@ Override
 	public boolean isEmpty() {
 
 		return false;

@@ -13,24 +13,24 @@ public class PaymentCreationCarrier extends EntityCarrier {
 		return cart;
 	}
 
-	public void setCart(ShoppingCart cart) {
-		this.cart = cart;
+	public void setCart( ShoppingCart cart ) {
+		this.cart =cart;
 	}
 
 	public Customer getLoggedUser() {
 		return loggedUser;
 	}
 
-	public void setLoggedUser(Customer loggedUser) {
-		this.loggedUser = loggedUser;
+	public void setLoggedUser( Customer loggedUser ) {
+		this.loggedUser =loggedUser;
 	}
 
 	public String getPaymentAddress() {
 		return paymentAddress;
 	}
 
-	public void setPaymentAddress(String paymentAddress) {
-		this.paymentAddress = paymentAddress;
+	public void setPaymentAddress( String paymentAddress ) {
+		this.paymentAddress =paymentAddress;
 	}
 
 }

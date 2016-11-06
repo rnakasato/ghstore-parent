@@ -8,9 +8,9 @@ import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.factory.impl.FactoryComparator;
 
 public class ProductSort {
-	
-	public static void sortProducts(List<Product> productList,Integer sortBy){
-		Comparator comparator = FactoryComparator.build(sortBy);
-		Collections.sort(productList, comparator);
+
+	public static void sortProducts( List < Product > productList, Integer sortBy ) {
+		Comparator comparator =FactoryComparator.build( sortBy );
+		Collections.sort( productList, comparator );
 	}
 }

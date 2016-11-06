@@ -10,17 +10,17 @@ import br.com.caelum.stella.validation.InvalidStateException;
  * 
  * @author rafae Descrição:
  */
-public class UserCPFValidator extends Validator<User> {
+public class UserCPFValidator extends Validator < User > {
 
-	@Override
-	public String validate(User user) {
-		msg = null;
+	@ Override
+	public String validate( User user ) {
+		msg =null;
 		try {
-			CPFValidator validator = new CPFValidator();
-			validator.assertValid(user.getCpf());
+			CPFValidator validator =new CPFValidator();
+			validator.assertValid( user.getCpf() );
 
-		} catch (InvalidStateException e) {
-			msg = "CPF inválido";
+		} catch( InvalidStateException e ) {
+			msg ="CPF inválido";
 		}
 		return msg;
 	}

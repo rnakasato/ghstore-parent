@@ -1,10 +1,16 @@
-package com.nakasato.ghstore.domain.filter.impl;
+package com.nakasato.ghstore.domain.enums;
 
-import com.nakasato.ghstore.domain.AbstractDomainEntity;
+public enum EAxisY {
+	SOLD_AMOUNT( "PMV", "Quantidade de produtos vendidos" ), 
+	TOTAL_VALUE( "VTA", "Valor total arrecadado" );
 
-public class OrderStatusFilter extends AbstractDomainEntity {
 	private String code;
 	private String description;
+
+	private EAxisY( String code, String description ) {
+		this.code =code;
+		this.description =description;
+	}
 
 	public String getCode() {
 		return code;
