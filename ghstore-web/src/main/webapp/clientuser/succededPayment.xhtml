@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,7 +10,8 @@
 <ui:composition template="/layout/clientLayout.xhtml">
 	<ui:define name="content">
 		<h:form id="form_content">
-			<p:remoteCommand autoRun="true"
+			<p:remoteCommand
+				autoRun="true"
 				actionListener="#{redirectMB.redirectAfterPayment()}" />
 			<p:outputLabel
 				value="Pagamento realizado com sucesso, você será redirecionado para a página principal em 5 segundos"

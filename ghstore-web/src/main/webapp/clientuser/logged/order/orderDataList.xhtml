@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,67 +9,105 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
 	<ui:composition>
-		<p:dataTable var="order" id="orderTable"
-			value="#{clientOrderMB.orderResults}" paginator="true" rows="15"
+		<p:dataTable
+			var="order"
+			id="orderTable"
+			value="#{clientOrderMB.orderResults}"
+			paginator="true"
+			rows="15"
 			style="width:100%">
 			<f:facet name="header">
 				<p:outputLabel value="Resultados" />
 			</f:facet>
 
-			<p:column headerText="Código do pedido" style="width:12%" sortBy="#{order.code}">
-				<p:outputLabel value="#{order.code}" title="#{order.code}" />
+			<p:column
+				headerText="Código do pedido"
+				style="width:12%"
+				sortBy="#{order.code}">
+				<p:outputLabel
+					value="#{order.code}"
+					title="#{order.code}" />
 			</p:column>
 
-			<p:column headerText="Data do pedido" style="width:10%" sortBy="#{order.insertDate}">
-				<p:outputLabel value="#{formatterMB.formatDate(order.insertDate)}"
+			<p:column
+				headerText="Data do pedido"
+				style="width:10%"
+				sortBy="#{order.insertDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(order.insertDate)}"
 					title="#{formatterMB.formatDate(order.insertDate)}" />
 			</p:column>
 
-			<p:column headerText="Data de entrega" style="width:10%" sortBy="#{order.deliverDate}">
-				<p:outputLabel value="#{formatterMB.formatDate(order.deliverDate)}"
+			<p:column
+				headerText="Data de entrega"
+				style="width:10%"
+				sortBy="#{order.deliverDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(order.deliverDate)}"
 					title="#{formatterMB.formatDate(order.deliverDate)}" />
 			</p:column>
 
-			<p:column headerText="Status do pedido" style="width:14%" sortBy="#{order.orderStatus.description}">
-				<p:outputLabel value="#{order.orderStatus.description}"
+			<p:column
+				headerText="Status do pedido"
+				style="width:14%"
+				sortBy="#{order.orderStatus.description}">
+				<p:outputLabel
+					value="#{order.orderStatus.description}"
 					title="#{order.orderStatus.description}" />
 			</p:column>
 
-			<p:column headerText="Valor total" style="width:14%" sortBy="#{order.totalValue}">
+			<p:column
+				headerText="Valor total"
+				style="width:14%"
+				sortBy="#{order.totalValue}">
 				<p:outputLabel
 					value="#{formatterMB.formatCurrency(order.totalValue)}"
 					title="#{order.totalValue}" />
 			</p:column>
 
-			<p:column style="width:40%;text-align:center" headerText="Operação">
-				<p:panelGrid id="gridOperations" columns="1">
+			<p:column
+				style="width:40%;text-align:center"
+				headerText="Operação">
+				<p:panelGrid
+					id="gridOperations"
+					columns="1">
 					<p:row>
 
-						<p:commandButton update=":form_content:returnDetail :form_content:returnTable"
+						<p:commandButton
+							update=":form_content:returnDetail :form_content:returnTable"
 							disabled="#{clientOrderMB.allowReturn(order)}"
 							actionListener="#{clientOrderMB.initReturn(order)}"
 							oncomplete="PF('returnDialog').show()"
-							value="Devolver" title="Devolver" style="margin-right:10px">
+							value="Devolver"
+							title="Devolver"
+							style="margin-right:10px">
 						</p:commandButton>
-						
-						<p:commandButton update=":form_content:exchangeDetail :form_content:exchangeTable"
+
+						<p:commandButton
+							update=":form_content:exchangeDetail :form_content:exchangeTable"
 							disabled="#{clientOrderMB.allowExchange(order)}"
 							actionListener="#{clientOrderMB.initExchange(order)}"
 							oncomplete="PF('exchangeDialog').show()"
-							value="Trocar" title="trocar" style="margin-right:10px">
+							value="Trocar"
+							title="trocar"
+							style="margin-right:10px">
 						</p:commandButton>
-												
-						<p:commandButton update=":form_content:orderTable"
+
+						<p:commandButton
+							update=":form_content:orderTable"
 							disabled="#{not (order.orderStatus.code eq 'APG')}"
 							actionListener="#{clientOrderMB.changeToCanceled(order)}"
-							value="Cancelar" title="Cancelar" style="margin-right:10px">
-						</p:commandButton>						
+							value="Cancelar"
+							title="Cancelar"
+							style="margin-right:10px">
+						</p:commandButton>
 
 						<p:commandButton
 							update=":form_content:orderDetail :form_content:orderItemTable"
 							value="Ver Detalhes"
 							actionListener="#{clientOrderMB.viewDetails(order)}"
-							oncomplete="PF('orderDialog').show()" title="Ver Detalhes">
+							oncomplete="PF('orderDialog').show()"
+							title="Ver Detalhes">
 						</p:commandButton>
 
 					</p:row>

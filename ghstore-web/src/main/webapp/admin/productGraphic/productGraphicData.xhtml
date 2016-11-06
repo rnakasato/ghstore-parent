@@ -7,15 +7,21 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
-<ui:composition template="/layout/clientLayout.xhtml">
-	<h:head>
-		<title>GHStore</title>
-	</h:head>
-	<ui:define name="sidebar">
-		<ui:include src="/clientuser/actionFigures/actionFiguresFilter.xhtml" />
-	</ui:define>
-	<ui:define name="content">
-		<ui:include src="/clientuser/actionFigures/actionFiguresDataList.xhtml" />
-	</ui:define>
-</ui:composition>
+<h:body>
+	<ui:composition>
+
+		<p:panelGrid
+			columns="2"
+			columnClasses="left,right"
+			style="width:100%">
+
+			<p:chart
+				type="line"
+				model="#{chartView.animatedModel1}"
+				style="width:400px;"
+				rendered="#{}" />
+		</p:panelGrid>
+
+	</ui:composition>
+</h:body>
 </html>

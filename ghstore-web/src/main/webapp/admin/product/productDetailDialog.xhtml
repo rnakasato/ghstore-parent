@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,11 +9,23 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
 	<ui:composition>
-		<p:dialog id="productDetail" header="Produto" widgetVar="prodDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false"
-			width="512px" position="center top">
-			<p:outputPanel id="prodDetail" style="align:center">
-				<p:panelGrid styleClass="baseGrid" columns="1" rendered="true"
+		<p:dialog
+			id="productDetail"
+			header="Produto"
+			widgetVar="prodDialog"
+			modal="true"
+			showEffect="fade"
+			hideEffect="fade"
+			resizable="false"
+			width="512px"
+			position="center top">
+			<p:outputPanel
+				id="prodDetail"
+				style="align:center">
+				<p:panelGrid
+					styleClass="baseGrid"
+					columns="1"
+					rendered="true"
 					columnClasses="label,value">
 					<f:facet name="header">
 						<p:graphicImage
@@ -27,20 +40,17 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel value="Categoria: " />
-						<p:outputLabel
-							value="#{adminProductMB.product.storeCategory.description}" />
+						<p:outputLabel value="#{adminProductMB.product.storeCategory.description}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel value="Subcategoria: " />
-						<p:outputLabel
-							value="#{adminProductMB.product.subcategory.description}" />
+						<p:outputLabel value="#{adminProductMB.product.subcategory.description}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel value="Tags: " />
-						<p:outputLabel
-							value="#{formatterMB.formatTagList(adminProductMB.product.tagList)}" />
+						<p:outputLabel value="#{formatterMB.formatTagList(adminProductMB.product.tagList)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
@@ -61,7 +71,9 @@
 						<p:outputLabel value="#{adminProductMB.product.description}" />
 					</p:row>
 				</p:panelGrid>
-				<p:commandButton value="Fechar" onclick="PF('prodDialog').hide()" />
+				<p:commandButton
+					value="Fechar"
+					onclick="PF('prodDialog').hide()" />
 			</p:outputPanel>
 		</p:dialog>
 	</ui:composition>

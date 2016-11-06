@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,16 +9,26 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
 	<ui:composition>
-		<p:dataTable var="cartItem" id="shoppingCartTable"
-			selection="#{userSessionMB.selectedItem}" selectionMode="single"
-			value="#{userSessionMB.cart.shoppingCartList}" paginator="true"
-			rows="15" style="width:100%" rowKey="#{cartItem.product.id}">
+		<p:dataTable
+			var="cartItem"
+			id="shoppingCartTable"
+			selection="#{userSessionMB.selectedItem}"
+			selectionMode="single"
+			value="#{userSessionMB.cart.shoppingCartList}"
+			paginator="true"
+			rows="15"
+			style="width:100%"
+			rowKey="#{cartItem.product.id}">
 			<f:facet name="header">
-				<p:outputLabel value="Carrinho de compras" style="font-weight:bold;"/>
+				<p:outputLabel
+					value="Carrinho de compras"
+					style="font-weight:bold;" />
 			</f:facet>
 			<p:column headerText="Produto">
 				<h:outputText value="#{cartItem.product.name}" />
-				<p:graphicImage value="#{shoppingCartMB.getImagePath(cartItem.product)}" style="width:96px;height:96px"/>
+				<p:graphicImage
+					value="#{shoppingCartMB.getImagePath(cartItem.product)}"
+					style="width:96px;height:96px" />
 			</p:column>
 
 			<p:column headerText="Status">
@@ -25,8 +36,7 @@
 			</p:column>
 
 			<p:column headerText="Preço unitário">
-				<h:outputText
-					value="#{formatterMB.formatCurrency(cartItem.product.price)}" />
+				<h:outputText value="#{formatterMB.formatCurrency(cartItem.product.price)}" />
 			</p:column>
 
 			<p:column headerText="Quantidade">
@@ -34,21 +44,24 @@
 			</p:column>
 
 			<p:column headerText="Total do produto">
-				<h:outputText
-					value="#{formatterMB.formatCurrency(cartItem.totalValue)}" />
+				<h:outputText value="#{formatterMB.formatCurrency(cartItem.totalValue)}" />
 			</p:column>
 
 			<p:column>
-				<p:commandButton update=":form_content"
+				<p:commandButton
+					update=":form_content"
 					actionListener="#{userSessionMB.removeItem(cartItem)}"
-					value="Remover" title="Remover">
+					value="Remover"
+					title="Remover">
 				</p:commandButton>
 			</p:column>
 
 			<p:column>
-				<p:commandButton update=":form_content:amountDialog"
+				<p:commandButton
+					update=":form_content:amountDialog"
 					actionListener="#{userSessionMB.setUpdateItem(cartItem)}"
-					oncomplete="PF('amountDialog').show()" value="Alterar"
+					oncomplete="PF('amountDialog').show()"
+					value="Alterar"
 					title="Alterar">
 				</p:commandButton>
 

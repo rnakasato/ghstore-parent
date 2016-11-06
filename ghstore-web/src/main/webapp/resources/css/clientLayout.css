@@ -33,7 +33,7 @@ html, body {
 	width: 75%;
 }
 
-#centerText{
+#centerText {
 	text-align: center;
 }
 
@@ -45,20 +45,18 @@ html, body {
 	float: left;
 }
 
-.centerPage{
+.centerPage {
 	position: absolute;
-    height: 100px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    left: 50%;
-    margin-left: -100px;
-    width: 200px;
-	
+	height: 100px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	left: 50%;
+	margin-left: -100px;
+	width: 200px;
 }
 
-.ui-outputlabel{
-	padding-right:10px;
+.ui-outputlabel {
+	padding-right: 10px;
 }
-
 }

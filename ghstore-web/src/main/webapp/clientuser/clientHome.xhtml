@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,24 +10,35 @@
 <ui:composition template="/layout/clientLayout.xhtml">
 	<h:head>
 		<title>GHStore</title>
-		<h:outputStylesheet name="baseStyles.css" library="css" />
+		<h:outputStylesheet
+			name="baseStyles.css"
+			library="css" />
 	</h:head>
 	<ui:define name="metadate">
 		<f:metadata>
-			<f:event listener="#{userSessionMB.processOrder()}" type="preRenderView"/>
-			<f:viewParam name="idpagseguro" value="#{userSessionMB.transactionCode}" />
+			<f:event
+				listener="#{userSessionMB.processOrder()}"
+				type="preRenderView" />
+			<f:viewParam
+				name="idpagseguro"
+				value="#{userSessionMB.transactionCode}" />
 		</f:metadata>
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="form_content">
-			<p:dataGrid id="recomendationDataGrid" columns="8" paginator="false"
+			<p:dataGrid
+				id="recomendationDataGrid"
+				columns="8"
+				paginator="false"
 				rendered="false">
 				<!--  Trocar para verificar usuário logado -->
 				<f:facet name="header">
 			        	Recomendações
 			        </f:facet>
 				<p:panel style="text-align:center">
-					<h:panelGrid columns="1" style="width:100%">
+					<h:panelGrid
+						columns="1"
+						style="width:100%">
 						<p:graphicImage name="imagem" />
 
 						<h:outputText value="nomeProduto" />
@@ -39,14 +51,19 @@
 				</p:panel>
 			</p:dataGrid>
 
-			<p:dataGrid id="featuredDataGrid" columns="8" paginator="false"
+			<p:dataGrid
+				id="featuredDataGrid"
+				columns="8"
+				paginator="false"
 				rendered="false">
 				<!--  Trocar para verificar usuário logado -->
 				<f:facet name="header">
 			        	PRODUTOS EM DESTAQUE
 			        </f:facet>
 				<p:panel style="text-align:center">
-					<h:panelGrid columns="1" style="width:100%">
+					<h:panelGrid
+						columns="1"
+						style="width:100%">
 						<p:graphicImage name="imagem" />
 
 						<h:outputText value="nomeProduto" />
@@ -59,14 +76,19 @@
 				</p:panel>
 			</p:dataGrid>
 
-			<p:dataGrid id="newProductsDataGrid" columns="8" paginator="false"
+			<p:dataGrid
+				id="newProductsDataGrid"
+				columns="8"
+				paginator="false"
 				rendered="false">
 				<!--  Trocar para verificar usuário logado -->
 				<f:facet name="header">
 			        	Lançamentos
 			        </f:facet>
 				<p:panel style="text-align:center">
-					<h:panelGrid columns="1" style="width:100%">
+					<h:panelGrid
+						columns="1"
+						style="width:100%">
 						<p:graphicImage name="imagem" />
 
 						<h:outputText value="nomeProduto" />

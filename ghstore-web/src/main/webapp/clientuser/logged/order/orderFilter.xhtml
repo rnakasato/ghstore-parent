@@ -1,52 +1,81 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:body>
 	<ui:composition>
-		<h:form id="orderFilter" style="height:100%;width:100%">
-			<p:panelGrid styleClass="baseGrid" columns="1" style="width:100%">
+		<h:form
+			id="orderFilter"
+			style="height:100%;width:100%">
+			<p:panelGrid
+				styleClass="baseGrid"
+				columns="1"
+				style="width:100%">
 				<f:facet name="header">
 					<p:outputLabel value="Filtros" />
 				</f:facet>
 
 				<p:row>
-					<p:outputLabel id="labelOrderCode" value="Código do pedido: "
+					<p:outputLabel
+						id="labelOrderCode"
+						value="Código do pedido: "
 						for="inputOrderCode" />
-					<p:inputText id="inputOrderCode"
+					<p:inputText
+						id="inputOrderCode"
 						value="#{clientOrderMB.filter.orderCode}" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel id="labelOrderStatus" for="selectOrderStatus"
+					<p:outputLabel
+						id="labelOrderStatus"
+						for="selectOrderStatus"
 						value="Status:" />
-					<p:selectOneMenu id="selectOrderStatus"
-						value="#{clientOrderMB.filter.statusCode}" filter="true"
-						>
-						<f:selectItem itemLabel="Todos" itemValue="#{null}" />
-						<f:selectItems value="#{clientOrderMB.orderStatusList}" var="stat"
-							itemValue="#{stat.code}" itemLabel="#{stat.description}" />
+					<p:selectOneMenu
+						id="selectOrderStatus"
+						value="#{clientOrderMB.filter.statusCode}"
+						filter="true">
+						<f:selectItem
+							itemLabel="Todos"
+							itemValue="#{null}" />
+						<f:selectItems
+							value="#{clientOrderMB.orderStatusList}"
+							var="stat"
+							itemValue="#{stat.code}"
+							itemLabel="#{stat.description}" />
 					</p:selectOneMenu>
 				</p:row>
-				
+
 				<p:row>
-					<p:outputLabel for="startOrderDate" value="Data inicial do pedido:"
+					<p:outputLabel
+						for="startOrderDate"
+						value="Data inicial do pedido:"
 						style="font-weight:bold; width:20%;" />
-					<p:calendar id="startOrderDate" mask="true" navigator="true"
-						pattern="dd/MM/yyyy" yearRange="c-80:c+0"
+					<p:calendar
+						id="startOrderDate"
+						mask="true"
+						navigator="true"
+						pattern="dd/MM/yyyy"
+						yearRange="c-80:c+0"
 						value="#{clientOrderMB.filter.startDate}"
 						maxdate="#{clientOrderMB.today}">
 					</p:calendar>
 				</p:row>
-				
+
 				<p:row>
-					<p:outputLabel for="endOrderDate" value="Data final do pedido:"
+					<p:outputLabel
+						for="endOrderDate"
+						value="Data final do pedido:"
 						style="font-weight:bold; width:20%;" />
-					<p:calendar id="endOrderDate" mask="true" navigator="true"
-						pattern="dd/MM/yyyy" yearRange="c-80:c+0"
+					<p:calendar
+						id="endOrderDate"
+						mask="true"
+						navigator="true"
+						pattern="dd/MM/yyyy"
+						yearRange="c-80:c+0"
 						value="#{clientOrderMB.filter.endDate}"
 						maxdate="#{clientOrderMB.today}">
 					</p:calendar>
@@ -54,11 +83,17 @@
 
 			</p:panelGrid>
 
-			<p:panelGrid styleClass="baseGrid" columns="2" style="width:100%">
-				<p:commandButton icon="ui-icon-search" value="Buscar"
+			<p:panelGrid
+				styleClass="baseGrid"
+				columns="2"
+				style="width:100%">
+				<p:commandButton
+					icon="ui-icon-search"
+					value="Buscar"
 					actionListener="#{clientOrderMB.listOrders()}"
 					update=":form_content:orderTable :messages" />
-				<p:commandButton value="Limpar filtros"
+				<p:commandButton
+					value="Limpar filtros"
 					actionListener="#{clientOrderMB.clearFilter}"
 					update=":orderFilter" />
 			</p:panelGrid>

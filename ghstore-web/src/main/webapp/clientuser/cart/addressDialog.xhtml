@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,80 +9,133 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
 	<ui:composition>
-		<p:dialog id="adDialog" header="Endereço" widgetVar="addressDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+		<p:dialog
+			id="adDialog"
+			header="Endereço"
+			widgetVar="addressDialog"
+			modal="true"
+			showEffect="fade"
+			hideEffect="fade"
+			resizable="false"
 			style="width:500px">
-			<p:outputPanel id="addressDetail" style="text-align:left;width:500px">
-				<p:panelGrid columns="1" style="text-align:left;width:500px">
+			<p:outputPanel
+				id="addressDetail"
+				style="text-align:left;width:500px">
+				<p:panelGrid
+					columns="1"
+					style="text-align:left;width:500px">
 					<p:row>
-						<p:outputLabel for="states" value="Estado"
+						<p:outputLabel
+							for="states"
+							value="Estado"
 							style="font-weight:bold" />
-						<p:selectOneMenu id="states" value="#{shoppingCartMB.selectedState}"
+						<p:selectOneMenu
+							id="states"
+							value="#{shoppingCartMB.selectedState}"
 							converter="defaultConverter"
-							style="width:75%;vertical-align:middle" filter="true">
-							<f:selectItems value="#{shoppingCartMB.stateList}" var="state"
-								itemValue="#{state}" itemLabel="#{state.description}" />
-							<p:ajax event="change" listener="#{shoppingCartMB.initCityList}"
+							style="width:75%;vertical-align:middle"
+							filter="true">
+							<f:selectItems
+								value="#{shoppingCartMB.stateList}"
+								var="state"
+								itemValue="#{state}"
+								itemLabel="#{state.description}" />
+							<p:ajax
+								event="change"
+								listener="#{shoppingCartMB.initCityList}"
 								update=":form_content:cities" />
 						</p:selectOneMenu>
 					</p:row>
 					<p:row>
-						<p:outputLabel id="city" value="Cidade" style="font-weight:bold" />
-						<p:selectOneMenu id="cities" converter="defaultConverter"
+						<p:outputLabel
+							id="city"
+							value="Cidade"
+							style="font-weight:bold" />
+						<p:selectOneMenu
+							id="cities"
+							converter="defaultConverter"
 							disabled="#{empty shoppingCartMB.selectedState}"
 							value="#{shoppingCartMB.newAddress.city}"
-							style="width:75%;vertical-align:middle" filter="true">
-							<f:selectItems value="#{shoppingCartMB.cityList}" var="city"
-								itemValue="#{city}" itemLabel="#{city.name}" />
+							style="width:75%;vertical-align:middle"
+							filter="true">
+							<f:selectItems
+								value="#{shoppingCartMB.cityList}"
+								var="city"
+								itemValue="#{city}"
+								itemLabel="#{city.name}" />
 						</p:selectOneMenu>
 					</p:row>
 
 					<p:row>
-						<p:outputLabel for="neighborhood" value="Bairro:"
+						<p:outputLabel
+							for="neighborhood"
+							value="Bairro:"
 							style="font-weight:bold; width:20%;" />
-						<p:inputText id="neighborhood"
-							value="#{shoppingCartMB.newAddress.neighborhood}" maxlength="75"
+						<p:inputText
+							id="neighborhood"
+							value="#{shoppingCartMB.newAddress.neighborhood}"
+							maxlength="75"
 							style="width:80%" />
 					</p:row>
 
 					<p:row>
-						<p:outputLabel for="street" value="Rua:"
+						<p:outputLabel
+							for="street"
+							value="Rua:"
 							style="font-weight:bold; width:20%;" />
-						<p:inputText id="street" value="#{shoppingCartMB.newAddress.street}"
-							maxlength="75" style="width:84%" />
+						<p:inputText
+							id="street"
+							value="#{shoppingCartMB.newAddress.street}"
+							maxlength="75"
+							style="width:84%" />
 					</p:row>
 
 					<p:row>
-						<p:outputLabel for="complement" value="Complemento:"
+						<p:outputLabel
+							for="complement"
+							value="Complemento:"
 							style="font-weight:bold; width:20%;" />
-						<p:inputText id="complement"
-							value="#{shoppingCartMB.newAddress.complement}" maxlength="75"
+						<p:inputText
+							id="complement"
+							value="#{shoppingCartMB.newAddress.complement}"
+							maxlength="75"
 							style="width:69%" />
 					</p:row>
 
 					<p:row>
-						<p:outputLabel for="adNumber" value="Número:"
+						<p:outputLabel
+							for="adNumber"
+							value="Número:"
 							style="font-weight:bold; width:20%;" />
-						<p:inputText id="adNumber" value="#{shoppingCartMB.newAddress.number}"
-							maxlength="75" style="width:78%" />
+						<p:inputText
+							id="adNumber"
+							value="#{shoppingCartMB.newAddress.number}"
+							maxlength="75"
+							style="width:78%" />
 					</p:row>
 
 					<p:row>
-						<p:outputLabel for="inputCEP" value="CEP:"
+						<p:outputLabel
+							for="inputCEP"
+							value="CEP:"
 							style="font-weight:bold; width:20%;" />
-						<p:inputMask id="inputCEP" mask="99999-999"
+						<p:inputMask
+							id="inputCEP"
+							mask="99999-999"
 							style="font-weight:bold; width:84%;"
 							value="#{shoppingCartMB.newAddress.cep}" />
 					</p:row>
 
 					<p:row>
-						<p:commandButton value="Adicionar"
+						<p:commandButton
+							value="Adicionar"
 							actionListener="#{shoppingCartMB.addAddress()}"
 							update=":form_content">
 						</p:commandButton>
 
 
-						<p:commandButton value="Cancelar"
+						<p:commandButton
+							value="Cancelar"
 							action="#{shoppingCartMB.cancelAddress()}">
 						</p:commandButton>
 					</p:row>

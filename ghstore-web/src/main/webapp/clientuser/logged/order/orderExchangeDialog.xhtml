@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,35 +9,55 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
 	<ui:composition>
-		<p:dialog id="exchangeDetail" header="Pedido" widgetVar="exchangeDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false"
-			width="512px" position="center top">
-			<p:panelGrid id="gridReason" columns="1" style="width:100%">
+		<p:dialog
+			id="exchangeDetail"
+			header="Pedido"
+			widgetVar="exchangeDialog"
+			modal="true"
+			showEffect="fade"
+			hideEffect="fade"
+			resizable="false"
+			width="512px"
+			position="center top">
+			<p:panelGrid
+				id="gridReason"
+				columns="1"
+				style="width:100%">
 				<p:row>
-					<p:outputLabel value="Motivo da troca"/>
+					<p:outputLabel value="Motivo da troca" />
 				</p:row>
 				<p:row>
-					<p:inputTextarea id="description"
+					<p:inputTextarea
+						id="description"
 						style="width:100%"
-						value="#{clientOrderMB.exchangeReason}" rows="5" cols="40"
-						counter="display" maxlength="250"
-						counterTemplate="{0} caracteres restantes." autoResize="false" />
+						value="#{clientOrderMB.exchangeReason}"
+						rows="5"
+						cols="40"
+						counter="display"
+						maxlength="250"
+						counterTemplate="{0} caracteres restantes."
+						autoResize="false" />
 				</p:row>
 				<p:row>
 					<h:outputText id="display" />
-				</p:row>	
+				</p:row>
 			</p:panelGrid>
-			
-						
+
+
 			<ui:include src="/clientuser/logged/order/exchangeDataList.xhtml" />
-			<p:panelGrid id="gridExchangeButtons" columns="1">
+			<p:panelGrid
+				id="gridExchangeButtons"
+				columns="1">
 				<p:row>
-					<p:commandButton value="Trocar"
+					<p:commandButton
+						value="Trocar"
 						actionListener="#{clientOrderMB.doExchange()}"
-						disabled="#{empty clientOrderMB.selectedExchangeList}" 
+						disabled="#{empty clientOrderMB.selectedExchangeList}"
 						onsuccess="PF('exchangeDialog').hide()"
-						update=":form_content:orderTable"/>
-					<p:commandButton value="Cancelar" onclick="PF('exchangeDialog').hide()" />
+						update=":form_content:orderTable" />
+					<p:commandButton
+						value="Cancelar"
+						onclick="PF('exchangeDialog').hide()" />
 				</p:row>
 			</p:panelGrid>
 		</p:dialog>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,7 +10,9 @@
 <ui:composition template="/layout/clientLayout.xhtml">
 	<h:head>
 		<title>GHStore - Cadastrar usuário</title>
-		<h:outputStylesheet name="baseStyles.css" library="css" />
+		<h:outputStylesheet
+			name="baseStyles.css"
+			library="css" />
 	</h:head>
 	<ui:define name="messages">
 		<p:growl id="messages"></p:growl>
@@ -17,57 +20,88 @@
 	<ui:define name="sidebar">
 	</ui:define>
 	<ui:define name="content">
-		<h:form id="form_content" style="width:50%">
+		<h:form
+			id="form_content"
+			style="width:50%">
 
-			<p:panelGrid styleClass="baseGrid" columns="1">
+			<p:panelGrid
+				styleClass="baseGrid"
+				columns="1">
 				<f:facet name="header">
 					<p:outputLabel value="Cadastro de Usuário" />
 				</f:facet>
 				<p:row>
-					<p:outputLabel for="user" value="Usuário:"
+					<p:outputLabel
+						for="user"
+						value="Usuário:"
 						style="font-weight:bold; width:20%;" />
-					<p:inputText id="user" value="#{customerMB.customer.username}"
-						maxlength="12" style="width:80%" />
-				</p:row>
-
-				<p:row>
-					<p:outputLabel for="password" value="Senha: "
-						style="font-weight:bold; width:35%" />
-					<h:inputSecret id="password"
-						redisplay="true"	
-						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
-						value="#{customerMB.customer.password}" maxlength="20"
+					<p:inputText
+						id="user"
+						value="#{customerMB.customer.username}"
+						maxlength="12"
 						style="width:80%" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Confirmar senha:" for="passwordConfirm"
-						style="font-weight:bold ; width:40%" />
-					<h:inputSecret id="passwordConfirm"
+					<p:outputLabel
+						for="password"
+						value="Senha: "
+						style="font-weight:bold; width:35%" />
+					<h:inputSecret
+						id="password"
 						redisplay="true"
 						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
-						value="#{customerMB.passwordConfirmation}" maxlength="20"
+						value="#{customerMB.customer.password}"
+						maxlength="20"
 						style="width:80%" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel for="name" value="Nome completo:"
-						style="font-weight:bold; width:20%;" />
-					<p:inputText id="name" value="#{customerMB.customer.name}"
-						maxlength="75" style="width:80%" />
+					<p:outputLabel
+						value="Confirmar senha:"
+						for="passwordConfirm"
+						style="font-weight:bold ; width:40%" />
+					<h:inputSecret
+						id="passwordConfirm"
+						redisplay="true"
+						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+						value="#{customerMB.passwordConfirmation}"
+						maxlength="20"
+						style="width:80%" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel for="cpf" value="CPF:"
+					<p:outputLabel
+						for="name"
+						value="Nome completo:"
 						style="font-weight:bold; width:20%;" />
-					<p:inputMask id="cpf" value="#{customerMB.customer.cpf}"
-						mask="999.999.999-99" maxlength="75" style="width:80%" />
+					<p:inputText
+						id="name"
+						value="#{customerMB.customer.name}"
+						maxlength="75"
+						style="width:80%" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel for="inputBirthDate" value="Data de nascimento:"
+					<p:outputLabel
+						for="cpf"
+						value="CPF:"
 						style="font-weight:bold; width:20%;" />
-					<p:calendar id="inputBirthDate"						
+					<p:inputMask
+						id="cpf"
+						value="#{customerMB.customer.cpf}"
+						mask="999.999.999-99"
+						maxlength="75"
+						style="width:80%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputBirthDate"
+						value="Data de nascimento:"
+						style="font-weight:bold; width:20%;" />
+					<p:calendar
+						id="inputBirthDate"
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy"
@@ -78,54 +112,93 @@
 				</p:row>
 
 				<p:row>
-					<p:outputLabel for="inputSex" value="Sexo:"
+					<p:outputLabel
+						for="inputSex"
+						value="Sexo:"
 						style="font-weight:bold; width:20%;" />
-					<p:selectOneRadio id="inputSex" value="#{customerMB.customer.sex}">
-						<f:selectItem itemLabel="Masculino" itemValue="M" />
-						<f:selectItem itemLabel="Feminino" itemValue="F" />
+					<p:selectOneRadio
+						id="inputSex"
+						value="#{customerMB.customer.sex}">
+						<f:selectItem
+							itemLabel="Masculino"
+							itemValue="M" />
+						<f:selectItem
+							itemLabel="Feminino"
+							itemValue="F" />
 					</p:selectOneRadio>
 				</p:row>
 
 				<p:row>
-					<p:outputLabel for="email" value="E-mail:"
+					<p:outputLabel
+						for="email"
+						value="E-mail:"
 						style="font-weight:bold; width:20%;" />
-					<p:inputText id="email" value="#{customerMB.customer.email}"
-						maxlength="30" style="width:80%" />
+					<p:inputText
+						id="email"
+						value="#{customerMB.customer.email}"
+						maxlength="30"
+						style="width:80%" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel for="inputDDD" value="DDD:"
+					<p:outputLabel
+						for="inputDDD"
+						value="DDD:"
 						style="font-weight:bold; width:10%;" />
-					<p:inputText id="inputDDD" value="#{customerMB.newPhone.ddd}"
-						maxlength="2" style="width:5%;" />
-					<p:outputLabel for="inputPhoneNumber" value="Número:"
+					<p:inputText
+						id="inputDDD"
+						value="#{customerMB.newPhone.ddd}"
+						maxlength="2"
+						style="width:5%;" />
+					<p:outputLabel
+						for="inputPhoneNumber"
+						value="Número:"
 						style="font-weight:bold; width:20%;padding-left:10px" />
-					<p:inputMask id="inputPhoneNumber" mask="99999-9999"
-						style="width:10%" value="#{customerMB.newPhone.number}" />
+					<p:inputMask
+						id="inputPhoneNumber"
+						mask="99999-9999"
+						style="width:10%"
+						value="#{customerMB.newPhone.number}" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Endereço:"
+					<p:outputLabel
+						value="Endereço:"
 						style="font-weight:bold; width:20%;" />
-					<p:commandButton value="+" style="width:50px"
+					<p:commandButton
+						value="+"
+						style="width:50px"
 						actionListener="#{customerMB.addNewAddress()}"
 						update=":form_content" />
 				</p:row>
 
-				<ui:include	src="/clientuser/signup/customerSave/addressDataList.xhtml" />
+				<ui:include src="/clientuser/signup/customerSave/addressDataList.xhtml" />
 
 				<p:row>
-					<p:commandButton actionListener="#{customerMB.save}"
-						value="Confirmar" id="confirm" update=":form_content,:messages">
-						<p:confirm header="Usuário" message="Confirmar cadastro?" />
+					<p:commandButton
+						actionListener="#{customerMB.save}"
+						value="Confirmar"
+						id="confirm"
+						update=":form_content,:messages">
+						<p:confirm
+							header="Usuário"
+							message="Confirmar cadastro?" />
 					</p:commandButton>
-					<p:commandButton value="Cancelar" id="cancel"
+					<p:commandButton
+						value="Cancelar"
+						id="cancel"
 						action="/clientuser/clientHome.xhtml">
-						<p:confirm header="Usuário" message="Cancelar cadastro?" />
+						<p:confirm
+							header="Usuário"
+							message="Cancelar cadastro?" />
 					</p:commandButton>
-					<p:commandButton value="Limpar Campos" update="form_content"
-						id="clear" actionListener="#{customerMB.clearFields}">
-						<p:confirm header="Usuário"
+					<p:commandButton
+						value="Limpar Campos"
+						update="form_content"
+						id="clear"
+						actionListener="#{customerMB.clearFields}">
+						<p:confirm
+							header="Usuário"
 							message="Tem certeza que deseja limpar dodos os campos?" />
 					</p:commandButton>
 				</p:row>
@@ -133,11 +206,23 @@
 
 			<ui:include src="/clientuser/signup/customerSave/addressDialog.xhtml" />
 
-			<p:confirmDialog severity="alert" global="true" widgetVar="dialog">
-				<p:commandButton id="save" value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" onsuccess="" />
-				<p:commandButton id="ignore" value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			<p:confirmDialog
+				severity="alert"
+				global="true"
+				widgetVar="dialog">
+				<p:commandButton
+					id="save"
+					value="Sim"
+					type="button"
+					styleClass="ui-confirmdialog-yes"
+					icon="ui-icon-check"
+					onsuccess="" />
+				<p:commandButton
+					id="ignore"
+					value="Não"
+					type="button"
+					styleClass="ui-confirmdialog-no"
+					icon="ui-icon-close" />
 			</p:confirmDialog>
 		</h:form>
 	</ui:define>
