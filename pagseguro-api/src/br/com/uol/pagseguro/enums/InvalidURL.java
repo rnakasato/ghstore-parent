@@ -24,45 +24,46 @@ package br.com.uol.pagseguro.enums;
  */
 public enum InvalidURL {
 
-    LOCALHOST("localhost"),
+	LOCALHOST( "localhost" ),
 
-    IP_V4("127.0.0.1"),
+	IP_V4( "127.0.0.1" ),
 
-    IP_V6("::1");
+	IP_V6( "::1" );
 
-    private String value;
+	private String value;
 
-    /**
-     * Initializes a newly created enum constant of this type with the specified arguments
-     * 
-     * @param value
-     *            - the value of the enum constant
-     */
-    InvalidURL(String value) {
-        this.value = value;
-    }
+	/**
+	 * Initializes a newly created enum constant of this type with the specified
+	 * arguments
+	 * 
+	 * @param value
+	 *            - the value of the enum constant
+	 */
+	InvalidURL( String value ) {
+		this.value = value;
+	}
 
-    /**
-     * 
-     * @return an array of enum constants
-     */
-    public InvalidURL[] getEnumInvalidURL() {
-        return InvalidURL.values();
-    }
+	/**
+	 * 
+	 * @return an array of enum constants
+	 */
+	public InvalidURL[] getEnumInvalidURL() {
+		return InvalidURL.values();
+	}
 
-    /**
-     * @return this enum constant value
-     */
-    public String getValue() {
-        return this.value;
-    }
+	/**
+	 * @return this enum constant value
+	 */
+	public String getValue() {
+		return this.value;
+	}
 
-    /**
-     * @param value
-     *            - new value for this enum constant
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+	/**
+	 * @param value
+	 *            - new value for this enum constant
+	 */
+	public void setValue( String value ) {
+		this.value = value;
+	}
 
 }

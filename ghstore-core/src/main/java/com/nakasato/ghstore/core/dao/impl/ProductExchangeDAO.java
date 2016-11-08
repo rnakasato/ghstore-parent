@@ -9,24 +9,24 @@ import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 
 public class ProductExchangeDAO extends AbstractDAO < ProductExchange > {
 
-	@ Override
+	@Override
 	public List < ProductExchange > find( AbstractDomainEntity filter ) throws Exception {
 
 		return null;
 	}
 
-	@ Override
+	@Override
 	public List < ProductExchange > findAll() throws Exception {
-		List < ProductExchange > productExchangeList =null;
+		List < ProductExchange > productExchangeList = null;
 		try {
 			openSession();
 
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM ProductExchange " );
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
-			productExchangeList =query.getResultList();
+			productExchangeList = query.getResultList();
 
 			closeSession();
 		} catch( RuntimeException e ) {

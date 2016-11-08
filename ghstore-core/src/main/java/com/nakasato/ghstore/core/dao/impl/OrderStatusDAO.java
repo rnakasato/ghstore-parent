@@ -15,25 +15,25 @@ import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class OrderStatusDAO extends AbstractDAO < OrderStatus > {
 
-	@ Override
+	@Override
 	public List < OrderStatus > find( AbstractDomainEntity filter ) throws Exception {
-		OrderStatusFilter statusFilter =( OrderStatusFilter ) filter;
-		List < OrderStatus > statusList =null;
+		OrderStatusFilter statusFilter = ( OrderStatusFilter ) filter;
+		List < OrderStatus > statusList = null;
 		try {
 			openSession();
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM OrderStatus o" );
 			jpql.append( " WHERE 1=1 " );
 			if( StringUtils.isNotEmpty( statusFilter.getCode() ) ) {
 				jpql.append( " AND o.code like :code " );
 			}
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
 			if( StringUtils.isNotEmpty( statusFilter.getCode() ) ) {
 				query.setParameter( "code", statusFilter.getCode() );
 			}
-			statusList =query.getResultList();
+			statusList = query.getResultList();
 
 			closeSession();
 		} catch( Exception e ) {
@@ -44,19 +44,19 @@ public class OrderStatusDAO extends AbstractDAO < OrderStatus > {
 		return statusList;
 	}
 
-	@ Override
+	@Override
 	public List < OrderStatus > findAll() throws Exception {
 
-		List < OrderStatus > statusList =null;
+		List < OrderStatus > statusList = null;
 		try {
 			openSession();
 
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM OrderStatus " );
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
-			statusList =query.getResultList();
+			statusList = query.getResultList();
 
 			closeSession();
 		} catch( RuntimeException e ) {
@@ -66,10 +66,10 @@ public class OrderStatusDAO extends AbstractDAO < OrderStatus > {
 	}
 
 	public static void main( String[] args ) throws Exception {
-		OrderStatusFilter filter =new OrderStatusFilter();
+		OrderStatusFilter filter = new OrderStatusFilter();
 		filter.setCode( OrderStatus.COD_AGUARDANDO_PAGAMENTO );
-		ICommand commandFind =FactoryCommand.build( filter, EOperation.FIND );
-		List < OrderStatus > statusList =commandFind.execute().getEntityList();
+		ICommand commandFind = FactoryCommand.build( filter, EOperation.FIND );
+		List < OrderStatus > statusList = commandFind.execute().getEntityList();
 
 		for( OrderStatus orderStatus: statusList ) {
 			System.out.println( orderStatus.getDescription() );

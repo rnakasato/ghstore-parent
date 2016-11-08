@@ -42,82 +42,81 @@ import br.com.uol.pagseguro.xmlparser.XMLParserUtils;
  */
 public class SessionService {
 
-    /**
-     * @var Log
-     */
-    private static Log log = new Log(SessionService.class);
+	/**
+	 * @var Log
+	 */
+	private static Log log = new Log( SessionService.class );
 
-    private static String buildSessionsRequestUrl(ConnectionData connectionData) //
-            throws PagSeguroServiceException {
-        return connectionData.getSessionsUrl();
-    }
+	private static String buildSessionsRequestUrl( ConnectionData connectionData ) //
+			throws PagSeguroServiceException {
+		return connectionData.getSessionsUrl();
+	}
 
-    public static String createSession(Credentials credentials) //
-            throws PagSeguroServiceException {
-        log.info("SessionService.createSession() - begin");
+	public static String createSession( Credentials credentials ) //
+			throws PagSeguroServiceException {
+		log.info( "SessionService.createSession() - begin" );
 
-        ConnectionData connectionData = new ConnectionData(credentials);
+		ConnectionData connectionData = new ConnectionData( credentials );
 
-        String url = SessionService.buildSessionsRequestUrl(connectionData);
+		String url = SessionService.buildSessionsRequestUrl( connectionData );
 
-        HttpConnection connection = new HttpConnection();
-        HttpStatus httpCodeStatus = null;
+		HttpConnection connection = new HttpConnection();
+		HttpStatus httpCodeStatus = null;
 
-        HttpURLConnection response = connection.post(url, //
-                credentials.getAttributes(), //
-                connectionData.getServiceTimeout(), //
-                connectionData.getCharset(),
-                null);
+		HttpURLConnection response = connection.post( url, //
+				credentials.getAttributes(), //
+				connectionData.getServiceTimeout(), //
+				connectionData.getCharset(), null );
 
-        try {
-            httpCodeStatus = HttpStatus.fromCode(response.getResponseCode());
+		try {
+			httpCodeStatus = HttpStatus.fromCode( response.getResponseCode() );
 
-            if (httpCodeStatus == null) {
-                throw new PagSeguroServiceException("Connection Timeout");
-            } else if (HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue()) {
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+			if( httpCodeStatus == null ) {
+				throw new PagSeguroServiceException( "Connection Timeout" );
+			} else if( HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue() ) {
+				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-                InputSource inputSource = new InputSource(response.getInputStream());
-                Document document = documentBuilder.parse(inputSource);
+				InputSource inputSource = new InputSource( response.getInputStream() );
+				Document document = documentBuilder.parse( inputSource );
 
-                Element element = document.getDocumentElement();
+				Element element = document.getDocumentElement();
 
-                // setting <session><id>
-                String sessionId = XMLParserUtils.getTagValue("id", element);
+				// setting <session><id>
+				String sessionId = XMLParserUtils.getTagValue( "id", element );
 
-                log.info("SessionService.createSession() - end");
+				log.info( "SessionService.createSession() - end" );
 
-                return sessionId;
-            } else if (HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue()) {
-                List<Error> errors = ErrorsParser.readErrosXml(response.getErrorStream());
+				return sessionId;
+			} else if( HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue() ) {
+				List < Error > errors = ErrorsParser.readErrosXml( response.getErrorStream() );
 
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpCodeStatus, errors);
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpCodeStatus, errors );
 
-                log.error(String.format("SessionService.createSession() - error %s", //
-                        exception.getMessage()));
+				log.error( String.format( "SessionService.createSession() - error %s", //
+						exception.getMessage() ) );
 
-                throw exception;
-            } else if (HttpURLConnection.HTTP_UNAUTHORIZED == httpCodeStatus.getCode().intValue()) {
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpCodeStatus);
+				throw exception;
+			} else if( HttpURLConnection.HTTP_UNAUTHORIZED == httpCodeStatus.getCode().intValue() ) {
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpCodeStatus );
 
-                log.error(String.format("SessionService.createSession() - error %s", //
-                        exception.getMessage()));
+				log.error( String.format( "SessionService.createSession() - error %s", //
+						exception.getMessage() ) );
 
-                throw exception;
-            } else {
-                throw new PagSeguroServiceException(httpCodeStatus);
-            }
-        } catch (PagSeguroServiceException e) {
-            throw e;
-        } catch (Exception e) {
-            log.error(String.format("SessionService.createSession() - error %s", //
-                    e.getMessage()));
+				throw exception;
+			} else {
+				throw new PagSeguroServiceException( httpCodeStatus );
+			}
+		} catch( PagSeguroServiceException e ) {
+			throw e;
+		} catch( Exception e ) {
+			log.error( String.format( "SessionService.createSession() - error %s", //
+					e.getMessage() ) );
 
-            throw new PagSeguroServiceException(httpCodeStatus, e);
-        } finally {
-            response.disconnect();
-        }
-    }
+			throw new PagSeguroServiceException( httpCodeStatus, e );
+		} finally {
+			response.disconnect();
+		}
+	}
 
 }

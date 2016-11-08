@@ -18,213 +18,220 @@ import br.com.uol.pagseguro.utils.HttpConnection;
 import br.com.uol.pagseguro.xmlparser.ErrorsParser;
 
 public class AuthorizationSearchService {
-	
-	public AuthorizationSearchService(){
+
+	public AuthorizationSearchService() {
 	}
-	
+
 	/**
-     * PagSeguro Log tool
-     * 
-     * @see Log
-     */
-    private static Log log = new Log(TransactionSearchService.class);
-    
-    /**
-     * @var DATE_FORMAT
-     */
-    private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm"; // "2011-04-01T08:30"
-    
-    /**
-     * @var String
-     */
-    private static final String SEARCH_BY_CODE = "AuthorizationSearchService.SearchByCode(authorizationCode= %1s) - error %2s";
-    
-    /**
-     * @var String
-     */
-    private static final String SEARCH_BY_CODE_BEGIN = "AuthorizationSearchService.SearchByCode(authorizationCode= %s) - begin";
+	 * PagSeguro Log tool
+	 * 
+	 * @see Log
+	 */
+	private static Log log = new Log( TransactionSearchService.class );
 
-    /**
-     * @var String
-     */
-    private static final String SEARCH_BY_DATE = "AuthorizationSearchService.SearchAll() - error %s";
-    
-    /**
-     * @var String
-     */
-    private static final String SEARCH_BY_DATE_BEGIN = "AuthorizationSearchService.SearchAll() - begin";
-    
-    /**
-     * Build Search Url By Code
-     * 
-     * @param connectionData
-     * @param authorizationCode
-     * @return
-     * @throws PagSeguroServiceException
-     */
-    private static String buildSearchUrlByCode(ConnectionData connectionData, String authorizationCode)
-            throws PagSeguroServiceException {
-        return connectionData.getWSAuthorizationFindByCodeUrl() + authorizationCode + "?" + connectionData.getCredentialsUrlQuery();
-    }
-    
-    /**
-     * Build Search byDate
-     * 
-     * @param connectionData
-     * @param initialDate 
-     * @param finalDate
-     * @param pageNumber
-     * @param resultsPerPage
-     * @return
-     * @throws PagSeguroServiceException
-     */
-    private static String buildSearchUrlByDate(ConnectionData connectionData, String initialDate, String finalDate, Integer pageNumber, Integer resultsPerPage)
-            throws PagSeguroServiceException {
-    	
-    	StringBuilder sb = new StringBuilder();
-        sb.append(connectionData.getWSAuthorizationFindByDateUrl() + "?" + connectionData.getCredentialsUrlQuery());
-        sb.append("&initialDate=" + (initialDate != null ? initialDate : ""));
-        sb.append("&finalDate=" + (finalDate != null ? finalDate : ""));
+	/**
+	 * @var DATE_FORMAT
+	 */
+	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm"; // "2011-04-01T08:30"
 
-        if (pageNumber != null) {
-            sb.append("&page=" + pageNumber);
-        }
+	/**
+	 * @var String
+	 */
+	private static final String SEARCH_BY_CODE = "AuthorizationSearchService.SearchByCode(authorizationCode= %1s) - error %2s";
 
-        if (resultsPerPage != null) {
-            sb.append("&maxPageResults=" + resultsPerPage);
-        }
-    	
-        return sb.toString();
-    }
-    
-    /**
-     * searchAuthorizationsByCode
-     * 
-     * @param credentials
-     * @param authorizationCode
-     * @throws Exception
-     */
-    public static Authorization searchByCode(Credentials credentials, String authorizationCode)
-            throws PagSeguroServiceException {
-    	
-    	AuthorizationSearchService.log.info(String.format(AuthorizationSearchService.SEARCH_BY_CODE_BEGIN, authorizationCode));
+	/**
+	 * @var String
+	 */
+	private static final String SEARCH_BY_CODE_BEGIN = "AuthorizationSearchService.SearchByCode(authorizationCode= %s) - begin";
 
-    	Authorization authorization = null;
-    	
-        ConnectionData connectionData = new ConnectionData(credentials);
-        String authorizationSearchURL = AuthorizationSearchService.buildSearchUrlByCode(connectionData, authorizationCode);
-        
-        HttpURLConnection response = AuthorizationSearchService.searchAuthorization(credentials, authorizationSearchURL, 
-        		connectionData.getServiceTimeout(), connectionData.getCharset(), AuthorizationSearchService.SEARCH_BY_CODE);
-        
-        try {
-        	
-        	authorization = AuthorizationParser.readAuthorization(response.getInputStream());
-        	
-		} catch (Exception e) {
-			throw new PagSeguroServiceException("Parser error", e);
+	/**
+	 * @var String
+	 */
+	private static final String SEARCH_BY_DATE = "AuthorizationSearchService.SearchAll() - error %s";
+
+	/**
+	 * @var String
+	 */
+	private static final String SEARCH_BY_DATE_BEGIN = "AuthorizationSearchService.SearchAll() - begin";
+
+	/**
+	 * Build Search Url By Code
+	 * 
+	 * @param connectionData
+	 * @param authorizationCode
+	 * @return
+	 * @throws PagSeguroServiceException
+	 */
+	private static String buildSearchUrlByCode( ConnectionData connectionData, String authorizationCode )
+			throws PagSeguroServiceException {
+		return connectionData.getWSAuthorizationFindByCodeUrl() + authorizationCode + "?"
+				+ connectionData.getCredentialsUrlQuery();
+	}
+
+	/**
+	 * Build Search byDate
+	 * 
+	 * @param connectionData
+	 * @param initialDate
+	 * @param finalDate
+	 * @param pageNumber
+	 * @param resultsPerPage
+	 * @return
+	 * @throws PagSeguroServiceException
+	 */
+	private static String buildSearchUrlByDate( ConnectionData connectionData, String initialDate, String finalDate,
+			Integer pageNumber, Integer resultsPerPage ) throws PagSeguroServiceException {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append( connectionData.getWSAuthorizationFindByDateUrl() + "?" + connectionData.getCredentialsUrlQuery() );
+		sb.append( "&initialDate=" + ( initialDate != null ? initialDate: "" ) );
+		sb.append( "&finalDate=" + ( finalDate != null ? finalDate: "" ) );
+
+		if( pageNumber != null ) {
+			sb.append( "&page=" + pageNumber );
+		}
+
+		if( resultsPerPage != null ) {
+			sb.append( "&maxPageResults=" + resultsPerPage );
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * searchAuthorizationsByCode
+	 * 
+	 * @param credentials
+	 * @param authorizationCode
+	 * @throws Exception
+	 */
+	public static Authorization searchByCode( Credentials credentials, String authorizationCode )
+			throws PagSeguroServiceException {
+
+		AuthorizationSearchService.log
+				.info( String.format( AuthorizationSearchService.SEARCH_BY_CODE_BEGIN, authorizationCode ) );
+
+		Authorization authorization = null;
+
+		ConnectionData connectionData = new ConnectionData( credentials );
+		String authorizationSearchURL = AuthorizationSearchService.buildSearchUrlByCode( connectionData,
+				authorizationCode );
+
+		HttpURLConnection response = AuthorizationSearchService.searchAuthorization( credentials,
+				authorizationSearchURL, connectionData.getServiceTimeout(), connectionData.getCharset(),
+				AuthorizationSearchService.SEARCH_BY_CODE );
+
+		try {
+
+			authorization = AuthorizationParser.readAuthorization( response.getInputStream() );
+
+		} catch( Exception e ) {
+			throw new PagSeguroServiceException( "Parser error", e );
 		} finally {
 			response.disconnect();
 		}
-        
-        AuthorizationSearchService.log.info(String.format(AuthorizationSearchService.SEARCH_BY_CODE, authorizationCode,
-                authorization.toString()));
-        
-        return authorization;
-        
-    } 
-    
-    /**
-     * searchByDate
-     * 
-     * @param credentials
-     * @param authorizationCode
-     * @throws Exception
-     */
-    public static List<Authorization> searchByDate(Credentials credentials, Date initialDate, Date finalDate, int pageNumber, int resultsPerPage) throws PagSeguroServiceException {
-    	
-    	AuthorizationSearchService.log.info(String.format(AuthorizationSearchService.SEARCH_BY_DATE_BEGIN));
-    	
-    	String dtInitial = AuthorizationSearchService.formatDate(initialDate);
-        String dtFinal = AuthorizationSearchService.formatDate(finalDate);
 
-    	List<Authorization> authorizations = null;
-    	
-        ConnectionData connectionData = new ConnectionData(credentials);
-        String authorizationSearchURL = AuthorizationSearchService.buildSearchUrlByDate(connectionData, dtInitial, dtFinal, pageNumber, resultsPerPage);
-        
-        HttpURLConnection response = AuthorizationSearchService.searchAuthorization(credentials, authorizationSearchURL, 
-        		connectionData.getServiceTimeout(), connectionData.getCharset(), AuthorizationSearchService.SEARCH_BY_DATE);
-        
-        try {
-        	
-        	authorizations = AuthorizationParser.readAuthorizations(response.getInputStream());
-        	
-		} catch (Exception e) {
-			throw new PagSeguroServiceException("Parser error", e);
+		AuthorizationSearchService.log.info( String.format( AuthorizationSearchService.SEARCH_BY_CODE,
+				authorizationCode, authorization.toString() ) );
+
+		return authorization;
+
+	}
+
+	/**
+	 * searchByDate
+	 * 
+	 * @param credentials
+	 * @param authorizationCode
+	 * @throws Exception
+	 */
+	public static List < Authorization > searchByDate( Credentials credentials, Date initialDate, Date finalDate,
+			int pageNumber, int resultsPerPage ) throws PagSeguroServiceException {
+
+		AuthorizationSearchService.log.info( String.format( AuthorizationSearchService.SEARCH_BY_DATE_BEGIN ) );
+
+		String dtInitial = AuthorizationSearchService.formatDate( initialDate );
+		String dtFinal = AuthorizationSearchService.formatDate( finalDate );
+
+		List < Authorization > authorizations = null;
+
+		ConnectionData connectionData = new ConnectionData( credentials );
+		String authorizationSearchURL = AuthorizationSearchService.buildSearchUrlByDate( connectionData, dtInitial,
+				dtFinal, pageNumber, resultsPerPage );
+
+		HttpURLConnection response = AuthorizationSearchService.searchAuthorization( credentials,
+				authorizationSearchURL, connectionData.getServiceTimeout(), connectionData.getCharset(),
+				AuthorizationSearchService.SEARCH_BY_DATE );
+
+		try {
+
+			authorizations = AuthorizationParser.readAuthorizations( response.getInputStream() );
+
+		} catch( Exception e ) {
+			throw new PagSeguroServiceException( "Parser error", e );
 		} finally {
 			response.disconnect();
 		}
-        
-        AuthorizationSearchService.log.info(String.format(AuthorizationSearchService.SEARCH_BY_DATE, authorizations.toString()));
-        
-        return authorizations;
-        
-    } 
-    
-    /**
-     * searchAuthorization
-     * 
-     * @param credentials
-     * @param notificationURL
-     * @param logInfo
-     * @throws Exception
-     */
-    public static HttpURLConnection searchAuthorization(Credentials credentials, String authorizationSearchURL,
-    		String serviceTimeout, String charset, String logInfo)
-            throws PagSeguroServiceException {
 
-        HttpConnection connection = new HttpConnection();
-        HttpStatus httpCodeStatus = null;
+		AuthorizationSearchService.log
+				.info( String.format( AuthorizationSearchService.SEARCH_BY_DATE, authorizations.toString() ) );
 
-        HttpURLConnection response = connection.get(authorizationSearchURL, serviceTimeout, charset, null);
+		return authorizations;
 
-        try {
+	}
 
-            httpCodeStatus = HttpStatus.fromCode(response.getResponseCode());
+	/**
+	 * searchAuthorization
+	 * 
+	 * @param credentials
+	 * @param notificationURL
+	 * @param logInfo
+	 * @throws Exception
+	 */
+	public static HttpURLConnection searchAuthorization( Credentials credentials, String authorizationSearchURL,
+			String serviceTimeout, String charset, String logInfo ) throws PagSeguroServiceException {
 
-            if (HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue()) {
+		HttpConnection connection = new HttpConnection();
+		HttpStatus httpCodeStatus = null;
 
-               return response;
+		HttpURLConnection response = connection.get( authorizationSearchURL, serviceTimeout, charset, null );
 
-            } else if (HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue()) {
+		try {
 
-                List<Error> errors = ErrorsParser.readErrosXml(response.getErrorStream());
+			httpCodeStatus = HttpStatus.fromCode( response.getResponseCode() );
 
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpCodeStatus, errors);
+			if( HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue() ) {
 
-                AuthorizationSearchService.log.error(String.format(logInfo, exception.getMessage()));
+				return response;
 
-                throw exception;
-            } else {
-                throw new PagSeguroServiceException(httpCodeStatus);
-            }
+			} else if( HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue() ) {
 
-        } catch (PagSeguroServiceException e) {
-            throw e;
-        } catch (Exception e) {
+				List < Error > errors = ErrorsParser.readErrosXml( response.getErrorStream() );
 
-        	AuthorizationSearchService.log.error(String.format(logInfo, e.getMessage()));
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpCodeStatus, errors );
 
-            throw new PagSeguroServiceException(httpCodeStatus, e);
+				AuthorizationSearchService.log.error( String.format( logInfo, exception.getMessage() ) );
 
-        }
-    
-    }
-    
-    private static String formatDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat(AuthorizationSearchService.DATE_FORMAT);
-        return sdf.format(date);
-    }    
+				throw exception;
+			} else {
+				throw new PagSeguroServiceException( httpCodeStatus );
+			}
+
+		} catch( PagSeguroServiceException e ) {
+			throw e;
+		} catch( Exception e ) {
+
+			AuthorizationSearchService.log.error( String.format( logInfo, e.getMessage() ) );
+
+			throw new PagSeguroServiceException( httpCodeStatus, e );
+
+		}
+
+	}
+
+	private static String formatDate( Date date ) {
+		SimpleDateFormat sdf = new SimpleDateFormat( AuthorizationSearchService.DATE_FORMAT );
+		return sdf.format( date );
+	}
 
 }

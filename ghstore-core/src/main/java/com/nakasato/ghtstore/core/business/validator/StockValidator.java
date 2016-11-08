@@ -12,12 +12,12 @@ import com.nakasato.ghtstore.core.business.Validator;
  */
 public class StockValidator extends Validator {
 
-	@ Override
+	@Override
 	public String validate( AbstractDomainEntity entity ) {
-		Product p =( Product ) entity;
-		msg =null;
-		if( p.getStock() <0 ) {
-			msg ="Não é permitido estoque com valor negativo";
+		Product p = ( Product ) entity;
+		msg = null;
+		if( p.getStock() < 0 ) {
+			msg = "Não é permitido estoque com valor negativo";
 		}
 		return msg;
 	}

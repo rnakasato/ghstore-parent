@@ -14,20 +14,20 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementTags extends Complementor < Product > {
 
-	@ Override
+	@Override
 	public String complement( Product entity ) {
-		Product p =( Product ) entity;
+		Product p = ( Product ) entity;
 		ICommand commandFind;
-		List < Tag > tagList =new ArrayList < Tag >();
+		List < Tag > tagList = new ArrayList < Tag >();
 		try {
 
-			if( p.getTagList() !=null ) {
+			if( p.getTagList() != null ) {
 				for( Tag t: p.getTagList() ) {
-					TagFilter filter =new TagFilter();
+					TagFilter filter = new TagFilter();
 					filter.setDescription( t.getDescription() );
-					commandFind =FactoryCommand.build( filter, EOperation.FIND );
-					List < Tag > tags =commandFind.execute().getEntityList();
-					if( tags !=null && !tags.isEmpty() ) {
+					commandFind = FactoryCommand.build( filter, EOperation.FIND );
+					List < Tag > tags = commandFind.execute().getEntityList();
+					if( tags != null && ! tags.isEmpty() ) {
 						for( Tag tag: tags ) {
 							if( tag.getDescription().equals( filter.getDescription() ) ) {
 								tagList.add( tag );

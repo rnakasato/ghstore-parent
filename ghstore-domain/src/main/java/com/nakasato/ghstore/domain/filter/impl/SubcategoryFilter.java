@@ -11,7 +11,7 @@ public class SubcategoryFilter extends Filter {
 	}
 
 	public void setStoreCategory( StoreCategory storeCategory ) {
-		this.storeCategory =storeCategory;
+		this.storeCategory = storeCategory;
 	}
 
 }

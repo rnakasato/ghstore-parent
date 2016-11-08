@@ -24,103 +24,103 @@ package br.com.uol.pagseguro.domain;
  */
 public class ParameterItem {
 
-    /**
-     * String name
-     */
-    private String name;
+	/**
+	 * String name
+	 */
+	private String name;
 
-    /**
-     * String value
-     */
-    private String value;
+	/**
+	 * String value
+	 */
+	private String value;
 
-    /**
-     * Integer group
-     */
-    private Integer index;
+	/**
+	 * Integer group
+	 */
+	private Integer index;
 
-    /**
-     * Construct Default
-     */
-    public ParameterItem() {
-    }
+	/**
+	 * Construct Default
+	 */
+	public ParameterItem() {
+	}
 
-    /**
-     * Construct ParameterItem
-     * 
-     * @param name
-     * @param value
-     */
-    public ParameterItem(String name, String value) {
-        this.name = name;
-        this.value = value;
-    }
+	/**
+	 * Construct ParameterItem
+	 * 
+	 * @param name
+	 * @param value
+	 */
+	public ParameterItem( String name, String value ) {
+		this.name = name;
+		this.value = value;
+	}
 
-    /**
-     * Construct ParameterItem
-     * 
-     * @param name
-     * @param value
-     * @param index
-     */
-    public ParameterItem(String name, String value, Integer index) {
-        this.name = name;
-        this.value = value;
-        this.index = index;
-    }
+	/**
+	 * Construct ParameterItem
+	 * 
+	 * @param name
+	 * @param value
+	 * @param index
+	 */
+	public ParameterItem( String name, String value, Integer index ) {
+		this.name = name;
+		this.value = value;
+		this.index = index;
+	}
 
-    /**
-     * Get Key
-     * 
-     * @return key
-     */
-    public String getName() {
-        return this.name;
-    }
+	/**
+	 * Get Key
+	 * 
+	 * @return key
+	 */
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     * Set Key
-     * 
-     * @param key
-     */
-    public void setName(String key) {
-        this.name = key;
-    }
+	/**
+	 * Set Key
+	 * 
+	 * @param key
+	 */
+	public void setName( String key ) {
+		this.name = key;
+	}
 
-    /**
-     * Get Value
-     * 
-     * @return value
-     */
-    public String getValue() {
-        return this.value;
-    }
+	/**
+	 * Get Value
+	 * 
+	 * @return value
+	 */
+	public String getValue() {
+		return this.value;
+	}
 
-    /**
-     * Set Value
-     * 
-     * @param value
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+	/**
+	 * Set Value
+	 * 
+	 * @param value
+	 */
+	public void setValue( String value ) {
+		this.value = value;
+	}
 
-    /**
-     * Get Group
-     * 
-     * @return group
-     */
-    public Integer getIndex() {
-        return this.index;
-    }
+	/**
+	 * Get Group
+	 * 
+	 * @return group
+	 */
+	public Integer getIndex() {
+		return this.index;
+	}
 
-    /**
-     * Set Group
-     * 
-     * @param index
-     */
-    public void setIndex(Integer index) {
-        this.index = index;
-    }
+	/**
+	 * Set Group
+	 * 
+	 * @param index
+	 */
+	public void setIndex( Integer index ) {
+		this.index = index;
+	}
 
 }

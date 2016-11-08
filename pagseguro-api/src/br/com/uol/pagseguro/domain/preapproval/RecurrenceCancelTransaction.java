@@ -25,64 +25,64 @@ import java.util.Date;
  */
 public class RecurrenceCancelTransaction {
 
-    /** Recurrence code */
-    private String code;
+	/** Recurrence code */
+	private String code;
 
-    /** Recurrence cancel date */
-    private Date date;
+	/** Recurrence cancel date */
+	private Date date;
 
-    /**
-     * Initializes a new instance of the RecurrenceCancelTransaction class
-     */
-    public RecurrenceCancelTransaction() {
+	/**
+	 * Initializes a new instance of the RecurrenceCancelTransaction class
+	 */
+	public RecurrenceCancelTransaction() {
 
-    }
+	}
 
-    /**
-     * @return the code
-     */
-    public String getCode() {
-        return code;
-    }
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
 
-    /**
-     * Sets the code
-     * 
-     * @param code
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
+	/**
+	 * Sets the code
+	 * 
+	 * @param code
+	 */
+	public void setCode( String code ) {
+		this.code = code;
+	}
 
-    /**
-     * @return the initialDate
-     */
-    public Date getDate() {
-        return date;
-    }
+	/**
+	 * @return the initialDate
+	 */
+	public Date getDate() {
+		return date;
+	}
 
-    /**
-     * Sets the initial date
-     * 
-     * @param initialDate
-     */
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	/**
+	 * Sets the initial date
+	 * 
+	 * @param initialDate
+	 */
+	public void setDate( Date date ) {
+		this.date = date;
+	}
 
-    /**
-     * @return string
-     */
-    @Override
-    public String toString() {
+	/**
+	 * @return string
+	 */
+	@Override
+	public String toString() {
 
-        final StringBuilder builder = new StringBuilder()//
-                .append("RecurrenceCancelTransaction [")//
-                .append("code=\"")//
-                .append(code + "\"")//
-                .append(",date=")//
-                .append(date)//
-                .append("]");
-        return builder.toString();
-    }
+		final StringBuilder builder = new StringBuilder()//
+				.append( "RecurrenceCancelTransaction [" )//
+				.append( "code=\"" )//
+				.append( code + "\"" )//
+				.append( ",date=" )//
+				.append( date )//
+				.append( "]" );
+		return builder.toString();
+	}
 }

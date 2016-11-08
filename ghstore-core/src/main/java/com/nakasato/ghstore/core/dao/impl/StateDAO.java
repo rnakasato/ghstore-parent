@@ -16,15 +16,15 @@ import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class StateDAO extends AbstractDAO < State > {
 
-	@ Override
+	@Override
 	public List < State > find( AbstractDomainEntity filter ) throws Exception {
 
-		StateFilter stateFilter =( StateFilter ) filter;
-		List < State > stateList =null;
+		StateFilter stateFilter = ( StateFilter ) filter;
+		List < State > stateList = null;
 		try {
 			openSession();
 
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM State s" );
 			jpql.append( " WHERE 1=1 " );
 
@@ -35,17 +35,17 @@ public class StateDAO extends AbstractDAO < State > {
 				jpql.append( " AND UPPER(s.acronym) like :acronym " );
 			}
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
 			if( StringUtils.isNotEmpty( stateFilter.getName() ) ) {
-				query.setParameter( "stateName", "%" +stateFilter.getName().toUpperCase() +"%" );
+				query.setParameter( "stateName", "%" + stateFilter.getName().toUpperCase() + "%" );
 			}
 
 			if( StringUtils.isNotEmpty( stateFilter.getAcronym() ) ) {
-				query.setParameter( "acronym", "%" +stateFilter.getAcronym().toUpperCase() +"%" );
+				query.setParameter( "acronym", "%" + stateFilter.getAcronym().toUpperCase() + "%" );
 			}
 
-			stateList =query.getResultList();
+			stateList = query.getResultList();
 
 			closeSession();
 		} catch( RuntimeException e ) {
@@ -56,18 +56,18 @@ public class StateDAO extends AbstractDAO < State > {
 
 	}
 
-	@ Override
+	@Override
 	public List < State > findAll() throws Exception {
-		List < State > stateList =null;
+		List < State > stateList = null;
 		try {
 			openSession();
 
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM State " );
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
-			stateList =query.getResultList();
+			stateList = query.getResultList();
 
 			closeSession();
 		} catch( RuntimeException e ) {
@@ -78,9 +78,9 @@ public class StateDAO extends AbstractDAO < State > {
 	}
 
 	public static void main( String[] args ) throws Exception {
-		ICommand command =FactoryCommand.build( new State(), EOperation.FINDALL );
-		Result r =command.execute();
-		List < State > stateList =r.getEntityList();
+		ICommand command = FactoryCommand.build( new State(), EOperation.FINDALL );
+		Result r = command.execute();
+		List < State > stateList = r.getEntityList();
 		for( State state: stateList ) {
 			System.out.println( state.getDescription() );
 		}

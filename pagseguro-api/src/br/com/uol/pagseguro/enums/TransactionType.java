@@ -23,94 +23,96 @@ package br.com.uol.pagseguro.enums;
  */
 public enum TransactionType {
 
-    PAYMENT("PAYMENT", 1),
+	PAYMENT( "PAYMENT", 1 ),
 
-    TRANSFER("TRANSFER", 2),
+	TRANSFER( "TRANSFER", 2 ),
 
-    FUND_ADDITION("FUND ADDITION", 3),
+	FUND_ADDITION( "FUND ADDITION", 3 ),
 
-    WITHDRAW("WITHDRAW", 4),
+	WITHDRAW( "WITHDRAW", 4 ),
 
-    CHARGE("CHARGE", 5),
+	CHARGE( "CHARGE", 5 ),
 
-    DONATION("DONATION", 6),
+	DONATION( "DONATION", 6 ),
 
-    BONUS("BONUS", 7),
+	BONUS( "BONUS", 7 ),
 
-    BONUS_REPASS("BONUS REPASS", 8),
+	BONUS_REPASS( "BONUS REPASS", 8 ),
 
-    OPERATIONAL("OPERATIONAL", 9),
+	OPERATIONAL( "OPERATIONAL", 9 ),
 
-    POLITICAL_DONATION("POLITICAL DONATION", 10),
+	POLITICAL_DONATION( "POLITICAL DONATION", 10 ),
 
-    UNKNOWN_TYPE("UNKNOWN TYPE. SEE ONLINE DOCUMENTATION", -1);
+	UNKNOWN_TYPE( "UNKNOWN TYPE. SEE ONLINE DOCUMENTATION", - 1 );
 
-    private String description;
+	private String description;
 
-    private Integer value;
+	private Integer value;
 
-    /**
-     * Initializes a newly created enum constant of this type with the specified arguments
-     * 
-     * @param description
-     *            - the type of the enum constant
-     * @param value
-     *            - the value of the enum constant
-     */
-    TransactionType(String description, Integer value) {
-        this.description = description;
-        this.value = value;
-    }
+	/**
+	 * Initializes a newly created enum constant of this type with the specified
+	 * arguments
+	 * 
+	 * @param description
+	 *            - the type of the enum constant
+	 * @param value
+	 *            - the value of the enum constant
+	 */
+	TransactionType( String description, Integer value ) {
+		this.description = description;
+		this.value = value;
+	}
 
-    /**
-     * Returns the enum constant of this type with the specified value. If a given value are not recognized return a
-     * generic enum constant <code>UNKNOWN_TYPE</code>
-     * 
-     * @param value
-     *            - the value of the enum constant to be returned
-     * @return the enum constant from a given value
-     */
-    public static TransactionType fromValue(Integer value) {
+	/**
+	 * Returns the enum constant of this type with the specified value. If a
+	 * given value are not recognized return a generic enum constant
+	 * <code>UNKNOWN_TYPE</code>
+	 * 
+	 * @param value
+	 *            - the value of the enum constant to be returned
+	 * @return the enum constant from a given value
+	 */
+	public static TransactionType fromValue( Integer value ) {
 
-        for (TransactionType transactionType : values()) {
-            if (transactionType.value.equals(value)) {
-                return transactionType;
-            }
-        }
+		for( TransactionType transactionType: values() ) {
+			if( transactionType.value.equals( value ) ) {
+				return transactionType;
+			}
+		}
 
-        UNKNOWN_TYPE.setValue(value);
-        return UNKNOWN_TYPE;
+		UNKNOWN_TYPE.setValue( value );
+		return UNKNOWN_TYPE;
 
-    }
+	}
 
-    /**
-     * @return this enum constant description
-     */
-    public String getDescription() {
-        return description;
-    }
+	/**
+	 * @return this enum constant description
+	 */
+	public String getDescription() {
+		return description;
+	}
 
-    /**
-     * @param description
-     *            - new description for this enum constant
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @param description
+	 *            - new description for this enum constant
+	 */
+	public void setDescription( String description ) {
+		this.description = description;
+	}
 
-    /**
-     * @return this enum constant value
-     */
-    public Integer getValue() {
-        return value;
-    }
+	/**
+	 * @return this enum constant value
+	 */
+	public Integer getValue() {
+		return value;
+	}
 
-    /**
-     * @param value
-     *            - new value for this enum constant
-     */
-    public void setValue(Integer value) {
-        this.value = value;
-    }
+	/**
+	 * @param value
+	 *            - new value for this enum constant
+	 */
+	public void setValue( Integer value ) {
+		this.value = value;
+	}
 
 }

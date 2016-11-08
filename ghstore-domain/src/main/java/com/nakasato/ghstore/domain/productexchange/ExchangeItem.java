@@ -15,7 +15,7 @@ public class ExchangeItem extends AbstractDomainEntity {
 	}
 
 	public void setProduct( Product product ) {
-		this.product =product;
+		this.product = product;
 	}
 
 	public Integer getAmount() {
@@ -23,7 +23,7 @@ public class ExchangeItem extends AbstractDomainEntity {
 	}
 
 	public void setAmount( Integer amount ) {
-		this.amount =amount;
+		this.amount = amount;
 	}
 
 	public Double getTotalValue() {
@@ -31,7 +31,7 @@ public class ExchangeItem extends AbstractDomainEntity {
 	}
 
 	public void setTotalValue( Double totalValue ) {
-		this.totalValue =totalValue;
+		this.totalValue = totalValue;
 	}
 
 	public ProductExchange getProductExchange() {
@@ -39,7 +39,7 @@ public class ExchangeItem extends AbstractDomainEntity {
 	}
 
 	public void setProductExchange( ProductExchange productExchange ) {
-		this.productExchange =productExchange;
+		this.productExchange = productExchange;
 	}
 
 	public Integer getOriginalAmount() {
@@ -47,7 +47,7 @@ public class ExchangeItem extends AbstractDomainEntity {
 	}
 
 	public void setOriginalAmount( Integer originalAmount ) {
-		this.originalAmount =originalAmount;
+		this.originalAmount = originalAmount;
 	}
 
 }

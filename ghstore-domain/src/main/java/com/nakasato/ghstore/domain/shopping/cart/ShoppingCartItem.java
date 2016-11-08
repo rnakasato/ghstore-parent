@@ -11,7 +11,7 @@ public class ShoppingCartItem extends StoreItem {
 	}
 
 	public void setReserved( boolean reserved ) {
-		this.reserved =reserved;
+		this.reserved = reserved;
 	}
 
 }

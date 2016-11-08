@@ -19,47 +19,47 @@ import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.product.StoreCategory;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
-@ ManagedBean( name ="adminProductMB" )
-@ ViewScoped
+@ManagedBean( name = "adminProductMB" )
+@ViewScoped
 public class AdminProductMB extends ProductMB {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID =1L;
+	private static final long serialVersionUID = 1L;
 
-	@ PostConstruct
+	@PostConstruct
 	public void init() {
 		setBaseFilter( new ProductFilter() );
-		filter =( ProductFilter ) getBaseFilter();
+		filter = ( ProductFilter ) getBaseFilter();
 
-		product =( Product ) FacesContext.getCurrentInstance().getExternalContext().getFlash().get( "product" );
-		if( product !=null ) {
-			name =product.getName();
-			category =product.getStoreCategory().getDescription();
-			subcategory =product.getSubcategory().getDescription();
-			price =product.getPrice();
-			image =product.getImage();
-			description =product.getDescription();
-			status =product.getStatus();
-			tagList =product.getTagList();
+		product = ( Product ) FacesContext.getCurrentInstance().getExternalContext().getFlash().get( "product" );
+		if( product != null ) {
+			name = product.getName();
+			category = product.getStoreCategory().getDescription();
+			subcategory = product.getSubcategory().getDescription();
+			price = product.getPrice();
+			image = product.getImage();
+			description = product.getDescription();
+			status = product.getStatus();
+			tagList = product.getTagList();
 		}
-		List < AbstractDomainEntity > ctList =null;
+		List < AbstractDomainEntity > ctList = null;
 		try {
-			ICommand commandFind =FactoryCommand.build( new StoreCategory(), EOperation.FINDALL );
-			ctList =commandFind.execute().getEntityList();
+			ICommand commandFind = FactoryCommand.build( new StoreCategory(), EOperation.FINDALL );
+			ctList = commandFind.execute().getEntityList();
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 
-		if( !ListUtils.isListEmpty( ctList ) ) {
-			categoryList =new ArrayList<>();
+		if( ! ListUtils.isEmpty( ctList ) ) {
+			categoryList = new ArrayList<>();
 			for( AbstractDomainEntity e: ctList ) {
-				StoreCategory s =( StoreCategory ) e;
+				StoreCategory s = ( StoreCategory ) e;
 				categoryList.add( s );
 			}
 		}
-		orderTypeList =new ArrayList<>();
+		orderTypeList = new ArrayList<>();
 		orderTypeList.add( new OrderByType( EComparator.PRODUCT_NAME, "Nome" ) );
 		orderTypeList.add( new OrderByType( EComparator.PRODUCT_CATEGORY, "Categoria" ) );
 		orderTypeList.add( new OrderByType( EComparator.PRODUCT_PRICE, "Preço" ) );

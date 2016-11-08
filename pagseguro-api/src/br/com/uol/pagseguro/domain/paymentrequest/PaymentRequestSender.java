@@ -25,71 +25,72 @@ import br.com.uol.pagseguro.helper.PagSeguroUtil;
  */
 public class PaymentRequestSender {
 
-    /**
-     * PaymentRequestSender e-mail
-     */
-    private String email;
+	/**
+	 * PaymentRequestSender e-mail
+	 */
+	private String email;
 
-    /**
-     * PaymentRequestSender name
-     */
-    private String name;
+	/**
+	 * PaymentRequestSender name
+	 */
+	private String name;
 
-    /**
-     * Initializes a new instance of the PaymentRequestSender class
-     */
-    public PaymentRequestSender() {
+	/**
+	 * Initializes a new instance of the PaymentRequestSender class
+	 */
+	public PaymentRequestSender() {
 
-    }
+	}
 
-    /**
-     * Initializes a new instance of the PaymentRequestSender class with the specified arguments
-     * 
-     * @param email
-     * @param name
-     */
-    public PaymentRequestSender(String email, String name) {
-        this.email = email;
-        this.name = PagSeguroUtil.removeExtraSpaces(name);
-    }
+	/**
+	 * Initializes a new instance of the PaymentRequestSender class with the
+	 * specified arguments
+	 * 
+	 * @param email
+	 * @param name
+	 */
+	public PaymentRequestSender( String email, String name ) {
+		this.email = email;
+		this.name = PagSeguroUtil.removeExtraSpaces( name );
+	}
 
-    /**
-     * @return the sender e-mail
-     */
-    public String getEmail() {
-        return email;
-    }
+	/**
+	 * @return the sender e-mail
+	 */
+	public String getEmail() {
+		return email;
+	}
 
-    /**
-     * Sets the sender e-mail
-     * 
-     * @param email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/**
+	 * Sets the sender e-mail
+	 * 
+	 * @param email
+	 */
+	public void setEmail( String email ) {
+		this.email = email;
+	}
 
-    /**
-     * @return the sender name
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * @return the sender name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Sets the sender name
-     * 
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = PagSeguroUtil.removeExtraSpaces(name);
-    }
+	/**
+	 * Sets the sender name
+	 * 
+	 * @param name
+	 */
+	public void setName( String name ) {
+		this.name = PagSeguroUtil.removeExtraSpaces( name );
+	}
 
-    /**
-     * @return string
-     */
-    @Override
-    public String toString() {
-        return "PaymentRequestSender [email=" + email + ", name=" + name + "]";
-    }
+	/**
+	 * @return string
+	 */
+	@Override
+	public String toString() {
+		return "PaymentRequestSender [email=" + email + ", name=" + name + "]";
+	}
 }

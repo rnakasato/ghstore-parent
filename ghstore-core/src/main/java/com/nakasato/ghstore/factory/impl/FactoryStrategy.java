@@ -9,6 +9,7 @@ import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.IStrategy;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.carrier.PaymentCreationCarrier;
+import com.nakasato.ghstore.domain.carrier.PerformanceGraphicCarrier;
 import com.nakasato.ghstore.domain.filter.impl.CustomerFilter;
 import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
 import com.nakasato.ghstore.domain.filter.impl.ProductExchangeFilter;
@@ -19,12 +20,14 @@ import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 import com.nakasato.ghstore.domain.productreturn.ProductReturn;
 import com.nakasato.ghstore.domain.user.Customer;
+import com.nakasato.ghtstore.core.business.complementor.ComplementAxisData;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCustomer;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCustomerCoupon;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCustomerUpdate;
 import com.nakasato.ghtstore.core.business.complementor.ComplementDiscountOrder;
 import com.nakasato.ghtstore.core.business.complementor.ComplementInsertDate;
 import com.nakasato.ghtstore.core.business.complementor.ComplementOrderProductStock;
+import com.nakasato.ghtstore.core.business.complementor.ComplementPerformanceGraphicCarrier;
 import com.nakasato.ghtstore.core.business.complementor.ComplementProductCode;
 import com.nakasato.ghtstore.core.business.complementor.ComplementProductExchange;
 import com.nakasato.ghtstore.core.business.complementor.ComplementProductExchangeProductStock;
@@ -46,6 +49,7 @@ import com.nakasato.ghtstore.core.business.validator.TransactionCodeValidator;
 import com.nakasato.ghtstore.core.business.validator.UserBirthDateValidator;
 import com.nakasato.ghtstore.core.business.validator.UserCPFValidator;
 import com.nakasato.ghtstore.core.business.validator.UserPhoneValidator;
+import com.nakasato.ghtstore.core.business.validator.fields.PerformanceGraphicRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductExchangeRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductReturnRequiredFieldsValidator;
@@ -69,68 +73,84 @@ public class FactoryStrategy {
 	private static Map < String, List < IStrategy > > rnsProductExchange;
 
 	private static Map < String, List < IStrategy > > rnsPaymentCreationCarrier;
+	private static Map<String, List<IStrategy>> rnsPerformanceGraphicCarrier;
 
 	public static List < IStrategy > build( AbstractDomainEntity entity, String operation ) {
-		if( rns ==null ) {
+		if( rns == null ) {
 			initMap();
 		}
-		List < IStrategy > operationRules =new ArrayList<>();
-		Map < String, List < IStrategy > > entityRules =rns.get( entity.getClass().getName() );
-		if( entityRules !=null ) {
-			operationRules =entityRules.get( operation );
+		List < IStrategy > operationRules = new ArrayList<>();
+		Map < String, List < IStrategy > > entityRules = rns.get( entity.getClass().getName() );
+		if( entityRules != null ) {
+			operationRules = entityRules.get( operation );
 		}
 		return operationRules;
 	}
 
 	private static void initMap() {
 		// inicialização do mapa de regras de negócio total
-		rns =new HashMap<>();
+		rns = new HashMap<>();
 
 		// Inicialização do mapa de regras de negócio do produto
-		rnsProduct =new HashMap<>();
+		rnsProduct = new HashMap<>();
 		rns.put( Product.class.getName(), rnsProduct );
 		rns.put( ProductFilter.class.getName(), rnsProduct );
 		initProductRns();
 
 		// Inicialização do mapa de regras de negócio do usuário
-		rnsCustomer =new HashMap<>();
+		rnsCustomer = new HashMap<>();
 		rns.put( Customer.class.getName(), rnsCustomer );
 		rns.put( CustomerFilter.class.getName(), rnsCustomer );
 		initCustomerRns();
 
-		rnsOrder =new HashMap<>();
+		rnsOrder = new HashMap<>();
 		rns.put( Order.class.getName(), rnsOrder );
 		rns.put( OrderFilter.class.getName(), rnsOrder );
 		initOrderRns();
 
-		rnsProductReturn =new HashMap<>();
+		rnsProductReturn = new HashMap<>();
 		rns.put( ProductReturn.class.getName(), rnsProductReturn );
 		rns.put( ProductReturnFilter.class.getName(), rnsProductReturn );
 		initProductReturnRns();
 
-		rnsProductExchange =new HashMap<>();
+		rnsProductExchange = new HashMap<>();
 		rns.put( ProductExchange.class.getName(), rnsProductExchange );
 		rns.put( ProductExchangeFilter.class.getName(), rnsProductExchange );
 		initProductExchangeRns();
 
-		rnsPaymentCreationCarrier =new HashMap<>();
+		rnsPaymentCreationCarrier = new HashMap<>();
 		rns.put( PaymentCreationCarrier.class.getName(), rnsPaymentCreationCarrier );
 		initPaymentCreationRns();
+		
+		rnsPerformanceGraphicCarrier = new HashMap<>();
+		rns.put( PerformanceGraphicCarrier.class.getName(), rnsPerformanceGraphicCarrier );
+		initPerformanceGraphicRns();
 
 	}
 
 	private static void initPaymentCreationRns() {
-		List < IStrategy > rnsFind =new ArrayList<>();
+		List < IStrategy > rnsFind = new ArrayList<>();
 		rnsFind.add( new PaymentCreationFiller() );
 		rnsPaymentCreationCarrier.put( EOperation.FIND, rnsFind );
 	}
+	
+	private static void initPerformanceGraphicRns(){
+		List < IStrategy > rnsFind = new ArrayList<>();
+		rnsFind.add( new PerformanceGraphicRequiredFieldsValidator() );
+		rnsFind.add( new ComplementPerformanceGraphicCarrier() );
+		rnsFind.add( new ComplementAxisData() );
+		
+		rnsPerformanceGraphicCarrier.put( EOperation.FIND, rnsFind );
+	}
+	
+	
 
 	private static void initCustomerRns() {
-		List < IStrategy > rnsSave =new ArrayList<>();
-		List < IStrategy > rnsUpdate =new ArrayList<>();
+		List < IStrategy > rnsSave = new ArrayList<>();
+		List < IStrategy > rnsUpdate = new ArrayList<>();
 		// Não há regras para a busca de usuário
-		List < IStrategy > rnsFind =new ArrayList<>();
-		List < IStrategy > rnsDelete =new ArrayList<>();
+		List < IStrategy > rnsFind = new ArrayList<>();
+		List < IStrategy > rnsDelete = new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar um Usuário
 		rnsSave.add( new UserRequiredFieldsValidator() );
@@ -155,11 +175,11 @@ public class FactoryStrategy {
 	}
 
 	private static void initOrderRns() {
-		List < IStrategy > rnsSave =new ArrayList<>();
-		List < IStrategy > rnsUpdate =new ArrayList<>();
+		List < IStrategy > rnsSave = new ArrayList<>();
+		List < IStrategy > rnsUpdate = new ArrayList<>();
 		// Não há regras para a busca de usuário
-		List < IStrategy > rnsFind =new ArrayList<>();
-		List < IStrategy > rnsDelete =new ArrayList<>();
+		List < IStrategy > rnsFind = new ArrayList<>();
+		List < IStrategy > rnsDelete = new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar um Pedido
 		rnsSave.add( new TransactionCodeValidator() );
@@ -175,11 +195,11 @@ public class FactoryStrategy {
 	}
 
 	private static void initProductReturnRns() {
-		List < IStrategy > rnsSave =new ArrayList<>();
-		List < IStrategy > rnsUpdate =new ArrayList<>();
+		List < IStrategy > rnsSave = new ArrayList<>();
+		List < IStrategy > rnsUpdate = new ArrayList<>();
 		// Não há regras para a busca de usuário
-		List < IStrategy > rnsFind =new ArrayList<>();
-		List < IStrategy > rnsDelete =new ArrayList<>();
+		List < IStrategy > rnsFind = new ArrayList<>();
+		List < IStrategy > rnsDelete = new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar uma devolução
 		rnsSave.add( new ProductReturnRequiredFieldsValidator() );
@@ -196,11 +216,11 @@ public class FactoryStrategy {
 	}
 
 	private static void initProductExchangeRns() {
-		List < IStrategy > rnsSave =new ArrayList<>();
-		List < IStrategy > rnsUpdate =new ArrayList<>();
+		List < IStrategy > rnsSave = new ArrayList<>();
+		List < IStrategy > rnsUpdate = new ArrayList<>();
 		// Não há regras para a busca de usuário
-		List < IStrategy > rnsFind =new ArrayList<>();
-		List < IStrategy > rnsDelete =new ArrayList<>();
+		List < IStrategy > rnsFind = new ArrayList<>();
+		List < IStrategy > rnsDelete = new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar uma devolução
 		rnsSave.add( new ProductExchangeRequiredFieldsValidator() );
@@ -219,11 +239,11 @@ public class FactoryStrategy {
 
 	private static void initProductRns() {
 
-		List < IStrategy > rnsSave =new ArrayList<>();
-		List < IStrategy > rnsUpdate =new ArrayList<>();
+		List < IStrategy > rnsSave = new ArrayList<>();
+		List < IStrategy > rnsUpdate = new ArrayList<>();
 		// Não há regras para a busca de produto
-		List < IStrategy > rnsFind =new ArrayList<>();
-		List < IStrategy > rnsDelete =new ArrayList<>();
+		List < IStrategy > rnsFind = new ArrayList<>();
+		List < IStrategy > rnsDelete = new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar um Product
 		rnsSave.add( new ProductRequiredFieldsValidator() );

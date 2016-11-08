@@ -27,62 +27,65 @@ import br.com.uol.pagseguro.exception.PagSeguroServiceException;
  */
 public class Error {
 
-    /**
-     * Error code
-     */
-    private String code;
+	/**
+	 * Error code
+	 */
+	private String code;
 
-    /**
-     * Error description
-     */
-    private String message;
+	/**
+	 * Error description
+	 */
+	private String message;
 
-    /**
-     * Initializes a newly created instance of this type
-     */
-    public Error() {
-    }
+	/**
+	 * Initializes a newly created instance of this type
+	 */
+	public Error() {
+	}
 
-    /**
-     * Initializes a newly created instance of this type with the specified arguments
-     * 
-     * @param code
-     *            the ws error code, i.e. 13001
-     * @param message
-     *            the ws error description, i.e. invalid notification code value: {0}
-     */
-    public Error(String code, String message) {
-        this.code = code;
-        this.message = message;
-    }
+	/**
+	 * Initializes a newly created instance of this type with the specified
+	 * arguments
+	 * 
+	 * @param code
+	 *            the ws error code, i.e. 13001
+	 * @param message
+	 *            the ws error description, i.e. invalid notification code
+	 *            value: {0}
+	 */
+	public Error( String code, String message ) {
+		this.code = code;
+		this.message = message;
+	}
 
-    /**
-     * @return the ws error code
-     */
-    public String getCode() {
-        return this.code;
-    }
+	/**
+	 * @return the ws error code
+	 */
+	public String getCode() {
+		return this.code;
+	}
 
-    /**
-     * @param code
-     *            the ws error code to set, i.e. 13001
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
+	/**
+	 * @param code
+	 *            the ws error code to set, i.e. 13001
+	 */
+	public void setCode( String code ) {
+		this.code = code;
+	}
 
-    /**
-     * @return the ws error description
-     */
-    public String getMessage() {
-        return this.message;
-    }
+	/**
+	 * @return the ws error description
+	 */
+	public String getMessage() {
+		return this.message;
+	}
 
-    /**
-     * @param message
-     *            the ws error description to set, i.e. invalid notification code value: {0}
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	/**
+	 * @param message
+	 *            the ws error description to set, i.e. invalid notification
+	 *            code value: {0}
+	 */
+	public void setMessage( String message ) {
+		this.message = message;
+	}
 }

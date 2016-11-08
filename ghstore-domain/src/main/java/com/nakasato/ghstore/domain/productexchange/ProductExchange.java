@@ -16,7 +16,7 @@ public class ProductExchange extends AbstractDomainEntity {
 	}
 
 	public void setOrder( Order order ) {
-		this.order =order;
+		this.order = order;
 	}
 
 	public List < ExchangeItem > getExchangeItems() {
@@ -24,7 +24,7 @@ public class ProductExchange extends AbstractDomainEntity {
 	}
 
 	public void setExchangeItems( List < ExchangeItem > exchangeItems ) {
-		this.exchangeItems =exchangeItems;
+		this.exchangeItems = exchangeItems;
 	}
 
 	public String getReason() {
@@ -32,7 +32,7 @@ public class ProductExchange extends AbstractDomainEntity {
 	}
 
 	public void setReason( String reason ) {
-		this.reason =reason;
+		this.reason = reason;
 	}
 
 	public Double getTotalValue() {
@@ -40,7 +40,7 @@ public class ProductExchange extends AbstractDomainEntity {
 	}
 
 	public void setTotalValue( Double totalValue ) {
-		this.totalValue =totalValue;
+		this.totalValue = totalValue;
 	}
 
 }

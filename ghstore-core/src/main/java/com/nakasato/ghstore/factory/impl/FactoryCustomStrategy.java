@@ -19,20 +19,20 @@ public class FactoryCustomStrategy {
 	private static Map < String, List < IStrategy > > rnsProduct;
 
 	public static List < IStrategy > build( Class clazz, String ruleName ) {
-		if( rns ==null ) {
+		if( rns == null ) {
 			initMap();
 		}
-		List < IStrategy > operationRules =new ArrayList<>();
-		Map < String, List < IStrategy > > entityRules =rns.get( clazz.getName() );
-		if( entityRules !=null ) {
-			operationRules =entityRules.get( ruleName );
+		List < IStrategy > operationRules = new ArrayList<>();
+		Map < String, List < IStrategy > > entityRules = rns.get( clazz.getName() );
+		if( entityRules != null ) {
+			operationRules = entityRules.get( ruleName );
 		}
 		return operationRules;
 	}
 
 	private static void initMap() {
 		// inicialização do mapa de regras de negócio total
-		rns =new HashMap<>();
+		rns = new HashMap<>();
 
 		// Inicialização do mapa de regras de negócio do produto
 		// rnsProduct = new HashMap<>();

@@ -43,126 +43,128 @@ import br.com.uol.pagseguro.xmlparser.ErrorsParser;
 @Deprecated
 public class PaymentService {
 
-    private PaymentService() {
-    }
+	private PaymentService() {
+	}
 
-    /**
-     * @var Log
-     */
-    private static Log log = new Log(PaymentService.class);
+	/**
+	 * @var Log
+	 */
+	private static Log log = new Log( PaymentService.class );
 
-    /**
-     * 
-     * @param ConnectionData
-     *            connectionData
-     * @return string
-     * @throws PagSeguroServiceException
-     */
-    public static String buildCheckoutRequestUrl(ConnectionData connectionData) throws PagSeguroServiceException {
-        return CheckoutService.buildCheckoutRequestUrl(connectionData);
-    }
+	/**
+	 * 
+	 * @param ConnectionData
+	 *            connectionData
+	 * @return string
+	 * @throws PagSeguroServiceException
+	 */
+	public static String buildCheckoutRequestUrl( ConnectionData connectionData ) throws PagSeguroServiceException {
+		return CheckoutService.buildCheckoutRequestUrl( connectionData );
+	}
 
-    /**
-     * Build checkout url
-     * 
-     * @param connection
-     * @param code
-     * @return string
-     */
-    private static String buildCheckoutUrl(ConnectionData connection, String code) {
-        return connection.getCheckoutUrl() + "?code=" + code;
-    }
+	/**
+	 * Build checkout url
+	 * 
+	 * @param connection
+	 * @param code
+	 * @return string
+	 */
+	private static String buildCheckoutUrl( ConnectionData connection, String code ) {
+		return connection.getCheckoutUrl() + "?code=" + code;
+	}
 
-    /**
-     * 
-     * @param credentials
-     * @param checkout
-     * @param onlyCheckoutCode
-     * @return string
-     * @throws Exception
-     */
-    public static String createCheckoutRequest(Credentials credentials, Checkout checkout, Boolean onlyCheckoutCode)
-            throws PagSeguroServiceException {
-        return CheckoutService.createCheckoutRequest(credentials, checkout, onlyCheckoutCode);
-    }
+	/**
+	 * 
+	 * @param credentials
+	 * @param checkout
+	 * @param onlyCheckoutCode
+	 * @return string
+	 * @throws Exception
+	 */
+	public static String createCheckoutRequest( Credentials credentials, Checkout checkout, Boolean onlyCheckoutCode )
+			throws PagSeguroServiceException {
+		return CheckoutService.createCheckoutRequest( credentials, checkout, onlyCheckoutCode );
+	}
 
-    /**
-     * 
-     * @param credentials
-     * @param paymentRequest
-     * @param onlyCheckoutCode
-     * @return string
-     * @throws Exception
-     * 
-     * @deprecated use {@link #createCheckoutRequest(Credentials, Checkout, Boolean)} instead.
-     */
-    @Deprecated
-    public static String createCheckoutRequest(Credentials credentials, PaymentRequest paymentRequest,
-            Boolean onlyCheckoutCode) throws PagSeguroServiceException {
+	/**
+	 * 
+	 * @param credentials
+	 * @param paymentRequest
+	 * @param onlyCheckoutCode
+	 * @return string
+	 * @throws Exception
+	 * 
+	 * @deprecated use
+	 *             {@link #createCheckoutRequest(Credentials, Checkout, Boolean)}
+	 *             instead.
+	 */
+	@Deprecated
+	public static String createCheckoutRequest( Credentials credentials, PaymentRequest paymentRequest,
+			Boolean onlyCheckoutCode ) throws PagSeguroServiceException {
 
-        PaymentService.log.info(String.format("PaymentService.Register( %s ) - begin", paymentRequest.toString()));
+		PaymentService.log.info( String.format( "PaymentService.Register( %s ) - begin", paymentRequest.toString() ) );
 
-        ConnectionData connectionData = new ConnectionData(credentials);
+		ConnectionData connectionData = new ConnectionData( credentials );
 
-        Map<Object, Object> data = PaymentParser.getData(paymentRequest);
+		Map < Object, Object > data = PaymentParser.getData( paymentRequest );
 
-        String url = PaymentService.buildCheckoutRequestUrl(connectionData);
+		String url = PaymentService.buildCheckoutRequestUrl( connectionData );
 
-        HttpConnection connection = new HttpConnection();
-        HttpStatus httpCodeStatus = null;
+		HttpConnection connection = new HttpConnection();
+		HttpStatus httpCodeStatus = null;
 
-        HttpURLConnection response = connection.post(url, data, connectionData.getServiceTimeout(),
-                connectionData.getCharset());
+		HttpURLConnection response = connection.post( url, data, connectionData.getServiceTimeout(),
+				connectionData.getCharset() );
 
-        try {
+		try {
 
-            httpCodeStatus = HttpStatus.fromCode(response.getResponseCode());
-            if (httpCodeStatus == null) {
-                throw new PagSeguroServiceException("Connection Timeout");
-            } else if (HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue()) {
+			httpCodeStatus = HttpStatus.fromCode( response.getResponseCode() );
+			if( httpCodeStatus == null ) {
+				throw new PagSeguroServiceException( "Connection Timeout" );
+			} else if( HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue() ) {
 
-                String paymentReturn = null;
-                String code = PaymentParser.readSuccessXml(response);
+				String paymentReturn = null;
+				String code = PaymentParser.readSuccessXml( response );
 
-                if (onlyCheckoutCode) {
-                    paymentReturn = code;
-                } else {
-                    paymentReturn = PaymentService.buildCheckoutUrl(connectionData, code);
-                }
+				if( onlyCheckoutCode ) {
+					paymentReturn = code;
+				} else {
+					paymentReturn = PaymentService.buildCheckoutUrl( connectionData, code );
+				}
 
-                PaymentService.log.info(String.format("PaymentService.Register( %1s ) - end  %2s )",
-                        paymentRequest.toString(), code));
+				PaymentService.log.info( String.format( "PaymentService.Register( %1s ) - end  %2s )",
+						paymentRequest.toString(), code ) );
 
-                return paymentReturn;
+				return paymentReturn;
 
-            } else if (HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue()) {
+			} else if( HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue() ) {
 
-                List<Error> errors = ErrorsParser.readErrosXml(response.getErrorStream());
+				List < Error > errors = ErrorsParser.readErrosXml( response.getErrorStream() );
 
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpCodeStatus, errors);
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpCodeStatus, errors );
 
-                PaymentService.log.error(String.format("PaymentService.Register( %1s ) - error %2s",
-                        paymentRequest.toString(), exception.getMessage()));
+				PaymentService.log.error( String.format( "PaymentService.Register( %1s ) - error %2s",
+						paymentRequest.toString(), exception.getMessage() ) );
 
-                throw exception;
+				throw exception;
 
-            } else {
+			} else {
 
-                throw new PagSeguroServiceException(httpCodeStatus);
-            }
+				throw new PagSeguroServiceException( httpCodeStatus );
+			}
 
-        } catch (PagSeguroServiceException e) {
-            throw e;
-        } catch (Exception e) {
+		} catch( PagSeguroServiceException e ) {
+			throw e;
+		} catch( Exception e ) {
 
-            PaymentService.log.error(String.format("PaymentService.Register( %1s ) - error %2s",
-                    paymentRequest.toString(), e.getMessage()));
+			PaymentService.log.error( String.format( "PaymentService.Register( %1s ) - error %2s",
+					paymentRequest.toString(), e.getMessage() ) );
 
-            throw new PagSeguroServiceException(httpCodeStatus, e);
+			throw new PagSeguroServiceException( httpCodeStatus, e );
 
-        } finally {
-            response.disconnect();
-        }
-    }
+		} finally {
+			response.disconnect();
+		}
+	}
 
 }

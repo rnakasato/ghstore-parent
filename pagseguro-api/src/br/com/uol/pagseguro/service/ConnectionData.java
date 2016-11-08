@@ -25,423 +25,430 @@ import br.com.uol.pagseguro.properties.PagSeguroSystem;
 
 public class ConnectionData {
 
-    private Credentials credentials;
+	private Credentials credentials;
 
-    private String webServiceUrl;
+	private String webServiceUrl;
 
-    private String wsPaymentRequestUrl;
+	private String wsPaymentRequestUrl;
 
-    private String wsPaymentRequestFindByCodeUrl;
+	private String wsPaymentRequestFindByCodeUrl;
 
-    private String wsPaymentRequestNotificationUrl;
+	private String wsPaymentRequestNotificationUrl;
 
-    private String wsRecurrenceUrl;
+	private String wsRecurrenceUrl;
 
-    private String wsRecurrenceFindByCodeUrl;
+	private String wsRecurrenceFindByCodeUrl;
 
-    private String wsRecurrenceCancelByCodeUrl;
-    
-    private String wsAuthorizationUrl;
-    
-    private String wsAuthorizationNotificationUrl;
-    
-    private String wsAuthorizationFindByCodeUrl;
-    
-    private String wsAuthorizationFindByDateUrl;
+	private String wsRecurrenceCancelByCodeUrl;
 
-    private String sessionsUrl;
+	private String wsAuthorizationUrl;
 
-    private String installmentsUrl;
+	private String wsAuthorizationNotificationUrl;
 
-    private String directPayment;
-    
-    private String authorizationUrl;
+	private String wsAuthorizationFindByCodeUrl;
 
-    private String paymentMethodsUrl;
+	private String wsAuthorizationFindByDateUrl;
 
-    private String checkoutServicePath;
+	private String sessionsUrl;
 
-    private String serviceTimeout;
+	private String installmentsUrl;
 
-    private String charset;
+	private String directPayment;
 
-    public ConnectionData(Credentials credentials) {
-        this.credentials = credentials;
+	private String authorizationUrl;
 
-        this.webServiceUrl = validUrlWebService();
+	private String paymentMethodsUrl;
 
-        this.wsPaymentRequestUrl = validUrlWSPaymentRequest();
-        this.wsAuthorizationNotificationUrl = validUrlWSAuthorizationNotification();
-        this.wsAuthorizationFindByCodeUrl = validUrlWSAuthorizationFindByCode();
-        this.wsAuthorizationFindByDateUrl = validUrlWSAuthorizationFindByDate();
-        this.wsPaymentRequestFindByCodeUrl = validUrlWSPaymentRequestFindByCode();
-        this.wsPaymentRequestNotificationUrl = validUrlWSPaymentRequestByNotificationCode();
+	private String checkoutServicePath;
 
-        this.wsRecurrenceUrl = validUrlWSRecurrence();
-        this.wsRecurrenceFindByCodeUrl = validUrlWSRecurrenceFindByCode();
-        this.wsRecurrenceCancelByCodeUrl = validUrlWSRecurrenceCancelByCode();
+	private String serviceTimeout;
 
-        this.wsAuthorizationUrl = validUrlWSAuthorization();
+	private String charset;
 
-        this.charset = PagSeguroConfig.getApplicationCharset();
-        this.serviceTimeout = PagSeguroSystem.getServiceTimeout();
+	public ConnectionData( Credentials credentials ) {
+		this.credentials = credentials;
 
-        this.sessionsUrl = PagSeguroSystem.getUrlSessions();
-        this.installmentsUrl = PagSeguroSystem.getUrlInstallments();
-        this.directPayment = PagSeguroSystem.getUrlDirectPayment();
-        this.authorizationUrl = PagSeguroSystem.getUrlAuthorization();
-        this.paymentMethodsUrl = PagSeguroSystem.getUrlPaymentMethods();
+		this.webServiceUrl = validUrlWebService();
 
-        this.checkoutServicePath = PagSeguroSystem.getCheckoutServicePath();
-    }
+		this.wsPaymentRequestUrl = validUrlWSPaymentRequest();
+		this.wsAuthorizationNotificationUrl = validUrlWSAuthorizationNotification();
+		this.wsAuthorizationFindByCodeUrl = validUrlWSAuthorizationFindByCode();
+		this.wsAuthorizationFindByDateUrl = validUrlWSAuthorizationFindByDate();
+		this.wsPaymentRequestFindByCodeUrl = validUrlWSPaymentRequestFindByCode();
+		this.wsPaymentRequestNotificationUrl = validUrlWSPaymentRequestByNotificationCode();
 
-    /**
-     * Get Service Url
-     * 
-     * @return string
-     */
-    public String getServiceUrl() {
-        return this.getWebServiceUrl() + this.getServicePath();
-    }
+		this.wsRecurrenceUrl = validUrlWSRecurrence();
+		this.wsRecurrenceFindByCodeUrl = validUrlWSRecurrenceFindByCode();
+		this.wsRecurrenceCancelByCodeUrl = validUrlWSRecurrenceCancelByCode();
 
-    /**
-     * Get Sessions Url
-     * 
-     * @return string
-     */
-    public String getSessionsUrl() {
-        return this.sessionsUrl;
-    }
+		this.wsAuthorizationUrl = validUrlWSAuthorization();
 
-    /**
-     * Get Installments Url
-     * 
-     * @return string
-     */
-    public String getInstallmentsUrl() {
-        return this.installmentsUrl;
-    }
+		this.charset = PagSeguroConfig.getApplicationCharset();
+		this.serviceTimeout = PagSeguroSystem.getServiceTimeout();
 
-    /**
-     * Get Direct Payment Url
-     * 
-     * @return string
-     */
-    public String getDirectPaymentUrl() {
-        return this.directPayment;
-    }
-    
-    /**
-     * Get Authorization Payment Url
-     * 
-     * @return string
-     */
-    public String getAuthorizationUrl() {
-        return this.authorizationUrl;
-    }
-    
-    /**
-     * @return the paymentMethodsUrl
-     */
-    public String getPaymentMethodsUrl() {
-        return paymentMethodsUrl;
-    }
+		this.sessionsUrl = PagSeguroSystem.getUrlSessions();
+		this.installmentsUrl = PagSeguroSystem.getUrlInstallments();
+		this.directPayment = PagSeguroSystem.getUrlDirectPayment();
+		this.authorizationUrl = PagSeguroSystem.getUrlAuthorization();
+		this.paymentMethodsUrl = PagSeguroSystem.getUrlPaymentMethods();
 
-    /**
-     * Create url
-     * 
-     * @return string
-     * @throws PagSeguroServiceException
-     */
-    public String getCredentialsUrlQuery() throws PagSeguroServiceException {
-        return PagSeguroUtil.urlQuery(this.getCredentials().getAttributes());
-    }
+		this.checkoutServicePath = PagSeguroSystem.getCheckoutServicePath();
+	}
 
-    /**
-     * Valid url web service production or development
-     * 
-     * @return string
-     */
-    private String validUrlWebService() {
+	/**
+	 * Get Service Url
+	 * 
+	 * @return string
+	 */
+	public String getServiceUrl() {
+		return this.getWebServiceUrl() + this.getServicePath();
+	}
 
-        String url = PagSeguroSystem.getUrlProduction();
+	/**
+	 * Get Sessions Url
+	 * 
+	 * @return string
+	 */
+	public String getSessionsUrl() {
+		return this.sessionsUrl;
+	}
 
-        return url + PagSeguroSystem.getCheckoutServicePath();
+	/**
+	 * Get Installments Url
+	 * 
+	 * @return string
+	 */
+	public String getInstallmentsUrl() {
+		return this.installmentsUrl;
+	}
 
-    }
+	/**
+	 * Get Direct Payment Url
+	 * 
+	 * @return string
+	 */
+	public String getDirectPaymentUrl() {
+		return this.directPayment;
+	}
 
-    /**
-     * Valid url web service production or development for payment request
-     * 
-     * @return string
-     */
-    private String validUrlWSPaymentRequest() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getPaymentRequestServicePath();
-    }
+	/**
+	 * Get Authorization Payment Url
+	 * 
+	 * @return string
+	 */
+	public String getAuthorizationUrl() {
+		return this.authorizationUrl;
+	}
 
-    /**
-     * Valid url web service production or development for finding a payment request transaction
-     * 
-     * @return string
-     */
-    private String validUrlWSPaymentRequestFindByCode() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getPaymentRequestFindByCodePath();
-    }
-    
-    /**
-     * Valid url web service production or development for authorization request
-     * 
-     * @return string
-     */
-    private String validUrlWSAuthorization() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getAuthorizationServicePath();
-    }
-    
-    /**
-     * Valid url web service production or development for authorization notification request
-     * 
-     * @return string
-     */
-    private String validUrlWSAuthorizationNotification() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getAuthorizationNotificationPath();
-    }
-    
-    /**
-     * Valid url web service production or development for authorization find by coderequest
-     * 
-     * @return string
-     */
-    private String validUrlWSAuthorizationFindByCode() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getAuthorizationFindByCodePath();
-    }
-    
-    /**
-     * Valid url web service production or development for authorization find all request
-     * 
-     * @return string
-     */
-    private String validUrlWSAuthorizationFindByDate() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getAuthorizationFindByDatePath();
-    }
+	/**
+	 * @return the paymentMethodsUrl
+	 */
+	public String getPaymentMethodsUrl() {
+		return paymentMethodsUrl;
+	}
 
-    /**
-     * Valid url web service production or development for finding a payment request by notification code
-     *
-     * @return string
-     */
-    private String validUrlWSPaymentRequestByNotificationCode() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getPaymentRequestNotificationUrl();
-    }
+	/**
+	 * Create url
+	 * 
+	 * @return string
+	 * @throws PagSeguroServiceException
+	 */
+	public String getCredentialsUrlQuery() throws PagSeguroServiceException {
+		return PagSeguroUtil.urlQuery( this.getCredentials().getAttributes() );
+	}
 
-    /**
-     * Valid url web service production or development for recurrence
-     * 
-     * @return string
-     */
-    private String validUrlWSRecurrence() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getRecurrenceServicePath();
-    }
+	/**
+	 * Valid url web service production or development
+	 * 
+	 * @return string
+	 */
+	private String validUrlWebService() {
 
-    /**
-     * Valid url web service production or development for finding a recurrence transaction
-     * 
-     * @return string
-     */
-    private String validUrlWSRecurrenceFindByCode() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getRecurrenceFindByCodePath();
-    }
+		String url = PagSeguroSystem.getUrlProduction();
 
-    /**
-     * Valid url web service production or development for canceling a recurrence transaction
-     * 
-     * @return string
-     */
-    private String validUrlWSRecurrenceCancelByCode() {
-        return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getRecurrenceCancelByCodePath();
-    }
+		return url + PagSeguroSystem.getCheckoutServicePath();
 
-    /**
-     * @return the credentials
-     */
-    public Credentials getCredentials() {
-        return credentials;
-    }
+	}
 
-    /**
-     * @param credentials
-     *            the credentials to set
-     */
-    public void setCredentials(Credentials credentials) {
-        this.credentials = credentials;
-    }
+	/**
+	 * Valid url web service production or development for payment request
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSPaymentRequest() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getPaymentRequestServicePath();
+	}
 
-    /**
-     * @return the webServiceUrl
-     */
-    public String getWebServiceUrl() {
-        return webServiceUrl;
-    }
+	/**
+	 * Valid url web service production or development for finding a payment
+	 * request transaction
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSPaymentRequestFindByCode() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getPaymentRequestFindByCodePath();
+	}
 
-    /**
-     * @return the wsPaymentRequestUrl
-     */
-    public String getWSPaymentRequestUrl() {
-        return wsPaymentRequestUrl;
-    }
+	/**
+	 * Valid url web service production or development for authorization request
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSAuthorization() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getAuthorizationServicePath();
+	}
 
-    /**
-     * @return the wsPaymentRequestFindByCodeUrl
-     */
-    public String getWSPaymentRequestFindByCodeUrl() {
-        return wsPaymentRequestFindByCodeUrl;
-    }
-    
-    /**
-     * @return the wsAuthorization Url
-     */
-    public String getWSAuthorizationUrl() {
-        return wsAuthorizationUrl;
-    }
-    
-    /**
-     * @return the wsAuthorizationNotification Url
-     */
-    public String getWSAuthorizationNotificationUrl() {
-        return wsAuthorizationNotificationUrl;
-    }
-    
-    /**
-     * @return the wsAuthorizationFindByCode Url
-     */
-    public String getWSAuthorizationFindByCodeUrl() {
-        return wsAuthorizationFindByCodeUrl;
-    }
-    
-    /**
-     * @return the wsAuthorizationFindAll Url
-     */
-    public String getWSAuthorizationFindByDateUrl() {
-        return wsAuthorizationFindByDateUrl;
-    }
+	/**
+	 * Valid url web service production or development for authorization
+	 * notification request
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSAuthorizationNotification() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getAuthorizationNotificationPath();
+	}
 
-    /**
-     * @return the wsPaymentRequestNotificationUrl
-     */
-    public String getWsPaymentRequestNotificationUrl() {
-        return wsPaymentRequestNotificationUrl;
-    }
+	/**
+	 * Valid url web service production or development for authorization find by
+	 * coderequest
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSAuthorizationFindByCode() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getAuthorizationFindByCodePath();
+	}
 
-    /**
-     * @return the wsRecurrenceUrl
-     */
-    public String getWSRecurrenceUrl() {
-        return wsRecurrenceUrl;
-    }
+	/**
+	 * Valid url web service production or development for authorization find
+	 * all request
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSAuthorizationFindByDate() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getAuthorizationFindByDatePath();
+	}
 
-    /**
-     * @return the wsRecurrenceFindByCodeUrl
-     */
-    public String getWSRecurrenceFindByCodeUrl() {
-        return wsRecurrenceFindByCodeUrl;
-    }
+	/**
+	 * Valid url web service production or development for finding a payment
+	 * request by notification code
+	 *
+	 * @return string
+	 */
+	private String validUrlWSPaymentRequestByNotificationCode() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getPaymentRequestNotificationUrl();
+	}
 
-    /**
-     * @return the wsRecurrenceCancelByCodeUrl
-     */
-    public String getWSRecurrenceCancelByCodeUrl() {
-        return wsRecurrenceCancelByCodeUrl;
-    }
+	/**
+	 * Valid url web service production or development for recurrence
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSRecurrence() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getRecurrenceServicePath();
+	}
 
-    /**
-     * @param webServiceUrl
-     *            the webServiceUrl to set
-     */
-    public void setWebServiceUrl(String webServiceUrl) {
-        this.webServiceUrl = webServiceUrl;
-    }
+	/**
+	 * Valid url web service production or development for finding a recurrence
+	 * transaction
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSRecurrenceFindByCode() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getRecurrenceFindByCodePath();
+	}
 
-    /**
-     * @param wsPaymentRequestFindByCodeUrl
-     *            the wsPaymentRequestFindByCodeUrl to set
-     */
-    public void setWSPaymentRequestFindByCodeUrl(String wsPaymentRequestFindByCodeUrl) {
-        this.wsPaymentRequestFindByCodeUrl = wsPaymentRequestFindByCodeUrl;
-    }
+	/**
+	 * Valid url web service production or development for canceling a
+	 * recurrence transaction
+	 * 
+	 * @return string
+	 */
+	private String validUrlWSRecurrenceCancelByCode() {
+		return PagSeguroSystem.getUrlProduction() + PagSeguroSystem.getRecurrenceCancelByCodePath();
+	}
 
-    /**
-     * @param wsPaymentRequestUrl
-     *            the wsPaymentRequestUrl to set
-     */
-    public void setWSPaymentRequestUrl(String wsPaymentRequestUrl) {
-        this.wsPaymentRequestUrl = wsPaymentRequestUrl;
-    }
-    
-    /**
-     * @param wsAuthorizationUrl
-     *            the wsAuthorizationUrl to set
-     */
-    public void setWSAuthorizationUrl(String wsAuthorizationUrl) {
-        this.wsAuthorizationUrl = wsAuthorizationUrl;
-    }
+	/**
+	 * @return the credentials
+	 */
+	public Credentials getCredentials() {
+		return credentials;
+	}
 
-    /**
-     * @param wsRecurrenceUrl
-     *            the wsRecurrenceUrl to set
-     */
-    public void setWSRecurrenceUrl(String wsRecurrenceUrl) {
-        this.wsRecurrenceUrl = wsRecurrenceUrl;
-    }
+	/**
+	 * @param credentials
+	 *            the credentials to set
+	 */
+	public void setCredentials( Credentials credentials ) {
+		this.credentials = credentials;
+	}
 
-    /**
-     * @return the charset
-     */
-    public String getCharset() {
-        return charset;
-    }
+	/**
+	 * @return the webServiceUrl
+	 */
+	public String getWebServiceUrl() {
+		return webServiceUrl;
+	}
 
-    /**
-     * @param charset
-     *            the charset to set
-     */
-    public void setCharset(String charset) {
-        this.charset = charset;
-    }
+	/**
+	 * @return the wsPaymentRequestUrl
+	 */
+	public String getWSPaymentRequestUrl() {
+		return wsPaymentRequestUrl;
+	}
 
-    /**
-     * @return the servicePath
-     */
-    public String getServicePath() {
-        return checkoutServicePath;
-    }
+	/**
+	 * @return the wsPaymentRequestFindByCodeUrl
+	 */
+	public String getWSPaymentRequestFindByCodeUrl() {
+		return wsPaymentRequestFindByCodeUrl;
+	}
 
-    /**
-     * @param servicePath
-     *            the servicePath to set
-     */
-    public void setServicePath(String servicePath) {
-        this.checkoutServicePath = servicePath;
-    }
+	/**
+	 * @return the wsAuthorization Url
+	 */
+	public String getWSAuthorizationUrl() {
+		return wsAuthorizationUrl;
+	}
 
-    /**
-     * @return the serviceTimeout
-     */
-    public String getServiceTimeout() {
-        return serviceTimeout;
-    }
+	/**
+	 * @return the wsAuthorizationNotification Url
+	 */
+	public String getWSAuthorizationNotificationUrl() {
+		return wsAuthorizationNotificationUrl;
+	}
 
-    /**
-     * @param serviceTimeout
-     *            the serviceTimeout to set
-     */
-    public void setServiceTimeout(String serviceTimeout) {
-        this.serviceTimeout = serviceTimeout;
-    }
+	/**
+	 * @return the wsAuthorizationFindByCode Url
+	 */
+	public String getWSAuthorizationFindByCodeUrl() {
+		return wsAuthorizationFindByCodeUrl;
+	}
 
-    public String getCheckoutUrl() {
-        return PagSeguroSystem.getCheckoutUrl();
-    }
+	/**
+	 * @return the wsAuthorizationFindAll Url
+	 */
+	public String getWSAuthorizationFindByDateUrl() {
+		return wsAuthorizationFindByDateUrl;
+	}
 
-    public String getTransactionSearchUrl() {
-        return PagSeguroSystem.getTransactionSearchUrl();
-    }
+	/**
+	 * @return the wsPaymentRequestNotificationUrl
+	 */
+	public String getWsPaymentRequestNotificationUrl() {
+		return wsPaymentRequestNotificationUrl;
+	}
+
+	/**
+	 * @return the wsRecurrenceUrl
+	 */
+	public String getWSRecurrenceUrl() {
+		return wsRecurrenceUrl;
+	}
+
+	/**
+	 * @return the wsRecurrenceFindByCodeUrl
+	 */
+	public String getWSRecurrenceFindByCodeUrl() {
+		return wsRecurrenceFindByCodeUrl;
+	}
+
+	/**
+	 * @return the wsRecurrenceCancelByCodeUrl
+	 */
+	public String getWSRecurrenceCancelByCodeUrl() {
+		return wsRecurrenceCancelByCodeUrl;
+	}
+
+	/**
+	 * @param webServiceUrl
+	 *            the webServiceUrl to set
+	 */
+	public void setWebServiceUrl( String webServiceUrl ) {
+		this.webServiceUrl = webServiceUrl;
+	}
+
+	/**
+	 * @param wsPaymentRequestFindByCodeUrl
+	 *            the wsPaymentRequestFindByCodeUrl to set
+	 */
+	public void setWSPaymentRequestFindByCodeUrl( String wsPaymentRequestFindByCodeUrl ) {
+		this.wsPaymentRequestFindByCodeUrl = wsPaymentRequestFindByCodeUrl;
+	}
+
+	/**
+	 * @param wsPaymentRequestUrl
+	 *            the wsPaymentRequestUrl to set
+	 */
+	public void setWSPaymentRequestUrl( String wsPaymentRequestUrl ) {
+		this.wsPaymentRequestUrl = wsPaymentRequestUrl;
+	}
+
+	/**
+	 * @param wsAuthorizationUrl
+	 *            the wsAuthorizationUrl to set
+	 */
+	public void setWSAuthorizationUrl( String wsAuthorizationUrl ) {
+		this.wsAuthorizationUrl = wsAuthorizationUrl;
+	}
+
+	/**
+	 * @param wsRecurrenceUrl
+	 *            the wsRecurrenceUrl to set
+	 */
+	public void setWSRecurrenceUrl( String wsRecurrenceUrl ) {
+		this.wsRecurrenceUrl = wsRecurrenceUrl;
+	}
+
+	/**
+	 * @return the charset
+	 */
+	public String getCharset() {
+		return charset;
+	}
+
+	/**
+	 * @param charset
+	 *            the charset to set
+	 */
+	public void setCharset( String charset ) {
+		this.charset = charset;
+	}
+
+	/**
+	 * @return the servicePath
+	 */
+	public String getServicePath() {
+		return checkoutServicePath;
+	}
+
+	/**
+	 * @param servicePath
+	 *            the servicePath to set
+	 */
+	public void setServicePath( String servicePath ) {
+		this.checkoutServicePath = servicePath;
+	}
+
+	/**
+	 * @return the serviceTimeout
+	 */
+	public String getServiceTimeout() {
+		return serviceTimeout;
+	}
+
+	/**
+	 * @param serviceTimeout
+	 *            the serviceTimeout to set
+	 */
+	public void setServiceTimeout( String serviceTimeout ) {
+		this.serviceTimeout = serviceTimeout;
+	}
+
+	public String getCheckoutUrl() {
+		return PagSeguroSystem.getCheckoutUrl();
+	}
+
+	public String getTransactionSearchUrl() {
+		return PagSeguroSystem.getTransactionSearchUrl();
+	}
 }

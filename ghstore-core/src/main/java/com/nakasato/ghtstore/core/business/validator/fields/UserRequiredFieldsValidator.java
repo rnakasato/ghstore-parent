@@ -12,7 +12,7 @@ import com.nakasato.ghtstore.core.business.FieldsValidator;
  */
 public class UserRequiredFieldsValidator extends FieldsValidator < Customer > {
 
-	@ Override
+	@Override
 	public String validate( Customer c ) {
 		if( StringUtils.isEmpty( c.getUsername() ) ) {
 			appendMsg( "Usuário" );
@@ -30,7 +30,7 @@ public class UserRequiredFieldsValidator extends FieldsValidator < Customer > {
 			appendMsg( "CPF" );
 		}
 
-		if( c.getBirthDate() ==null ) {
+		if( c.getBirthDate() == null ) {
 			appendMsg( "Data de nascimento" );
 		}
 
@@ -38,17 +38,17 @@ public class UserRequiredFieldsValidator extends FieldsValidator < Customer > {
 			appendMsg( "Sexo" );
 		}
 
-		if( c.getDeliveryAddressList() ==null ||c.getDeliveryAddressList().isEmpty() ) {
+		if( c.getDeliveryAddressList() == null || c.getDeliveryAddressList().isEmpty() ) {
 			appendMsg( "Endereço de entrega" );
 		}
 		// VALIDA SOMENTE UM TELEFONE, NO MOMENTO SO SERÁ ADICIONADO UM NÚMERO
 		// POR USUÁRIO
-		if( c.getPhoneList() ==null ||c.getPhoneList().isEmpty() ) {
+		if( c.getPhoneList() == null || c.getPhoneList().isEmpty() ) {
 			appendMsg( "Campos de telefone" );
 		} else {
-			Phone phone =c.getPhoneList().get( 0 );
-			boolean dddEmpty =phone.getDdd() ==null;
-			boolean numberEmpty =phone.getNumber() ==null;
+			Phone phone = c.getPhoneList().get( 0 );
+			boolean dddEmpty = phone.getDdd() == null;
+			boolean numberEmpty = phone.getNumber() == null;
 
 			if( dddEmpty ) {
 				appendMsg( "DDD" );

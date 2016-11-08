@@ -25,124 +25,125 @@ import java.math.BigDecimal;
  */
 public class PaymentRequestItem {
 
-    /**
-     * Item id
-     * 
-     * Optional
-     */
-    private String id;
+	/**
+	 * Item id
+	 * 
+	 * Optional
+	 */
+	private String id;
 
-    /**
-     * Item description
-     */
-    private String description;
+	/**
+	 * Item description
+	 */
+	private String description;
 
-    /**
-     * Item amount
-     */
-    private BigDecimal amount;
+	/**
+	 * Item amount
+	 */
+	private BigDecimal amount;
 
-    /**
-     * Item quantity
-     */
-    private Integer quantity;
+	/**
+	 * Item quantity
+	 */
+	private Integer quantity;
 
-    /**
-     * Initializes a new instance of PaymentRequestItem class
-     */
-    public PaymentRequestItem() {
+	/**
+	 * Initializes a new instance of PaymentRequestItem class
+	 */
+	public PaymentRequestItem() {
 
-    }
+	}
 
-    /**
-     * Initializes a new instance of PaymentRequestItem class with the specified arguments
-     * 
-     * @param id
-     *            the item id
-     * @param description
-     *            the item description
-     * @param amount
-     *            the item amount
-     * @param quantity
-     *            the item quantity
-     */
-    public PaymentRequestItem(String id, String description, BigDecimal amount, Integer quantity) {
-        this.description = description;
-        this.amount = amount;
-        this.quantity = quantity;
-        this.id = id;
-    }
+	/**
+	 * Initializes a new instance of PaymentRequestItem class with the specified
+	 * arguments
+	 * 
+	 * @param id
+	 *            the item id
+	 * @param description
+	 *            the item description
+	 * @param amount
+	 *            the item amount
+	 * @param quantity
+	 *            the item quantity
+	 */
+	public PaymentRequestItem( String id, String description, BigDecimal amount, Integer quantity ) {
+		this.description = description;
+		this.amount = amount;
+		this.quantity = quantity;
+		this.id = id;
+	}
 
-    /**
-     * @return the item description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+	/**
+	 * @return the item description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
-    /**
-     * Sets the item description
-     * 
-     * @param description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * Sets the item description
+	 * 
+	 * @param description
+	 */
+	public void setDescription( String description ) {
+		this.description = description;
+	}
 
-    /**
-     * @return the item amount
-     */
-    public BigDecimal getAmount() {
-        return this.amount;
-    }
+	/**
+	 * @return the item amount
+	 */
+	public BigDecimal getAmount() {
+		return this.amount;
+	}
 
-    /**
-     * Sets the item amount
-     * 
-     * @param amount
-     */
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	/**
+	 * Sets the item amount
+	 * 
+	 * @param amount
+	 */
+	public void setAmount( BigDecimal amount ) {
+		this.amount = amount;
+	}
 
-    /**
-     * @return the item quantity
-     */
-    public Integer getQuantity() {
-        return this.quantity;
-    }
+	/**
+	 * @return the item quantity
+	 */
+	public Integer getQuantity() {
+		return this.quantity;
+	}
 
-    /**
-     * Sets the item quantity
-     * 
-     * @param quantity
-     */
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
+	/**
+	 * Sets the item quantity
+	 * 
+	 * @param quantity
+	 */
+	public void setQuantity( Integer quantity ) {
+		this.quantity = quantity;
+	}
 
-    /**
-     * @return the item id
-     */
-    public String getId() {
-        return this.id;
-    }
+	/**
+	 * @return the item id
+	 */
+	public String getId() {
+		return this.id;
+	}
 
-    /**
-     * Sets the item id
-     * 
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/**
+	 * Sets the item id
+	 * 
+	 * @param id
+	 */
+	public void setId( String id ) {
+		this.id = id;
+	}
 
-    /**
-     * @return string
-     */
-    @Override
-    public String toString() {
-        return "PaymentRequestItem [id=" + id + ", description=" + description + ", amount=" + amount + ", quantity="
-                + quantity + "]";
-    }
+	/**
+	 * @return string
+	 */
+	@Override
+	public String toString() {
+		return "PaymentRequestItem [id=" + id + ", description=" + description + ", amount=" + amount + ", quantity="
+				+ quantity + "]";
+	}
 }

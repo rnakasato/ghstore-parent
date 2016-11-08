@@ -3,7 +3,7 @@ package com.nakasato.ghstore.domain.user;
 import java.util.Date;
 
 public abstract class User extends Person {
-	public static final String LOGGED_USER ="loggedUser";
+	public static final String LOGGED_USER = "loggedUser";
 
 	private String username;
 	private String password;
@@ -16,7 +16,7 @@ public abstract class User extends Person {
 	}
 
 	public void setUsername( String username ) {
-		this.username =username;
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -24,7 +24,7 @@ public abstract class User extends Person {
 	}
 
 	public void setPassword( String password ) {
-		this.password =password;
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -32,7 +32,7 @@ public abstract class User extends Person {
 	}
 
 	public void setEmail( String email ) {
-		this.email =email;
+		this.email = email;
 	}
 
 	public UserType getUserType() {
@@ -40,7 +40,7 @@ public abstract class User extends Person {
 	}
 
 	public void setUserType( UserType userType ) {
-		this.userType =userType;
+		this.userType = userType;
 	}
 
 	public Date getUpdateDate() {
@@ -48,7 +48,7 @@ public abstract class User extends Person {
 	}
 
 	public void setUpdateDate( Date updateDate ) {
-		this.updateDate =updateDate;
+		this.updateDate = updateDate;
 	}
 
 }

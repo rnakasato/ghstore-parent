@@ -27,11 +27,11 @@ import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghstore.web.mb.user.LoginMB;
 
-@ ManagedBean( name ="clientOrderMB" )
-@ ViewScoped
+@ManagedBean( name = "clientOrderMB" )
+@ViewScoped
 public class ClientOrderMB extends OrderMB {
 
-	@ ManagedProperty( value ="#{loginMB}" )
+	@ManagedProperty( value = "#{loginMB}" )
 	private LoginMB loginMB;
 
 	private Customer customer;
@@ -48,28 +48,28 @@ public class ClientOrderMB extends OrderMB {
 	private List < ExchangeItem > exchangeList;
 	private List < ExchangeItem > selectedExchangeList;
 
-	@ PostConstruct
+	@PostConstruct
 	public void init() {
-		filter =new OrderFilter();
+		filter = new OrderFilter();
 
-		customer =( Customer ) loginMB.getLoggedUser();
-		if( customer !=null ) {
+		customer = ( Customer ) loginMB.getLoggedUser();
+		if( customer != null ) {
 			filter.setUsername( customer.getUsername() );
 		}
 		initOrderStatus();
 	}
 
-	@ Override
+	@Override
 	public void listOrders() {
 		try {
-			boolean hasError =false;
-			if( filter !=null ) {
-				hasError =validateDates();
+			boolean hasError = false;
+			if( filter != null ) {
+				hasError = validateDates();
 			}
-			if( !hasError ) {
+			if( ! hasError ) {
 				ICommand command;
-				command =FactoryCommand.build( filter, EOperation.FIND );
-				orderResults =command.execute().getEntityList();
+				command = FactoryCommand.build( filter, EOperation.FIND );
+				orderResults = command.execute().getEntityList();
 			}
 		} catch( ClassNotFoundException e1 ) {
 			e1.printStackTrace();
@@ -78,20 +78,20 @@ public class ClientOrderMB extends OrderMB {
 
 	public void changeToCanceled( Order order ) {
 		try {
-			OrderStatusFilter statusFilter =new OrderStatusFilter();
+			OrderStatusFilter statusFilter = new OrderStatusFilter();
 			statusFilter.setCode( OrderStatus.COD_CANCELADO );
 
 			ICommand command;
-			command =FactoryCommand.build( statusFilter, EOperation.FIND );
-			List < OrderStatus > statusList =command.execute().getEntityList();
+			command = FactoryCommand.build( statusFilter, EOperation.FIND );
+			List < OrderStatus > statusList = command.execute().getEntityList();
 
-			OrderStatus status =null;
-			if( statusList !=null && !statusList.isEmpty() ) {
-				status =statusList.get( 0 );
+			OrderStatus status = null;
+			if( statusList != null && ! statusList.isEmpty() ) {
+				status = statusList.get( 0 );
 			}
 			order.setOrderStatus( status );
 
-			command =FactoryCommand.build( order, EOperation.UPDATE );
+			command = FactoryCommand.build( order, EOperation.UPDATE );
 			command.execute();
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
@@ -99,24 +99,24 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void initReturn( Order order ) {
-		returnOrder =order;
-		returnList =new ArrayList<>();
+		returnOrder = order;
+		returnList = new ArrayList<>();
 		for( OrderItem item: order.getOrderItemList() ) {
-			ReturnedItem ret =new ReturnedItem();
+			ReturnedItem ret = new ReturnedItem();
 			ret.setOriginalAmount( item.getAmount() );
 
-			if( !ListUtils.isListEmpty( order.getProductReturnList() ) ) {
+			if( ! ListUtils.isEmpty( order.getProductReturnList() ) ) {
 				// calcula quantos produtos podem ser devolvidos
 				for( ProductReturn pr: order.getProductReturnList() ) {
 					for( ReturnedItem rt: pr.getReturnedItems() ) {
 						if( rt.getProduct().equals( item.getProduct() ) ) {
-							ret.setOriginalAmount( ret.getOriginalAmount() -rt.getAmount() );
+							ret.setOriginalAmount( ret.getOriginalAmount() - rt.getAmount() );
 						}
 					}
 				}
 			}
 
-			if( ret.getOriginalAmount() >0 ) {
+			if( ret.getOriginalAmount() > 0 ) {
 				ret.setAmount( 0 );
 				ret.setProduct( item.getProduct() );
 				ret.setTotalValue( 0D );
@@ -126,11 +126,11 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void initExchange( Order order ) {
-		exchangeOrder =order;
+		exchangeOrder = order;
 
-		exchangeList =new ArrayList<>();
+		exchangeList = new ArrayList<>();
 		for( OrderItem item: order.getOrderItemList() ) {
-			ExchangeItem ex =new ExchangeItem();
+			ExchangeItem ex = new ExchangeItem();
 			ex.setOriginalAmount( item.getAmount() );
 			ex.setAmount( 0 );
 			ex.setProduct( item.getProduct() );
@@ -142,20 +142,20 @@ public class ClientOrderMB extends OrderMB {
 
 	public void doReturn() {
 		try {
-			ProductReturn productReturn =new ProductReturn();
+			ProductReturn productReturn = new ProductReturn();
 			productReturn.setOrder( returnOrder );
 			productReturn.setReturnedItems( selectedReturnList );
 			productReturn.setReason( returnReason );
 
 			ICommand commandSave;
-			commandSave =FactoryCommand.build( productReturn, EOperation.SAVE );
-			Result result =commandSave.execute();
+			commandSave = FactoryCommand.build( productReturn, EOperation.SAVE );
+			Result result = commandSave.execute();
 			if( StringUtils.isNotEmpty( result.getMsg() ) ) {
 				addMessage( result.getMsg() );
 			} else {
 				addMessage( "Produto devolvido" );
-				selectedReturnList =new ArrayList<>();
-				returnReason =null;
+				selectedReturnList = new ArrayList<>();
+				returnReason = null;
 			}
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
@@ -166,20 +166,20 @@ public class ClientOrderMB extends OrderMB {
 
 	public void doExchange() {
 		try {
-			ProductExchange productExchange =new ProductExchange();
+			ProductExchange productExchange = new ProductExchange();
 			productExchange.setOrder( exchangeOrder );
 			productExchange.setExchangeItems( selectedExchangeList );
 			productExchange.setReason( exchangeReason );
 
 			ICommand commandSave;
-			commandSave =FactoryCommand.build( productExchange, EOperation.SAVE );
-			Result result =commandSave.execute();
+			commandSave = FactoryCommand.build( productExchange, EOperation.SAVE );
+			Result result = commandSave.execute();
 			if( StringUtils.isNotEmpty( result.getMsg() ) ) {
 				addMessage( result.getMsg() );
 			} else {
 				addMessage( "Produto trocado, foi lhe dado um cupom de desconto de 10%" );
-				selectedReturnList =new ArrayList<>();
-				exchangeReason =null;
+				selectedReturnList = new ArrayList<>();
+				exchangeReason = null;
 			}
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
@@ -188,12 +188,12 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public boolean allowReturn( Order order ) {
-		boolean notAllow =true;
-		if( order.getDeliverDate() !=null ) {
-			Long difference =( getToday().getTime() -order.getDeliverDate().getTime() ) /( 24 *60 *60 *1000 );
+		boolean notAllow = true;
+		if( order.getDeliverDate() != null ) {
+			Long difference = ( getToday().getTime() - order.getDeliverDate().getTime() ) / ( 24 * 60 * 60 * 1000 );
 
-			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_ENTREGE ) &&difference <=7 ) {
-				notAllow =false;
+			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_ENTREGE ) && difference <= 7 ) {
+				notAllow = false;
 			}
 		}
 		return notAllow;
@@ -201,12 +201,12 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public boolean allowExchange( Order order ) {
-		boolean notAllow =true;
-		if( order.getDeliverDate() !=null ) {
-			Long difference =( getToday().getTime() -order.getDeliverDate().getTime() ) /( 24 *60 *60 *1000 );
+		boolean notAllow = true;
+		if( order.getDeliverDate() != null ) {
+			Long difference = ( getToday().getTime() - order.getDeliverDate().getTime() ) / ( 24 * 60 * 60 * 1000 );
 
-			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_ENTREGE ) &&difference <=30 ) {
-				notAllow =false;
+			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_ENTREGE ) && difference <= 30 ) {
+				notAllow = false;
 			}
 		}
 		return notAllow;
@@ -217,10 +217,10 @@ public class ClientOrderMB extends OrderMB {
 
 	}
 
-	@ Override
+	@Override
 	public void clearFilter() {
-		filter =new OrderFilter();
-		if( customer !=null ) {
+		filter = new OrderFilter();
+		if( customer != null ) {
 			filter.setUsername( customer.getUsername() );
 		}
 	}
@@ -230,7 +230,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setLoginMB( LoginMB loginMB ) {
-		this.loginMB =loginMB;
+		this.loginMB = loginMB;
 	}
 
 	public Customer getCustomer() {
@@ -238,7 +238,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setCustomer( Customer customer ) {
-		this.customer =customer;
+		this.customer = customer;
 	}
 
 	public Order getReturnOrder() {
@@ -246,7 +246,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setReturnOrder( Order returnOrder ) {
-		this.returnOrder =returnOrder;
+		this.returnOrder = returnOrder;
 	}
 
 	public Order getExchangeOrder() {
@@ -254,7 +254,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setExchangeOrder( Order exchangeOrder ) {
-		this.exchangeOrder =exchangeOrder;
+		this.exchangeOrder = exchangeOrder;
 	}
 
 	public List < ReturnedItem > getReturnList() {
@@ -262,7 +262,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setReturnList( List < ReturnedItem > returnList ) {
-		this.returnList =returnList;
+		this.returnList = returnList;
 	}
 
 	public List < ReturnedItem > getSelectedReturnList() {
@@ -270,7 +270,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setSelectedReturnList( List < ReturnedItem > selectedReturnList ) {
-		this.selectedReturnList =selectedReturnList;
+		this.selectedReturnList = selectedReturnList;
 	}
 
 	public String getExchangeReason() {
@@ -278,7 +278,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setExchangeReason( String exchangeReason ) {
-		this.exchangeReason =exchangeReason;
+		this.exchangeReason = exchangeReason;
 	}
 
 	public String getReturnReason() {
@@ -286,7 +286,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setReturnReason( String returnReason ) {
-		this.returnReason =returnReason;
+		this.returnReason = returnReason;
 	}
 
 	public List < ExchangeItem > getExchangeList() {
@@ -294,7 +294,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setExchangeList( List < ExchangeItem > exchangeList ) {
-		this.exchangeList =exchangeList;
+		this.exchangeList = exchangeList;
 	}
 
 	public List < ExchangeItem > getSelectedExchangeList() {
@@ -302,7 +302,7 @@ public class ClientOrderMB extends OrderMB {
 	}
 
 	public void setSelectedExchangeList( List < ExchangeItem > selectedExchangeList ) {
-		this.selectedExchangeList =selectedExchangeList;
+		this.selectedExchangeList = selectedExchangeList;
 	}
 
 }

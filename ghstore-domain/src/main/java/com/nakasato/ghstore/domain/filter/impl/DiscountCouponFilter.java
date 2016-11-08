@@ -11,7 +11,7 @@ public class DiscountCouponFilter extends Filter {
 	}
 
 	public void setCustomerId( Integer customerId ) {
-		this.customerId =customerId;
+		this.customerId = customerId;
 	}
 
 	public Boolean getUsed() {
@@ -19,7 +19,7 @@ public class DiscountCouponFilter extends Filter {
 	}
 
 	public void setUsed( Boolean used ) {
-		this.used =used;
+		this.used = used;
 	}
 
 }

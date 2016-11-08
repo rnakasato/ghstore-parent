@@ -10,36 +10,36 @@ import com.nakasato.ghtstore.core.business.Validator;
 
 public class CustomerCEPValidator extends Validator < Customer > {
 
-	private Pattern pattern =Pattern.compile( "[0-9]{5}-[0-9]{3}" );
+	private Pattern pattern = Pattern.compile( "[0-9]{5}-[0-9]{3}" );
 
 	private StringBuilder sb;
 
-	@ Override
+	@Override
 	public String validate( Customer customer ) {
-		sb =new StringBuilder();
-		msg =null;
-		boolean validCEP =true;
-		int addressNumber =1;
+		sb = new StringBuilder();
+		msg = null;
+		boolean validCEP = true;
+		int addressNumber = 1;
 		for( Address ad: customer.getDeliveryAddressList() ) {
-			Matcher matcher =pattern.matcher( FormatUtils.formatString( ad.getCep(), "#####-###" ) );
-			if( !matcher.matches() ) {
-				validCEP =false;
+			Matcher matcher = pattern.matcher( FormatUtils.formatString( ad.getCep(), "#####-###" ) );
+			if( ! matcher.matches() ) {
+				validCEP = false;
 				addAddressNumber( addressNumber );
 			}
-			addressNumber ++;
+			addressNumber ++ ;
 		}
-		if( !validCEP ) {
+		if( ! validCEP ) {
 			sb.append( "." );
 		}
-		if( sb.length() >0 ) {
-			msg =sb.toString();
+		if( sb.length() > 0 ) {
+			msg = sb.toString();
 		}
 
 		return msg;
 	}
 
 	private void addAddressNumber( int position ) {
-		if( sb.length() ==0 ) {
+		if( sb.length() == 0 ) {
 			sb.append( "CEP(s) inválido(s) para o(s) endereço(s) de posicao " ).append( position );
 		} else {
 			sb.append( ", " ).append( position );

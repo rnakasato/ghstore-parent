@@ -9,28 +9,28 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
-@ FacesConverter( "defaultConverter" )
+@FacesConverter( "defaultConverter" )
 public class DefaultConverter implements Converter {
 
-	@ Override
+	@Override
 	public Object getAsObject( FacesContext context, UIComponent component, String value ) {
-		AbstractDomainEntity entity =null;
+		AbstractDomainEntity entity = null;
 		if( StringUtils.isNotEmpty( value ) ) {
-			entity =( AbstractDomainEntity ) component.getAttributes().get( value );
+			entity = ( AbstractDomainEntity ) component.getAttributes().get( value );
 		}
 		return entity;
 	}
 
-	@ Override
+	@Override
 	public String getAsString( FacesContext context, UIComponent component, Object value ) {
-		if( value ==null ) {
+		if( value == null ) {
 			return "";
 		}
-		String id =null;
+		String id = null;
 		if( value instanceof AbstractDomainEntity ) {
-			AbstractDomainEntity entity =( AbstractDomainEntity ) value;
-			if( entity !=null &&entity.getId() !=null ) {
-				id =entity.getId().toString();
+			AbstractDomainEntity entity = ( AbstractDomainEntity ) value;
+			if( entity != null && entity.getId() != null ) {
+				id = entity.getId().toString();
 				component.getAttributes().put( id, value );
 			}
 		}

@@ -14,7 +14,7 @@ public class ProductReturnFilter extends Filter {
 	}
 
 	public void setCodOrder( String codOrder ) {
-		this.codOrder =codOrder;
+		this.codOrder = codOrder;
 	}
 
 	public Date getStartDate() {
@@ -22,7 +22,7 @@ public class ProductReturnFilter extends Filter {
 	}
 
 	public void setStartDate( Date startDate ) {
-		this.startDate =startDate;
+		this.startDate = startDate;
 	}
 
 	public Date getEndDate() {
@@ -30,7 +30,7 @@ public class ProductReturnFilter extends Filter {
 	}
 
 	public void setEndDate( Date endDate ) {
-		this.endDate =endDate;
+		this.endDate = endDate;
 	}
 
 }

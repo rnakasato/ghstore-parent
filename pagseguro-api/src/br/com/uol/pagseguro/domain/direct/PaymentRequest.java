@@ -23,311 +23,311 @@ import br.com.uol.pagseguro.enums.ShippingType;
 @Deprecated
 public abstract class PaymentRequest {
 
-    /**
-     * New Checkout class
-     */
-    private Checkout checkout;
+	/**
+	 * New Checkout class
+	 */
+	private Checkout checkout;
 
-    /**
-     * Payment Mode
-     */
-    @SuppressWarnings("unused")
-    private PaymentMode paymentMode;
+	/**
+	 * Payment Mode
+	 */
+	@SuppressWarnings( "unused" )
+	private PaymentMode paymentMode;
 
-    /**
-     * Receiver E-Mail
-     */
-    @SuppressWarnings("unused")
-    private String receiverEmail;
+	/**
+	 * Receiver E-Mail
+	 */
+	@SuppressWarnings( "unused" )
+	private String receiverEmail;
 
-    /**
-     * Currency
-     */
-    @SuppressWarnings("unused")
-    private Currency currency;
+	/**
+	 * Currency
+	 */
+	@SuppressWarnings( "unused" )
+	private Currency currency;
 
-    /**
-     * Notification URL
-     */
-    @SuppressWarnings("unused")
-    private String notificationURL;
+	/**
+	 * Notification URL
+	 */
+	@SuppressWarnings( "unused" )
+	private String notificationURL;
 
-    /**
-     * Reference
-     */
-    @SuppressWarnings("unused")
-    private String reference;
+	/**
+	 * Reference
+	 */
+	@SuppressWarnings( "unused" )
+	private String reference;
 
-    /**
-     * Sender
-     */
-    @SuppressWarnings("unused")
-    private Sender sender;
+	/**
+	 * Sender
+	 */
+	@SuppressWarnings( "unused" )
+	private Sender sender;
 
-    /**
-     * Shipping
-     */
-    @SuppressWarnings("unused")
-    private Shipping shipping;
+	/**
+	 * Shipping
+	 */
+	@SuppressWarnings( "unused" )
+	private Shipping shipping;
 
-    /**
-     * Extra Amount
-     */
-    @SuppressWarnings("unused")
-    private BigDecimal extraAmount;
+	/**
+	 * Extra Amount
+	 */
+	@SuppressWarnings( "unused" )
+	private BigDecimal extraAmount;
 
-    /**
-     * Items
-     */
-    @SuppressWarnings("unused")
-    private List<Item> items;
+	/**
+	 * Items
+	 */
+	@SuppressWarnings( "unused" )
+	private List < Item > items;
 
-    /**
-     * Commission
-     */
-    @SuppressWarnings("unused")
-    private Commission commission;
-    
-    /**
-     * Extra parameters that user can add to a PagSeguro checkout request
-     * 
-     * Optional
-     * 
-     * @var PagSeguroParameter
-     */
-    private Parameter parameter;
+	/**
+	 * Commission
+	 */
+	@SuppressWarnings( "unused" )
+	private Commission commission;
 
-    /**
-     * @return the payment mode
-     */
-    public PaymentMode getPaymentMode() {
-        return this.checkout.getPaymentMode();
-    }
+	/**
+	 * Extra parameters that user can add to a PagSeguro checkout request
+	 * 
+	 * Optional
+	 * 
+	 * @var PagSeguroParameter
+	 */
+	private Parameter parameter;
 
-    /**
-     * @param paymentMode
-     *            the payment mode to set
-     */
-    public void setPaymentMode(PaymentMode paymentMode) {
-        this.checkout.setPaymentMode(paymentMode);
-    }
+	/**
+	 * @return the payment mode
+	 */
+	public PaymentMode getPaymentMode() {
+		return this.checkout.getPaymentMode();
+	}
 
-    /**
-     * @return the receiverEmail
-     */
-    public String getReceiverEmail() {
-        return this.checkout.getReceiverEmail();
-    }
+	/**
+	 * @param paymentMode
+	 *            the payment mode to set
+	 */
+	public void setPaymentMode( PaymentMode paymentMode ) {
+		this.checkout.setPaymentMode( paymentMode );
+	}
 
-    /**
-     * @param receiverEmail
-     *            the receiverEmail to set
-     */
-    public void setReceiverEmail(String receiverEmail) {
-        this.checkout.setReceiverEmail(receiverEmail);
-    }
+	/**
+	 * @return the receiverEmail
+	 */
+	public String getReceiverEmail() {
+		return this.checkout.getReceiverEmail();
+	}
 
-    /**
-     * @return the currency
-     */
-    public Currency getCurrency() {
-        return this.checkout.getCurrency();
-    }
+	/**
+	 * @param receiverEmail
+	 *            the receiverEmail to set
+	 */
+	public void setReceiverEmail( String receiverEmail ) {
+		this.checkout.setReceiverEmail( receiverEmail );
+	}
 
-    /**
-     * @param currency
-     *            the currency to set
-     */
-    public void setCurrency(Currency currency) {
-        this.checkout.setCurrency(currency);
-    }
+	/**
+	 * @return the currency
+	 */
+	public Currency getCurrency() {
+		return this.checkout.getCurrency();
+	}
 
-    /**
-     * @return the notification URL
-     */
-    public String getNotificationURL() {
-        return this.checkout.getNotificationURL();
-    }
+	/**
+	 * @param currency
+	 *            the currency to set
+	 */
+	public void setCurrency( Currency currency ) {
+		this.checkout.setCurrency( currency );
+	}
 
-    /**
-     * @param notificationUrl
-     *            the notification URL to set
-     */
-    public void setNotificationURL(String notificationURL) {
-        this.checkout.setNotificationURL(notificationURL);
-    }
+	/**
+	 * @return the notification URL
+	 */
+	public String getNotificationURL() {
+		return this.checkout.getNotificationURL();
+	}
 
-    /**
-     * @return the reference
-     */
-    public String getReference() {
-        return this.checkout.getReference();
-    }
+	/**
+	 * @param notificationUrl
+	 *            the notification URL to set
+	 */
+	public void setNotificationURL( String notificationURL ) {
+		this.checkout.setNotificationURL( notificationURL );
+	}
 
-    /**
-     * @param reference
-     *            the reference to set
-     */
-    public void setReference(String reference) {
-        this.checkout.setReference(reference);
-    }
+	/**
+	 * @return the reference
+	 */
+	public String getReference() {
+		return this.checkout.getReference();
+	}
 
-    /**
-     * @return the sender
-     */
-    public Sender getSender() {
-        return this.checkout.getSender();
-    }
+	/**
+	 * @param reference
+	 *            the reference to set
+	 */
+	public void setReference( String reference ) {
+		this.checkout.setReference( reference );
+	}
 
-    /**
-     * @param sender
-     *            the sender to set
-     */
-    public void setSender(Sender sender) {
-        this.checkout.setSender(sender);
-    }
+	/**
+	 * @return the sender
+	 */
+	public Sender getSender() {
+		return this.checkout.getSender();
+	}
 
-    /**
-     * @return the shipping
-     */
-    public Shipping getShipping() {
-        return this.checkout.getShipping();
-    }
+	/**
+	 * @param sender
+	 *            the sender to set
+	 */
+	public void setSender( Sender sender ) {
+		this.checkout.setSender( sender );
+	}
 
-    /**
-     * @param shipping
-     *            the shipping to set
-     */
-    public void setShipping(Shipping shipping) {
-        this.checkout.setShipping(shipping);
-    }
+	/**
+	 * @return the shipping
+	 */
+	public Shipping getShipping() {
+		return this.checkout.getShipping();
+	}
 
-    /**
-     * Sets the shipping address for this direct payment request
-     * 
-     * @param address
-     */
-    public void setShippingAddress(Address address) {
-        this.checkout.setShippingAddress(address);
-    }
+	/**
+	 * @param shipping
+	 *            the shipping to set
+	 */
+	public void setShipping( Shipping shipping ) {
+		this.checkout.setShipping( shipping );
+	}
 
-    /**
-     * Sets the shipping type for this direct payment request
-     * 
-     * @see ShippingType
-     * 
-     * @param type
-     */
-    public void setShippingType(ShippingType type) {
-        this.checkout.setShippingType(type);
-    }
+	/**
+	 * Sets the shipping address for this direct payment request
+	 * 
+	 * @param address
+	 */
+	public void setShippingAddress( Address address ) {
+		this.checkout.setShippingAddress( address );
+	}
 
-    /**
-     * Sets the shipping cost for this direct payment request
-     * 
-     * @param cost
-     */
-    public void setShippingCost(BigDecimal cost) {
-        this.checkout.setShippingCost(cost);
-    }
+	/**
+	 * Sets the shipping type for this direct payment request
+	 * 
+	 * @see ShippingType
+	 * 
+	 * @param type
+	 */
+	public void setShippingType( ShippingType type ) {
+		this.checkout.setShippingType( type );
+	}
 
-    /**
-     * @return the extraAmount
-     */
-    public BigDecimal getExtraAmount() {
-        return this.checkout.getExtraAmount();
-    }
+	/**
+	 * Sets the shipping cost for this direct payment request
+	 * 
+	 * @param cost
+	 */
+	public void setShippingCost( BigDecimal cost ) {
+		this.checkout.setShippingCost( cost );
+	}
 
-    /**
-     * @param extraAmount
-     *            the extraAmount to set
-     */
-    public void setExtraAmount(BigDecimal extraAmount) {
-        this.checkout.setExtraAmount(extraAmount);
-    }
+	/**
+	 * @return the extraAmount
+	 */
+	public BigDecimal getExtraAmount() {
+		return this.checkout.getExtraAmount();
+	}
 
-    /**
-     * @return the items
-     */
-    public List<Item> getItems() {
-        return this.checkout.getItems();
-    }
+	/**
+	 * @param extraAmount
+	 *            the extraAmount to set
+	 */
+	public void setExtraAmount( BigDecimal extraAmount ) {
+		this.checkout.setExtraAmount( extraAmount );
+	}
 
-    /**
-     * @param items
-     *            the items to set
-     */
-    public void setItems(List<Item> items) {
-        this.checkout.setItems(items);
-    }
+	/**
+	 * @return the items
+	 */
+	public List < Item > getItems() {
+		return this.checkout.getItems();
+	}
 
-    /**
-     * Adds a new product/item in this direct payment request
-     * 
-     * @see Item
-     * 
-     * @param item
-     */
-    public void addItem(Item item) {
-        this.checkout.addItem(item);
-    }
+	/**
+	 * @param items
+	 *            the items to set
+	 */
+	public void setItems( List < Item > items ) {
+		this.checkout.setItems( items );
+	}
 
-    /**
-     * @return the commission
-     */
-    public Commission getCommission() {
-        return this.checkout.getCommission();
-    }
+	/**
+	 * Adds a new product/item in this direct payment request
+	 * 
+	 * @see Item
+	 * 
+	 * @param item
+	 */
+	public void addItem( Item item ) {
+		this.checkout.addItem( item );
+	}
 
-    /**
-     * @param commission
-     *            the commission to set
-     */
-    public void setCommission(Commission commission) {
-        this.checkout.setCommission(commission);
-    }
-    
-    /**
-     * @return the sender hash
-     */
-    public String getSenderHash() {
-        return this.checkout.getSenderHash();
-    }
+	/**
+	 * @return the commission
+	 */
+	public Commission getCommission() {
+		return this.checkout.getCommission();
+	}
 
-    /**
-     * @param senderHash
-     *            the sender hash to set
-     */
-    public void setSenderHash(String senderHash) {
-        this.checkout.setSenderHash(senderHash);
-    }
-    
-    /**
-     * Gets parameter for PagSeguro checkout requests
-     * 
-     * @return Parameter
-     */
-    public Parameter getParameter() {
+	/**
+	 * @param commission
+	 *            the commission to set
+	 */
+	public void setCommission( Commission commission ) {
+		this.checkout.setCommission( commission );
+	}
 
-        if (this.parameter == null) {
-            this.parameter = new Parameter();
-        }
+	/**
+	 * @return the sender hash
+	 */
+	public String getSenderHash() {
+		return this.checkout.getSenderHash();
+	}
 
-        return this.parameter;
+	/**
+	 * @param senderHash
+	 *            the sender hash to set
+	 */
+	public void setSenderHash( String senderHash ) {
+		this.checkout.setSenderHash( senderHash );
+	}
 
-    }
+	/**
+	 * Gets parameter for PagSeguro checkout requests
+	 * 
+	 * @return Parameter
+	 */
+	public Parameter getParameter() {
 
-    /**
-     * Sets parameter for PagSeguro checkout requests
-     * 
-     * @param parameter
-     */
-    public void setParameter(Parameter parameter) {
-        this.parameter = parameter;
-    }
+		if( this.parameter == null ) {
+			this.parameter = new Parameter();
+		}
 
-    public Map<Object, Object> getMap() {
-        return this.checkout.getMap();
-    }
+		return this.parameter;
+
+	}
+
+	/**
+	 * Sets parameter for PagSeguro checkout requests
+	 * 
+	 * @param parameter
+	 */
+	public void setParameter( Parameter parameter ) {
+		this.parameter = parameter;
+	}
+
+	public Map < Object, Object > getMap() {
+		return this.checkout.getMap();
+	}
 
 }

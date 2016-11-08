@@ -38,108 +38,110 @@ import br.com.uol.pagseguro.xmlparser.ErrorsParser;
  * Class AuthorizationService
  */
 public class AuthorizationService {
-	
+
 	/**
-     * @var Log
-     */
-    private static Log log = new Log(AuthorizationService.class);
+	 * @var Log
+	 */
+	private static Log log = new Log( AuthorizationService.class );
 
-    /**
-     * 
-     * @param ConnectionData
-     *            connectionData
-     * @return string
-     * @throws PagSeguroServiceException
-     */
-    public static String buildAuthorizationRequestUrl(ConnectionData connectionData) throws PagSeguroServiceException {
-        return connectionData.getWSAuthorizationUrl() + "?" + connectionData.getCredentialsUrlQuery();
-    }
+	/**
+	 * 
+	 * @param ConnectionData
+	 *            connectionData
+	 * @return string
+	 * @throws PagSeguroServiceException
+	 */
+	public static String buildAuthorizationRequestUrl( ConnectionData connectionData )
+			throws PagSeguroServiceException {
+		return connectionData.getWSAuthorizationUrl() + "?" + connectionData.getCredentialsUrlQuery();
+	}
 
-    /**
-     * Build authorization url
-     * 
-     * @param connection
-     * @param code
-     * @return string
-     */
-    private static String buildAuthorizationUrl(ConnectionData connection, String code) {
-        return connection.getAuthorizationUrl() + "?code=" + code;
-    }
+	/**
+	 * Build authorization url
+	 * 
+	 * @param connection
+	 * @param code
+	 * @return string
+	 */
+	private static String buildAuthorizationUrl( ConnectionData connection, String code ) {
+		return connection.getAuthorizationUrl() + "?code=" + code;
+	}
 
-    /**
-     * 
-     * @param credentials
-     * @param authorization
-     * @param onlyCheckoutCode
-     * @return string
-     * @throws Exception
-     */
-    public static String createAuthorizationRequest(Credentials credentials, AuthorizationRequest authorization, Boolean onlyCheckoutCode)
-            throws PagSeguroServiceException {
+	/**
+	 * 
+	 * @param credentials
+	 * @param authorization
+	 * @param onlyCheckoutCode
+	 * @return string
+	 * @throws Exception
+	 */
+	public static String createAuthorizationRequest( Credentials credentials, AuthorizationRequest authorization,
+			Boolean onlyCheckoutCode ) throws PagSeguroServiceException {
 
-        AuthorizationService.log.info(String.format("AuthorizationService.Register( %s ) - begin", authorization.toString()));
+		AuthorizationService.log
+				.info( String.format( "AuthorizationService.Register( %s ) - begin", authorization.toString() ) );
 
-        ConnectionData connectionData = new ConnectionData(credentials);
+		ConnectionData connectionData = new ConnectionData( credentials );
 
-        Map<Object, Object> data = AuthorizationRequestParser.getData(authorization);
-        
-        String url = AuthorizationService.buildAuthorizationRequestUrl(connectionData);
+		Map < Object, Object > data = AuthorizationRequestParser.getData( authorization );
 
-        HttpConnection connection = new HttpConnection();
-        HttpStatus httpCodeStatus = null;
+		String url = AuthorizationService.buildAuthorizationRequestUrl( connectionData );
 
-        HttpURLConnection response = connection.post(url, data, connectionData.getServiceTimeout(),
-                connectionData.getCharset(), null);
+		HttpConnection connection = new HttpConnection();
+		HttpStatus httpCodeStatus = null;
 
-        try {
+		HttpURLConnection response = connection.post( url, data, connectionData.getServiceTimeout(),
+				connectionData.getCharset(), null );
 
-            httpCodeStatus = HttpStatus.fromCode(response.getResponseCode());
-            if (httpCodeStatus == null) {
-                throw new PagSeguroServiceException("Connection Timeout");
-            } else if (HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue()) {
+		try {
 
-                String authorizationReturn = null;
-                String code = AuthorizationRequestParser.readSuccessXml(response);
+			httpCodeStatus = HttpStatus.fromCode( response.getResponseCode() );
+			if( httpCodeStatus == null ) {
+				throw new PagSeguroServiceException( "Connection Timeout" );
+			} else if( HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue() ) {
 
-                if (onlyCheckoutCode) {
-                	authorizationReturn = code;
-                } else {
-                	authorizationReturn = AuthorizationService.buildAuthorizationUrl(connectionData, code);
-                }
+				String authorizationReturn = null;
+				String code = AuthorizationRequestParser.readSuccessXml( response );
 
-                AuthorizationService.log.info(String.format("AuthorizationService.Register( %1s ) - end  %2s )",
-                        authorization.toString(), code));
+				if( onlyCheckoutCode ) {
+					authorizationReturn = code;
+				} else {
+					authorizationReturn = AuthorizationService.buildAuthorizationUrl( connectionData, code );
+				}
 
-                return authorizationReturn;
+				AuthorizationService.log.info( String.format( "AuthorizationService.Register( %1s ) - end  %2s )",
+						authorization.toString(), code ) );
 
-            } else if (HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue()) {
+				return authorizationReturn;
 
-                List<Error> errors = ErrorsParser.readErrosXml(response.getErrorStream());
+			} else if( HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue() ) {
 
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpCodeStatus, errors);
+				List < Error > errors = ErrorsParser.readErrosXml( response.getErrorStream() );
 
-                AuthorizationService.log.error(String.format("AuthorizationService.Register( %1s ) - error %2s",
-                        authorization.toString(), exception.getMessage()));
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpCodeStatus, errors );
 
-                throw exception;
+				AuthorizationService.log.error( String.format( "AuthorizationService.Register( %1s ) - error %2s",
+						authorization.toString(), exception.getMessage() ) );
 
-            } else {
+				throw exception;
 
-                throw new PagSeguroServiceException(httpCodeStatus);
-            }
+			} else {
 
-        } catch (PagSeguroServiceException e) {
-            throw e;
-        } catch (Exception e) {
+				throw new PagSeguroServiceException( httpCodeStatus );
+			}
 
-        	AuthorizationService.log.error(String.format("AuthorizationService.Register( %1s ) - error %2s", authorization.toString(),
-                    e.getMessage()));
+		} catch( PagSeguroServiceException e ) {
+			throw e;
+		} catch( Exception e ) {
 
-            throw new PagSeguroServiceException(httpCodeStatus, e);
+			AuthorizationService.log.error( String.format( "AuthorizationService.Register( %1s ) - error %2s",
+					authorization.toString(), e.getMessage() ) );
 
-        } finally {
-            response.disconnect();
-        }
-    }
+			throw new PagSeguroServiceException( httpCodeStatus, e );
+
+		} finally {
+			response.disconnect();
+		}
+	}
 
 }

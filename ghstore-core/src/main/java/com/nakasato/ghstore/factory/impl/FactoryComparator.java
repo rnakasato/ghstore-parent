@@ -16,8 +16,8 @@ public class FactoryComparator {
 	private static Map < Integer, Comparator > comparatorMap;
 
 	private static void initMap() {
-		if( comparatorMap ==null ) {
-			comparatorMap =new HashMap<>();
+		if( comparatorMap == null ) {
+			comparatorMap = new HashMap<>();
 			comparatorMap.put( EComparator.PRODUCT_NAME, new CompareProductByName() );
 			comparatorMap.put( EComparator.PRODUCT_CATEGORY, new CompareProductByCat() );
 			comparatorMap.put( EComparator.PRODUCT_PRICE, new CompareProductByPrice() );
@@ -29,7 +29,7 @@ public class FactoryComparator {
 
 	public static Comparator build( Integer comparatorType ) {
 		initMap();
-		Comparator c =comparatorMap.get( comparatorType );
+		Comparator c = comparatorMap.get( comparatorType );
 		return c;
 	}
 }

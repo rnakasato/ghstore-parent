@@ -8,15 +8,15 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementProductReturn extends Complementor < ProductReturn > {
 
-	@ Override
+	@Override
 	public String complement( ProductReturn productReturn ) {
 		productReturn.setInsertDate( new Date() );
-		Double totalValue =0D;
+		Double totalValue = 0D;
 		for( ReturnedItem rt: productReturn.getReturnedItems() ) {
 			rt.setProductReturn( productReturn );
 			rt.setInsertDate( new Date() );
-			rt.setTotalValue( rt.getProduct().getPrice() *rt.getAmount() );
-			totalValue +=rt.getTotalValue();
+			rt.setTotalValue( rt.getProduct().getPrice() * rt.getAmount() );
+			totalValue += rt.getTotalValue();
 		}
 		productReturn.setTotalValue( totalValue );
 

@@ -29,122 +29,124 @@ import br.com.uol.pagseguro.enums.HttpStatus;
  */
 public class PagSeguroServiceException extends Exception {
 
-    /**
-     * serialVersionUID
-     */
-    private static final long serialVersionUID = 3042057812162033491L;
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 3042057812162033491L;
 
-    /**
-     * @var HttpStatus see HttpStatus
-     */
-    private HttpStatus httpStatus;
+	/**
+	 * @var HttpStatus see HttpStatus
+	 */
+	private HttpStatus httpStatus;
 
-    /**
-     * @var list
-     */
-    private List<Error> errors;
+	/**
+	 * @var list
+	 */
+	private List < Error > errors;
 
-    /**
-     * Construct
-     * 
-     * @param httpStatus
-     */
-    public PagSeguroServiceException(String message) {
-        super(message);
-    }
+	/**
+	 * Construct
+	 * 
+	 * @param httpStatus
+	 */
+	public PagSeguroServiceException( String message ) {
+		super( message );
+	}
 
-    /**
-     * Construct
-     * 
-     * @param httpStatus
-     */
-    public PagSeguroServiceException(String message, Exception exception) {
-        super(message, exception);
-    }
+	/**
+	 * Construct
+	 * 
+	 * @param httpStatus
+	 */
+	public PagSeguroServiceException( String message, Exception exception ) {
+		super( message, exception );
+	}
 
-    /**
-     * Construct
-     * 
-     * @param httpStatus
-     */
-    public PagSeguroServiceException(HttpStatus httpStatus, Exception exception) {
-        super(String.format("HTTP %1$s - %2$s [%3$s] \n %4$s", httpStatus.getCode(), httpStatus,
-                httpStatus.getDescription(), exception.getMessage()));
-        this.httpStatus = httpStatus;
-    }
+	/**
+	 * Construct
+	 * 
+	 * @param httpStatus
+	 */
+	public PagSeguroServiceException( HttpStatus httpStatus, Exception exception ) {
+		super( String.format( "HTTP %1$s - %2$s [%3$s] \n %4$s", httpStatus.getCode(), httpStatus,
+				httpStatus.getDescription(), exception.getMessage() ) );
+		this.httpStatus = httpStatus;
+	}
 
-    /**
-     * Construct
-     * 
-     * @param httpStatus
-     */
-    public PagSeguroServiceException(HttpStatus httpStatus) {
-        super(String.format("HTTP %1$s - %2$s [%3$s]", httpStatus.getCode(), httpStatus, httpStatus.getDescription()));
-        this.httpStatus = httpStatus;
-    }
+	/**
+	 * Construct
+	 * 
+	 * @param httpStatus
+	 */
+	public PagSeguroServiceException( HttpStatus httpStatus ) {
+		super( String.format( "HTTP %1$s - %2$s [%3$s]", httpStatus.getCode(), httpStatus,
+				httpStatus.getDescription() ) );
+		this.httpStatus = httpStatus;
+	}
 
-    /**
-     * Construct
-     * 
-     * @param httpStatus
-     * @param erros
-     */
-    public PagSeguroServiceException(HttpStatus httpStatus, List<Error> erros) {
-        super(String.format("HTTP %1$s - %2$s [%3$s]", httpStatus.getCode(), httpStatus, httpStatus.getDescription()));
-        this.httpStatus = httpStatus;
-        this.errors = erros;
-    }
+	/**
+	 * Construct
+	 * 
+	 * @param httpStatus
+	 * @param erros
+	 */
+	public PagSeguroServiceException( HttpStatus httpStatus, List < Error > erros ) {
+		super( String.format( "HTTP %1$s - %2$s [%3$s]", httpStatus.getCode(), httpStatus,
+				httpStatus.getDescription() ) );
+		this.httpStatus = httpStatus;
+		this.errors = erros;
+	}
 
-    /**
-     * @return the httpStatus
-     */
-    public HttpStatus getHttpStatus() {
-        return this.httpStatus;
-    }
+	/**
+	 * @return the httpStatus
+	 */
+	public HttpStatus getHttpStatus() {
+		return this.httpStatus;
+	}
 
-    /**
-     * @param httpStatus
-     *            the httpStatus to set
-     */
-    public void setHttpStatus(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
-    }
+	/**
+	 * @param httpStatus
+	 *            the httpStatus to set
+	 */
+	public void setHttpStatus( HttpStatus httpStatus ) {
+		this.httpStatus = httpStatus;
+	}
 
-    /**
-     * @return the errors
-     */
-    public List<Error> getErrors() {
-        if (this.errors == null) {
-            this.errors = new ArrayList<Error>();
-        }
-        return this.errors;
-    }
+	/**
+	 * @return the errors
+	 */
+	public List < Error > getErrors() {
+		if( this.errors == null ) {
+			this.errors = new ArrayList < Error >();
+		}
+		return this.errors;
+	}
 
-    /**
-     * @param errors
-     *            the errors to set
-     */
-    public void setErrors(List<Error> errors) {
-        this.errors = errors;
-    }
+	/**
+	 * @param errors
+	 *            the errors to set
+	 */
+	public void setErrors( List < Error > errors ) {
+		this.errors = errors;
+	}
 
-    @Override
-    public String getMessage() {
+	@Override
+	public String getMessage() {
 
-        StringBuilder message = new StringBuilder(super.getMessage());
+		StringBuilder message = new StringBuilder( super.getMessage() );
 
-        if (!this.getErrors().isEmpty()) {
+		if( ! this.getErrors().isEmpty() ) {
 
-            for (Iterator<Error> iter = this.errors.iterator(); iter.hasNext();) {
+			for( Iterator < Error > iter = this.errors.iterator(); iter.hasNext(); ) {
 
-                Error error = (Error) iter.next();
+				Error error = ( Error ) iter.next();
 
-                message.append("\n").append(error.getCode()).append(" - ").append(error.getMessage());
+				message.append( "\n" ).append( error.getCode() ).append( " - " ).append( error.getMessage() );
 
-            }
-        }
+			}
+		}
 
-        return message.toString();
-    }
+		return message.toString();
+	}
 
 }

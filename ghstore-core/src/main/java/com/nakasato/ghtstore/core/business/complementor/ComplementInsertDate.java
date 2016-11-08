@@ -7,7 +7,7 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementInsertDate extends Complementor {
 
-	@ Override
+	@Override
 	public String complement( AbstractDomainEntity entity ) {
 		entity.setInsertDate( new Date() );
 		return null;

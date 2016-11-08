@@ -19,82 +19,85 @@
 package br.com.uol.pagseguro.enums;
 
 /**
- * Enum constants that represents notificationTypes that can be returned by PagSeguro
+ * Enum constants that represents notificationTypes that can be returned by
+ * PagSeguro
  */
 public enum NotificationType {
 
-    TRANSACTION("THIS NOTIFICATION REPRESENTS A TRANSACTION", "transaction"),
+	TRANSACTION( "THIS NOTIFICATION REPRESENTS A TRANSACTION", "transaction" ),
 
-    UNKNOWN_TYPE("UNKNOWN TYPE. SEE ONLINE DOCUMENTATION", "unknown");
+	UNKNOWN_TYPE( "UNKNOWN TYPE. SEE ONLINE DOCUMENTATION", "unknown" );
 
-    private String description;
+	private String description;
 
-    private String value;
+	private String value;
 
-    /**
-     * Initializes a newly created enum constant of this type with the specified arguments
-     * 
-     * @param description
-     *            - the description of the enum constant
-     * @param value
-     *            - the value of the enum constant
-     */
-    NotificationType(String description, String value) {
-        this.description = description;
-        this.value = value;
-    }
+	/**
+	 * Initializes a newly created enum constant of this type with the specified
+	 * arguments
+	 * 
+	 * @param description
+	 *            - the description of the enum constant
+	 * @param value
+	 *            - the value of the enum constant
+	 */
+	NotificationType( String description, String value ) {
+		this.description = description;
+		this.value = value;
+	}
 
-    /**
-     * Returns the enum constant of this type with the specified value. If a given value are not recognized return a
-     * generic enum constant <code>UNKNOWN_TYPE</code>
-     * 
-     * @param value
-     *            - the value of the enum constant to be returned
-     * @return the enum constant from a given value
-     */
-    public static NotificationType fromValue(String value) {
+	/**
+	 * Returns the enum constant of this type with the specified value. If a
+	 * given value are not recognized return a generic enum constant
+	 * <code>UNKNOWN_TYPE</code>
+	 * 
+	 * @param value
+	 *            - the value of the enum constant to be returned
+	 * @return the enum constant from a given value
+	 */
+	public static NotificationType fromValue( String value ) {
 
-        for (NotificationType notificationType : values()) {
-            if (notificationType.value.equals(value)) {
-                return notificationType;
-            }
-        }
+		for( NotificationType notificationType: values() ) {
+			if( notificationType.value.equals( value ) ) {
+				return notificationType;
+			}
+		}
 
-        UNKNOWN_TYPE.setValue(value);
-        return UNKNOWN_TYPE;
+		UNKNOWN_TYPE.setValue( value );
+		return UNKNOWN_TYPE;
 
-    }
+	}
 
-    /**
-     * @return this enum constant description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+	/**
+	 * @return this enum constant description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
-    /**
-     * @param description
-     *            - new description for this enum constant
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @param description
+	 *            - new description for this enum constant
+	 */
+	public void setDescription( String description ) {
+		this.description = description;
+	}
 
-    /**
-     * @return this enum constant value
-     */
-    public String getValue() {
-        return this.value;
+	/**
+	 * @return this enum constant value
+	 */
+	public String getValue() {
+		return this.value;
 
-    }
+	}
 
-    /**
-     * @param value
-     *            - new value for this enum constant
-     */
-    public void setValue(String value) {
-        this.value = value;
+	/**
+	 * @param value
+	 *            - new value for this enum constant
+	 */
+	public void setValue( String value ) {
+		this.value = value;
 
-    }
+	}
 
 }

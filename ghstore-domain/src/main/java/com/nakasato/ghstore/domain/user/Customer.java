@@ -18,7 +18,7 @@ public class Customer extends User {
 	}
 
 	public void setWishlist( Wishlist wishlist ) {
-		this.wishlist =wishlist;
+		this.wishlist = wishlist;
 	}
 
 	public List < Order > getOrderList() {
@@ -26,7 +26,7 @@ public class Customer extends User {
 	}
 
 	public void setOrderList( List < Order > orderList ) {
-		this.orderList =orderList;
+		this.orderList = orderList;
 	}
 
 	public ShoppingCart getShoppingCart() {
@@ -34,7 +34,7 @@ public class Customer extends User {
 	}
 
 	public void setShoppingCart( ShoppingCart shoppingCart ) {
-		this.shoppingCart =shoppingCart;
+		this.shoppingCart = shoppingCart;
 	}
 
 	public List < Address > getDeliveryAddressList() {
@@ -42,7 +42,7 @@ public class Customer extends User {
 	}
 
 	public void setDeliveryAddressList( List < Address > deliveryAddressList ) {
-		this.deliveryAddressList =deliveryAddressList;
+		this.deliveryAddressList = deliveryAddressList;
 	}
 
 	public List < DiscountCoupon > getCoupons() {
@@ -50,7 +50,7 @@ public class Customer extends User {
 	}
 
 	public void setCoupons( List < DiscountCoupon > coupons ) {
-		this.coupons =coupons;
+		this.coupons = coupons;
 	}
 
 }

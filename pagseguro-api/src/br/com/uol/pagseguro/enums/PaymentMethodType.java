@@ -23,86 +23,88 @@ package br.com.uol.pagseguro.enums;
  */
 public enum PaymentMethodType {
 
-    CREDIT_CARD("CREDIT CARD", 1),
+	CREDIT_CARD( "CREDIT CARD", 1 ),
 
-    BOLETO("BANK PAYMENT ORDER", 2),
+	BOLETO( "BANK PAYMENT ORDER", 2 ),
 
-    ONLINE_TRANSFER("WIRE TRANSFER", 3),
+	ONLINE_TRANSFER( "WIRE TRANSFER", 3 ),
 
-    BALANCE("PAGSEGURO BALANCE", 4),
+	BALANCE( "PAGSEGURO BALANCE", 4 ),
 
-    OI_PAGGO("OI PAGGO", 5),
+	OI_PAGGO( "OI PAGGO", 5 ),
 
-    DIRECT_DEPOSIT("DIRECT DEPOSIT", 7),
+	DIRECT_DEPOSIT( "DIRECT DEPOSIT", 7 ),
 
-    UNKNOWN_TYPE("UNKNOWN TYPE. SEE ONLINE DOCUMENTATION", -1);
+	UNKNOWN_TYPE( "UNKNOWN TYPE. SEE ONLINE DOCUMENTATION", - 1 );
 
-    private String type;
+	private String type;
 
-    private Integer value;
+	private Integer value;
 
-    /**
-     * Initializes a newly created enum constant of this type with the specified arguments
-     * 
-     * @param type
-     *            - the type of the enum constant
-     * @param value
-     *            - the value of the enum constant
-     */
-    PaymentMethodType(String type, Integer value) {
-        this.type = type;
-        this.value = value;
-    }
+	/**
+	 * Initializes a newly created enum constant of this type with the specified
+	 * arguments
+	 * 
+	 * @param type
+	 *            - the type of the enum constant
+	 * @param value
+	 *            - the value of the enum constant
+	 */
+	PaymentMethodType( String type, Integer value ) {
+		this.type = type;
+		this.value = value;
+	}
 
-    /**
-     * Returns the enum constant of this type with the specified value. If a given value are not recognized return a
-     * generic enum constant <code>UNKNOWN_TYPE</code>
-     * 
-     * @param value
-     *            - the value of the enum constant to be returned
-     * @return the enum constant from a given value
-     */
-    public static PaymentMethodType fromValue(Integer value) {
+	/**
+	 * Returns the enum constant of this type with the specified value. If a
+	 * given value are not recognized return a generic enum constant
+	 * <code>UNKNOWN_TYPE</code>
+	 * 
+	 * @param value
+	 *            - the value of the enum constant to be returned
+	 * @return the enum constant from a given value
+	 */
+	public static PaymentMethodType fromValue( Integer value ) {
 
-        for (PaymentMethodType paymentMethodType : values()) {
-            if (paymentMethodType.value.equals(value)) {
-                return paymentMethodType;
-            }
-        }
+		for( PaymentMethodType paymentMethodType: values() ) {
+			if( paymentMethodType.value.equals( value ) ) {
+				return paymentMethodType;
+			}
+		}
 
-        UNKNOWN_TYPE.setValue(value);
-        return UNKNOWN_TYPE;
+		UNKNOWN_TYPE.setValue( value );
+		return UNKNOWN_TYPE;
 
-    }
+	}
 
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
 
-    /**
-     * @param type
-     *            the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType( String type ) {
+		this.type = type;
+	}
 
-    /**
-     * @return the value
-     */
-    public Integer getValue() {
-        return value;
-    }
+	/**
+	 * @return the value
+	 */
+	public Integer getValue() {
+		return value;
+	}
 
-    /**
-     * @param value
-     *            the value to set
-     */
-    public void setValue(Integer value) {
-        this.value = value;
-    }
+	/**
+	 * @param value
+	 *            the value to set
+	 */
+	public void setValue( Integer value ) {
+		this.value = value;
+	}
 
 }

@@ -9,16 +9,16 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementOrderProductStock extends Complementor < Order > {
 
-	@ Override
+	@Override
 	public String complement( Order order ) {
 		try {
-			ProductDAO dao =new ProductDAO();
+			ProductDAO dao = new ProductDAO();
 
 			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_AGUARDANDO_PAGAMENTO ) ) {
 				for( OrderItem orderItem: order.getOrderItemList() ) {
-					Product p =orderItem.getProduct();
-					Integer newAmount =p.getStock();
-					newAmount -=orderItem.getAmount();
+					Product p = orderItem.getProduct();
+					Integer newAmount = p.getStock();
+					newAmount -= orderItem.getAmount();
 					p.setStock( newAmount );
 					dao.update( p );
 				}
@@ -28,9 +28,9 @@ public class ComplementOrderProductStock extends Complementor < Order > {
 			// dessa forma a condição teria de ser avaliada somente uma vez
 			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_CANCELADO ) ) {
 				for( OrderItem orderItem: order.getOrderItemList() ) {
-					Product p =orderItem.getProduct();
-					Integer newAmount =p.getStock();
-					newAmount +=orderItem.getAmount();
+					Product p = orderItem.getProduct();
+					Integer newAmount = p.getStock();
+					newAmount += orderItem.getAmount();
 					p.setStock( newAmount );
 					dao.update( p );
 				}

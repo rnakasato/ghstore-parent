@@ -14,7 +14,7 @@ public class PaymentCreationCarrier extends EntityCarrier {
 	}
 
 	public void setCart( ShoppingCart cart ) {
-		this.cart =cart;
+		this.cart = cart;
 	}
 
 	public Customer getLoggedUser() {
@@ -22,7 +22,7 @@ public class PaymentCreationCarrier extends EntityCarrier {
 	}
 
 	public void setLoggedUser( Customer loggedUser ) {
-		this.loggedUser =loggedUser;
+		this.loggedUser = loggedUser;
 	}
 
 	public String getPaymentAddress() {
@@ -30,7 +30,7 @@ public class PaymentCreationCarrier extends EntityCarrier {
 	}
 
 	public void setPaymentAddress( String paymentAddress ) {
-		this.paymentAddress =paymentAddress;
+		this.paymentAddress = paymentAddress;
 	}
 
 }

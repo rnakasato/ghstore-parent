@@ -16,7 +16,7 @@ public class StateFilter extends Filter {
 	}
 
 	public void setAcronym( String acronym ) {
-		this.acronym =acronym;
+		this.acronym = acronym;
 	}
 
 	public String getName() {
@@ -24,7 +24,7 @@ public class StateFilter extends Filter {
 	}
 
 	public void setName( String name ) {
-		this.name =name;
+		this.name = name;
 	}
 
 }

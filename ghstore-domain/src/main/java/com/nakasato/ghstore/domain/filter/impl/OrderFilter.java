@@ -17,7 +17,7 @@ public class OrderFilter extends Filter {
 	}
 
 	public void setUsername( String username ) {
-		this.username =username;
+		this.username = username;
 	}
 
 	public String getStatusCode() {
@@ -25,7 +25,7 @@ public class OrderFilter extends Filter {
 	}
 
 	public void setStatusCode( String statusCode ) {
-		this.statusCode =statusCode;
+		this.statusCode = statusCode;
 	}
 
 	public Date getStartDate() {
@@ -33,7 +33,7 @@ public class OrderFilter extends Filter {
 	}
 
 	public void setStartDate( Date startDate ) {
-		this.startDate =startDate;
+		this.startDate = startDate;
 	}
 
 	public Date getEndDate() {
@@ -41,7 +41,7 @@ public class OrderFilter extends Filter {
 	}
 
 	public void setEndDate( Date endDate ) {
-		this.endDate =endDate;
+		this.endDate = endDate;
 	}
 
 	public String getOrderCode() {
@@ -49,7 +49,7 @@ public class OrderFilter extends Filter {
 	}
 
 	public void setOrderCode( String orderCode ) {
-		this.orderCode =orderCode;
+		this.orderCode = orderCode;
 	}
 
 	public String getTransactionCode() {
@@ -57,7 +57,7 @@ public class OrderFilter extends Filter {
 	}
 
 	public void setTransactionCode( String transactionCode ) {
-		this.transactionCode =transactionCode;
+		this.transactionCode = transactionCode;
 	}
 
 }

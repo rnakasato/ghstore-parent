@@ -41,291 +41,294 @@ import br.com.uol.pagseguro.xmlparser.ErrorsParser;
  */
 public class NotificationService {
 
-    private NotificationService() {
-    }
-
-    /**
-     * @var Log
-     */
-    private static Log log = new Log(NotificationService.class);
-
-    /**
-     * @var String
-     */
-    private static final String PREFIX = NotificationService.class.getSimpleName() + ".";
-
-    /**
-     * @var String
-     */
-    private static final String SUFFIX_BEGIN = "( %1s ) - begin";
-
-    /**
-     * @var String
-     */
-    private static final String SUFFIX_ERROR = " - error %2s )";
-
-    /**
-     * @var String
-     */
-    private static final String CHECK_TRANSACTION = "checkTransaction(notificationCode=";
-
-    /**
-     * @var String
-     */
-    private static final String CHECK_AUTHORIZATION = "NotificationService.CheckAuthorization(notificationCode= %1s) - error %2s";
-
-    /**
-     * @var String
-     */
-    private static final String CHECK_AUTHORIZATION_BEGIN = "NotificationService.CheckAuthorization(notificationCode= %s ) - begin ";
-
-    /**
-     * @var String
-     */
-    private static final String CHECK_PAYMENT_REQUEST_NOTIFICATION = "checkTransaction(paymentRequestNotificationCode=";
-
-    /**
-     * @param connectionData
-     * @param notificationCode
-     * @return
-     * @throws PagSeguroServiceException
-     */
-    private static String buildTransactionNotificationUrl(ConnectionData connectionData, String notificationCode)
-            throws PagSeguroServiceException {
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(PagSeguroSystem.getNotificationUrl()).append(notificationCode).append("?")
-                .append(connectionData.getCredentialsUrlQuery());
-
-        return sb.toString();
-    }
-
-    /**
-     * @param connectionData
-     * @param notificationCode
-     * @return
-     * @throws PagSeguroServiceException
-     */
-    private static String buildAuthorizationNotificationUrl(ConnectionData connectionData, String notificationCode)
-            throws PagSeguroServiceException {
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(PagSeguroSystem.getUrlProduction()).append(PagSeguroSystem.getAuthorizationNotificationPath())
-                .append(notificationCode).append("?").append(connectionData.getCredentialsUrlQuery());
-
-        return sb.toString();
-    }
-
-    /**
-     * @param connectionData
-     * @param paymentRequestNotificationCode
-     * @return
-     * @throws PagSeguroServiceException
-     */
-    private static String buildPaymentRequestTransactionNotificationUrl(final ConnectionData connectionData,
-            final String paymentRequestNotificationCode) throws PagSeguroServiceException {
-        return connectionData.getWsPaymentRequestNotificationUrl() + "/" + paymentRequestNotificationCode + "?"
-                + connectionData.getCredentialsUrlQuery();
-    }
-
-    /**
-     * checkAuthorization
-     * 
-     * @param credentials
-     * @param notificationCode
-     * @throws Exception
-     */
-    public static Authorization checkAuthorization(Credentials credentials, String notificationCode)
-            throws PagSeguroServiceException {
+	private NotificationService() {
+	}
+
+	/**
+	 * @var Log
+	 */
+	private static Log log = new Log( NotificationService.class );
+
+	/**
+	 * @var String
+	 */
+	private static final String PREFIX = NotificationService.class.getSimpleName() + ".";
+
+	/**
+	 * @var String
+	 */
+	private static final String SUFFIX_BEGIN = "( %1s ) - begin";
+
+	/**
+	 * @var String
+	 */
+	private static final String SUFFIX_ERROR = " - error %2s )";
+
+	/**
+	 * @var String
+	 */
+	private static final String CHECK_TRANSACTION = "checkTransaction(notificationCode=";
+
+	/**
+	 * @var String
+	 */
+	private static final String CHECK_AUTHORIZATION = "NotificationService.CheckAuthorization(notificationCode= %1s) - error %2s";
+
+	/**
+	 * @var String
+	 */
+	private static final String CHECK_AUTHORIZATION_BEGIN = "NotificationService.CheckAuthorization(notificationCode= %s ) - begin ";
+
+	/**
+	 * @var String
+	 */
+	private static final String CHECK_PAYMENT_REQUEST_NOTIFICATION = "checkTransaction(paymentRequestNotificationCode=";
+
+	/**
+	 * @param connectionData
+	 * @param notificationCode
+	 * @return
+	 * @throws PagSeguroServiceException
+	 */
+	private static String buildTransactionNotificationUrl( ConnectionData connectionData, String notificationCode )
+			throws PagSeguroServiceException {
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append( PagSeguroSystem.getNotificationUrl() ).append( notificationCode ).append( "?" )
+				.append( connectionData.getCredentialsUrlQuery() );
+
+		return sb.toString();
+	}
+
+	/**
+	 * @param connectionData
+	 * @param notificationCode
+	 * @return
+	 * @throws PagSeguroServiceException
+	 */
+	private static String buildAuthorizationNotificationUrl( ConnectionData connectionData, String notificationCode )
+			throws PagSeguroServiceException {
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append( PagSeguroSystem.getUrlProduction() ).append( PagSeguroSystem.getAuthorizationNotificationPath() )
+				.append( notificationCode ).append( "?" ).append( connectionData.getCredentialsUrlQuery() );
+
+		return sb.toString();
+	}
+
+	/**
+	 * @param connectionData
+	 * @param paymentRequestNotificationCode
+	 * @return
+	 * @throws PagSeguroServiceException
+	 */
+	private static String buildPaymentRequestTransactionNotificationUrl( final ConnectionData connectionData,
+			final String paymentRequestNotificationCode ) throws PagSeguroServiceException {
+		return connectionData.getWsPaymentRequestNotificationUrl() + "/" + paymentRequestNotificationCode + "?"
+				+ connectionData.getCredentialsUrlQuery();
+	}
+
+	/**
+	 * checkAuthorization
+	 * 
+	 * @param credentials
+	 * @param notificationCode
+	 * @throws Exception
+	 */
+	public static Authorization checkAuthorization( Credentials credentials, String notificationCode )
+			throws PagSeguroServiceException {
+
+		NotificationService.log
+				.info( String.format( NotificationService.CHECK_AUTHORIZATION_BEGIN, notificationCode ) );
 
-        NotificationService.log.info(String.format(NotificationService.CHECK_AUTHORIZATION_BEGIN, notificationCode));
+		Authorization authorization = null;
 
-        Authorization authorization = null;
+		ConnectionData connectionData = new ConnectionData( credentials );
+		String notificationURL = NotificationService.buildAuthorizationNotificationUrl( connectionData,
+				notificationCode );
 
-        ConnectionData connectionData = new ConnectionData(credentials);
-        String notificationURL = NotificationService
-                .buildAuthorizationNotificationUrl(connectionData, notificationCode);
+		HttpURLConnection response = NotificationService.checkNotification( credentials, notificationCode,
+				notificationURL, connectionData.getServiceTimeout(), connectionData.getCharset(),
+				NotificationService.CHECK_AUTHORIZATION );
 
-        HttpURLConnection response = NotificationService.checkNotification(credentials, notificationCode,
-                notificationURL, connectionData.getServiceTimeout(), connectionData.getCharset(),
-                NotificationService.CHECK_AUTHORIZATION);
+		try {
 
-        try {
+			authorization = AuthorizationParser.readAuthorization( response.getInputStream() );
 
-            authorization = AuthorizationParser.readAuthorization(response.getInputStream());
+		} catch( Exception e ) {
+			e.printStackTrace();
+			throw new PagSeguroServiceException( "Parser error ", e );
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new PagSeguroServiceException("Parser error ", e);
+		} finally {
+			response.disconnect();
+		}
 
-        } finally {
-            response.disconnect();
-        }
+		NotificationService.log.info(
+				String.format( NotificationService.CHECK_AUTHORIZATION, notificationCode, authorization.toString() ) );
 
-        NotificationService.log.info(String.format(NotificationService.CHECK_AUTHORIZATION, notificationCode,
-                authorization.toString()));
+		return authorization;
 
-        return authorization;
+	}
 
-    }
+	/**
+	 * checkTransaction
+	 * 
+	 * @param credentials
+	 * @param notificationCode
+	 * @throws Exception
+	 */
+	public static Transaction checkTransaction( Credentials credentials, String notificationCode )
+			throws PagSeguroServiceException {
 
-    /**
-     * checkTransaction
-     * 
-     * @param credentials
-     * @param notificationCode
-     * @throws Exception
-     */
-    public static Transaction checkTransaction(Credentials credentials, String notificationCode)
-            throws PagSeguroServiceException {
+		log.info( String.format( PREFIX + CHECK_TRANSACTION + SUFFIX_BEGIN, notificationCode ) );
 
-        log.info(String.format(PREFIX + CHECK_TRANSACTION + SUFFIX_BEGIN, notificationCode));
+		Transaction transaction = null;
 
-        Transaction transaction = null;
+		ConnectionData connectionData = new ConnectionData( credentials );
+		String notificationURL = NotificationService.buildTransactionNotificationUrl( connectionData,
+				notificationCode );
 
-        ConnectionData connectionData = new ConnectionData(credentials);
-        String notificationURL = NotificationService.buildTransactionNotificationUrl(connectionData, notificationCode);
+		HttpURLConnection response = NotificationService.checkNotification( credentials, notificationCode,
+				notificationURL, connectionData.getServiceTimeout(), connectionData.getCharset(),
+				NotificationService.CHECK_TRANSACTION );
 
-        HttpURLConnection response = NotificationService.checkNotification(credentials, notificationCode,
-                notificationURL, connectionData.getServiceTimeout(), connectionData.getCharset(),
-                NotificationService.CHECK_TRANSACTION);
+		try {
 
-        try {
+			transaction = TransactionParser.readTransaction( response.getInputStream() );
 
-            transaction = TransactionParser.readTransaction(response.getInputStream());
+		} catch( Exception e ) {
+			throw new PagSeguroServiceException( "Parser error", e );
+		} finally {
+			response.disconnect();
+		}
 
-        } catch (Exception e) {
-            throw new PagSeguroServiceException("Parser error", e);
-        } finally {
-            response.disconnect();
-        }
+		NotificationService.log.info(
+				String.format( NotificationService.CHECK_TRANSACTION, notificationCode, transaction.toString() ) );
 
-        NotificationService.log.info(String.format(NotificationService.CHECK_TRANSACTION, notificationCode,
-                transaction.toString()));
+		return transaction;
 
-        return transaction;
+	}
 
-    }
+	/**
+	 * checkNotification
+	 * 
+	 * @param credentials
+	 * @param notificationCode
+	 * @param notificationURL
+	 * @param logInfo
+	 * @throws Exception
+	 */
+	public static HttpURLConnection checkNotification( Credentials credentials, String notificationCode,
+			String notificationURL, String serviceTimeout, String charset, String logInfo )
+			throws PagSeguroServiceException {
 
-    /**
-     * checkNotification
-     * 
-     * @param credentials
-     * @param notificationCode
-     * @param notificationURL
-     * @param logInfo
-     * @throws Exception
-     */
-    public static HttpURLConnection checkNotification(Credentials credentials, String notificationCode,
-            String notificationURL, String serviceTimeout, String charset, String logInfo)
-            throws PagSeguroServiceException {
+		HttpConnection connection = new HttpConnection();
+		HttpStatus httpCodeStatus = null;
 
-        HttpConnection connection = new HttpConnection();
-        HttpStatus httpCodeStatus = null;
+		HttpURLConnection response = connection.get( notificationURL, serviceTimeout, charset, null );
 
-        HttpURLConnection response = connection.get(notificationURL, serviceTimeout, charset, null);
+		try {
 
-        try {
+			httpCodeStatus = HttpStatus.fromCode( response.getResponseCode() );
 
-            httpCodeStatus = HttpStatus.fromCode(response.getResponseCode());
+			if( HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue() ) {
 
-            if (HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue()) {
+				return response;
 
-                return response;
+			} else if( HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue() ) {
 
-            } else if (HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue()) {
+				List < Error > errors = ErrorsParser.readErrosXml( response.getErrorStream() );
 
-                List<Error> errors = ErrorsParser.readErrosXml(response.getErrorStream());
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpCodeStatus, errors );
 
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpCodeStatus, errors);
+				log.error( String.format( PREFIX + CHECK_TRANSACTION + SUFFIX_ERROR, notificationCode,
+						exception.getMessage() ) );
 
-                log.error(String.format(PREFIX + CHECK_TRANSACTION + SUFFIX_ERROR, notificationCode,
-                        exception.getMessage()));
+				throw exception;
+			} else {
+				throw new PagSeguroServiceException( httpCodeStatus );
+			}
 
-                throw exception;
-            } else {
-                throw new PagSeguroServiceException(httpCodeStatus);
-            }
+		} catch( PagSeguroServiceException e ) {
+			throw e;
+		} catch( Exception e ) {
 
-        } catch (PagSeguroServiceException e) {
-            throw e;
-        } catch (Exception e) {
+			log.error( String.format( PREFIX + CHECK_TRANSACTION + SUFFIX_ERROR, notificationCode, e.getMessage() ) );
 
-            log.error(String.format(PREFIX + CHECK_TRANSACTION + SUFFIX_ERROR, notificationCode, e.getMessage()));
+			throw new PagSeguroServiceException( httpCodeStatus, e );
+		}
 
-            throw new PagSeguroServiceException(httpCodeStatus, e);
-        }
+	}
 
-    }
+	/**
+	 * checkPaymentRequest
+	 *
+	 * @param credentials
+	 * @param paymentRequestNotificationCode
+	 * @throws Exception
+	 */
+	public static PaymentRequestTransaction checkPaymentRequestTransaction( Credentials credentials,
+			String paymentRequestNotificationCode ) throws PagSeguroServiceException {
+		if( paymentRequestNotificationCode == null || ( "" ).equals( paymentRequestNotificationCode.trim() )
+				|| paymentRequestNotificationCode.contains( " " ) ) {
+			throw new PagSeguroServiceException( HttpStatus.NOT_FOUND );
+		}
 
-    /**
-     * checkPaymentRequest
-     *
-     * @param credentials
-     * @param paymentRequestNotificationCode
-     * @throws Exception
-     */
-    public static PaymentRequestTransaction checkPaymentRequestTransaction(Credentials credentials,
-            String paymentRequestNotificationCode) throws PagSeguroServiceException {
-        if (paymentRequestNotificationCode == null || ("").equals(paymentRequestNotificationCode.trim())
-                || paymentRequestNotificationCode.contains(" ")) {
-            throw new PagSeguroServiceException(HttpStatus.NOT_FOUND);
-        }
+		log.info( String.format( PREFIX + CHECK_PAYMENT_REQUEST_NOTIFICATION + SUFFIX_BEGIN,
+				paymentRequestNotificationCode ) );
 
-        log.info(String.format(PREFIX + CHECK_PAYMENT_REQUEST_NOTIFICATION + SUFFIX_BEGIN,
-                paymentRequestNotificationCode));
+		ConnectionData connectionData = new ConnectionData( credentials );
 
-        ConnectionData connectionData = new ConnectionData(credentials);
+		HttpConnection connection = new HttpConnection();
+		HttpStatus httpCodeStatus = null;
+		PaymentRequestTransaction paymentRequestTransaction = null;
 
-        HttpConnection connection = new HttpConnection();
-        HttpStatus httpCodeStatus = null;
-        PaymentRequestTransaction paymentRequestTransaction = null;
+		HttpURLConnection response = connection.get(
+				NotificationService.buildPaymentRequestTransactionNotificationUrl( connectionData,
+						paymentRequestNotificationCode ),
+				connectionData.getServiceTimeout(), connectionData.getCharset(), PagSeguroSystem.getAcceptHeaderXML() );
 
-        HttpURLConnection response = connection.get(NotificationService.buildPaymentRequestTransactionNotificationUrl(
-                connectionData, paymentRequestNotificationCode), connectionData.getServiceTimeout(), connectionData
-                .getCharset(), PagSeguroSystem.getAcceptHeaderXML());
+		try {
 
-        try {
+			httpCodeStatus = HttpStatus.fromCode( response.getResponseCode() );
 
-            httpCodeStatus = HttpStatus.fromCode(response.getResponseCode());
+			if( HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue() ) {
 
-            if (HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue()) {
+				paymentRequestTransaction = PaymentRequestParser.readPaymentRequest( response.getInputStream() );
 
-                paymentRequestTransaction = PaymentRequestParser.readPaymentRequest(response.getInputStream());
+				log.info( String.format( PREFIX + CHECK_PAYMENT_REQUEST_NOTIFICATION + SUFFIX_BEGIN,
+						paymentRequestNotificationCode, paymentRequestTransaction.toString() ) );
 
-                log.info(String.format(PREFIX + CHECK_PAYMENT_REQUEST_NOTIFICATION + SUFFIX_BEGIN,
-                        paymentRequestNotificationCode, paymentRequestTransaction.toString()));
+				return paymentRequestTransaction;
 
-                return paymentRequestTransaction;
+			} else if( HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue() ) {
 
-            } else if (HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue()) {
+				List < Error > errors = ErrorsParser.readErrosXml( response.getErrorStream() );
 
-                List<Error> errors = ErrorsParser.readErrosXml(response.getErrorStream());
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpCodeStatus, errors );
 
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpCodeStatus, errors);
+				log.error( String.format( PREFIX + CHECK_PAYMENT_REQUEST_NOTIFICATION + SUFFIX_ERROR,
+						paymentRequestNotificationCode, exception.getMessage() ) );
 
-                log.error(String.format(PREFIX + CHECK_PAYMENT_REQUEST_NOTIFICATION + SUFFIX_ERROR,
-                        paymentRequestNotificationCode, exception.getMessage()));
+				throw exception;
+			} else {
+				throw new PagSeguroServiceException( httpCodeStatus );
+			}
 
-                throw exception;
-            } else {
-                throw new PagSeguroServiceException(httpCodeStatus);
-            }
+		} catch( PagSeguroServiceException e ) {
+			throw e;
+		} catch( Exception e ) {
 
-        } catch (PagSeguroServiceException e) {
-            throw e;
-        } catch (Exception e) {
+			log.error( String.format( PREFIX + CHECK_PAYMENT_REQUEST_NOTIFICATION + SUFFIX_ERROR,
+					paymentRequestNotificationCode, e.getMessage() ) );
 
-            log.error(String.format(PREFIX + CHECK_PAYMENT_REQUEST_NOTIFICATION + SUFFIX_ERROR,
-                    paymentRequestNotificationCode, e.getMessage()));
+			throw new PagSeguroServiceException( httpCodeStatus, e );
 
-            throw new PagSeguroServiceException(httpCodeStatus, e);
-
-        } finally {
-            response.disconnect();
-        }
-    }
+		} finally {
+			response.disconnect();
+		}
+	}
 
 }

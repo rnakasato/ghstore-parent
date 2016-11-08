@@ -25,175 +25,178 @@ import java.math.BigDecimal;
  */
 public class Item {
 
-    /**
-     * Product identifier, such as SKU
-     */
-    private String id;
+	/**
+	 * Product identifier, such as SKU
+	 */
+	private String id;
 
-    /**
-     * Product description
-     */
-    private String description;
+	/**
+	 * Product description
+	 */
+	private String description;
 
-    /**
-     * Quantity
-     */
-    private Integer quantity;
+	/**
+	 * Quantity
+	 */
+	private Integer quantity;
 
-    /**
-     * Product unit price
-     */
-    private BigDecimal amount;
+	/**
+	 * Product unit price
+	 */
+	private BigDecimal amount;
 
-    /**
-     * Single unit weight, in grams
-     */
-    private Long weight;
+	/**
+	 * Single unit weight, in grams
+	 */
+	private Long weight;
 
-    /**
-     * Single unit shipping cost
-     */
-    private BigDecimal shippingCost;
+	/**
+	 * Single unit shipping cost
+	 */
+	private BigDecimal shippingCost;
 
-    /**
-     * Initializes a newly created instance of this type
-     */
-    public Item() {
+	/**
+	 * Initializes a newly created instance of this type
+	 */
+	public Item() {
 
-    }
+	}
 
-    /**
-     * Initializes a newly created instance of this type with the specified arguments
-     * 
-     * @param id
-     *            the product identifier
-     * @param description
-     *            the product description
-     * @param quantity
-     *            the product quantity
-     * @param amount
-     *            the product unit price
-     */
-    public Item(String id, String description, Integer quantity, BigDecimal amount) {
-        this.id = id;
-        this.description = description;
-        this.quantity = quantity;
-        this.amount = amount;
-    }
+	/**
+	 * Initializes a newly created instance of this type with the specified
+	 * arguments
+	 * 
+	 * @param id
+	 *            the product identifier
+	 * @param description
+	 *            the product description
+	 * @param quantity
+	 *            the product quantity
+	 * @param amount
+	 *            the product unit price
+	 */
+	public Item( String id, String description, Integer quantity, BigDecimal amount ) {
+		this.id = id;
+		this.description = description;
+		this.quantity = quantity;
+		this.amount = amount;
+	}
 
-    /**
-     * Initializes a newly created instance of this type with the specified arguments
-     * 
-     * @param id
-     *            the product identifier
-     * @param description
-     *            the product description
-     * @param quantity
-     *            the product quantity
-     * @param amount
-     *            the product unit price
-     * @param weight
-     *            the product weight, in grams
-     * @param shippingCost
-     *            the product unit shippingCost
-     */
-    public Item(String id, String description, Integer quantity, BigDecimal amount, Long weight, BigDecimal shippingCost) {
-        this.id = id;
-        this.description = description;
-        this.quantity = quantity;
-        this.amount = amount;
-        this.weight = weight;
-        this.shippingCost = shippingCost;
-    }
+	/**
+	 * Initializes a newly created instance of this type with the specified
+	 * arguments
+	 * 
+	 * @param id
+	 *            the product identifier
+	 * @param description
+	 *            the product description
+	 * @param quantity
+	 *            the product quantity
+	 * @param amount
+	 *            the product unit price
+	 * @param weight
+	 *            the product weight, in grams
+	 * @param shippingCost
+	 *            the product unit shippingCost
+	 */
+	public Item( String id, String description, Integer quantity, BigDecimal amount, Long weight,
+			BigDecimal shippingCost ) {
+		this.id = id;
+		this.description = description;
+		this.quantity = quantity;
+		this.amount = amount;
+		this.weight = weight;
+		this.shippingCost = shippingCost;
+	}
 
-    /**
-     * @return the product identifier
-     */
-    public String getId() {
-        return this.id;
-    }
+	/**
+	 * @return the product identifier
+	 */
+	public String getId() {
+		return this.id;
+	}
 
-    /**
-     * @param id
-     *            the product identifier to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/**
+	 * @param id
+	 *            the product identifier to set
+	 */
+	public void setId( String id ) {
+		this.id = id;
+	}
 
-    /**
-     * @return the product description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+	/**
+	 * @return the product description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
-    /**
-     * @param description
-     *            the product description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @param description
+	 *            the product description to set
+	 */
+	public void setDescription( String description ) {
+		this.description = description;
+	}
 
-    /**
-     * @return the product quantity
-     */
-    public Integer getQuantity() {
-        return this.quantity;
-    }
+	/**
+	 * @return the product quantity
+	 */
+	public Integer getQuantity() {
+		return this.quantity;
+	}
 
-    /**
-     * @param quantity
-     *            the product quantity to set
-     */
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
+	/**
+	 * @param quantity
+	 *            the product quantity to set
+	 */
+	public void setQuantity( Integer quantity ) {
+		this.quantity = quantity;
+	}
 
-    /**
-     * @return the product unit price
-     */
-    public BigDecimal getAmount() {
-        return this.amount;
-    }
+	/**
+	 * @return the product unit price
+	 */
+	public BigDecimal getAmount() {
+		return this.amount;
+	}
 
-    /**
-     * @param amount
-     *            the product unit price to set
-     */
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	/**
+	 * @param amount
+	 *            the product unit price to set
+	 */
+	public void setAmount( BigDecimal amount ) {
+		this.amount = amount;
+	}
 
-    /**
-     * @return the product unit weight, in grams
-     */
-    public Long getWeight() {
-        return this.weight;
-    }
+	/**
+	 * @return the product unit weight, in grams
+	 */
+	public Long getWeight() {
+		return this.weight;
+	}
 
-    /**
-     * @param weight
-     *            the product unit weight, in grams, to set
-     */
-    public void setWeight(Long weight) {
-        this.weight = weight;
-    }
+	/**
+	 * @param weight
+	 *            the product unit weight, in grams, to set
+	 */
+	public void setWeight( Long weight ) {
+		this.weight = weight;
+	}
 
-    /**
-     * @return the product unit shipping cost
-     */
-    public BigDecimal getShippingCost() {
-        return this.shippingCost;
-    }
+	/**
+	 * @return the product unit shipping cost
+	 */
+	public BigDecimal getShippingCost() {
+		return this.shippingCost;
+	}
 
-    /**
-     * @param shippingCost
-     *            the product unit shipping cost to set
-     */
-    public void setShippingCost(BigDecimal shippingCost) {
-        this.shippingCost = shippingCost;
-    }
+	/**
+	 * @param shippingCost
+	 *            the product unit shipping cost to set
+	 */
+	public void setShippingCost( BigDecimal shippingCost ) {
+		this.shippingCost = shippingCost;
+	}
 
 }

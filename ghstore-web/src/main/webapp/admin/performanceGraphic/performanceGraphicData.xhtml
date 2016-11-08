@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<script type="text/javascript">
+				function exportChart() {
+				    //export image
+				    $('#form_content\\:output').empty().append(PF('chart').exportAsImage());
+				 
+				    //show the dialog
+				    PF('dlg').show();
+				}
+		</script>
+
+		<p:panelGrid
+			id="gridChart"
+			columns="2"
+			columnClasses="left,right"
+			style="width:100%;align-content:center">
+
+			<p:chart
+				widgetVar="chart"
+				type="line"
+				model="#{performanceGraphicMB.chartModel}"
+				style="height:500px" />
+
+		</p:panelGrid>
+
+		<p:commandButton
+			type="button"
+			value="Exportar"
+			icon="ui-icon-extlink"
+			onclick="exportChart()" />
+
+		<p:dialog
+			widgetVar="dlg"
+			showEffect="fade"
+			modal="true"
+			header="Chart as an Image"
+			resizable="true">
+			<p:outputPanel
+				id="output"
+				layout="block"
+				style="width:100%;height:100%" />
+
+			<p:commandButton
+				type="buttonClose"
+				value="Fechar"
+				icon="ui-icon-extlink"
+				onclick="PF('dlg').hide()" 
+				style="margin-left:48%"/>
+		</p:dialog>
+
+	</ui:composition>
+</h:body>
+</html>

@@ -7,11 +7,11 @@ import com.nakasato.ghtstore.core.business.Validator;
 
 public class UserBirthDateValidator extends Validator < User > {
 
-	@ Override
+	@Override
 	public String validate( User user ) {
-		Date today =new Date();
+		Date today = new Date();
 		if( today.before( user.getBirthDate() ) ) {
-			msg ="Data de nascimento inválida";
+			msg = "Data de nascimento inválida";
 		}
 
 		return msg;

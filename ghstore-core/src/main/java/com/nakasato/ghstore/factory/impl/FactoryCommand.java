@@ -17,11 +17,11 @@ public class FactoryCommand {
 	private static Map < String, Command > commandMap;
 
 	public static Command build( AbstractDomainEntity entity, String operation ) throws ClassNotFoundException {
-		if( commandMap ==null ) {
+		if( commandMap == null ) {
 			initCommands();
 		}
-		Command command =commandMap.get( operation );
-		if( command !=null ) {
+		Command command = commandMap.get( operation );
+		if( command != null ) {
 			command.setEntity( entity );
 		} else {
 			throw new ClassNotFoundException();
@@ -31,14 +31,14 @@ public class FactoryCommand {
 
 	public static Command build( AbstractDomainEntity entity, String operation, int parameter )
 			throws ClassNotFoundException {
-		if( commandMap ==null ) {
+		if( commandMap == null ) {
 			initCommands();
 		}
-		Command command =commandMap.get( operation );
-		if( command !=null ) {
+		Command command = commandMap.get( operation );
+		if( command != null ) {
 			if( operation.equals( EOperation.FIND ) ) {
 				if( entity instanceof Filter ) {
-					Filter filter =( Filter ) entity;
+					Filter filter = ( Filter ) entity;
 					command.setFilter( filter );
 				} else {
 					throw new ClassNotFoundException();
@@ -56,7 +56,7 @@ public class FactoryCommand {
 	}
 
 	private static void initCommands() {
-		commandMap =new HashMap<>();
+		commandMap = new HashMap<>();
 		commandMap.put( EOperation.SAVE, new CommandSave() );
 		commandMap.put( EOperation.UPDATE, new CommandUpdate() );
 		commandMap.put( EOperation.DELETE, new CommandDelete() );

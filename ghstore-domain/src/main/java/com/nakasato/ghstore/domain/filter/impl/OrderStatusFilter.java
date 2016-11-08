@@ -11,7 +11,7 @@ public class OrderStatusFilter extends AbstractDomainEntity {
 	}
 
 	public void setCode( String code ) {
-		this.code =code;
+		this.code = code;
 	}
 
 	public String getDescription() {
@@ -19,7 +19,7 @@ public class OrderStatusFilter extends AbstractDomainEntity {
 	}
 
 	public void setDescription( String description ) {
-		this.description =description;
+		this.description = description;
 	}
 
 }

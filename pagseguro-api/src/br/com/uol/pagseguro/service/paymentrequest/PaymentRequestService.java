@@ -41,197 +41,198 @@ import br.com.uol.pagseguro.xmlparser.ErrorsParser;
  */
 public class PaymentRequestService {
 
-    private PaymentRequestService() {
+	private PaymentRequestService() {
 
-    }
+	}
 
-    /**
-     * PagSeguro Log tool
-     * 
-     * @see Log
-     */
-    private static final Log log = new Log(PaymentRequestService.class);
+	/**
+	 * PagSeguro Log tool
+	 * 
+	 * @see Log
+	 */
+	private static final Log log = new Log( PaymentRequestService.class );
 
-    /**
-     * @var String
-     */
-    private static final String PREFIX = PaymentRequestService.class.getSimpleName() + ".";
+	/**
+	 * @var String
+	 */
+	private static final String PREFIX = PaymentRequestService.class.getSimpleName() + ".";
 
-    /**
-     * @var String
-     */
-    private static final String SUFFIX_BEGIN = "( %1s ) - begin";
+	/**
+	 * @var String
+	 */
+	private static final String SUFFIX_BEGIN = "( %1s ) - begin";
 
-    /**
-     * @var String
-     */
-    private static final String SUFFIX_END = " - end %2s )";
+	/**
+	 * @var String
+	 */
+	private static final String SUFFIX_END = " - end %2s )";
 
-    /**
-     * @var String
-     */
-    private static final String SUFFIX_ERROR = " - error %2s )";
+	/**
+	 * @var String
+	 */
+	private static final String SUFFIX_ERROR = " - error %2s )";
 
-    /**
-     * @var String
-     */
-    private static final String REGISTER = "Register";
+	/**
+	 * @var String
+	 */
+	private static final String REGISTER = "Register";
 
-    /**
-     * @var String
-     */
-    private static final String FIND_BY_CODE = "FindByCode - ";
+	/**
+	 * @var String
+	 */
+	private static final String FIND_BY_CODE = "FindByCode - ";
 
-    /**
-     * 
-     * @param connectionData
-     * @return string
-     * @throws PagSeguroServiceException
-     */
-    public static String buildPaymentRequestUrl(ConnectionData connectionData) throws PagSeguroServiceException {
-        return connectionData.getWSPaymentRequestUrl() + "?" + connectionData.getCredentialsUrlQuery();
-    }
+	/**
+	 * 
+	 * @param connectionData
+	 * @return string
+	 * @throws PagSeguroServiceException
+	 */
+	public static String buildPaymentRequestUrl( ConnectionData connectionData ) throws PagSeguroServiceException {
+		return connectionData.getWSPaymentRequestUrl() + "?" + connectionData.getCredentialsUrlQuery();
+	}
 
-    /**
-     * Build Find Url By Code
-     * 
-     * @param connectionData
-     * @param paymentRequestCode
-     * @return string
-     * @throws PagSeguroServiceException
-     */
-    private static String buildPaymentRequestFindUrlByCode(ConnectionData connectionData, String paymentRequestCode)
-            throws PagSeguroServiceException {
-        return connectionData.getWSPaymentRequestFindByCodeUrl() + "/" + paymentRequestCode + "?"
-                + connectionData.getCredentialsUrlQuery();
-    }
+	/**
+	 * Build Find Url By Code
+	 * 
+	 * @param connectionData
+	 * @param paymentRequestCode
+	 * @return string
+	 * @throws PagSeguroServiceException
+	 */
+	private static String buildPaymentRequestFindUrlByCode( ConnectionData connectionData, String paymentRequestCode )
+			throws PagSeguroServiceException {
+		return connectionData.getWSPaymentRequestFindByCodeUrl() + "/" + paymentRequestCode + "?"
+				+ connectionData.getCredentialsUrlQuery();
+	}
 
-    /**
-     * 
-     * @param credentials
-     * @param paymentRequest
-     * @return string
-     * @throws Exception
-     */
-    public static String createPaymentRequest(Credentials credentials, PaymentRequest paymentRequest)
-            throws PagSeguroServiceException {
+	/**
+	 * 
+	 * @param credentials
+	 * @param paymentRequest
+	 * @return string
+	 * @throws Exception
+	 */
+	public static String createPaymentRequest( Credentials credentials, PaymentRequest paymentRequest )
+			throws PagSeguroServiceException {
 
-        log.info(String.format(PREFIX + REGISTER + SUFFIX_BEGIN, paymentRequest.toString()));
+		log.info( String.format( PREFIX + REGISTER + SUFFIX_BEGIN, paymentRequest.toString() ) );
 
-        ConnectionData connectionData = new ConnectionData(credentials);
+		ConnectionData connectionData = new ConnectionData( credentials );
 
-        Map<Object, Object> data = PaymentRequestParser.getData(paymentRequest);
+		Map < Object, Object > data = PaymentRequestParser.getData( paymentRequest );
 
-        String url = buildPaymentRequestUrl(connectionData);
+		String url = buildPaymentRequestUrl( connectionData );
 
-        HttpConnection connection = new HttpConnection();
-        HttpStatus httpCodeStatus = null;
+		HttpConnection connection = new HttpConnection();
+		HttpStatus httpCodeStatus = null;
 
-        HttpURLConnection response = connection.post(url, data, connectionData.getServiceTimeout(),
-                connectionData.getCharset(), PagSeguroSystem.getAcceptHeaderXML());
+		HttpURLConnection response = connection.post( url, data, connectionData.getServiceTimeout(),
+				connectionData.getCharset(), PagSeguroSystem.getAcceptHeaderXML() );
 
-        try {
+		try {
 
-            httpCodeStatus = HttpStatus.fromCode(response.getResponseCode());
-            if (httpCodeStatus == null) {
-                throw new PagSeguroServiceException("Connection Timeout");
-            } else if (HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue()) {
-                String code = PaymentRequestParser.readSuccessXml(response);
+			httpCodeStatus = HttpStatus.fromCode( response.getResponseCode() );
+			if( httpCodeStatus == null ) {
+				throw new PagSeguroServiceException( "Connection Timeout" );
+			} else if( HttpURLConnection.HTTP_OK == httpCodeStatus.getCode().intValue() ) {
+				String code = PaymentRequestParser.readSuccessXml( response );
 
-                log.info(String.format(PREFIX + REGISTER + SUFFIX_END, paymentRequest.toString(), code));
+				log.info( String.format( PREFIX + REGISTER + SUFFIX_END, paymentRequest.toString(), code ) );
 
-                return code;
+				return code;
 
-            } else if (HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue()) {
+			} else if( HttpURLConnection.HTTP_BAD_REQUEST == httpCodeStatus.getCode().intValue() ) {
 
-                List<Error> errors = ErrorsParser.readErrosXml(response.getErrorStream());
+				List < Error > errors = ErrorsParser.readErrosXml( response.getErrorStream() );
 
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpCodeStatus, errors);
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpCodeStatus, errors );
 
-                log.error(String.format(PREFIX + REGISTER + SUFFIX_ERROR, paymentRequest.toString(),
-                        exception.getMessage()));
+				log.error( String.format( PREFIX + REGISTER + SUFFIX_ERROR, paymentRequest.toString(),
+						exception.getMessage() ) );
 
-                throw exception;
+				throw exception;
 
-            } else {
+			} else {
 
-                throw new PagSeguroServiceException(httpCodeStatus);
-            }
+				throw new PagSeguroServiceException( httpCodeStatus );
+			}
 
-        } catch (PagSeguroServiceException e) {
-            throw e;
-        } catch (Exception e) {
+		} catch( PagSeguroServiceException e ) {
+			throw e;
+		} catch( Exception e ) {
 
-            log.error(String.format(PREFIX + REGISTER + SUFFIX_ERROR, paymentRequest.toString(), e.getMessage()));
+			log.error( String.format( PREFIX + REGISTER + SUFFIX_ERROR, paymentRequest.toString(), e.getMessage() ) );
 
-            throw new PagSeguroServiceException(httpCodeStatus, e);
+			throw new PagSeguroServiceException( httpCodeStatus, e );
 
-        } finally {
-            response.disconnect();
-        }
-    }
+		} finally {
+			response.disconnect();
+		}
+	}
 
-    /**
-     * 
-     * @param credentials
-     * @param paymentRequestcode
-     * @return PaymentRequest
-     * @throws Exception
-     */
-    public static PaymentRequestTransaction findByCode(Credentials credentials, String paymentRequestcode)
-            throws PagSeguroServiceException {
-        if (paymentRequestcode == null || ("").equals(paymentRequestcode.trim()) || paymentRequestcode.contains(" ")) {
-            throw new PagSeguroServiceException(HttpStatus.NOT_FOUND);
-        }
+	/**
+	 * 
+	 * @param credentials
+	 * @param paymentRequestcode
+	 * @return PaymentRequest
+	 * @throws Exception
+	 */
+	public static PaymentRequestTransaction findByCode( Credentials credentials, String paymentRequestcode )
+			throws PagSeguroServiceException {
+		if( paymentRequestcode == null || ( "" ).equals( paymentRequestcode.trim() )
+				|| paymentRequestcode.contains( " " ) ) {
+			throw new PagSeguroServiceException( HttpStatus.NOT_FOUND );
+		}
 
-        log.info(String.format(PREFIX + FIND_BY_CODE + SUFFIX_BEGIN, paymentRequestcode));
+		log.info( String.format( PREFIX + FIND_BY_CODE + SUFFIX_BEGIN, paymentRequestcode ) );
 
-        ConnectionData connectionData = new ConnectionData(credentials);
+		ConnectionData connectionData = new ConnectionData( credentials );
 
-        HttpConnection connection = new HttpConnection();
-        HttpStatus httpStatusCode = null;
+		HttpConnection connection = new HttpConnection();
+		HttpStatus httpStatusCode = null;
 
-        HttpURLConnection response = connection.get(
-                buildPaymentRequestFindUrlByCode(connectionData, paymentRequestcode),
-                connectionData.getServiceTimeout(), connectionData.getCharset(), PagSeguroSystem.getAcceptHeaderXML());
+		HttpURLConnection response = connection.get(
+				buildPaymentRequestFindUrlByCode( connectionData, paymentRequestcode ),
+				connectionData.getServiceTimeout(), connectionData.getCharset(), PagSeguroSystem.getAcceptHeaderXML() );
 
-        try {
+		try {
 
-            httpStatusCode = HttpStatus.fromCode(response.getResponseCode());
+			httpStatusCode = HttpStatus.fromCode( response.getResponseCode() );
 
-            if (HttpURLConnection.HTTP_OK == httpStatusCode.getCode().intValue()) {
+			if( HttpURLConnection.HTTP_OK == httpStatusCode.getCode().intValue() ) {
 
-                PaymentRequestTransaction paymentRequestTransaction = PaymentRequestParser.readPaymentRequest(response
-                        .getInputStream());
+				PaymentRequestTransaction paymentRequestTransaction = PaymentRequestParser
+						.readPaymentRequest( response.getInputStream() );
 
-                log.info(FIND_BY_CODE + paymentRequestcode + paymentRequestTransaction.toString());
+				log.info( FIND_BY_CODE + paymentRequestcode + paymentRequestTransaction.toString() );
 
-                return paymentRequestTransaction;
+				return paymentRequestTransaction;
 
-            } else if (HttpURLConnection.HTTP_BAD_REQUEST == httpStatusCode.getCode().intValue()) {
+			} else if( HttpURLConnection.HTTP_BAD_REQUEST == httpStatusCode.getCode().intValue() ) {
 
-                List<Error> listErrors = ErrorsParser.readErrosXml(response.getErrorStream());
+				List < Error > listErrors = ErrorsParser.readErrosXml( response.getErrorStream() );
 
-                PagSeguroServiceException exception = new PagSeguroServiceException(httpStatusCode, listErrors);
+				PagSeguroServiceException exception = new PagSeguroServiceException( httpStatusCode, listErrors );
 
-                log.error(String.format(PREFIX + FIND_BY_CODE + SUFFIX_ERROR, paymentRequestcode,
-                        exception.getMessage()));
+				log.error( String.format( PREFIX + FIND_BY_CODE + SUFFIX_ERROR, paymentRequestcode,
+						exception.getMessage() ) );
 
-                throw exception;
-            } else {
-                throw new PagSeguroServiceException(httpStatusCode);
-            }
+				throw exception;
+			} else {
+				throw new PagSeguroServiceException( httpStatusCode );
+			}
 
-        } catch (PagSeguroServiceException e) {
-            throw e;
-        } catch (Exception e) {
+		} catch( PagSeguroServiceException e ) {
+			throw e;
+		} catch( Exception e ) {
 
-            log.error(String.format(PREFIX + FIND_BY_CODE + SUFFIX_ERROR, paymentRequestcode, e.getMessage()));
+			log.error( String.format( PREFIX + FIND_BY_CODE + SUFFIX_ERROR, paymentRequestcode, e.getMessage() ) );
 
-            throw new PagSeguroServiceException(httpStatusCode, e);
+			throw new PagSeguroServiceException( httpStatusCode, e );
 
-        } finally {
-            response.disconnect();
-        }
-    }
+		} finally {
+			response.disconnect();
+		}
+	}
 }

@@ -6,9 +6,9 @@ import com.nakasato.ghstore.domain.product.Product;
 
 public class CompareProductByName implements Comparator < Product > {
 
-	@ Override
+	@Override
 	public int compare( Product o1, Product o2 ) {
-		int result =o1.getName().compareTo( o2.getName() );
+		int result = o1.getName().compareTo( o2.getName() );
 		return result;
 	}
 

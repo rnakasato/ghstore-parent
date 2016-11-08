@@ -8,7 +8,7 @@ public class DomainSpecificEntity extends AbstractDomainEntity {
 	}
 
 	public void setCode( String code ) {
-		this.code =code;
+		this.code = code;
 	}
 
 }

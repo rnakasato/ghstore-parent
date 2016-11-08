@@ -14,7 +14,7 @@ public class DiscountCoupon extends AbstractDomainEntity {
 	}
 
 	public void setCustomer( Customer customer ) {
-		this.customer =customer;
+		this.customer = customer;
 	}
 
 	public boolean isUsed() {
@@ -22,7 +22,7 @@ public class DiscountCoupon extends AbstractDomainEntity {
 	}
 
 	public void setUsed( boolean used ) {
-		this.used =used;
+		this.used = used;
 	}
 
 	public Order getOrder() {
@@ -30,7 +30,7 @@ public class DiscountCoupon extends AbstractDomainEntity {
 	}
 
 	public void setOrder( Order order ) {
-		this.order =order;
+		this.order = order;
 	}
 
 }

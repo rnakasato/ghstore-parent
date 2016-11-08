@@ -29,189 +29,196 @@ import br.com.uol.pagseguro.exception.PagSeguroServiceException;
  */
 public class PagSeguroConfig {
 
-    private static final String PRODUCTION_ENVIRONMENT = "production";
+	private static final String PRODUCTION_ENVIRONMENT = "production";
 
-    private static final String SANDBOX_ENVIRONMENT = "sandbox";
+	private static final String SANDBOX_ENVIRONMENT = "sandbox";
 
-    private String environment;
+	private String environment;
 
-    private static PagSeguroConfig instance;
+	private static PagSeguroConfig instance;
 
-    private PagSeguroConfig() {
-    }
+	private PagSeguroConfig() {
+	}
 
-    /**
-     * @see ResourceBundle
-     */
-    private static ResourceBundle resourceBundle;
+	/**
+	 * @see ResourceBundle
+	 */
+	private static ResourceBundle resourceBundle;
 
-    /**
-     * Module Version
-     * 
-     * @var string
-     */
-    private static String moduleVersion;
+	/**
+	 * Module Version
+	 * 
+	 * @var string
+	 */
+	private static String moduleVersion;
 
-    /**
-     * Cms Version
-     * 
-     * @var String
-     */
-    private static String cmsVersion;
+	/**
+	 * Cms Version
+	 * 
+	 * @var String
+	 */
+	private static String cmsVersion;
 
-    static {
-        resourceBundle = ResourceBundle.getBundle("pagseguro-config", Locale.getDefault());
-        if (instance == null)
-            instance = new PagSeguroConfig();
-        instance.environment = resourceBundle.getString("environment");
-    }
+	static {
+		resourceBundle = ResourceBundle.getBundle( "pagseguro-config", Locale.getDefault() );
+		if( instance == null )
+			instance = new PagSeguroConfig();
+		instance.environment = resourceBundle.getString( "environment" );
+	}
 
-    /**
-     * To activate the PagSeguro logging tool, set the <b>log.path<b> property in <b>pagseguro-config.properties</b>
-     * file.
-     * 
-     * @return the path to PagSeguro log file
-     */
-    public static String getLogPath() {
-        return resourceBundle.getString("log.path");
-    }
+	/**
+	 * To activate the PagSeguro logging tool, set the <b>log.path<b> property
+	 * in <b>pagseguro-config.properties</b> file.
+	 * 
+	 * @return the path to PagSeguro log file
+	 */
+	public static String getLogPath() {
+		return resourceBundle.getString( "log.path" );
+	}
 
-    public static String getLoggerImplementation() {
-        return resourceBundle.getString("logger.implementation");
-    }
+	public static String getLoggerImplementation() {
+		return resourceBundle.getString( "logger.implementation" );
+	}
 
-    /**
-     * Account credentials read from config file <b>pagseguro-config.properties</b> To read the account credentials from
-     * config, you have to set <b>credential.email</b>, <b>credential.production.token</b> and
-     * <b>credential.sandbox.token</b> in the <b>pagseguro-config.properties</b> file
-     * 
-     * @return the account credentials read from <b>pagseguro-config.properties</b> file.
-     * @throws Exception
-     * 
-     */
-    public static AccountCredentials getAccountCredentials() throws PagSeguroServiceException {
+	/**
+	 * Account credentials read from config file
+	 * <b>pagseguro-config.properties</b> To read the account credentials from
+	 * config, you have to set <b>credential.email</b>,
+	 * <b>credential.production.token</b> and <b>credential.sandbox.token</b> in
+	 * the <b>pagseguro-config.properties</b> file
+	 * 
+	 * @return the account credentials read from
+	 *         <b>pagseguro-config.properties</b> file.
+	 * @throws Exception
+	 * 
+	 */
+	public static AccountCredentials getAccountCredentials() throws PagSeguroServiceException {
 
-        String email = resourceBundle.getString("credential.email");
-        String productionToken = resourceBundle.getString("credential.production.token");
-        String sandboxToken = resourceBundle.getString("credential.sandbox.token");
+		String email = resourceBundle.getString( "credential.email" );
+		String productionToken = resourceBundle.getString( "credential.production.token" );
+		String sandboxToken = resourceBundle.getString( "credential.sandbox.token" );
 
-        email = email == null ? null : email.trim();
-        productionToken = productionToken == null ? null : productionToken.trim();
-        sandboxToken = sandboxToken == null ? null : sandboxToken.trim();
+		email = email == null ? null: email.trim();
+		productionToken = productionToken == null ? null: productionToken.trim();
+		sandboxToken = sandboxToken == null ? null: sandboxToken.trim();
 
-        // it is validated at this point to put a error message in the exception
-        if (email == null || "".equals(email) || productionToken == null || "".equals(productionToken)
-                || sandboxToken == null || "".equals(sandboxToken)) {
+		// it is validated at this point to put a error message in the exception
+		if( email == null || "".equals( email ) || productionToken == null || "".equals( productionToken )
+				|| sandboxToken == null || "".equals( sandboxToken ) ) {
 
-            throw new PagSeguroServiceException(
-                    "To use credentials from config.properties file you must "
-                            + "configure the properties credential.email, credential.production.token and credential.sandbox.token. Currently "
-                            + "credential.email=[" + email + "], credential.production.token=[" + productionToken
-                            + "] and credential.sandbox.token=[" + sandboxToken + "].");
+			throw new PagSeguroServiceException( "To use credentials from config.properties file you must "
+					+ "configure the properties credential.email, credential.production.token and credential.sandbox.token. Currently "
+					+ "credential.email=[" + email + "], credential.production.token=[" + productionToken
+					+ "] and credential.sandbox.token=[" + sandboxToken + "]." );
 
-        }
+		}
 
-        return new AccountCredentials(email, productionToken, sandboxToken);
-    }
-    
-    /**
-     * Application credentials read from config file <b>pagseguro-config.properties</b> To read the application credentials from
-     * config, you have to set <b>credential.production.appId</b>, <b>credential.production.appKey</b>, <b>credential.sandbox.appId</b>
-     * and <b>credential.sandbox.appKey</b> in the <b>pagseguro-config.properties</b> file
-     * 
-     * @return the application credentials read from <b>pagseguro-config.properties</b> file.
-     * @throws Exception
-     * 
-     */
-    public static ApplicationCredentials getApplicationCredentials() throws PagSeguroServiceException {
+		return new AccountCredentials( email, productionToken, sandboxToken );
+	}
 
-        String productionAppId = resourceBundle.getString("credential.production.appId");
-        String productionAppKey = resourceBundle.getString("credential.production.appKey");
-        String sandboxAppId = resourceBundle.getString("credential.sandbox.appId");
-        String sandboxAppKey = resourceBundle.getString("credential.sandbox.appKey");
+	/**
+	 * Application credentials read from config file
+	 * <b>pagseguro-config.properties</b> To read the application credentials
+	 * from config, you have to set <b>credential.production.appId</b>,
+	 * <b>credential.production.appKey</b>, <b>credential.sandbox.appId</b> and
+	 * <b>credential.sandbox.appKey</b> in the
+	 * <b>pagseguro-config.properties</b> file
+	 * 
+	 * @return the application credentials read from
+	 *         <b>pagseguro-config.properties</b> file.
+	 * @throws Exception
+	 * 
+	 */
+	public static ApplicationCredentials getApplicationCredentials() throws PagSeguroServiceException {
 
-        productionAppId = productionAppId == null ? null : productionAppId.trim();
-        productionAppKey = productionAppKey == null ? null : productionAppKey.trim();
-        sandboxAppId = sandboxAppId == null ? null : sandboxAppId.trim();
-        sandboxAppKey = sandboxAppKey == null ? null : sandboxAppKey.trim();
-        
-        // it is validated at this point to put a error message in the exception
-        if (productionAppId == null || "".equals(productionAppId) || productionAppKey == null || "".equals(productionAppKey)
-                || sandboxAppId == null || "".equals(sandboxAppId) || sandboxAppKey == null || "".equals(sandboxAppKey)) {
+		String productionAppId = resourceBundle.getString( "credential.production.appId" );
+		String productionAppKey = resourceBundle.getString( "credential.production.appKey" );
+		String sandboxAppId = resourceBundle.getString( "credential.sandbox.appId" );
+		String sandboxAppKey = resourceBundle.getString( "credential.sandbox.appKey" );
 
-            throw new PagSeguroServiceException(
-                    "To use application credentials from config.properties file you must "
-                            + "configure the properties credential.production.appId, credential.production.appKey, credential.sandbox.appId and credential.sandbox.appKey. Currently "
-                            + "credential.production.appId=[" + productionAppId + "], credential.production.appKey=[" + productionAppKey
-                            + "],credential.sandbox.appId=[" + sandboxAppId + "]  and credential.sandbox.appKey=[" + sandboxAppKey + "].");
+		productionAppId = productionAppId == null ? null: productionAppId.trim();
+		productionAppKey = productionAppKey == null ? null: productionAppKey.trim();
+		sandboxAppId = sandboxAppId == null ? null: sandboxAppId.trim();
+		sandboxAppKey = sandboxAppKey == null ? null: sandboxAppKey.trim();
 
-        }
+		// it is validated at this point to put a error message in the exception
+		if( productionAppId == null || "".equals( productionAppId ) || productionAppKey == null
+				|| "".equals( productionAppKey ) || sandboxAppId == null || "".equals( sandboxAppId )
+				|| sandboxAppKey == null || "".equals( sandboxAppKey ) ) {
 
-        return new ApplicationCredentials(productionAppId, productionAppKey, sandboxAppId, sandboxAppKey);
-    }
+			throw new PagSeguroServiceException( "To use application credentials from config.properties file you must "
+					+ "configure the properties credential.production.appId, credential.production.appKey, credential.sandbox.appId and credential.sandbox.appKey. Currently "
+					+ "credential.production.appId=[" + productionAppId + "], credential.production.appKey=["
+					+ productionAppKey + "],credential.sandbox.appId=[" + sandboxAppId
+					+ "]  and credential.sandbox.appKey=[" + sandboxAppKey + "]." );
 
-    /**
-     * Get environment
-     * 
-     * @return string
-     */
-    public static String getEnvironment() {
-        return instance.environment;
-    }
+		}
 
-    /**
-     * Get Charset UTF-8, ISO-8859-1
-     * 
-     * @return string
-     */
-    public static String getApplicationCharset() {
-        return resourceBundle.getString("application.charset");
-    }
+		return new ApplicationCredentials( productionAppId, productionAppKey, sandboxAppId, sandboxAppKey );
+	}
 
-    /**
-     * Get module version
-     * 
-     * @return string
-     */
-    public static String getModuleVersion() {
-        return moduleVersion;
-    }
+	/**
+	 * Get environment
+	 * 
+	 * @return string
+	 */
+	public static String getEnvironment() {
+		return instance.environment;
+	}
 
-    /**
-     * Set module version
-     * 
-     * @param moduleVersion
-     */
-    public static void setModuleVersion(String moduleVersion) {
-        PagSeguroConfig.moduleVersion = moduleVersion;
-    }
+	/**
+	 * Get Charset UTF-8, ISO-8859-1
+	 * 
+	 * @return string
+	 */
+	public static String getApplicationCharset() {
+		return resourceBundle.getString( "application.charset" );
+	}
 
-    /**
-     * Get Cms Version
-     * 
-     * @return string
-     */
-    public static String getCmsVersion() {
-        return cmsVersion;
-    }
+	/**
+	 * Get module version
+	 * 
+	 * @return string
+	 */
+	public static String getModuleVersion() {
+		return moduleVersion;
+	}
 
-    /**
-     * @return boolean
-     */
-    public static boolean getLogActive() {
-        return "true".equals(resourceBundle.getString("log.active"));
-    }
+	/**
+	 * Set module version
+	 * 
+	 * @param moduleVersion
+	 */
+	public static void setModuleVersion( String moduleVersion ) {
+		PagSeguroConfig.moduleVersion = moduleVersion;
+	}
 
-    public static void setSandboxEnvironment() {
-        instance.environment = SANDBOX_ENVIRONMENT;
-    }
+	/**
+	 * Get Cms Version
+	 * 
+	 * @return string
+	 */
+	public static String getCmsVersion() {
+		return cmsVersion;
+	}
 
-    public static void setProductionEnvironment() {
-        instance.environment = PRODUCTION_ENVIRONMENT;
-    }
+	/**
+	 * @return boolean
+	 */
+	public static boolean getLogActive() {
+		return "true".equals( resourceBundle.getString( "log.active" ) );
+	}
 
-    public static boolean isSandboxEnvironment() {
-        return SANDBOX_ENVIRONMENT.equals(instance.environment);
-    }
+	public static void setSandboxEnvironment() {
+		instance.environment = SANDBOX_ENVIRONMENT;
+	}
+
+	public static void setProductionEnvironment() {
+		instance.environment = PRODUCTION_ENVIRONMENT;
+	}
+
+	public static boolean isSandboxEnvironment() {
+		return SANDBOX_ENVIRONMENT.equals( instance.environment );
+	}
 
 }

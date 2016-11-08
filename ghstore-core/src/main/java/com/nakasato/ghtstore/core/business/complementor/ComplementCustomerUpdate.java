@@ -9,7 +9,7 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementCustomerUpdate extends Complementor < Customer > {
 
-	@ Override
+	@Override
 	public String complement( Customer entity ) {
 		for( Address address: entity.getDeliveryAddressList() ) {
 			address.setCep( FormatUtils.removeHifen( address.getCep() ) );

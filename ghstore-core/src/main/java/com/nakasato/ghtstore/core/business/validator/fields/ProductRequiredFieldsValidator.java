@@ -13,9 +13,9 @@ import com.nakasato.ghtstore.core.business.FieldsValidator;
  */
 public class ProductRequiredFieldsValidator extends FieldsValidator < Product > {
 
-	@ Override
+	@Override
 	public String validate( Product entity ) {
-		Product p =entity;
+		Product p = entity;
 		if( StringUtils.isEmpty( p.getName() ) ) {
 			appendMsg( "Nome" );
 		}
@@ -24,33 +24,33 @@ public class ProductRequiredFieldsValidator extends FieldsValidator < Product > 
 			appendMsg( "Descrição" );
 		}
 
-		if( p.getStoreCategory() ==null ||( ( p.getStoreCategory().getId() ==null )
-				&&StringUtils.isEmpty( p.getStoreCategory().getDescription() ) ) ) {
+		if( p.getStoreCategory() == null || ( ( p.getStoreCategory().getId() == null )
+				&& StringUtils.isEmpty( p.getStoreCategory().getDescription() ) ) ) {
 			appendMsg( "Categoria" );
 		}
 
-		if( p.getSubcategory() ==null ||( ( p.getSubcategory().getId() ==null )
-				&&StringUtils.isEmpty( p.getSubcategory().getDescription() ) ) ) {
+		if( p.getSubcategory() == null || ( ( p.getSubcategory().getId() == null )
+				&& StringUtils.isEmpty( p.getSubcategory().getDescription() ) ) ) {
 			appendMsg( "Subcategoria" );
 		}
 
-		if( p.getTagList() ==null ||p.getTagList().isEmpty() ) {
+		if( p.getTagList() == null || p.getTagList().isEmpty() ) {
 			appendMsg( "Tags" );
 		}
 
-		if( p.getWeight() ==null ) {
+		if( p.getWeight() == null ) {
 			appendMsg( "Peso" );
 		}
 
-		if( p.getStock() ==null ) {
+		if( p.getStock() == null ) {
 			appendMsg( "Estoque" );
 		}
 
-		if( p.getImage() ==null ) {
+		if( p.getImage() == null ) {
 			appendMsg( "Foto do produto" );
 		}
 
-		if( p.getPrice() ==null ) {
+		if( p.getPrice() == null ) {
 			appendMsg( "Preço" );
 		}
 		return getMessage();

@@ -1,16 +1,21 @@
 package com.nakasato.ghstore.domain.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum EAxisX {
-	DAYS( "DAY", "Dias" ), 
-	WEEKS( "WEE", "Meses" ), 
-	MONTHS( "MON", "Anos" );
+	DAYS( "DAY", "Dias", "%d-%m-%Y" ), MONTHS( "MON", "Meses", "%m-%Y" ), YEARS( "YRS", "Anos", "%Y" );
 
 	private String code;
 	private String description;
+	private String tickFormat;
 
-	private EAxisX( String code, String description ) {
-		this.code =code;
-		this.description =description;
+	private static Map < String, EAxisX > axisXMap;
+
+	private EAxisX( String code, String description, String tickFormat ) {
+		this.code = code;
+		this.description = description;
+		this.tickFormat = tickFormat;
 	}
 
 	public String getCode() {
@@ -18,7 +23,7 @@ public enum EAxisX {
 	}
 
 	public void setCode( String code ) {
-		this.code =code;
+		this.code = code;
 	}
 
 	public String getDescription() {
@@ -26,7 +31,26 @@ public enum EAxisX {
 	}
 
 	public void setDescription( String description ) {
-		this.description =description;
+		this.description = description;
+	}
+
+	public String getTickFormat() {
+		return tickFormat;
+	}
+
+	public void setTickFormat( String tickFormat ) {
+		this.tickFormat = tickFormat;
+	}
+
+	public static EAxisX getValue( String code ) {
+		if( axisXMap == null ) {
+			axisXMap = new HashMap<>();
+			axisXMap.put( EAxisX.DAYS.getCode(), EAxisX.DAYS );
+			axisXMap.put( EAxisX.MONTHS.getCode(), EAxisX.MONTHS );
+			axisXMap.put( EAxisX.YEARS.getCode(), EAxisX.YEARS );
+
+		}
+		return axisXMap.get( code );
 	}
 
 }

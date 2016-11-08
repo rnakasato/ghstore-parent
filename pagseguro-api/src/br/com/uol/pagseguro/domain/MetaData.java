@@ -26,51 +26,51 @@ import java.util.List;
  */
 public class MetaData {
 
-    private List<MetaDataItem> items;
+	private List < MetaDataItem > items;
 
-    /**
-     * Construct Default
-     */
-    public MetaData() {
+	/**
+	 * Construct Default
+	 */
+	public MetaData() {
 
-    }
+	}
 
-    /**
-     * Construct
-     * 
-     * @param items
-     */
-    public MetaData(List<MetaDataItem> items) {
-        if (!items.isEmpty()) {
-            this.items = items;
-        }
-    }
+	/**
+	 * Construct
+	 * 
+	 * @param items
+	 */
+	public MetaData( List < MetaDataItem > items ) {
+		if( ! items.isEmpty() ) {
+			this.items = items;
+		}
+	}
 
-    /**
-     * @param metaDataItem
-     *            - add a new item on the end of this list
-     */
-    public void addItem(MetaDataItem metaDataItem) {
-        this.getItem().add(metaDataItem);
-    }
+	/**
+	 * @param metaDataItem
+	 *            - add a new item on the end of this list
+	 */
+	public void addItem( MetaDataItem metaDataItem ) {
+		this.getItem().add( metaDataItem );
+	}
 
-    /**
-     * @param items
-     *            - new item list for this MetaDataItem
-     */
-    public void setItems(List<MetaDataItem> items) {
-        this.items = items;
-    }
+	/**
+	 * @param items
+	 *            - new item list for this MetaDataItem
+	 */
+	public void setItems( List < MetaDataItem > items ) {
+		this.items = items;
+	}
 
-    /**
-     * @return a list of MetaDataItems
-     */
-    public List<MetaDataItem> getItem() {
-        if (this.items == null) {
-            this.items = new ArrayList<MetaDataItem>();
-        }
+	/**
+	 * @return a list of MetaDataItems
+	 */
+	public List < MetaDataItem > getItem() {
+		if( this.items == null ) {
+			this.items = new ArrayList < MetaDataItem >();
+		}
 
-        return this.items;
-    }
+		return this.items;
+	}
 
 }

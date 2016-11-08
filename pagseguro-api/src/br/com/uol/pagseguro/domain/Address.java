@@ -25,202 +25,204 @@ package br.com.uol.pagseguro.domain;
  */
 public class Address {
 
-    /**
-     * Zip/postal code
-     */
-    private String postalCode;
+	/**
+	 * Zip/postal code
+	 */
+	private String postalCode;
 
-    /**
-     * Street name
-     */
-    private String street;
+	/**
+	 * Street name
+	 */
+	private String street;
 
-    /**
-     * Number
-     */
-    private String number;
+	/**
+	 * Number
+	 */
+	private String number;
 
-    /**
-     * Apartment, suite number or any other qualifier after the street/number pair. Example: Apt 274, building A.
-     */
-    private String complement;
+	/**
+	 * Apartment, suite number or any other qualifier after the street/number
+	 * pair. Example: Apt 274, building A.
+	 */
+	private String complement;
 
-    /**
-     * District, county or neighborhood
-     */
-    private String district;
+	/**
+	 * District, county or neighborhood
+	 */
+	private String district;
 
-    /**
-     * City
-     */
-    private String city;
+	/**
+	 * City
+	 */
+	private String city;
 
-    /**
-     * State or province acronym
-     */
-    private String state;
+	/**
+	 * State or province acronym
+	 */
+	private String state;
 
-    /**
-     * Country code (ISO 3166-1 Alfa-3)
-     */
-    private String country;
+	/**
+	 * Country code (ISO 3166-1 Alfa-3)
+	 */
+	private String country;
 
-    /**
-     * Initializes a newly created instance of this type
-     */
-    public Address() {
-    }
+	/**
+	 * Initializes a newly created instance of this type
+	 */
+	public Address() {
+	}
 
-    /**
-     * Initializes a newly created instance of this type with the specified arguments
-     * 
-     * @param country
-     *            the country code (ISO 3166-1 Alfa-3), i.e BRA
-     * @param state
-     *            the state/province acronym, i.e. SP
-     * @param city
-     *            the city name, i.e. São Paulo
-     * @param district
-     *            the district, county or neighborhood name, i.e. Pinheiros
-     * @param postalCode
-     *            the zip/postal code, i.e. 01452002
-     * @param street
-     *            the street name, i.e. Brigadeiro Faria Lima
-     * @param number
-     *            the number, i.e. 1384
-     * @param complement
-     *            the complement details, i.e. 3o andar
-     */
-    public Address(String country, String state, String city, String district, String postalCode, String street,
-            String number, String complement) {
-        this.street = street;
-        this.number = number;
-        this.complement = complement;
-        this.district = district;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.postalCode = postalCode;
-    }
+	/**
+	 * Initializes a newly created instance of this type with the specified
+	 * arguments
+	 * 
+	 * @param country
+	 *            the country code (ISO 3166-1 Alfa-3), i.e BRA
+	 * @param state
+	 *            the state/province acronym, i.e. SP
+	 * @param city
+	 *            the city name, i.e. São Paulo
+	 * @param district
+	 *            the district, county or neighborhood name, i.e. Pinheiros
+	 * @param postalCode
+	 *            the zip/postal code, i.e. 01452002
+	 * @param street
+	 *            the street name, i.e. Brigadeiro Faria Lima
+	 * @param number
+	 *            the number, i.e. 1384
+	 * @param complement
+	 *            the complement details, i.e. 3o andar
+	 */
+	public Address( String country, String state, String city, String district, String postalCode, String street,
+			String number, String complement ) {
+		this.street = street;
+		this.number = number;
+		this.complement = complement;
+		this.district = district;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.postalCode = postalCode;
+	}
 
-    /**
-     * @return the street name
-     */
-    public String getStreet() {
-        return this.street;
-    }
+	/**
+	 * @return the street name
+	 */
+	public String getStreet() {
+		return this.street;
+	}
 
-    /**
-     * @return the number
-     */
-    public String getNumber() {
-        return this.number;
-    }
+	/**
+	 * @return the number
+	 */
+	public String getNumber() {
+		return this.number;
+	}
 
-    /**
-     * @return the complement details
-     */
-    public String getComplement() {
-        return this.complement;
-    }
+	/**
+	 * @return the complement details
+	 */
+	public String getComplement() {
+		return this.complement;
+	}
 
-    /**
-     * @return the district, county or neighborhood name
-     */
-    public String getDistrict() {
-        return this.district;
-    }
+	/**
+	 * @return the district, county or neighborhood name
+	 */
+	public String getDistrict() {
+		return this.district;
+	}
 
-    /**
-     * @return the city name
-     */
-    public String getCity() {
-        return this.city;
-    }
+	/**
+	 * @return the city name
+	 */
+	public String getCity() {
+		return this.city;
+	}
 
-    /**
-     * @return the state/province acronym
-     */
-    public String getState() {
-        return this.state;
-    }
+	/**
+	 * @return the state/province acronym
+	 */
+	public String getState() {
+		return this.state;
+	}
 
-    /**
-     * @return the zip/postal code
-     */
-    public String getPostalCode() {
-        return this.postalCode;
-    }
+	/**
+	 * @return the zip/postal code
+	 */
+	public String getPostalCode() {
+		return this.postalCode;
+	}
 
-    /**
-     * @return the country code (ISO 3166-1 Alfa-3)
-     */
-    public String getCountry() {
-        return this.country;
-    }
+	/**
+	 * @return the country code (ISO 3166-1 Alfa-3)
+	 */
+	public String getCountry() {
+		return this.country;
+	}
 
-    /**
-     * @param street
-     *            the street name to set
-     */
-    public void setStreet(String street) {
-        this.street = street;
-    }
+	/**
+	 * @param street
+	 *            the street name to set
+	 */
+	public void setStreet( String street ) {
+		this.street = street;
+	}
 
-    /**
-     * @param number
-     *            the number to set
-     */
-    public void setNumber(String number) {
-        this.number = number;
-    }
+	/**
+	 * @param number
+	 *            the number to set
+	 */
+	public void setNumber( String number ) {
+		this.number = number;
+	}
 
-    /**
-     * @param complement
-     *            the complement details to set
-     */
-    public void setComplement(String complement) {
-        this.complement = complement;
-    }
+	/**
+	 * @param complement
+	 *            the complement details to set
+	 */
+	public void setComplement( String complement ) {
+		this.complement = complement;
+	}
 
-    /**
-     * @param district
-     *            the district, county or neighborhood to set
-     */
-    public void setDistrict(String district) {
-        this.district = district;
-    }
+	/**
+	 * @param district
+	 *            the district, county or neighborhood to set
+	 */
+	public void setDistrict( String district ) {
+		this.district = district;
+	}
 
-    /**
-     * @param city
-     *            the city name to set
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
+	/**
+	 * @param city
+	 *            the city name to set
+	 */
+	public void setCity( String city ) {
+		this.city = city;
+	}
 
-    /**
-     * @param state
-     *            the state/province acronym to set
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
+	/**
+	 * @param state
+	 *            the state/province acronym to set
+	 */
+	public void setState( String state ) {
+		this.state = state;
+	}
 
-    /**
-     * @param postalCode
-     *            the zip/postal code to set
-     */
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
+	/**
+	 * @param postalCode
+	 *            the zip/postal code to set
+	 */
+	public void setPostalCode( String postalCode ) {
+		this.postalCode = postalCode;
+	}
 
-    /**
-     * @param country
-     *            the country code to set (ISO 3166-1 Alfa-3)
-     */
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	/**
+	 * @param country
+	 *            the country code to set (ISO 3166-1 Alfa-3)
+	 */
+	public void setCountry( String country ) {
+		this.country = country;
+	}
 
 }

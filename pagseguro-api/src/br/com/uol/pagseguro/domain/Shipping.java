@@ -27,87 +27,87 @@ import br.com.uol.pagseguro.enums.ShippingType;
  */
 public class Shipping {
 
-    /**
-     * Shipping address
-     */
-    private Address address;
+	/**
+	 * Shipping address
+	 */
+	private Address address;
 
-    /** Shipping types. */
-    private ShippingType type;
+	/** Shipping types. */
+	private ShippingType type;
 
-    /**
-     * shipping cost.
-     */
-    private BigDecimal cost;
+	/**
+	 * shipping cost.
+	 */
+	private BigDecimal cost;
 
-    /**
-     * Initializes a new instance of the Shipping class
-     */
-    public Shipping(Address address, ShippingType type, BigDecimal cost) {
-        this.address = address;
-        this.type = type;
-        this.cost = cost;
-    }
+	/**
+	 * Initializes a new instance of the Shipping class
+	 */
+	public Shipping( Address address, ShippingType type, BigDecimal cost ) {
+		this.address = address;
+		this.type = type;
+		this.cost = cost;
+	}
 
-    /**
-     * Initializes a new instance of the Shipping class
-     */
-    public Shipping() {
-    }
+	/**
+	 * Initializes a new instance of the Shipping class
+	 */
+	public Shipping() {
+	}
 
-    /**
-     * Sets the shipping address
-     * 
-     * @param address
-     * @see Address
-     */
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+	/**
+	 * Sets the shipping address
+	 * 
+	 * @param address
+	 * @see Address
+	 */
+	public void setAddress( Address address ) {
+		this.address = address;
+	}
 
-    /**
-     * @return the shipping address
-     * @see Address
-     */
-    public Address getAddress() {
-        if (this.address == null) {
-            this.address = new Address();
-        }
-        return this.address;
-    }
+	/**
+	 * @return the shipping address
+	 * @see Address
+	 */
+	public Address getAddress() {
+		if( this.address == null ) {
+			this.address = new Address();
+		}
+		return this.address;
+	}
 
-    /**
-     * Sets the shipping type
-     * 
-     * @param type
-     * @see ShippingType
-     */
-    public void setType(ShippingType type) {
-        this.type = type;
-    }
+	/**
+	 * Sets the shipping type
+	 * 
+	 * @param type
+	 * @see ShippingType
+	 */
+	public void setType( ShippingType type ) {
+		this.type = type;
+	}
 
-    /**
-     * @return the shipping type
-     * @see ShippingType
-     */
-    public ShippingType getType() {
-        return this.type;
-    }
+	/**
+	 * @return the shipping type
+	 * @see ShippingType
+	 */
+	public ShippingType getType() {
+		return this.type;
+	}
 
-    /**
-     * Sets the cost
-     * 
-     * @param cost
-     */
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
+	/**
+	 * Sets the cost
+	 * 
+	 * @param cost
+	 */
+	public void setCost( BigDecimal cost ) {
+		this.cost = cost;
+	}
 
-    /**
-     * @return the cost
-     */
-    public BigDecimal getCost() {
-        return this.cost;
-    }
+	/**
+	 * @return the cost
+	 */
+	public BigDecimal getCost() {
+		return this.cost;
+	}
 
 }

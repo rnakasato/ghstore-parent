@@ -10,7 +10,7 @@ public abstract class AbstractDAO < T extends AbstractDomainEntity > implements 
 
 	protected Session session;
 
-	@ Override
+	@Override
 	public void save( T entity ) throws Exception {
 		try {
 			openSession();
@@ -24,14 +24,14 @@ public abstract class AbstractDAO < T extends AbstractDomainEntity > implements 
 
 	}
 
-	@ SuppressWarnings( { "unchecked", "rawtypes" } )
-	@ Override
+	@SuppressWarnings( { "unchecked", "rawtypes" } )
+	@Override
 	public T findById( T entity ) throws Exception {
-		T result =null;
+		T result = null;
 		try {
 			openSession();
-			Class clazz =entity.getClass();
-			result =( T ) session.find( clazz, entity.getId() );
+			Class clazz = entity.getClass();
+			result = ( T ) session.find( clazz, entity.getId() );
 		} catch( Exception e ) {
 			e.printStackTrace();
 			cancelSession();
@@ -40,7 +40,7 @@ public abstract class AbstractDAO < T extends AbstractDomainEntity > implements 
 		return result;
 	}
 
-	@ Override
+	@Override
 	public void delete( T entity ) throws Exception {
 		try {
 			openSession();
@@ -53,7 +53,7 @@ public abstract class AbstractDAO < T extends AbstractDomainEntity > implements 
 		}
 	}
 
-	@ Override
+	@Override
 	public void update( T entity ) throws Exception {
 		try {
 			openSession();
@@ -67,7 +67,7 @@ public abstract class AbstractDAO < T extends AbstractDomainEntity > implements 
 	}
 
 	public void openSession() {
-		session =HibernateUtil.getSessionFactory().openSession();
+		session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 	}
 

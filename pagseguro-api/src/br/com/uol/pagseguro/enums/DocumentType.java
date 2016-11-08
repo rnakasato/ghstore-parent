@@ -19,38 +19,40 @@
 package br.com.uol.pagseguro.enums;
 
 /**
- * Enum constants that represents the senderDocument type accepted by PagSeguro on payment requests
+ * Enum constants that represents the senderDocument type accepted by PagSeguro
+ * on payment requests
  */
 public enum DocumentType {
 
-    CPF("Cadastro de Pessoa Física"),
+	CPF( "Cadastro de Pessoa Física" ),
 
-    CNPJ("Cadastro de Pessoa Jurídica");
+	CNPJ( "Cadastro de Pessoa Jurídica" );
 
-    private String description;
+	private String description;
 
-    /**
-     * Initializes a newly created enum constant of this type with the specified argument
-     * 
-     * @param description
-     *            - the description of the enum constant
-     */
-    DocumentType(String description) {
-        this.description = description;
-    }
+	/**
+	 * Initializes a newly created enum constant of this type with the specified
+	 * argument
+	 * 
+	 * @param description
+	 *            - the description of the enum constant
+	 */
+	DocumentType( String description ) {
+		this.description = description;
+	}
 
-    /**
-     * @return this enum constant description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+	/**
+	 * @return this enum constant description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
-    /**
-     * @param description
-     *            - new description for this enum constant
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @param description
+	 *            - new description for this enum constant
+	 */
+	public void setDescription( String description ) {
+		this.description = description;
+	}
 }

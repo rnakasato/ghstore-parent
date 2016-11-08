@@ -9,21 +9,21 @@ import com.nakasato.ghtstore.core.business.Validator;
 
 public class ProductExchangeAmountValidator extends Validator < ProductExchange > {
 
-	@ Override
+	@Override
 	public String validate( ProductExchange entity ) {
-		List < ExchangeItem > exchangeList =entity.getExchangeItems();
-		if( ListUtils.isListEmpty( exchangeList ) ) {
-			msg ="Deve haver ao menos um item selecionado e com quantidade definida para troca";
+		List < ExchangeItem > exchangeList = entity.getExchangeItems();
+		if( ListUtils.isEmpty( exchangeList ) ) {
+			msg = "Deve haver ao menos um item selecionado e com quantidade definida para troca";
 		} else {
-			boolean empty =true;
+			boolean empty = true;
 			for( ExchangeItem exchangeItem: exchangeList ) {
-				if( exchangeItem.getAmount() >0 ) {
-					empty =false;
+				if( exchangeItem.getAmount() > 0 ) {
+					empty = false;
 					break;
 				}
 			}
 			if( empty ) {
-				msg ="Nenhuma quantidade foi selecionada para troca";
+				msg = "Nenhuma quantidade foi selecionada para troca";
 			}
 		}
 		return msg;

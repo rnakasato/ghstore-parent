@@ -10,7 +10,7 @@ import com.nakasato.ghstore.factory.impl.FactoryComparator;
 public class ProductSort {
 
 	public static void sortProducts( List < Product > productList, Integer sortBy ) {
-		Comparator comparator =FactoryComparator.build( sortBy );
+		Comparator comparator = FactoryComparator.build( sortBy );
 		Collections.sort( productList, comparator );
 	}
 }

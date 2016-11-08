@@ -6,7 +6,7 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementProductCode extends Complementor < Product > {
 
-	@ Override
+	@Override
 	public String complement( Product entity ) {
 		entity.setCode( CSPRNGUtil.generateHex( CSPRNGUtil.BYTE_06 ) );
 		return null;

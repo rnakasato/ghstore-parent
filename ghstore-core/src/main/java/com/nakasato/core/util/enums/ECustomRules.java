@@ -5,6 +5,6 @@ public enum ECustomRules {
 	private ECustomRules() {
 	}
 
-	public static int ADD_CART =0;
-	public static int DO_PURCHASE =1;
+	public static int ADD_CART = 0;
+	public static int DO_PURCHASE = 1;
 }

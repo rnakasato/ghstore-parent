@@ -7,13 +7,13 @@ import com.nakasato.ghstore.domain.user.SysUser;
 
 public class SysUserDAO extends AbstractDAO < SysUser > {
 
-	@ Override
+	@Override
 	public List < SysUser > find( AbstractDomainEntity filter ) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@ Override
+	@Override
 	public List < SysUser > findAll() throws Exception {
 		// TODO Auto-generated method stub
 		return null;

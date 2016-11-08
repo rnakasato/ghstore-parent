@@ -26,7 +26,7 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setOrderItemList( List < OrderItem > orderItemList ) {
-		this.orderItemList =orderItemList;
+		this.orderItemList = orderItemList;
 	}
 
 	public Double getTotalValue() {
@@ -34,7 +34,7 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setTotalValue( Double totalValue ) {
-		this.totalValue =totalValue;
+		this.totalValue = totalValue;
 	}
 
 	public OrderStatus getOrderStatus() {
@@ -42,7 +42,7 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setOrderStatus( OrderStatus orderStatus ) {
-		this.orderStatus =orderStatus;
+		this.orderStatus = orderStatus;
 	}
 
 	public Date getDeliverDate() {
@@ -50,7 +50,7 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setDeliverDate( Date deliverDate ) {
-		this.deliverDate =deliverDate;
+		this.deliverDate = deliverDate;
 	}
 
 	public Customer getCustomer() {
@@ -58,7 +58,7 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setCustomer( Customer customer ) {
-		this.customer =customer;
+		this.customer = customer;
 	}
 
 	public List < ProductReturn > getProductReturnList() {
@@ -66,7 +66,7 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setProductReturnList( List < ProductReturn > productReturnList ) {
-		this.productReturnList =productReturnList;
+		this.productReturnList = productReturnList;
 	}
 
 	public String getTransactionCode() {
@@ -74,7 +74,7 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setTransactionCode( String transactionCode ) {
-		this.transactionCode =transactionCode;
+		this.transactionCode = transactionCode;
 	}
 
 	public Address getDeliverAddress() {
@@ -82,41 +82,41 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setDeliverAddress( Address deliverAddress ) {
-		this.deliverAddress =deliverAddress;
+		this.deliverAddress = deliverAddress;
 	}
 
 	public void addItem( Product product, Integer amount ) {
-		OrderItem item =new OrderItem();
-		boolean exists =false;
-		if( orderItemList ==null ) {
-			orderItemList =new ArrayList();
+		OrderItem item = new OrderItem();
+		boolean exists = false;
+		if( orderItemList == null ) {
+			orderItemList = new ArrayList();
 		}
 		for( OrderItem oItem: orderItemList ) {
-			if( oItem.getProduct().getId() ==product.getId() ) {
-				oItem.setAmount( oItem.getAmount() +amount );
-				exists =true;
+			if( oItem.getProduct().getId() == product.getId() ) {
+				oItem.setAmount( oItem.getAmount() + amount );
+				exists = true;
 			}
 		}
-		if( !exists ) {
+		if( ! exists ) {
 			item.setProduct( product );
 			item.setAmount( amount );
 		}
 	}
 
 	public void removeItem( Product product, Integer amount ) {
-		boolean exists =false;
-		Integer removedIndex =null;
-		if( orderItemList !=null && !orderItemList.isEmpty() ) {
-			int index =0;
+		boolean exists = false;
+		Integer removedIndex = null;
+		if( orderItemList != null && ! orderItemList.isEmpty() ) {
+			int index = 0;
 			for( OrderItem oItem: orderItemList ) {
-				if( oItem.getProduct().getId() ==product.getId() ) {
-					exists =true;
-					removedIndex =index;
+				if( oItem.getProduct().getId() == product.getId() ) {
+					exists = true;
+					removedIndex = index;
 					break;
 				}
-				index ++;
+				index ++ ;
 			}
-			if( exists &&removedIndex !=null ) {
+			if( exists && removedIndex != null ) {
 				orderItemList.remove( removedIndex );
 			}
 		}
@@ -127,7 +127,7 @@ public class Order extends DomainSpecificEntity {
 	}
 
 	public void setDiscount( boolean discount ) {
-		this.discount =discount;
+		this.discount = discount;
 	}
 
 }

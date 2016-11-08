@@ -7,13 +7,13 @@ import com.nakasato.ghstore.domain.shopping.cart.ShoppingCart;
 
 public class ShoppingCartDAO extends AbstractDAO < ShoppingCart > {
 
-	@ Override
+	@Override
 	public List < ShoppingCart > find( AbstractDomainEntity filter ) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@ Override
+	@Override
 	public List < ShoppingCart > findAll() throws Exception {
 		// TODO Auto-generated method stub
 		return null;

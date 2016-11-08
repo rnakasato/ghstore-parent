@@ -9,13 +9,13 @@ import javax.faces.convert.FacesConverter;
 
 import com.nakasato.ghstore.domain.product.Tag;
 
-@ FacesConverter( "tagConverter" )
+@FacesConverter( "tagConverter" )
 public class TagConverter implements Converter {
 
 	public Object getAsObject( FacesContext fc, UIComponent uic, String value ) {
-		if( value !=null &&value.trim().length() >0 ) {
+		if( value != null && value.trim().length() > 0 ) {
 			try {
-				Tag tag =new Tag();
+				Tag tag = new Tag();
 				tag.setDescription( value );
 				return tag;
 			} catch( NumberFormatException e ) {
@@ -28,7 +28,7 @@ public class TagConverter implements Converter {
 	}
 
 	public String getAsString( FacesContext fc, UIComponent uic, Object object ) {
-		if( object !=null ) {
+		if( object != null ) {
 			return ( ( Tag ) object ).getDescription();
 		} else {
 			return null;

@@ -25,118 +25,119 @@ import java.math.BigDecimal;
  */
 public class PaymentRequestShippingPackage {
 
-    /**
-     * Shipping package width
-     */
-    private Integer width;
+	/**
+	 * Shipping package width
+	 */
+	private Integer width;
 
-    /**
-     * Shipping package height
-     */
-    private Integer height;
+	/**
+	 * Shipping package height
+	 */
+	private Integer height;
 
-    /**
-     * Shipping package length
-     */
-    private Integer length;
+	/**
+	 * Shipping package length
+	 */
+	private Integer length;
 
-    /**
-     * Shipping package weight
-     */
-    private BigDecimal weight;
+	/**
+	 * Shipping package weight
+	 */
+	private BigDecimal weight;
 
-    /**
-     * Initializes a new instance of the PaymentRequestShippingPackage class
-     */
-    public PaymentRequestShippingPackage() {
+	/**
+	 * Initializes a new instance of the PaymentRequestShippingPackage class
+	 */
+	public PaymentRequestShippingPackage() {
 
-    }
+	}
 
-    /**
-     * Initializes a new instance of the PaymentRequestShippingPackage class with the specified arguments
-     *
-     * @param width
-     * @param height
-     * @param length
-     * @param weight
-     */
-    public PaymentRequestShippingPackage(Integer width, Integer height, Integer length, BigDecimal weight) {
-        this.width = width;
-        this.height = height;
-        this.length = length;
-        this.weight = weight;
-    }
+	/**
+	 * Initializes a new instance of the PaymentRequestShippingPackage class
+	 * with the specified arguments
+	 *
+	 * @param width
+	 * @param height
+	 * @param length
+	 * @param weight
+	 */
+	public PaymentRequestShippingPackage( Integer width, Integer height, Integer length, BigDecimal weight ) {
+		this.width = width;
+		this.height = height;
+		this.length = length;
+		this.weight = weight;
+	}
 
-    /**
-     * @return the width
-     */
-    public Integer getWidth() {
-        return width;
-    }
+	/**
+	 * @return the width
+	 */
+	public Integer getWidth() {
+		return width;
+	}
 
-    /**
-     * Sets the package width
-     * 
-     * @param width
-     */
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
+	/**
+	 * Sets the package width
+	 * 
+	 * @param width
+	 */
+	public void setWidth( Integer width ) {
+		this.width = width;
+	}
 
-    /**
-     * @return the height
-     */
-    public Integer getHeight() {
-        return height;
-    }
+	/**
+	 * @return the height
+	 */
+	public Integer getHeight() {
+		return height;
+	}
 
-    /**
-     * Sets the package height
-     * 
-     * @param height
-     */
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
+	/**
+	 * Sets the package height
+	 * 
+	 * @param height
+	 */
+	public void setHeight( Integer height ) {
+		this.height = height;
+	}
 
-    /**
-     * @return the length
-     */
-    public Integer getLength() {
-        return length;
-    }
+	/**
+	 * @return the length
+	 */
+	public Integer getLength() {
+		return length;
+	}
 
-    /**
-     * Sets the package length
-     * 
-     * @param length
-     */
-    public void setLength(Integer length) {
-        this.length = length;
-    }
+	/**
+	 * Sets the package length
+	 * 
+	 * @param length
+	 */
+	public void setLength( Integer length ) {
+		this.length = length;
+	}
 
-    /**
-     * @return the weight
-     */
-    public BigDecimal getWeight() {
-        return weight;
-    }
+	/**
+	 * @return the weight
+	 */
+	public BigDecimal getWeight() {
+		return weight;
+	}
 
-    /**
-     * Sets the package weight
-     * 
-     * @param weight
-     */
-    public void setWeight(BigDecimal weight) {
-        this.weight = weight;
-    }
+	/**
+	 * Sets the package weight
+	 * 
+	 * @param weight
+	 */
+	public void setWeight( BigDecimal weight ) {
+		this.weight = weight;
+	}
 
-    /**
-     * @return string
-     */
-    @Override
-    public String toString() {
-        return "PaymentRequestShippingPackage [width=" + width + ", height=" + height + ", length=" + length
-                + ", weight=" + weight + "]";
-    }
+	/**
+	 * @return string
+	 */
+	@Override
+	public String toString() {
+		return "PaymentRequestShippingPackage [width=" + width + ", height=" + height + ", length=" + length
+				+ ", weight=" + weight + "]";
+	}
 }

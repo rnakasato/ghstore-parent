@@ -31,80 +31,80 @@ import org.w3c.dom.Text;
  */
 public class XMLParserUtils {
 
-    private XMLParserUtils() {
-    }
+	private XMLParserUtils() {
+	}
 
-    /**
-     * Gets XML elements
-     * 
-     * @param elementTag
-     * @param fromElement
-     * @return
-     */
-    public static List<Element> getElements(String elementTag, Element fromElement) {
-        List<Element> elements = new ArrayList<Element>();
-        NodeList nodeList = fromElement.getElementsByTagName(elementTag);
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node node = nodeList.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                elements.add((Element) node);
-            }
-        }
-        return elements;
-    }
+	/**
+	 * Gets XML elements
+	 * 
+	 * @param elementTag
+	 * @param fromElement
+	 * @return
+	 */
+	public static List < Element > getElements( String elementTag, Element fromElement ) {
+		List < Element > elements = new ArrayList < Element >();
+		NodeList nodeList = fromElement.getElementsByTagName( elementTag );
+		for( int i = 0; i < nodeList.getLength(); i ++ ) {
+			Node node = nodeList.item( i );
+			if( node.getNodeType() == Node.ELEMENT_NODE ) {
+				elements.add( ( Element ) node );
+			}
+		}
+		return elements;
+	}
 
-    /**
-     * Gets an element from the XML
-     * 
-     * @param elementTag
-     * @param fromElement
-     * @return
-     */
-    public static Element getElement(String elementTag, Element fromElement) {
-        Element element = null;
-        NodeList nodeList = fromElement.getElementsByTagName(elementTag);
-        if (nodeList.getLength() > 0) {
-            Node node = nodeList.item(0);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                element = (Element) node;
-            }
-        }
-        return element;
-    }
+	/**
+	 * Gets an element from the XML
+	 * 
+	 * @param elementTag
+	 * @param fromElement
+	 * @return
+	 */
+	public static Element getElement( String elementTag, Element fromElement ) {
+		Element element = null;
+		NodeList nodeList = fromElement.getElementsByTagName( elementTag );
+		if( nodeList.getLength() > 0 ) {
+			Node node = nodeList.item( 0 );
+			if( node.getNodeType() == Node.ELEMENT_NODE ) {
+				element = ( Element ) node;
+			}
+		}
+		return element;
+	}
 
-    /**
-     * Gets an element value
-     * 
-     * @param valueTag
-     * @param fromElement
-     * @return
-     */
-    public static String getTagValue(String valueTag, Element fromElement) {
-        NodeList nodeList = fromElement.getElementsByTagName(valueTag);
-        if (nodeList != null && nodeList.getLength() > 0) {
-            NodeList childList = nodeList.item(0).getChildNodes();
-            if (childList != null && childList.getLength() > 0) {
-                Node node = childList.item(0);
-                return node.getNodeValue();
-            }
-        }
-        return null;
-    }
+	/**
+	 * Gets an element value
+	 * 
+	 * @param valueTag
+	 * @param fromElement
+	 * @return
+	 */
+	public static String getTagValue( String valueTag, Element fromElement ) {
+		NodeList nodeList = fromElement.getElementsByTagName( valueTag );
+		if( nodeList != null && nodeList.getLength() > 0 ) {
+			NodeList childList = nodeList.item( 0 ).getChildNodes();
+			if( childList != null && childList.getLength() > 0 ) {
+				Node node = childList.item( 0 );
+				return node.getNodeValue();
+			}
+		}
+		return null;
+	}
 
-    /**
-     * Creates a new element
-     * 
-     * @param doc
-     * @param tag
-     * @param data
-     * @return
-     */
-    public static Element createElement(Document doc, String tag, String data) {
-        Element receiverEmail = doc.createElement(tag);
-        if (data != null) {
-            Text receiverEmailText = doc.createTextNode(data);
-            receiverEmail.appendChild(receiverEmailText);
-        }
-        return receiverEmail;
-    }
+	/**
+	 * Creates a new element
+	 * 
+	 * @param doc
+	 * @param tag
+	 * @param data
+	 * @return
+	 */
+	public static Element createElement( Document doc, String tag, String data ) {
+		Element receiverEmail = doc.createElement( tag );
+		if( data != null ) {
+			Text receiverEmailText = doc.createTextNode( data );
+			receiverEmail.appendChild( receiverEmailText );
+		}
+		return receiverEmail;
+	}
 }

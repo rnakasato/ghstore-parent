@@ -13,7 +13,7 @@ public abstract class StoreItem extends AbstractDomainEntity {
 	}
 
 	public void setAmount( Integer amount ) {
-		this.amount =amount;
+		this.amount = amount;
 	}
 
 	public Product getProduct() {
@@ -21,7 +21,7 @@ public abstract class StoreItem extends AbstractDomainEntity {
 	}
 
 	public void setProduct( Product product ) {
-		this.product =product;
+		this.product = product;
 	}
 
 	public Double getTotalValue() {
@@ -29,7 +29,7 @@ public abstract class StoreItem extends AbstractDomainEntity {
 	}
 
 	public void setTotalValue( Double totalValue ) {
-		this.totalValue =totalValue;
+		this.totalValue = totalValue;
 	}
 
 	public Long getTotalWeigth() {
@@ -37,7 +37,7 @@ public abstract class StoreItem extends AbstractDomainEntity {
 	}
 
 	public void setTotalWeigth( Long totalWeigth ) {
-		this.totalWeigth =totalWeigth;
+		this.totalWeigth = totalWeigth;
 	}
 
 }

@@ -56,8 +56,8 @@ public class FactoryDAO {
 	private static Map < String, IDAO > daoMap;
 
 	private static void initMap() {
-		if( daoMap ==null ) {
-			daoMap =new HashMap<>();
+		if( daoMap == null ) {
+			daoMap = new HashMap<>();
 			daoMap.put( Product.class.getName(), new ProductDAO() );
 			daoMap.put( StoreCategory.class.getName(), new StoreCategoryDAO() );
 			daoMap.put( Subcategory.class.getName(), new SubcategoryDAO() );
@@ -102,8 +102,8 @@ public class FactoryDAO {
 	 */
 	public static IDAO build( String className ) throws ClassNotFoundException {
 		initMap();
-		IDAO dao =daoMap.get( className );
-		if( dao ==null ) {
+		IDAO dao = daoMap.get( className );
+		if( dao == null ) {
 			throw new ClassNotFoundException();
 		}
 		return dao;

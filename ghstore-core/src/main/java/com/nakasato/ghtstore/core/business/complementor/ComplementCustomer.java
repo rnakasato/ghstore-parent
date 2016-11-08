@@ -12,9 +12,9 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementCustomer extends Complementor < Customer > {
 
-	@ Override
+	@Override
 	public String complement( Customer entity ) {
-		String cpf =entity.getCpf();
+		String cpf = entity.getCpf();
 		entity.setCpf( FormatUtils.getFlatCPF( cpf ) );
 
 		for( Phone phone: entity.getPhoneList() ) {
@@ -29,10 +29,10 @@ public class ComplementCustomer extends Complementor < Customer > {
 		entity.setInsertDate( new Date() );
 		entity.setUpdateDate( new Date() );
 
-		UserTypeDAO userTypeDAO =new UserTypeDAO();
-		UserType type =new UserType();
+		UserTypeDAO userTypeDAO = new UserTypeDAO();
+		UserType type = new UserType();
 		type.setCode( UserType.COD_CUSTOMER );
-		type =userTypeDAO.findByCode( type );
+		type = userTypeDAO.findByCode( type );
 		entity.setUserType( type );
 
 		return null;

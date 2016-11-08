@@ -2,26 +2,26 @@ package br.com.uol.pagseguro.enums;
 
 public enum PaymentMode {
 
-    DEFAULT("default"),
+	DEFAULT( "default" ),
 
-    GATEWAY("gateway");
+	GATEWAY( "gateway" );
 
-    private final String value;
+	private final String value;
 
-    private PaymentMode(String value) {
-        this.value = value;
-    }
+	private PaymentMode( String value ) {
+		this.value = value;
+	}
 
-    public String getValue() {
-        return value;
-    }
+	public String getValue() {
+		return value;
+	}
 
-    public static PaymentMode fromValue(String value) {
-        try {
-            return PaymentMode.valueOf(value.toUpperCase());
-        } catch (Exception e) {
-            return null;
-        }
-    }
+	public static PaymentMode fromValue( String value ) {
+		try {
+			return PaymentMode.valueOf( value.toUpperCase() );
+		} catch( Exception e ) {
+			return null;
+		}
+	}
 
 }

@@ -18,7 +18,7 @@ public abstract class Person extends AbstractDomainEntity {
 	}
 
 	public void setName( String name ) {
-		this.name =name;
+		this.name = name;
 	}
 
 	public String getCpf() {
@@ -30,7 +30,7 @@ public abstract class Person extends AbstractDomainEntity {
 	}
 
 	public void setCpf( String cpf ) {
-		this.cpf =cpf;
+		this.cpf = cpf;
 	}
 
 	public Date getBirthDate() {
@@ -38,7 +38,7 @@ public abstract class Person extends AbstractDomainEntity {
 	}
 
 	public void setBirthDate( Date birthDate ) {
-		this.birthDate =birthDate;
+		this.birthDate = birthDate;
 	}
 
 	public String getSex() {
@@ -46,7 +46,7 @@ public abstract class Person extends AbstractDomainEntity {
 	}
 
 	public void setSex( String sex ) {
-		this.sex =sex;
+		this.sex = sex;
 	}
 
 	public List < Phone > getPhoneList() {
@@ -54,7 +54,7 @@ public abstract class Person extends AbstractDomainEntity {
 	}
 
 	public void setPhoneList( List < Phone > phoneList ) {
-		this.phoneList =phoneList;
+		this.phoneList = phoneList;
 	}
 
 }

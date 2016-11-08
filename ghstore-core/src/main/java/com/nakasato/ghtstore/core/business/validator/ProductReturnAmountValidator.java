@@ -9,21 +9,21 @@ import com.nakasato.ghtstore.core.business.Validator;
 
 public class ProductReturnAmountValidator extends Validator < ProductReturn > {
 
-	@ Override
+	@Override
 	public String validate( ProductReturn entity ) {
-		List < ReturnedItem > returnList =entity.getReturnedItems();
-		if( ListUtils.isListEmpty( returnList ) ) {
-			msg ="Deve haver ao menos um item selecionado e com quantidade definida para devolução";
+		List < ReturnedItem > returnList = entity.getReturnedItems();
+		if( ListUtils.isEmpty( returnList ) ) {
+			msg = "Deve haver ao menos um item selecionado e com quantidade definida para devolução";
 		} else {
-			boolean empty =true;
+			boolean empty = true;
 			for( ReturnedItem returnedItem: returnList ) {
-				if( returnedItem.getAmount() >0 ) {
-					empty =false;
+				if( returnedItem.getAmount() > 0 ) {
+					empty = false;
 					break;
 				}
 			}
 			if( empty ) {
-				msg ="Nenhuma quantidade foi selecionada para devolução";
+				msg = "Nenhuma quantidade foi selecionada para devolução";
 			}
 		}
 		return msg;

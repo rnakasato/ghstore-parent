@@ -39,183 +39,185 @@ import br.com.uol.pagseguro.properties.PagSeguroSystem;
  */
 public class HttpConnection {
 
-    /**
-     * @var Log
-     */
-    private final Log log = new Log(HttpConnection.class);
+	/**
+	 * @var Log
+	 */
+	private final Log log = new Log( HttpConnection.class );
 
-    /**
-     * POST
-     * 
-     * @param urlPS
-     * @param data
-     * @param timeout
-     * @param charset
-     * @return connection
-     * @throws PagSeguroServiceException
-     * 
-     * @deprecated use {@link #post(String, Map, String, String, String)} instead.
-     */
-    @Deprecated
-    public HttpURLConnection post(String urlPS, Map<Object, Object> data, String timeout, String charset)
-            throws PagSeguroServiceException {
+	/**
+	 * POST
+	 * 
+	 * @param urlPS
+	 * @param data
+	 * @param timeout
+	 * @param charset
+	 * @return connection
+	 * @throws PagSeguroServiceException
+	 * 
+	 * @deprecated use {@link #post(String, Map, String, String, String)}
+	 *             instead.
+	 */
+	@Deprecated
+	public HttpURLConnection post( String urlPS, Map < Object, Object > data, String timeout, String charset )
+			throws PagSeguroServiceException {
 
-        return post(urlPS, data, timeout, charset, null);
-    }
+		return post( urlPS, data, timeout, charset, null );
+	}
 
-    /**
-     * POST
-     * 
-     * @param urlPS
-     * @param data
-     * @param timeout
-     * @param charset
-     * @return connection
-     * @throws PagSeguroServiceException
-     */
-    public HttpURLConnection post(String urlPS, Map<Object, Object> data, String timeout, String charset,
-            String acceptHeader) throws PagSeguroServiceException {
+	/**
+	 * POST
+	 * 
+	 * @param urlPS
+	 * @param data
+	 * @param timeout
+	 * @param charset
+	 * @return connection
+	 * @throws PagSeguroServiceException
+	 */
+	public HttpURLConnection post( String urlPS, Map < Object, Object > data, String timeout, String charset,
+			String acceptHeader ) throws PagSeguroServiceException {
 
-        HttpURLConnection connection = getConnection(urlPS, timeout, charset, "POST", acceptHeader);
+		HttpURLConnection connection = getConnection( urlPS, timeout, charset, "POST", acceptHeader );
 
-        try {
-            // Send POST data
-            OutputStream out = connection.getOutputStream();
-            Writer write = new OutputStreamWriter(out, charset);
+		try {
+			// Send POST data
+			OutputStream out = connection.getOutputStream();
+			Writer write = new OutputStreamWriter( out, charset );
 
-            write.write(PagSeguroUtil.urlQuery(data));
+			write.write( PagSeguroUtil.urlQuery( data ) );
 
-            write.close();
-            out.close();
+			write.close();
+			out.close();
 
-            return connection;
-        } catch (IOException e) {
-            log.error("Error when trying execute method connection: " + e.getMessage());
-            throw new PagSeguroServiceException("Error when trying write or set request method", e);
-        }
-    }
+			return connection;
+		} catch( IOException e ) {
+			log.error( "Error when trying execute method connection: " + e.getMessage() );
+			throw new PagSeguroServiceException( "Error when trying write or set request method", e );
+		}
+	}
 
-    /**
-     * Http request method without data
-     * 
-     * @param urlPS
-     * @param timeout
-     * @param charset
-     * @param method
-     * @return
-     * @throws PagSeguroServiceException
-     */
-    @Deprecated
-    public HttpURLConnection httpRequestMethod(String urlPS, String timeout, String charset, String method)
-            throws PagSeguroServiceException {
-        return httpRequestMethod(urlPS, timeout, charset, method, null);
-    }
+	/**
+	 * Http request method without data
+	 * 
+	 * @param urlPS
+	 * @param timeout
+	 * @param charset
+	 * @param method
+	 * @return
+	 * @throws PagSeguroServiceException
+	 */
+	@Deprecated
+	public HttpURLConnection httpRequestMethod( String urlPS, String timeout, String charset, String method )
+			throws PagSeguroServiceException {
+		return httpRequestMethod( urlPS, timeout, charset, method, null );
+	}
 
-    /**
-     * Http request method without data
-     * 
-     * @param urlPS
-     * @param timeout
-     * @param charset
-     * @param method
-     * @return
-     * @throws PagSeguroServiceException
-     */
-    public HttpURLConnection httpRequestMethod(String urlPS, String timeout, String charset, String method,
-            String acceptHeader) throws PagSeguroServiceException {
+	/**
+	 * Http request method without data
+	 * 
+	 * @param urlPS
+	 * @param timeout
+	 * @param charset
+	 * @param method
+	 * @return
+	 * @throws PagSeguroServiceException
+	 */
+	public HttpURLConnection httpRequestMethod( String urlPS, String timeout, String charset, String method,
+			String acceptHeader ) throws PagSeguroServiceException {
 
-        return getConnection(urlPS, timeout, charset, method, acceptHeader);
-    }
+		return getConnection( urlPS, timeout, charset, method, acceptHeader );
+	}
 
-    /**
-     * GET
-     * 
-     * @param urlPS
-     * @param timeout
-     * @param charset
-     * @return connection
-     * @throws PagSeguroServiceException
-     * 
-     * @deprecated use {@link #get(String, String, String, String, String)} instead.
-     */
-    @Deprecated
-    public HttpURLConnection get(String urlPS, String timeout, String charset) throws PagSeguroServiceException {
+	/**
+	 * GET
+	 * 
+	 * @param urlPS
+	 * @param timeout
+	 * @param charset
+	 * @return connection
+	 * @throws PagSeguroServiceException
+	 * 
+	 * @deprecated use {@link #get(String, String, String, String, String)}
+	 *             instead.
+	 */
+	@Deprecated
+	public HttpURLConnection get( String urlPS, String timeout, String charset ) throws PagSeguroServiceException {
 
-        return get(urlPS, timeout, charset, null);
-    }
+		return get( urlPS, timeout, charset, null );
+	}
 
-    /**
-     * GET
-     * 
-     * @param urlPS
-     * @param timeout
-     * @param charset
-     * @return connection
-     * @throws PagSeguroServiceException
-     */
-    public HttpURLConnection get(String urlPS, String timeout, String charset, String acceptHeader)
-            throws PagSeguroServiceException {
+	/**
+	 * GET
+	 * 
+	 * @param urlPS
+	 * @param timeout
+	 * @param charset
+	 * @return connection
+	 * @throws PagSeguroServiceException
+	 */
+	public HttpURLConnection get( String urlPS, String timeout, String charset, String acceptHeader )
+			throws PagSeguroServiceException {
 
-        return getConnection(urlPS, timeout, charset, "GET", acceptHeader);
+		return getConnection( urlPS, timeout, charset, "GET", acceptHeader );
 
-    }
+	}
 
-    /**
-     * Generates a Connection
-     * 
-     * @param urlPS
-     * @param timeout
-     * @param charset
-     * @param method
-     * @return connection
-     * @throws PagSeguroServiceException
-     */
-    private HttpURLConnection getConnection(String urlPS, String timeout, String charset, String method,
-            String acceptHeader) throws PagSeguroServiceException {
-        URL url = null;
-        HttpURLConnection connection = null;
+	/**
+	 * Generates a Connection
+	 * 
+	 * @param urlPS
+	 * @param timeout
+	 * @param charset
+	 * @param method
+	 * @return connection
+	 * @throws PagSeguroServiceException
+	 */
+	private HttpURLConnection getConnection( String urlPS, String timeout, String charset, String method,
+			String acceptHeader ) throws PagSeguroServiceException {
+		URL url = null;
+		HttpURLConnection connection = null;
 
-        try {
+		try {
 
-            // Creates a connection
-            url = new URL(urlPS);
+			// Creates a connection
+			url = new URL( urlPS );
 
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestMethod(method);
-            connection.setRequestProperty("charset", charset);
-            connection.setRequestProperty("Content-type", PagSeguroSystem.getContentTypeFormUrlEncoded());
+			connection = ( HttpURLConnection ) url.openConnection();
+			connection.setDoOutput( true );
+			connection.setDoInput( true );
+			connection.setRequestMethod( method );
+			connection.setRequestProperty( "charset", charset );
+			connection.setRequestProperty( "Content-type", PagSeguroSystem.getContentTypeFormUrlEncoded() );
 
-            if (acceptHeader != null) {
-                connection.setRequestProperty("Accept", acceptHeader);
-            }
+			if( acceptHeader != null ) {
+				connection.setRequestProperty( "Accept", acceptHeader );
+			}
 
-            connection.setRequestProperty("lib-description", "java:" + PagSeguroSystem.getLibversion());
-            connection.setRequestProperty("language-engine-description",
-                    "java:" + PagSeguroSystem.getLanguageEnginedescription());
+			connection.setRequestProperty( "lib-description", "java:" + PagSeguroSystem.getLibversion() );
+			connection.setRequestProperty( "language-engine-description",
+					"java:" + PagSeguroSystem.getLanguageEnginedescription() );
 
-            String moduleVersion = PagSeguroConfig.getModuleVersion();
-            if (moduleVersion != null) {
-                connection.setRequestProperty("module-description", moduleVersion);
-            }
+			String moduleVersion = PagSeguroConfig.getModuleVersion();
+			if( moduleVersion != null ) {
+				connection.setRequestProperty( "module-description", moduleVersion );
+			}
 
-            String cmsVersion = PagSeguroConfig.getCmsVersion();
-            if (cmsVersion != null) {
-                connection.setRequestProperty("cms-description", cmsVersion);
-            }
+			String cmsVersion = PagSeguroConfig.getCmsVersion();
+			if( cmsVersion != null ) {
+				connection.setRequestProperty( "cms-description", cmsVersion );
+			}
 
-            return connection;
+			return connection;
 
-        } catch (MalformedURLException e) {
-            log.error("Error when trying execute method connection: " + e.getMessage());
-            throw new PagSeguroServiceException("Error when trying create Url object", e);
-        } catch (IOException e) {
-            log.error("Error when trying execute method connection: " + e.getMessage());
-            throw new PagSeguroServiceException("Error when trying write or set request method", e);
-        } catch (Exception e) {
-            log.error("Error when trying execute method connection: " + e.getMessage());
-            throw new PagSeguroServiceException("Generic error", e);
-        }
-    }
+		} catch( MalformedURLException e ) {
+			log.error( "Error when trying execute method connection: " + e.getMessage() );
+			throw new PagSeguroServiceException( "Error when trying create Url object", e );
+		} catch( IOException e ) {
+			log.error( "Error when trying execute method connection: " + e.getMessage() );
+			throw new PagSeguroServiceException( "Error when trying write or set request method", e );
+		} catch( Exception e ) {
+			log.error( "Error when trying execute method connection: " + e.getMessage() );
+			throw new PagSeguroServiceException( "Generic error", e );
+		}
+	}
 }

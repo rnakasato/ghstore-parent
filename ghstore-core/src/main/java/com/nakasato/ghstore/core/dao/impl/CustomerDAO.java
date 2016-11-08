@@ -17,16 +17,16 @@ import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
 public class CustomerDAO extends AbstractDAO < Customer > {
 
-	@ Override
+	@Override
 	public List < Customer > find( AbstractDomainEntity filter ) throws Exception {
-		CustomerFilter customerFilter =( CustomerFilter ) filter;
-		List < Customer > customerList =null;
+		CustomerFilter customerFilter = ( CustomerFilter ) filter;
+		List < Customer > customerList = null;
 		try {
 			openSession();
 
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM Customer c" );
-			if( customerFilter.getLoadAddress() !=null &&customerFilter.getLoadAddress() ) {
+			if( customerFilter.getLoadAddress() != null && customerFilter.getLoadAddress() ) {
 				jpql.append( " JOIN FETCH Address a" );
 			}
 			jpql.append( " LEFT JOIN FETCH c.coupons cp" );
@@ -35,12 +35,12 @@ public class CustomerDAO extends AbstractDAO < Customer > {
 				jpql.append( " AND c.username = :username" );
 			}
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
 			if( StringUtils.isNotEmpty( customerFilter.getUserName() ) ) {
 				query.setParameter( "username", customerFilter.getUserName() );
 			}
-			customerList =query.getResultList();
+			customerList = query.getResultList();
 
 			closeSession();
 		} catch( RuntimeException e ) {
@@ -50,18 +50,18 @@ public class CustomerDAO extends AbstractDAO < Customer > {
 		return customerList;
 	}
 
-	@ Override
+	@Override
 	public List < Customer > findAll() throws Exception {
-		List < Customer > customerList =null;
+		List < Customer > customerList = null;
 		try {
 			openSession();
 
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM Customer " );
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
-			customerList =query.getResultList();
+			customerList = query.getResultList();
 
 			closeSession();
 		} catch( RuntimeException e ) {
@@ -96,11 +96,11 @@ public class CustomerDAO extends AbstractDAO < Customer > {
 			// customer.setSex("M");
 			// customer.setUsername("fusilva");
 			// customer.setUpdateDate(new Date());
-			CustomerFilter f =new CustomerFilter();
+			CustomerFilter f = new CustomerFilter();
 			// f.setLoadAddress(true);
-			ICommand cFIndALl =FactoryCommand.build( f, EOperation.FIND );
-			Result rCustomer =cFIndALl.execute();
-			Customer customer =( Customer ) rCustomer.getEntityList().get( 0 );
+			ICommand cFIndALl = FactoryCommand.build( f, EOperation.FIND );
+			Result rCustomer = cFIndALl.execute();
+			Customer customer = ( Customer ) rCustomer.getEntityList().get( 0 );
 			System.out.println( customer.getName() );
 
 			// Phone phone = new Phone();

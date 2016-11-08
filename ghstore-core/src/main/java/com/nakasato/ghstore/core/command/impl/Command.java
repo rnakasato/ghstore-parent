@@ -16,7 +16,7 @@ public abstract class Command < T extends AbstractDomainEntity > implements ICom
 	}
 
 	public void setFacade( IFacade facade ) {
-		this.facade =facade;
+		this.facade = facade;
 	}
 
 	public AbstractDomainEntity getEntity() {
@@ -24,7 +24,7 @@ public abstract class Command < T extends AbstractDomainEntity > implements ICom
 	}
 
 	public void setEntity( AbstractDomainEntity entity ) {
-		this.entity =entity;
+		this.entity = entity;
 	}
 
 	public Integer getParameter() {
@@ -32,7 +32,7 @@ public abstract class Command < T extends AbstractDomainEntity > implements ICom
 	}
 
 	public void setParameter( Integer parameter ) {
-		this.parameter =parameter;
+		this.parameter = parameter;
 	}
 
 	public Filter getFilter() {
@@ -40,7 +40,7 @@ public abstract class Command < T extends AbstractDomainEntity > implements ICom
 	}
 
 	public void setFilter( Filter filter ) {
-		this.filter =filter;
+		this.filter = filter;
 	}
 
 }

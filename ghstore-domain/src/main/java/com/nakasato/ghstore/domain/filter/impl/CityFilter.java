@@ -12,7 +12,7 @@ public class CityFilter extends Filter {
 	}
 
 	public void setStateAcronym( String stateAcronym ) {
-		this.stateAcronym =stateAcronym;
+		this.stateAcronym = stateAcronym;
 	}
 
 	public String getStateName() {
@@ -20,7 +20,7 @@ public class CityFilter extends Filter {
 	}
 
 	public void setStateName( String stateName ) {
-		this.stateName =stateName;
+		this.stateName = stateName;
 	}
 
 	public String getCityName() {
@@ -28,7 +28,7 @@ public class CityFilter extends Filter {
 	}
 
 	public void setCityName( String cityName ) {
-		this.cityName =cityName;
+		this.cityName = cityName;
 	}
 
 }

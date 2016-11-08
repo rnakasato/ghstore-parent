@@ -23,33 +23,31 @@ package br.com.uol.pagseguro.enums;
  */
 public enum PermissionStatus {
 
-	PENDING ("PENDING"),
-	APPROVED ("APPROVED"),
-	DENIED ("DENIED");
-	
+	PENDING( "PENDING" ), APPROVED( "APPROVED" ), DENIED( "DENIED" );
+
 	private String value;
-	
-	private PermissionStatus(String value) {
+
+	private PermissionStatus( String value ) {
 		this.value = value;
 	}
-	
-    public String getValue() {
-        return value;
-    }
-    
-    public static PermissionStatus fromValue(String value) {
 
-        for (PermissionStatus permissionStatus : values()) {
-            if (permissionStatus.value.equals(value)) {
-                return permissionStatus;
-            }
-        }
+	public String getValue() {
+		return value;
+	}
+
+	public static PermissionStatus fromValue( String value ) {
+
+		for( PermissionStatus permissionStatus: values() ) {
+			if( permissionStatus.value.equals( value ) ) {
+				return permissionStatus;
+			}
+		}
 		return null;
-    }
+	}
 
-    @Override
-    public String toString() {
-    	return value;
-    }
+	@Override
+	public String toString() {
+		return value;
+	}
 
 }

@@ -13,17 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nakasato.ghstore.core.util.SaveDirectory;
 
-@ WebServlet( "/resources/*" )
+@WebServlet( "/resources/*" )
 public class ImageServlet extends HttpServlet {
 
-	@ Override
+	@Override
 	protected void doGet( HttpServletRequest request, HttpServletResponse response )
 			throws ServletException, IOException {
-		String filename =URLDecoder.decode( request.getPathInfo().substring( 1 ), "UTF-8" );
-		File file =new File( SaveDirectory.IMG_DIR +filename );
+		String filename = URLDecoder.decode( request.getPathInfo().substring( 1 ), "UTF-8" );
+		File file = new File( SaveDirectory.IMG_DIR + filename );
 		response.setHeader( "Content-Type", getServletContext().getMimeType( filename ) );
 		response.setHeader( "Content-Length", String.valueOf( file.length() ) );
-		response.setHeader( "Content-Disposition", "inline; filename=\"" +filename +"\"" );
+		response.setHeader( "Content-Disposition", "inline; filename=\"" + filename + "\"" );
 		Files.copy( file.toPath(), response.getOutputStream() );
 	}
 

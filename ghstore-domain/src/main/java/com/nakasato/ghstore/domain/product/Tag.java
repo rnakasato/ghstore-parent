@@ -12,7 +12,7 @@ public class Tag extends AbstractDomainEntity {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID =1L;
+	private static final long serialVersionUID = 1L;
 	private List < Product > productList;
 
 	public List < Product > getProductList() {
@@ -20,7 +20,7 @@ public class Tag extends AbstractDomainEntity {
 	}
 
 	public void setProductList( List < Product > productList ) {
-		this.productList =productList;
+		this.productList = productList;
 	}
 
 }

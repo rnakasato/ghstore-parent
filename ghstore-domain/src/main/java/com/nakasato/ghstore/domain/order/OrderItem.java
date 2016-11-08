@@ -10,7 +10,7 @@ public class OrderItem extends StoreItem {
 	}
 
 	public void setOrder( Order order ) {
-		this.order =order;
+		this.order = order;
 	}
 
 }

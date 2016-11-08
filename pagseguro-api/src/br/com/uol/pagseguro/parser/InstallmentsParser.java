@@ -48,72 +48,73 @@ import br.com.uol.pagseguro.xmlparser.XMLParserUtils;
  */
 public class InstallmentsParser {
 
-    /**
-     * PagSeguro Log tool
-     * 
-     * @see Logger
-     */
-    private static Log log = new Log(InstallmentsParser.class);
+	/**
+	 * PagSeguro Log tool
+	 * 
+	 * @see Logger
+	 */
+	private static Log log = new Log( InstallmentsParser.class );
 
-    /**
-     * Parses the XML response form PagSeguro web services
-     * 
-     * @param xmlInputStream
-     * @return
-     * @throws IOException
-     * @throws ParserConfigurationException
-     * @throws ParseException
-     * @throws SAXException
-     */
-    public static Installments readInstallments(InputStream xmlInputStream) //
-            throws IOException, //
-            ParserConfigurationException, //
-            ParseException, //
-            SAXException {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+	/**
+	 * Parses the XML response form PagSeguro web services
+	 * 
+	 * @param xmlInputStream
+	 * @return
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 * @throws ParseException
+	 * @throws SAXException
+	 */
+	public static Installments readInstallments( InputStream xmlInputStream ) //
+			throws IOException, //
+			ParserConfigurationException, //
+			ParseException, //
+			SAXException {
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        InputSource inputSource = new InputSource(xmlInputStream);
-        Document document = documentBuilder.parse(inputSource);
+		InputSource inputSource = new InputSource( xmlInputStream );
+		Document document = documentBuilder.parse( inputSource );
 
-        Element installmentsElement = document.getDocumentElement();
-        List<Installment> installments = new ArrayList<Installment>();
+		Element installmentsElement = document.getDocumentElement();
+		List < Installment > installments = new ArrayList < Installment >();
 
-        InstallmentsParser.log.debug("Parsing installments");
+		InstallmentsParser.log.debug( "Parsing installments" );
 
-        List<Element> installmentElements = XMLParserUtils.getElements("installment", installmentsElement);
-        for (int i = 0; i < installmentElements.size(); i++) {
-            Element element = installmentElements.get(i);
+		List < Element > installmentElements = XMLParserUtils.getElements( "installment", installmentsElement );
+		for( int i = 0; i < installmentElements.size(); i ++ ) {
+			Element element = installmentElements.get( i );
 
-            // setting <installments><installment><cardBrand>
-            String cardBrand = XMLParserUtils.getTagValue("cardBrand", element);
+			// setting <installments><installment><cardBrand>
+			String cardBrand = XMLParserUtils.getTagValue( "cardBrand", element );
 
-            // setting <installments><installment><quantity>
-            String quantity = XMLParserUtils.getTagValue("quantity", element);
+			// setting <installments><installment><quantity>
+			String quantity = XMLParserUtils.getTagValue( "quantity", element );
 
-            // setting <installments><installment><amount>
-            String amount = XMLParserUtils.getTagValue("amount", element);
+			// setting <installments><installment><amount>
+			String amount = XMLParserUtils.getTagValue( "amount", element );
 
-            // setting <installments><installment><totalAmount>
-            String totalAmount = XMLParserUtils.getTagValue("totalAmount", element);
+			// setting <installments><installment><totalAmount>
+			String totalAmount = XMLParserUtils.getTagValue( "totalAmount", element );
 
-            // setting <installments><installment><interestFree>
-            String interestFree = XMLParserUtils.getTagValue("interestFree", element);
+			// setting <installments><installment><interestFree>
+			String interestFree = XMLParserUtils.getTagValue( "interestFree", element );
 
-            // adding item for items list
-            installments.add(new Installment(cardBrand, //
-                    Integer.parseInt(quantity), //
-                    new BigDecimal(amount), //
-                    new BigDecimal(totalAmount), //
-                    Boolean.parseBoolean(interestFree)));
-        }
+			// adding item for items list
+			installments.add( new Installment( cardBrand, //
+					Integer.parseInt( quantity ), //
+					new BigDecimal( amount ), //
+					new BigDecimal( totalAmount ), //
+					Boolean.parseBoolean( interestFree ) ) );
+		}
 
-        return new Installments(CollectionsUtil.createMultiMap(installments, new Translator<Installment, String>() {
+		return new Installments(
+				CollectionsUtil.createMultiMap( installments, new Translator < Installment, String >() {
 
-            public String translate(Installment installment) {
-                return installment.getCardBrand();
-            }
+					public String translate( Installment installment ) {
+						return installment.getCardBrand();
+					}
 
-        }));
-    }
+				} ) );
+	}
 }

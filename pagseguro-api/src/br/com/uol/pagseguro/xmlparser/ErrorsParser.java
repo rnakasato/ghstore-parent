@@ -39,52 +39,52 @@ import br.com.uol.pagseguro.properties.PagSeguroSystem;
  */
 public class ErrorsParser {
 
-    private ErrorsParser() {
-    }
+	private ErrorsParser() {
+	}
 
-    /**
-     * read a response from PagSeguro web service and fill the error list
-     * 
-     * @param xml
-     * @return
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws IOException
-     */
-    public static List<Error> readErrosXml(InputStream xml) throws ParserConfigurationException, SAXException,
-            IOException {
+	/**
+	 * read a response from PagSeguro web service and fill the error list
+	 * 
+	 * @param xml
+	 * @return
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	public static List < Error > readErrosXml( InputStream xml )
+			throws ParserConfigurationException, SAXException, IOException {
 
-        List<Error> errors = new ArrayList<Error>();
+		List < Error > errors = new ArrayList < Error >();
 
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        InputSource is = new InputSource(xml);
-        is.setEncoding(PagSeguroSystem.getPagSeguroEncoding());
-        Document doc = dBuilder.parse(is);
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		InputSource is = new InputSource( xml );
+		is.setEncoding( PagSeguroSystem.getPagSeguroEncoding() );
+		Document doc = dBuilder.parse( is );
 
-        Element errorsElement = doc.getDocumentElement();
-        List<Element> errorElements = XMLParserUtils.getElements("error", errorsElement);
+		Element errorsElement = doc.getDocumentElement();
+		List < Element > errorElements = XMLParserUtils.getElements( "error", errorsElement );
 
-        Error error = null;
-        for (int i = 0; i < errorElements.size(); i++) {
-            error = new Error();
-            Element errorElement = errorElements.get(i);
-            error.setCode(XMLParserUtils.getTagValue("code", errorElement));
-            error.setMessage(XMLParserUtils.getTagValue("message", errorElement));
-            errors.add(error);
-        }
+		Error error = null;
+		for( int i = 0; i < errorElements.size(); i ++ ) {
+			error = new Error();
+			Element errorElement = errorElements.get( i );
+			error.setCode( XMLParserUtils.getTagValue( "code", errorElement ) );
+			error.setMessage( XMLParserUtils.getTagValue( "message", errorElement ) );
+			errors.add( error );
+		}
 
-        return errors;
-    }
+		return errors;
+	}
 
-    public static List<Error> readErrosException(Exception exception) {
+	public static List < Error > readErrosException( Exception exception ) {
 
-        List<Error> errors = new ArrayList<Error>();
-        Error error = new Error("", exception.getMessage());
-        errors.add(error);
+		List < Error > errors = new ArrayList < Error >();
+		Error error = new Error( "", exception.getMessage() );
+		errors.add( error );
 
-        return errors;
+		return errors;
 
-    }
+	}
 
 }

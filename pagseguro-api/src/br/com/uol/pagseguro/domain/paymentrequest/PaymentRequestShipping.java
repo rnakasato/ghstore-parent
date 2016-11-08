@@ -25,84 +25,86 @@ import java.math.BigDecimal;
  */
 public class PaymentRequestShipping {
 
-    /**
-     * Shipping cost - fixed value
-     * 
-     * Optional if PaymentRequestShippingPackage not null
-     */
-    private BigDecimal cost;
+	/**
+	 * Shipping cost - fixed value
+	 * 
+	 * Optional if PaymentRequestShippingPackage not null
+	 */
+	private BigDecimal cost;
 
-    /**
-     * Shipping cost - value to calculate
-     * 
-     * Optional if cost not null
-     */
-    private PaymentRequestShippingPackage paymentRequestShippingPackage;
+	/**
+	 * Shipping cost - value to calculate
+	 * 
+	 * Optional if cost not null
+	 */
+	private PaymentRequestShippingPackage paymentRequestShippingPackage;
 
-    /**
-     * Initializes a new instance of the PaymentRequestShipping class
-     */
-    public PaymentRequestShipping() {
+	/**
+	 * Initializes a new instance of the PaymentRequestShipping class
+	 */
+	public PaymentRequestShipping() {
 
-    }
+	}
 
-    /**
-     * Initializes a new instance of the PaymentRequestShipping class with the specified arguments
-     * 
-     * @param cost
-     */
-    public PaymentRequestShipping(BigDecimal cost) {
-        this.cost = cost;
-    }
+	/**
+	 * Initializes a new instance of the PaymentRequestShipping class with the
+	 * specified arguments
+	 * 
+	 * @param cost
+	 */
+	public PaymentRequestShipping( BigDecimal cost ) {
+		this.cost = cost;
+	}
 
-    /**
-     * Initializes a new instance of the PaymentRequestShipping class with the specified arguments
-     * 
-     * @param paymentRequestShippingPackage
-     */
-    public PaymentRequestShipping(PaymentRequestShippingPackage paymentRequestShippingPackage) {
-        this.paymentRequestShippingPackage = paymentRequestShippingPackage;
-    }
+	/**
+	 * Initializes a new instance of the PaymentRequestShipping class with the
+	 * specified arguments
+	 * 
+	 * @param paymentRequestShippingPackage
+	 */
+	public PaymentRequestShipping( PaymentRequestShippingPackage paymentRequestShippingPackage ) {
+		this.paymentRequestShippingPackage = paymentRequestShippingPackage;
+	}
 
-    /**
-     * @return the cost
-     */
-    public BigDecimal getCost() {
-        return cost;
-    }
+	/**
+	 * @return the cost
+	 */
+	public BigDecimal getCost() {
+		return cost;
+	}
 
-    /**
-     * Sets the shipping cost (fixed value) of this shipping
-     * 
-     * @param cost
-     *            the cost to set
-     */
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
+	/**
+	 * Sets the shipping cost (fixed value) of this shipping
+	 * 
+	 * @param cost
+	 *            the cost to set
+	 */
+	public void setCost( BigDecimal cost ) {
+		this.cost = cost;
+	}
 
-    /**
-     * @return the paymentRequestPackage
-     */
-    public PaymentRequestShippingPackage getPaymentRequestShippingPackage() {
-        return paymentRequestShippingPackage;
-    }
+	/**
+	 * @return the paymentRequestPackage
+	 */
+	public PaymentRequestShippingPackage getPaymentRequestShippingPackage() {
+		return paymentRequestShippingPackage;
+	}
 
-    /**
-     * Sets the shipping cost (value to calculate) of this shipping
-     * 
-     * @param paymentRequestShippingPackage
-     */
-    public void setPaymentRequestPackage(PaymentRequestShippingPackage paymentRequestShippingPackage) {
-        this.paymentRequestShippingPackage = paymentRequestShippingPackage;
-    }
+	/**
+	 * Sets the shipping cost (value to calculate) of this shipping
+	 * 
+	 * @param paymentRequestShippingPackage
+	 */
+	public void setPaymentRequestPackage( PaymentRequestShippingPackage paymentRequestShippingPackage ) {
+		this.paymentRequestShippingPackage = paymentRequestShippingPackage;
+	}
 
-    /**
-     * @return string
-     */
-    @Override
-    public String toString() {
-        return "PaymentRequestShipping [cost=" + cost + ", paymentRequestShippingPackage="
-                + paymentRequestShippingPackage + "]";
-    }
+	/**
+	 * @return string
+	 */
+	@Override
+	public String toString() {
+		return "PaymentRequestShipping [cost=" + cost + ", paymentRequestShippingPackage="
+				+ paymentRequestShippingPackage + "]";
+	}
 }

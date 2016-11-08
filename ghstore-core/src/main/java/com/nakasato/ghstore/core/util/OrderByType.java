@@ -6,13 +6,13 @@ public class OrderByType implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8166856040663113474L;
+	private static final long serialVersionUID = - 8166856040663113474L;
 	private Integer id;
 	private String description;
 
 	public OrderByType( Integer id, String description ) {
-		this.id =id;
-		this.description =description;
+		this.id = id;
+		this.description = description;
 	}
 
 	public Integer getId() {
@@ -20,7 +20,7 @@ public class OrderByType implements Serializable {
 	}
 
 	public void setId( Integer id ) {
-		this.id =id;
+		this.id = id;
 	}
 
 	public String getDescription() {
@@ -28,7 +28,7 @@ public class OrderByType implements Serializable {
 	}
 
 	public void setDescription( String description ) {
-		this.description =description;
+		this.description = description;
 	}
 
 }

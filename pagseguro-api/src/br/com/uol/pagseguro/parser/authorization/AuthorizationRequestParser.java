@@ -37,78 +37,78 @@ import br.com.uol.pagseguro.xmlparser.XMLParserUtils;
  * Parses Authorization and responses
  */
 public class AuthorizationRequestParser {
-	
+
 	private AuthorizationRequestParser() {
 
-    }
-	
+	}
+
 	/**
-     * 
-     * @param authorization
-     * @return mixed
-     */
-    public static Map<Object, Object> getData(AuthorizationRequest authorization) {
+	 * 
+	 * @param authorization
+	 * @return mixed
+	 */
+	public static Map < Object, Object > getData( AuthorizationRequest authorization ) {
 
-        Map<Object, Object> data = new HashMap<Object, Object>();
+		Map < Object, Object > data = new HashMap < Object, Object >();
 
-        /**
-         * REFERENCE
-         */
-        if (authorization.getReference() != null) {
-            data.put("reference", authorization.getReference());
-        }
+		/**
+		 * REFERENCE
+		 */
+		if( authorization.getReference() != null ) {
+			data.put( "reference", authorization.getReference() );
+		}
 
-        /**
-         * REDIRECT URL
-         */
-        if (authorization.getRedirectURL() != null && !"".equals(authorization.getRedirectURL())) {
-            data.put("redirectURL", authorization.getRedirectURL());
-        }
-        /**
-         * NOTIFICATION URL
-         */
-        if (authorization.getNotificationURL() != null && !"".equals(authorization.getNotificationURL())) {
-            data.put("notificationURL", authorization.getNotificationURL());
-        }
-        
-        /**
-         * PERMISSIONS
-         */
-        if (authorization.getPermissions() != null && authorization.getPermissions().size() > 0) {
-        	
-        	String permissionList = "";
-        	boolean first = true;
-            for (String permission: authorization.getPermissions()) {
+		/**
+		 * REDIRECT URL
+		 */
+		if( authorization.getRedirectURL() != null && ! "".equals( authorization.getRedirectURL() ) ) {
+			data.put( "redirectURL", authorization.getRedirectURL() );
+		}
+		/**
+		 * NOTIFICATION URL
+		 */
+		if( authorization.getNotificationURL() != null && ! "".equals( authorization.getNotificationURL() ) ) {
+			data.put( "notificationURL", authorization.getNotificationURL() );
+		}
 
-                if (permission != null && !"".equals(permission)) {
-                    
-                	if(first == true){
-                		permissionList += permission;
-                	} else {
-                		permissionList += "," + permission;
-                	}
-                	first = false;
-                }
-            }
-            
-            data.put("permissions", permissionList);
+		/**
+		 * PERMISSIONS
+		 */
+		if( authorization.getPermissions() != null && authorization.getPermissions().size() > 0 ) {
 
-        }
+			String permissionList = "";
+			boolean first = true;
+			for( String permission: authorization.getPermissions() ) {
 
-        return data;
+				if( permission != null && ! "".equals( permission ) ) {
 
-    }
-    
-    public static String readSuccessXml(HttpURLConnection connection) throws ParserConfigurationException,
-	    SAXException, IOException {
-	
+					if( first == true ) {
+						permissionList += permission;
+					} else {
+						permissionList += "," + permission;
+					}
+					first = false;
+				}
+			}
+
+			data.put( "permissions", permissionList );
+
+		}
+
+		return data;
+
+	}
+
+	public static String readSuccessXml( HttpURLConnection connection )
+			throws ParserConfigurationException, SAXException, IOException {
+
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		org.w3c.dom.Document doc = dBuilder.parse(connection.getInputStream());
+		org.w3c.dom.Document doc = dBuilder.parse( connection.getInputStream() );
 		Element authorizationReturnElement = doc.getDocumentElement();
-		
-		return XMLParserUtils.getTagValue("code", authorizationReturnElement);
-	
+
+		return XMLParserUtils.getTagValue( "code", authorizationReturnElement );
+
 	}
 
 }

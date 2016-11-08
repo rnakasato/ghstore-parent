@@ -7,10 +7,10 @@ import com.nakasato.ghtstore.core.business.Filler;
 
 public class PaymentCreationFiller extends Filler {
 
-	@ Override
+	@Override
 	public String fill( AbstractDomainEntity entity ) {
-		PaymentCreationCarrier carrier =( PaymentCreationCarrier ) entity;
-		String paymentUrl =PaymentUtil.createPayment( carrier.getCart(), carrier.getLoggedUser() );
+		PaymentCreationCarrier carrier = ( PaymentCreationCarrier ) entity;
+		String paymentUrl = PaymentUtil.createPayment( carrier.getCart(), carrier.getLoggedUser() );
 		carrier.setPaymentAddress( paymentUrl );
 
 		return null;

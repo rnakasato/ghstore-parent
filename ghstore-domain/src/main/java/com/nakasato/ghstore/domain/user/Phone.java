@@ -13,7 +13,7 @@ public class Phone extends AbstractDomainEntity {
 	}
 
 	public void setDdd( String ddd ) {
-		this.ddd =ddd;
+		this.ddd = ddd;
 	}
 
 	public String getNumber() {
@@ -21,7 +21,7 @@ public class Phone extends AbstractDomainEntity {
 	}
 
 	public void setNumber( String number ) {
-		this.number =number;
+		this.number = number;
 	}
 
 	public User getUser() {
@@ -29,24 +29,24 @@ public class Phone extends AbstractDomainEntity {
 	}
 
 	public void setUser( User user ) {
-		this.user =user;
+		this.user = user;
 	}
 
-	@ Override
+	@Override
 	public int hashCode() {
-		int hash =1;
-		if( number !=null ) {
-			hash =number.hashCode() /97;
+		int hash = 1;
+		if( number != null ) {
+			hash = number.hashCode() / 97;
 		}
 		return hash;
 	}
 
-	@ Override
+	@Override
 	public boolean equals( Object obj ) {
 		return super.equals( obj );
 	}
 
-	@ Override
+	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return super.isEmpty();

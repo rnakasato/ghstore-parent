@@ -14,7 +14,7 @@ public class City extends AbstractDomainEntity {
 	}
 
 	public void setName( String name ) {
-		this.name =name;
+		this.name = name;
 	}
 
 	public State getState() {
@@ -22,7 +22,7 @@ public class City extends AbstractDomainEntity {
 	}
 
 	public void setState( State state ) {
-		this.state =state;
+		this.state = state;
 	}
 
 	public String getUf() {
@@ -30,14 +30,14 @@ public class City extends AbstractDomainEntity {
 	}
 
 	public void setUf( String uf ) {
-		this.uf =uf;
+		this.uf = uf;
 	}
 
-	@ Override
+	@Override
 	public boolean isEmpty() {
-		boolean result =false;
-		if( StringUtils.isEmpty( name ) &&super.isEmpty() ) {
-			result =true;
+		boolean result = false;
+		if( StringUtils.isEmpty( name ) && super.isEmpty() ) {
+			result = true;
 		}
 		return result;
 	}

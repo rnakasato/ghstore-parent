@@ -25,100 +25,102 @@ import java.util.Date;
  */
 public class AutomaticDebit {
 
-    /**
-     * Bank name
-     */
-    private String bank;
+	/**
+	 * Bank name
+	 */
+	private String bank;
 
-    /**
-     * Date in which the automatic debit was scheduled
-     */
-    private Date scheduledDate;
+	/**
+	 * Date in which the automatic debit was scheduled
+	 */
+	private Date scheduledDate;
 
-    /**
-     * Date in which the automatic debit was made
-     */
-    private Date debitDate;
+	/**
+	 * Date in which the automatic debit was made
+	 */
+	private Date debitDate;
 
-    /**
-     * Initializes a new instance of the AutomaticDebit class with the specified arguments
-     *
-     * @param bank
-     * @param scheduledDate
-     * @param debitDate
-     */
-    public AutomaticDebit(final String bank, final Date scheduledDate, final Date debitDate) {
+	/**
+	 * Initializes a new instance of the AutomaticDebit class with the specified
+	 * arguments
+	 *
+	 * @param bank
+	 * @param scheduledDate
+	 * @param debitDate
+	 */
+	public AutomaticDebit( final String bank, final Date scheduledDate, final Date debitDate ) {
 
-        this.bank = bank;
-        this.scheduledDate = scheduledDate;
-        this.debitDate = debitDate;
-    }
+		this.bank = bank;
+		this.scheduledDate = scheduledDate;
+		this.debitDate = debitDate;
+	}
 
-    /**
-     * Initializes a new instance of the AutomaticDebit class
-     */
-    public AutomaticDebit() {
+	/**
+	 * Initializes a new instance of the AutomaticDebit class
+	 */
+	public AutomaticDebit() {
 
-    }
+	}
 
-    /**
-     * @return bank
-     */
-    public String getBank() {
-        return bank;
-    }
+	/**
+	 * @return bank
+	 */
+	public String getBank() {
+		return bank;
+	}
 
-    /**
-     * Sets the bank name
-     *
-     * @param bank
-     */
-    public void setBank(final String bank) {
-        this.bank = bank;
-    }
+	/**
+	 * Sets the bank name
+	 *
+	 * @param bank
+	 */
+	public void setBank( final String bank ) {
+		this.bank = bank;
+	}
 
-    /**
-     * @return scheduleDate
-     */
-    public Date getScheduledDate() {
-        return scheduledDate;
-    }
+	/**
+	 * @return scheduleDate
+	 */
+	public Date getScheduledDate() {
+		return scheduledDate;
+	}
 
-    /**
-     * Sets the scheduled date
-     * @param scheduledDate
-     */
-    public void setScheduledDate(final Date scheduledDate) {
-        this.scheduledDate = scheduledDate;
-    }
+	/**
+	 * Sets the scheduled date
+	 * 
+	 * @param scheduledDate
+	 */
+	public void setScheduledDate( final Date scheduledDate ) {
+		this.scheduledDate = scheduledDate;
+	}
 
-    /**
-     * @return debitDate
-     */
-    public Date getDebitDate() {
-        return debitDate;
-    }
+	/**
+	 * @return debitDate
+	 */
+	public Date getDebitDate() {
+		return debitDate;
+	}
 
-    /**
-     * Sets the debit date
-     *
-     * @param debitDate
-     */
-    public void setDebitDate(final Date debitDate) {
-        this.debitDate = debitDate;
-    }
+	/**
+	 * Sets the debit date
+	 *
+	 * @param debitDate
+	 */
+	public void setDebitDate( final Date debitDate ) {
+		this.debitDate = debitDate;
+	}
 
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder()//
-                .append("AutomaticDebit [")//
-                .append("bank=\"")//
-                .append(bank + "\"")//
-                .append(",scheduleDate=")//
-                .append(scheduledDate)//
-                .append(",debitDate=")//
-                .append(debitDate)//
-                .append("]");
-        return builder.toString();
-    }
+	@Override
+	public String toString() {
+		final StringBuilder builder = new StringBuilder()//
+				.append( "AutomaticDebit [" )//
+				.append( "bank=\"" )//
+				.append( bank + "\"" )//
+				.append( ",scheduleDate=" )//
+				.append( scheduledDate )//
+				.append( ",debitDate=" )//
+				.append( debitDate )//
+				.append( "]" );
+		return builder.toString();
+	}
 }

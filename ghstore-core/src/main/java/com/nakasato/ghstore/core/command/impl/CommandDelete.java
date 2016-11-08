@@ -6,9 +6,9 @@ import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
 public class CommandDelete < T extends AbstractDomainEntity > extends Command < T > {
 
-	@ Override
+	@Override
 	public Result < T > execute() {
-		facade =new Facade < T >();
+		facade = new Facade < T >();
 		return facade.delete( entity );
 	}
 

@@ -15,7 +15,7 @@ public class ReturnedItem extends AbstractDomainEntity {
 	}
 
 	public void setProduct( Product product ) {
-		this.product =product;
+		this.product = product;
 	}
 
 	public Integer getAmount() {
@@ -23,7 +23,7 @@ public class ReturnedItem extends AbstractDomainEntity {
 	}
 
 	public void setAmount( Integer amount ) {
-		this.amount =amount;
+		this.amount = amount;
 	}
 
 	public Double getTotalValue() {
@@ -31,7 +31,7 @@ public class ReturnedItem extends AbstractDomainEntity {
 	}
 
 	public void setTotalValue( Double totalValue ) {
-		this.totalValue =totalValue;
+		this.totalValue = totalValue;
 	}
 
 	public Integer getOriginalAmount() {
@@ -39,7 +39,7 @@ public class ReturnedItem extends AbstractDomainEntity {
 	}
 
 	public void setOriginalAmount( Integer originalAmount ) {
-		this.originalAmount =originalAmount;
+		this.originalAmount = originalAmount;
 	}
 
 	public ProductReturn getProductReturn() {
@@ -47,7 +47,7 @@ public class ReturnedItem extends AbstractDomainEntity {
 	}
 
 	public void setProductReturn( ProductReturn productReturn ) {
-		this.productReturn =productReturn;
+		this.productReturn = productReturn;
 	}
 
 }

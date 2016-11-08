@@ -8,7 +8,7 @@ public class Subcategory extends AbstractCategory implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8119304615902369918L;
+	private static final long serialVersionUID = - 8119304615902369918L;
 	private StoreCategory storeCategory;
 
 	public StoreCategory getStoreCategory() {
@@ -16,14 +16,15 @@ public class Subcategory extends AbstractCategory implements Serializable {
 	}
 
 	public void setStoreCategory( StoreCategory storeCategory ) {
-		this.storeCategory =storeCategory;
+		this.storeCategory = storeCategory;
 	}
 
-	@ Override
+	@Override
 	public boolean isEmpty() {
-		boolean isEmpty =false;
-		if( this.getId() ==null &&StringUtils.isEmpty( this.getDescription() ) &&this.getStoreCategory().isEmpty() ) {
-			isEmpty =true;
+		boolean isEmpty = false;
+		if( this.getId() == null && StringUtils.isEmpty( this.getDescription() )
+				&& this.getStoreCategory().isEmpty() ) {
+			isEmpty = true;
 		}
 		return isEmpty;
 	}

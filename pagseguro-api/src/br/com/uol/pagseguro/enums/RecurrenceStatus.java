@@ -19,25 +19,25 @@
 package br.com.uol.pagseguro.enums;
 
 public enum RecurrenceStatus {
-    SCHEDULED('S'), INITIATED('I'), PAUSED('P'), FINISHED('F');
+	SCHEDULED( 'S' ), INITIATED( 'I' ), PAUSED( 'P' ), FINISHED( 'F' );
 
-    private final Character id;
+	private final Character id;
 
-    private RecurrenceStatus(Character id) {
-        this.id = id;
-    }
+	private RecurrenceStatus( Character id ) {
+		this.id = id;
+	}
 
-    public Character getId() {
-        return this.id;
-    }
+	public Character getId() {
+		return this.id;
+	}
 
-    public static RecurrenceStatus fromValue(Character id) {
-        for (RecurrenceStatus value : RecurrenceStatus.values()) {
-            if (value.getId().equals(id)) {
-                return value;
-            }
-        }
+	public static RecurrenceStatus fromValue( Character id ) {
+		for( RecurrenceStatus value: RecurrenceStatus.values() ) {
+			if( value.getId().equals( id ) ) {
+				return value;
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

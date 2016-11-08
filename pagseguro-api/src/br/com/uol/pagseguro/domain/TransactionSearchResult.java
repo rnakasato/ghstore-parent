@@ -26,143 +26,143 @@ import java.util.List;
  */
 public class TransactionSearchResult {
 
-    /**
-     * Date/time when this search was executed
-     */
-    private Date date;
+	/**
+	 * Date/time when this search was executed
+	 */
+	private Date date;
 
-    /**
-     * Transactions in the current page
-     */
-    private int resultsInThisPage;
+	/**
+	 * Transactions in the current page
+	 */
+	private int resultsInThisPage;
 
-    /**
-     * Total number of pages
-     */
-    private int totalPages;
+	/**
+	 * Total number of pages
+	 */
+	private int totalPages;
 
-    /**
-     * Current page.
-     */
-    private int page;
+	/**
+	 * Current page.
+	 */
+	private int page;
 
-    /**
-     * Transactions in this page
-     */
-    private List<TransactionSummary> transactions;
+	/**
+	 * Transactions in this page
+	 */
+	private List < TransactionSummary > transactions;
 
-    /**
-     * @return the date/time when this search was executed
-     */
-    public Date getDate() {
-        return this.date;
-    }
+	/**
+	 * @return the date/time when this search was executed
+	 */
+	public Date getDate() {
+		return this.date;
+	}
 
-    /**
-     * Set the date/time when this search was executed
-     * 
-     * @param date
-     */
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	/**
+	 * Set the date/time when this search was executed
+	 * 
+	 * @param date
+	 */
+	public void setDate( Date date ) {
+		this.date = date;
+	}
 
-    /**
-     * @return the number of Transactions in the current page
-     */
-    public int getResultsInThisPage() {
-        return this.resultsInThisPage;
-    }
+	/**
+	 * @return the number of Transactions in the current page
+	 */
+	public int getResultsInThisPage() {
+		return this.resultsInThisPage;
+	}
 
-    /**
-     * Sets the number of Transactions in the current page
-     * 
-     * @param resultsInThisPage
-     */
-    public void setResultsInThisPage(int resultsInThisPage) {
-        this.resultsInThisPage = resultsInThisPage;
-    }
+	/**
+	 * Sets the number of Transactions in the current page
+	 * 
+	 * @param resultsInThisPage
+	 */
+	public void setResultsInThisPage( int resultsInThisPage ) {
+		this.resultsInThisPage = resultsInThisPage;
+	}
 
-    /**
-     * @return the total number of pages
-     */
-    public int getTotalPages() {
-        return this.totalPages;
-    }
+	/**
+	 * @return the total number of pages
+	 */
+	public int getTotalPages() {
+		return this.totalPages;
+	}
 
-    /**
-     * Sets the total number of pages
-     * 
-     * @param totalPages
-     */
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
-    }
+	/**
+	 * Sets the total number of pages
+	 * 
+	 * @param totalPages
+	 */
+	public void setTotalPages( int totalPages ) {
+		this.totalPages = totalPages;
+	}
 
-    /**
-     * @return the current page number
-     */
-    public int getPage() {
-        return this.page;
-    }
+	/**
+	 * @return the current page number
+	 */
+	public int getPage() {
+		return this.page;
+	}
 
-    /**
-     * Sets the current page number
-     * 
-     * @param page
-     */
-    public void setPage(int page) {
-        this.page = page;
-    }
+	/**
+	 * Sets the current page number
+	 * 
+	 * @param page
+	 */
+	public void setPage( int page ) {
+		this.page = page;
+	}
 
-    /**
-     * @return the Transactions in this page
-     * @see TransactionSummary
-     */
-    public List<TransactionSummary> getTransactionSummaries() {
+	/**
+	 * @return the Transactions in this page
+	 * @see TransactionSummary
+	 */
+	public List < TransactionSummary > getTransactionSummaries() {
 
-        if (this.transactions == null) {
-            this.transactions = new ArrayList<TransactionSummary>();
-        }
+		if( this.transactions == null ) {
+			this.transactions = new ArrayList < TransactionSummary >();
+		}
 
-        return this.transactions;
+		return this.transactions;
 
-    }
+	}
 
-    /**
-     * Sets the transactions in this page
-     * 
-     * @param transactionSummaries
-     */
-    public void setTransactions(List<TransactionSummary> transactions) {
-        this.transactions = transactions;
-    }
+	/**
+	 * Sets the transactions in this page
+	 * 
+	 * @param transactionSummaries
+	 */
+	public void setTransactions( List < TransactionSummary > transactions ) {
+		this.transactions = transactions;
+	}
 
-    /**
-     * @param transactionSummary
-     */
-    public void addTransactionSummary(TransactionSummary transactions) {
-        this.getTransactionSummaries().add(transactions);
-    }
+	/**
+	 * @param transactionSummary
+	 */
+	public void addTransactionSummary( TransactionSummary transactions ) {
+		this.getTransactionSummaries().add( transactions );
+	}
 
-    /**
-     * @return String a string that represents the current object
-     */
-    @Override
-    public String toString() {
+	/**
+	 * @return String a string that represents the current object
+	 */
+	@Override
+	public String toString() {
 
-        StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 
-        sb.append("TransactionSearchResult(Date=");
-        sb.append(date);
-        sb.append(",CurrentPage=");
-        sb.append(page);
-        sb.append(",TotalPages=");
-        sb.append(totalPages);
-        sb.append(",Transactions in this page=");
-        sb.append(transactions != null ? transactions.size() : 0);
+		sb.append( "TransactionSearchResult(Date=" );
+		sb.append( date );
+		sb.append( ",CurrentPage=" );
+		sb.append( page );
+		sb.append( ",TotalPages=" );
+		sb.append( totalPages );
+		sb.append( ",Transactions in this page=" );
+		sb.append( transactions != null ? transactions.size(): 0 );
 
-        return sb.toString();
-    }
+		return sb.toString();
+	}
 
 }

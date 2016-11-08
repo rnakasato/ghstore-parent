@@ -10,24 +10,24 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementDiscountOrder extends Complementor < Order > {
 
-	@ Override
+	@Override
 	public String complement( Order entity ) {
 		try {
 			if( entity.isDiscount() ) {
-				Customer customer =entity.getCustomer();
-				List < DiscountCoupon > coupons =customer.getCoupons();
-				DiscountCoupon usedCoupon =null;
-				if( coupons !=null ) {
+				Customer customer = entity.getCustomer();
+				List < DiscountCoupon > coupons = customer.getCoupons();
+				DiscountCoupon usedCoupon = null;
+				if( coupons != null ) {
 					for( DiscountCoupon discountCoupon: coupons ) {
-						if( !discountCoupon.isUsed() ) {
-							usedCoupon =discountCoupon;
+						if( ! discountCoupon.isUsed() ) {
+							usedCoupon = discountCoupon;
 							usedCoupon.setUsed( true );
 							break;
 						}
 					}
 				}
-				if( usedCoupon !=null ) {
-					DiscountCouponDAO dao =new DiscountCouponDAO();
+				if( usedCoupon != null ) {
+					DiscountCouponDAO dao = new DiscountCouponDAO();
 					dao.update( usedCoupon );
 				}
 			}

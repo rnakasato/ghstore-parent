@@ -31,15 +31,15 @@ import com.nakasato.ghstore.web.mb.BaseMB;
 import com.nakasato.ghstore.web.mb.user.LoginMB;
 import com.nakasato.web.util.Redirector;
 
-@ ManagedBean( name ="userSessionMB" )
-@ SessionScoped
+@ManagedBean( name = "userSessionMB" )
+@SessionScoped
 public class UserSessionMB extends BaseMB {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID =1L;
+	private static final long serialVersionUID = 1L;
 
-	@ ManagedProperty( value ="#{loginMB}" )
+	@ManagedProperty( value = "#{loginMB}" )
 	protected LoginMB loginMB;
 
 	private Customer loggedUser;
@@ -59,24 +59,24 @@ public class UserSessionMB extends BaseMB {
 	// total sem desconto para caso desmarque opção de desconto
 	private Double temporaryTotal;
 
-	@ PostConstruct
+	@PostConstruct
 	public void init() {
-		if( cart ==null ) {
-			cart =new ShoppingCart();
+		if( cart == null ) {
+			cart = new ShoppingCart();
 			cart.setShoppingCartList( new ArrayList<>() );
 			cart.setTotalValue( 0d );
 			cart.setTotalWeight( 0L );
 			cart.setProcess( false );
 		}
 
-		FacesContext context =FacesContext.getCurrentInstance();
-		loggedUser =( Customer ) loginMB.getLoggedUser();
-		useCoupon =false;
+		FacesContext context = FacesContext.getCurrentInstance();
+		loggedUser = ( Customer ) loginMB.getLoggedUser();
+		useCoupon = false;
 	}
 
 	public void setLogged() {
-		loggedUser =( Customer ) loginMB.getLoggedUser();
-		if( loggedUser !=null ) {
+		loggedUser = ( Customer ) loginMB.getLoggedUser();
+		if( loggedUser != null ) {
 			cart.setOwner( loggedUser );
 		}
 	}
@@ -85,8 +85,8 @@ public class UserSessionMB extends BaseMB {
 	 * Utilizado para carregar os valores totais antes de selecionar o valor
 	 */
 	public void setFirstAddress() {
-		loggedUser =( Customer ) loginMB.getLoggedUser();
-		if( loggedUser !=null &&cart.getAddress() ==null ) {
+		loggedUser = ( Customer ) loginMB.getLoggedUser();
+		if( loggedUser != null && cart.getAddress() == null ) {
 			cart.setAddress( loggedUser.getDeliveryAddressList().get( 0 ) );
 		}
 	}
@@ -95,7 +95,7 @@ public class UserSessionMB extends BaseMB {
 	 * Utilizado para carregar os valores totais antes de selecionar o valor
 	 */
 	public void setNotUseCoupon() {
-		useCoupon =false;
+		useCoupon = false;
 	}
 
 	public void removeItem( ShoppingCartItem cartItem ) {
@@ -103,45 +103,45 @@ public class UserSessionMB extends BaseMB {
 		if( useCoupon ) {
 			cart.setTotalValue( new Double( temporaryTotal ) );
 		}
-		cart.setTotalValue( cart.getTotalValue() -cartItem.getTotalValue() );
-		cart.setTotalWeight( cart.getTotalWeight() -cartItem.getTotalWeigth() );
+		cart.setTotalValue( cart.getTotalValue() - cartItem.getTotalValue() );
+		cart.setTotalWeight( cart.getTotalWeight() - cartItem.getTotalWeigth() );
 
 	}
 
 	public void setUpdateItem( ShoppingCartItem cartItem ) {
-		changeItem =cartItem;
-		newAmount =new Integer( cartItem.getAmount() );
+		changeItem = cartItem;
+		newAmount = new Integer( cartItem.getAmount() );
 	}
 
 	public void saveNewItemAmount() {
 
-		Double totalValue =null;
+		Double totalValue = null;
 		// recupera peso e valor total
-		totalValue =changeItem.getTotalValue();
+		totalValue = changeItem.getTotalValue();
 
-		Long totalWeight =changeItem.getTotalWeigth().longValue();
+		Long totalWeight = changeItem.getTotalWeigth().longValue();
 		changeItem.setAmount( newAmount );
 
 		// remove o peso e o valor total do item do carrinho
-		Double cartValue =null;
+		Double cartValue = null;
 		if( useCoupon ) {
-			cartValue =temporaryTotal;
+			cartValue = temporaryTotal;
 		} else {
-			cartValue =cart.getTotalValue();
+			cartValue = cart.getTotalValue();
 		}
 
-		Long cartWeight =cart.getTotalWeight();
+		Long cartWeight = cart.getTotalWeight();
 
-		cartValue -=totalValue;
-		cartWeight -=totalWeight;
+		cartValue -= totalValue;
+		cartWeight -= totalWeight;
 
 		// recalcula totais do item
-		totalValue =changeItem.getProduct().getPrice() *newAmount;
-		totalWeight =changeItem.getProduct().getWeight().longValue() *newAmount;
+		totalValue = changeItem.getProduct().getPrice() * newAmount;
+		totalWeight = changeItem.getProduct().getWeight().longValue() * newAmount;
 
-		cartValue +=totalValue;
-		cartWeight +=totalWeight;
-		if( newAmount ==0 ) {
+		cartValue += totalValue;
+		cartWeight += totalWeight;
+		if( newAmount == 0 ) {
 			cart.getShoppingCartList().remove( changeItem );
 		} else {
 			changeItem.setTotalValue( totalValue );
@@ -153,19 +153,19 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void addAmount() {
-		if( newAmount <changeItem.getProduct().getStock() ) {
-			newAmount =newAmount +1;
+		if( newAmount < changeItem.getProduct().getStock() ) {
+			newAmount = newAmount + 1;
 		}
 	}
 
 	public void removeAmount() {
-		if( newAmount >0 ) {
-			newAmount =newAmount -1;
+		if( newAmount > 0 ) {
+			newAmount = newAmount - 1;
 		}
 	}
 
 	public void finishPayment() {
-		if( !loginMB.isLoggedIn() ) {
+		if( ! loginMB.isLoggedIn() ) {
 			addMessage( "Login obrigatório para finalizar pagamento!" );
 		} else {
 			try {
@@ -174,15 +174,15 @@ public class UserSessionMB extends BaseMB {
 				} else {
 					cart.setDiscount( false );
 				}
-				if( this.cart !=null && !ListUtils.isListEmpty( cart.getShoppingCartList() ) ) {
+				if( this.cart != null && ! ListUtils.isEmpty( cart.getShoppingCartList() ) ) {
 
-					PaymentCreationCarrier carrier =new PaymentCreationCarrier();
+					PaymentCreationCarrier carrier = new PaymentCreationCarrier();
 					carrier.setLoggedUser( loggedUser );
 					carrier.setCart( cart );
-					ICommand commandFind =FactoryCommand.build( carrier, EOperation.FIND );
+					ICommand commandFind = FactoryCommand.build( carrier, EOperation.FIND );
 					commandFind.execute();
 
-					String pagseguroPage =carrier.getPaymentAddress();
+					String pagseguroPage = carrier.getPaymentAddress();
 					cart.setProcess( true );
 					Redirector.redirectToExternalPage( FacesContext.getCurrentInstance().getExternalContext(),
 							pagseguroPage );
@@ -199,38 +199,38 @@ public class UserSessionMB extends BaseMB {
 
 	public void setDiscount() {
 		if( useCoupon ) {
-			if( cart.getTotalValue() !=null ) {
-				temporaryTotal =new Double( cart.getTotalValue() );
-				cart.setTotalValue( new Double( temporaryTotal -( temporaryTotal *0.1 ) ) );
+			if( cart.getTotalValue() != null ) {
+				temporaryTotal = new Double( cart.getTotalValue() );
+				cart.setTotalValue( new Double( temporaryTotal - ( temporaryTotal * 0.1 ) ) );
 			}
 		} else {
 			cart.setTotalValue( new Double( temporaryTotal ) );
-			temporaryTotal =null;
+			temporaryTotal = null;
 		}
 	}
 
 	public void processOrder() {
 
-		if( StringUtils.isNotEmpty( transactionCode ) &&cart.isProcess() ) {
+		if( StringUtils.isNotEmpty( transactionCode ) && cart.isProcess() ) {
 			try {
-				Order order =Parser.parseShoppingCartToOrder( cart );
+				Order order = Parser.parseShoppingCartToOrder( cart );
 				order.setTransactionCode( transactionCode );
-				ICommand commandSave =FactoryCommand.build( order, EOperation.SAVE );
-				Result result =commandSave.execute();
+				ICommand commandSave = FactoryCommand.build( order, EOperation.SAVE );
+				Result result = commandSave.execute();
 				if( StringUtils.isNotEmpty( result.getMsg() ) ) {
 					addMessage( result.getMsg() );
 				} else {
-					cart =new ShoppingCart();
+					cart = new ShoppingCart();
 					cart.setShoppingCartList( new ArrayList<>() );
 					cart.setTotalValue( 0d );
 					cart.setTotalWeight( 0L );
 					cart.setOwner( loggedUser );
 					cart.setProcess( false );
-					Address address =loggedUser.getDeliveryAddressList().get( 0 );
+					Address address = loggedUser.getDeliveryAddressList().get( 0 );
 
 					cart.setAddress( address );
-					transactionCode =null;
-					useCoupon =false;
+					transactionCode = null;
+					useCoupon = false;
 				}
 
 			} catch( ClassNotFoundException e ) {
@@ -242,85 +242,85 @@ public class UserSessionMB extends BaseMB {
 	public void addCartItem( Product product, Integer amount ) {
 		FacesMessage msg;
 
-		if( amount >0 ) {
-			List < ShoppingCartItem > itemList =cart.getShoppingCartList();
-			boolean alreadyExists =false;
-			int index =0;
+		if( amount > 0 ) {
+			List < ShoppingCartItem > itemList = cart.getShoppingCartList();
+			boolean alreadyExists = false;
+			int index = 0;
 			for( ShoppingCartItem item: itemList ) {
-				if( item.getProduct().getId() ==product.getId() ) {
-					alreadyExists =true;
+				if( item.getProduct().getId() == product.getId() ) {
+					alreadyExists = true;
 					break;
 				}
-				index ++;
+				index ++ ;
 			}
 
 			// remove peso e valor do total do carrinho
-			Double totalValue =0D;
-			if( temporaryTotal !=null ) {
-				totalValue =temporaryTotal;
+			Double totalValue = 0D;
+			if( temporaryTotal != null ) {
+				totalValue = temporaryTotal;
 			} else {
-				totalValue =cart.getTotalValue();
+				totalValue = cart.getTotalValue();
 			}
 
 			if( alreadyExists ) {
-				ShoppingCartItem cartItem =itemList.get( index );
+				ShoppingCartItem cartItem = itemList.get( index );
 
-				cart.setTotalValue( totalValue -cartItem.getTotalValue() );
-				cart.setTotalWeight( cart.getTotalWeight() -cartItem.getTotalWeigth() );
+				cart.setTotalValue( totalValue - cartItem.getTotalValue() );
+				cart.setTotalWeight( cart.getTotalWeight() - cartItem.getTotalWeigth() );
 
 				// carrega novos valores do item
-				Integer totalAmount =cartItem.getAmount() +amount;
+				Integer totalAmount = cartItem.getAmount() + amount;
 				cartItem.setAmount( totalAmount );
-				cartItem.setTotalValue( totalAmount *cartItem.getProduct().getPrice() );
-				Long weight =cartItem.getProduct().getWeight().longValue();
-				cartItem.setTotalWeigth( totalAmount *weight );
+				cartItem.setTotalValue( totalAmount * cartItem.getProduct().getPrice() );
+				Long weight = cartItem.getProduct().getWeight().longValue();
+				cartItem.setTotalWeigth( totalAmount * weight );
 
-				cart.setTotalValue( totalValue +cartItem.getTotalValue() );
-				cart.setTotalWeight( cart.getTotalWeight() +cartItem.getTotalWeigth() );
+				cart.setTotalValue( totalValue + cartItem.getTotalValue() );
+				cart.setTotalWeight( cart.getTotalWeight() + cartItem.getTotalWeigth() );
 			} else {
-				ShoppingCartItem cartItem =new ShoppingCartItem();
+				ShoppingCartItem cartItem = new ShoppingCartItem();
 				cartItem.setAmount( amount );
 				cartItem.setProduct( product );
-				cartItem.setTotalValue( amount *product.getPrice() );
+				cartItem.setTotalValue( amount * product.getPrice() );
 
-				Long weight =product.getWeight().longValue();
-				cartItem.setTotalWeigth( amount *weight );
+				Long weight = product.getWeight().longValue();
+				cartItem.setTotalWeigth( amount * weight );
 
 				cart.addItem( cartItem );
 
-				cart.setTotalValue( totalValue +cartItem.getTotalValue() );
+				cart.setTotalValue( totalValue + cartItem.getTotalValue() );
 
-				cart.setTotalWeight( cart.getTotalWeight() +cartItem.getTotalWeigth() );
+				cart.setTotalWeight( cart.getTotalWeight() + cartItem.getTotalWeigth() );
 
 			}
-			temporaryTotal =new Double( cart.getTotalValue() );
+			temporaryTotal = new Double( cart.getTotalValue() );
 
-			StringBuilder message =new StringBuilder();
+			StringBuilder message = new StringBuilder();
 			message.append( "Produto adicionado no carrinho de compras" );
-			msg =new FacesMessage( "Produto adicionado ao carrinho" );
+			msg = new FacesMessage( "Produto adicionado ao carrinho" );
 			FacesContext.getCurrentInstance().addMessage( null, msg );
 		} else {
-			msg =new FacesMessage( "Deve ser adicionado ao menos uma unidade do produto para adicionar ao carrinho" );
+			msg = new FacesMessage( "Deve ser adicionado ao menos uma unidade do produto para adicionar ao carrinho" );
 			FacesContext.getCurrentInstance().addMessage( null, msg );
 		}
 	}
 
 	public String couponTotal() {
-		String total =null;
+		String total = null;
 		try {
-			if( loggedUser !=null &&loggedUser.getCoupons() !=null ) {
-				DiscountCouponFilter filter =new DiscountCouponFilter();
+			if( loggedUser != null && loggedUser.getCoupons() != null ) {
+				DiscountCouponFilter filter = new DiscountCouponFilter();
 				filter.setCustomerId( loggedUser.getId() );
 				filter.setUsed( false );
-				ICommand commandFind =FactoryCommand.build( filter, EOperation.FIND );
-				List < DiscountCoupon > coupons =commandFind.execute().getEntityList();
-				Integer totalCoupon =coupons.size();
-				total =totalCoupon.toString();
+				ICommand commandFind = FactoryCommand.build( filter, EOperation.FIND );
+				List < DiscountCoupon > coupons = commandFind.execute().getEntityList();
+				Integer totalCoupon = coupons.size();
+				total = totalCoupon.toString();
 			} else {
-				total ="0";
+				total = "0";
 			}
 		} catch( ClassNotFoundException e ) {
-			total ="0";
+			total = "0";
 			e.printStackTrace();
 		}
 
@@ -332,7 +332,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setCart( ShoppingCart cart ) {
-		this.cart =cart;
+		this.cart = cart;
 	}
 
 	public ShoppingCartItem getSelectedItem() {
@@ -340,7 +340,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setSelectedItem( ShoppingCartItem selectedItem ) {
-		this.selectedItem =selectedItem;
+		this.selectedItem = selectedItem;
 	}
 
 	public Customer getLoggedUser() {
@@ -348,7 +348,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setLoggedUser( Customer loggedUser ) {
-		this.loggedUser =loggedUser;
+		this.loggedUser = loggedUser;
 	}
 
 	public String getOldPage() {
@@ -356,7 +356,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setOldPage( String oldPage ) {
-		this.oldPage =oldPage;
+		this.oldPage = oldPage;
 	}
 
 	public String getNewPage() {
@@ -364,7 +364,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setNewPage( String newPage ) {
-		this.newPage =newPage;
+		this.newPage = newPage;
 	}
 
 	public LoginMB getLoginMB() {
@@ -372,7 +372,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setLoginMB( LoginMB loginMB ) {
-		this.loginMB =loginMB;
+		this.loginMB = loginMB;
 	}
 
 	public ShoppingCartItem getChangeItem() {
@@ -380,7 +380,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setChangeItem( ShoppingCartItem changeItem ) {
-		this.changeItem =changeItem;
+		this.changeItem = changeItem;
 	}
 
 	public Integer getNewAmount() {
@@ -388,7 +388,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setNewAmount( Integer newAmount ) {
-		this.newAmount =newAmount;
+		this.newAmount = newAmount;
 	}
 
 	public Address getNewAddress() {
@@ -396,7 +396,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setNewAddress( Address newAddress ) {
-		this.newAddress =newAddress;
+		this.newAddress = newAddress;
 	}
 
 	public String getTransactionCode() {
@@ -404,10 +404,10 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setTransactionCode( String transactionCode ) {
-		this.transactionCode =transactionCode;
+		this.transactionCode = transactionCode;
 	}
 
-	@ Override
+	@Override
 	public void clearFilter() {
 		// TODO Auto-generated method stub
 
@@ -418,7 +418,7 @@ public class UserSessionMB extends BaseMB {
 	}
 
 	public void setUseCoupon( boolean useCoupon ) {
-		this.useCoupon =useCoupon;
+		this.useCoupon = useCoupon;
 	}
 
 }

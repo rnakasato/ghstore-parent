@@ -6,7 +6,7 @@ import com.nakasato.ghstore.domain.product.Product;
 
 public class CompareProductBySell implements Comparator < Product > {
 
-	@ Override
+	@Override
 	public int compare( Product o1, Product o2 ) {
 		// TODO Auto-generated method stub
 		return 0;

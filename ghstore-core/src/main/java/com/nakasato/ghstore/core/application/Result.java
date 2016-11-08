@@ -25,7 +25,7 @@ public class Result < T extends AbstractDomainEntity > {
 	 *            Atributo da Classe
 	 */
 	public void setMsg( String msg ) {
-		this.msg =msg;
+		this.msg = msg;
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class Result < T extends AbstractDomainEntity > {
 	 *            Atributo da Classe
 	 */
 	public void setEntityList( List < T > entityList ) {
-		this.entityList =entityList;
+		this.entityList = entityList;
 
 	}
 }

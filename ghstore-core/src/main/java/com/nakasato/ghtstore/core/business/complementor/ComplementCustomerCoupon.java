@@ -10,18 +10,18 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementCustomerCoupon extends Complementor < ProductExchange > {
 
-	@ Override
+	@Override
 	public String complement( ProductExchange entity ) {
 		try {
-			Customer customer =entity.getOrder().getCustomer();
+			Customer customer = entity.getOrder().getCustomer();
 
-			DiscountCoupon coupon =new DiscountCoupon();
+			DiscountCoupon coupon = new DiscountCoupon();
 			coupon.setCustomer( customer );
 			coupon.setOrder( entity.getOrder() );
 			coupon.setUsed( false );
 			coupon.setInsertDate( new Date() );
 
-			DiscountCouponDAO dao =new DiscountCouponDAO();
+			DiscountCouponDAO dao = new DiscountCouponDAO();
 			dao.save( coupon );
 
 		} catch( Exception e ) {

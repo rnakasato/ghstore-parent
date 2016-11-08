@@ -16,24 +16,24 @@ import com.nakasato.ghtstore.core.business.Filler;
 
 public class StoreCategoryFiller extends Filler {
 
-	@ Override
+	@Override
 	public String fill( AbstractDomainEntity entity ) {
 		ICommand command;
 		try {
-			if( entity !=null &&entity instanceof Product ) {
+			if( entity != null && entity instanceof Product ) {
 
-				Product product =( Product ) entity;
-				if( product.getStoreCategory() !=null &&( product.getStoreCategory().getId() !=null
-						|| !StringUtils.isEmpty( product.getStoreCategory().getDescription() ) ) ) {
+				Product product = ( Product ) entity;
+				if( product.getStoreCategory() != null && ( product.getStoreCategory().getId() != null
+						|| ! StringUtils.isEmpty( product.getStoreCategory().getDescription() ) ) ) {
 
-					StoreCategoryFilter filter =new StoreCategoryFilter();
+					StoreCategoryFilter filter = new StoreCategoryFilter();
 					filter.setId( product.getStoreCategory().getId() );
 					filter.setDescription( product.getStoreCategory().getDescription() );
-					command =new FactoryCommand().build( filter, EOperation.FIND );
-					List < AbstractDomainEntity > storeCategoryList =command.execute().getEntityList();
+					command = new FactoryCommand().build( filter, EOperation.FIND );
+					List < AbstractDomainEntity > storeCategoryList = command.execute().getEntityList();
 
-					if( !ListUtils.isListEmpty( storeCategoryList ) ) {
-						StoreCategory storeCategory =( StoreCategory ) storeCategoryList.get( 0 );
+					if( ! ListUtils.isEmpty( storeCategoryList ) ) {
+						StoreCategory storeCategory = ( StoreCategory ) storeCategoryList.get( 0 );
 						product.setStoreCategory( storeCategory );
 					}
 				}

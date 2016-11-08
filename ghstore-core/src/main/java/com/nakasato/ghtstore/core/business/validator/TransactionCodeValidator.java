@@ -10,24 +10,24 @@ import com.nakasato.ghtstore.core.business.Validator;
 
 public class TransactionCodeValidator extends Validator < Order > {
 
-	@ Override
+	@Override
 	public String validate( Order order ) {
-		boolean hasError =false;
+		boolean hasError = false;
 		try {
-			OrderDAO dao =new OrderDAO();
-			OrderFilter filter =new OrderFilter();
+			OrderDAO dao = new OrderDAO();
+			OrderFilter filter = new OrderFilter();
 			filter.setTransactionCode( order.getTransactionCode() );
-			List < Order > orderList =dao.find( filter );
-			if( !ListUtils.isListEmpty( orderList ) ) {
-				hasError =true;
+			List < Order > orderList = dao.find( filter );
+			if( ! ListUtils.isEmpty( orderList ) ) {
+				hasError = true;
 			}
 		} catch( Exception e ) {
-			hasError =true;
+			hasError = true;
 			e.printStackTrace();
 		}
 
 		if( hasError ) {
-			msg ="Já existe um pedido para o código de transação";
+			msg = "Já existe um pedido para o código de transação";
 		}
 
 		return msg;

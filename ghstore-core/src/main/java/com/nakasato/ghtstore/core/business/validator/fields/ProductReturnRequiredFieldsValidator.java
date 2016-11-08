@@ -7,7 +7,7 @@ import com.nakasato.ghtstore.core.business.FieldsValidator;
 
 public class ProductReturnRequiredFieldsValidator extends FieldsValidator < ProductReturn > {
 
-	@ Override
+	@Override
 	public String validate( ProductReturn entity ) {
 		if( StringUtils.isEmpty( entity.getReason() ) ) {
 			appendMsg( "Motivo" );

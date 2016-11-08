@@ -26,63 +26,63 @@ import br.com.uol.pagseguro.enums.PaymentMethodType;
  */
 public class PaymentMethod {
 
-    /**
-     * Payment method type
-     */
-    private PaymentMethodType type;
+	/**
+	 * Payment method type
+	 */
+	private PaymentMethodType type;
 
-    /**
-     * Payment method code
-     */
-    private PaymentMethodCode code;
+	/**
+	 * Payment method code
+	 */
+	private PaymentMethodCode code;
 
-    /**
-     * Initializes a new instance of the PaymentMethod class
-     */
-    public PaymentMethod() {
-    }
+	/**
+	 * Initializes a new instance of the PaymentMethod class
+	 */
+	public PaymentMethod() {
+	}
 
-    /**
-     * Initializes a new instance of the PaymentMethod class
-     * 
-     * @param type
-     * @param code
-     */
-    public PaymentMethod(PaymentMethodType type, PaymentMethodCode code) {
-        this.type = type;
-        this.code = code;
-    }
+	/**
+	 * Initializes a new instance of the PaymentMethod class
+	 * 
+	 * @param type
+	 * @param code
+	 */
+	public PaymentMethod( PaymentMethodType type, PaymentMethodCode code ) {
+		this.type = type;
+		this.code = code;
+	}
 
-    /**
-     * @return the payment method type
-     */
-    public PaymentMethodType getType() {
-        return this.type;
-    }
+	/**
+	 * @return the payment method type
+	 */
+	public PaymentMethodType getType() {
+		return this.type;
+	}
 
-    /**
-     * Sets the payment method type
-     * 
-     * @param type
-     */
-    public void setType(PaymentMethodType type) {
-        this.type = type;
-    }
+	/**
+	 * Sets the payment method type
+	 * 
+	 * @param type
+	 */
+	public void setType( PaymentMethodType type ) {
+		this.type = type;
+	}
 
-    /**
-     * @return the payment method code
-     */
-    public PaymentMethodCode getCode() {
-        return this.code;
-    }
+	/**
+	 * @return the payment method code
+	 */
+	public PaymentMethodCode getCode() {
+		return this.code;
+	}
 
-    /**
-     * Sets the payment method code
-     * 
-     * @param code
-     */
-    public void setCode(PaymentMethodCode code) {
-        this.code = code;
-    }
+	/**
+	 * Sets the payment method code
+	 * 
+	 * @param code
+	 */
+	public void setCode( PaymentMethodCode code ) {
+		this.code = code;
+	}
 
 }

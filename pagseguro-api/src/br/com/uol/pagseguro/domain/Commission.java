@@ -25,63 +25,63 @@ import java.math.BigDecimal;
  */
 public class Commission {
 
-    /**
-     * Rate
-     */
-    private BigDecimal rate;
+	/**
+	 * Rate
+	 */
+	private BigDecimal rate;
 
-    /**
-     * Description
-     */
-    private String description;
+	/**
+	 * Description
+	 */
+	private String description;
 
-    /**
-     * Initializes a new instance of the Commission class
-     */
-    public Commission() {
-    }
+	/**
+	 * Initializes a new instance of the Commission class
+	 */
+	public Commission() {
+	}
 
-    /**
-     * Initializes a new instance of the Commission class
-     * 
-     * @param rate
-     * @param description
-     */
-    public Commission(BigDecimal rate, String description) {
-        this.rate = rate;
-        this.description = description;
-    }
+	/**
+	 * Initializes a new instance of the Commission class
+	 * 
+	 * @param rate
+	 * @param description
+	 */
+	public Commission( BigDecimal rate, String description ) {
+		this.rate = rate;
+		this.description = description;
+	}
 
-    /**
-     * @return the rate
-     */
-    public BigDecimal getRate() {
-        return this.rate;
-    }
+	/**
+	 * @return the rate
+	 */
+	public BigDecimal getRate() {
+		return this.rate;
+	}
 
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
-    /**
-     * Sets the area code
-     * 
-     * @param areaCode
-     */
-    public void setAreaCode(BigDecimal rate) {
-        this.rate = rate;
-    }
+	/**
+	 * Sets the area code
+	 * 
+	 * @param areaCode
+	 */
+	public void setAreaCode( BigDecimal rate ) {
+		this.rate = rate;
+	}
 
-    /**
-     * Sets the description
-     * 
-     * @param description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * Sets the description
+	 * 
+	 * @param description
+	 */
+	public void setDescription( String description ) {
+		this.description = description;
+	}
 
 }

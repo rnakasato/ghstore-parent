@@ -27,56 +27,56 @@ import java.util.List;
  */
 public class Parameter {
 
-    /**
-     * List of ParameterItem
-     */
-    private List<ParameterItem> items;
+	/**
+	 * List of ParameterItem
+	 */
+	private List < ParameterItem > items;
 
-    /**
-     * Construct Default
-     */
-    public Parameter() {
-    }
+	/**
+	 * Construct Default
+	 */
+	public Parameter() {
+	}
 
-    /**
-     * Construct Parameter
-     * 
-     * @param items
-     */
-    public Parameter(List<ParameterItem> items) {
-        if (!items.isEmpty()) {
-            this.items = items;
-        }
-    }
+	/**
+	 * Construct Parameter
+	 * 
+	 * @param items
+	 */
+	public Parameter( List < ParameterItem > items ) {
+		if( ! items.isEmpty() ) {
+			this.items = items;
+		}
+	}
 
-    /**
-     * Add Item
-     * 
-     * @param parameterItem
-     */
-    public void addItem(ParameterItem parameterItem) {
-        this.getItems().add(parameterItem);
-    }
+	/**
+	 * Add Item
+	 * 
+	 * @param parameterItem
+	 */
+	public void addItem( ParameterItem parameterItem ) {
+		this.getItems().add( parameterItem );
+	}
 
-    /**
-     * Get Items
-     * 
-     * @return list ParameterItem
-     */
-    public List<ParameterItem> getItems() {
-        if (this.items == null) {
-            this.items = new ArrayList<ParameterItem>();
-        }
+	/**
+	 * Get Items
+	 * 
+	 * @return list ParameterItem
+	 */
+	public List < ParameterItem > getItems() {
+		if( this.items == null ) {
+			this.items = new ArrayList < ParameterItem >();
+		}
 
-        return this.items;
-    }
+		return this.items;
+	}
 
-    /**
-     * Set Items
-     * 
-     * @param items
-     */
-    public void setItems(List<ParameterItem> items) {
-        this.items = items;
-    }
+	/**
+	 * Set Items
+	 * 
+	 * @param items
+	 */
+	public void setItems( List < ParameterItem > items ) {
+		this.items = items;
+	}
 }

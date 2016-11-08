@@ -12,7 +12,7 @@ public class CustomerFilter extends Filter {
 	}
 
 	public void setLoadAddress( Boolean loadAddress ) {
-		this.loadAddress =loadAddress;
+		this.loadAddress = loadAddress;
 	}
 
 	public Boolean getLoadOrder() {
@@ -20,7 +20,7 @@ public class CustomerFilter extends Filter {
 	}
 
 	public void setLoadOrder( Boolean loadOrder ) {
-		this.loadOrder =loadOrder;
+		this.loadOrder = loadOrder;
 	}
 
 	public String getUserName() {
@@ -28,7 +28,7 @@ public class CustomerFilter extends Filter {
 	}
 
 	public void setUserName( String userName ) {
-		this.userName =userName;
+		this.userName = userName;
 	}
 
 }

@@ -29,135 +29,135 @@ import br.com.uol.pagseguro.enums.RecurrenceStatus;
  */
 public class RecurrenceTransaction {
 
-    /** Recurrence code */
-    private String code;
+	/** Recurrence code */
+	private String code;
 
-    /** Recurrence status */
-    private RecurrenceStatus status;
+	/** Recurrence status */
+	private RecurrenceStatus status;
 
-    /** Recurrence period */
-    private RecurrencePeriod period;
+	/** Recurrence period */
+	private RecurrencePeriod period;
 
-    /** Payment requests quantity */
-    private Integer paymentRequestsQuantity;
+	/** Payment requests quantity */
+	private Integer paymentRequestsQuantity;
 
-    /** Recurrence initial date */
-    private Date initialDate;
+	/** Recurrence initial date */
+	private Date initialDate;
 
-    /** Transaction payment request */
-    private PaymentRequest paymentRequest;
+	/** Transaction payment request */
+	private PaymentRequest paymentRequest;
 
-    /**
-     * Initializes a new instance of the RecurrenceTransaction class
-     */
-    public RecurrenceTransaction() {
+	/**
+	 * Initializes a new instance of the RecurrenceTransaction class
+	 */
+	public RecurrenceTransaction() {
 
-        this.paymentRequest = new PaymentRequest();
-    }
+		this.paymentRequest = new PaymentRequest();
+	}
 
-    /**
-     * @return the code
-     */
-    public String getCode() {
-        return code;
-    }
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
 
-    /**
-     * Sets the code
-     * 
-     * @param code
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
+	/**
+	 * Sets the code
+	 * 
+	 * @param code
+	 */
+	public void setCode( String code ) {
+		this.code = code;
+	}
 
-    /**
-     * @return the status
-     */
-    public RecurrenceStatus getStatus() {
-        return status;
-    }
+	/**
+	 * @return the status
+	 */
+	public RecurrenceStatus getStatus() {
+		return status;
+	}
 
-    /**
-     * Sets the status
-     * 
-     * @param status
-     */
-    public void setStatus(RecurrenceStatus status) {
-        this.status = status;
-    }
+	/**
+	 * Sets the status
+	 * 
+	 * @param status
+	 */
+	public void setStatus( RecurrenceStatus status ) {
+		this.status = status;
+	}
 
-    /**
-     * @return the period
-     */
-    public RecurrencePeriod getPeriod() {
-        return period;
-    }
+	/**
+	 * @return the period
+	 */
+	public RecurrencePeriod getPeriod() {
+		return period;
+	}
 
-    /**
-     * Sets the period
-     * 
-     * @param period
-     */
-    public void setPeriod(RecurrencePeriod period) {
-        this.period = period;
-    }
+	/**
+	 * Sets the period
+	 * 
+	 * @param period
+	 */
+	public void setPeriod( RecurrencePeriod period ) {
+		this.period = period;
+	}
 
-    /**
-     * @return the paymentRequestsQuantity
-     */
-    public Integer getPaymentRequestsQuantity() {
-        return paymentRequestsQuantity;
-    }
+	/**
+	 * @return the paymentRequestsQuantity
+	 */
+	public Integer getPaymentRequestsQuantity() {
+		return paymentRequestsQuantity;
+	}
 
-    /**
-     * Sets the payment requests quantity
-     * 
-     * @param paymentRequestsQuantity
-     */
-    public void setPaymentRequestsQuantity(Integer paymentRequestsQuantity) {
-        this.paymentRequestsQuantity = paymentRequestsQuantity;
-    }
+	/**
+	 * Sets the payment requests quantity
+	 * 
+	 * @param paymentRequestsQuantity
+	 */
+	public void setPaymentRequestsQuantity( Integer paymentRequestsQuantity ) {
+		this.paymentRequestsQuantity = paymentRequestsQuantity;
+	}
 
-    /**
-     * @return the initialDate
-     */
-    public Date getInitialDate() {
-        return initialDate;
-    }
+	/**
+	 * @return the initialDate
+	 */
+	public Date getInitialDate() {
+		return initialDate;
+	}
 
-    /**
-     * Sets the initial date
-     * 
-     * @param initialDate
-     */
-    public void setInitialDate(Date initialDate) {
-        this.initialDate = initialDate;
-    }
+	/**
+	 * Sets the initial date
+	 * 
+	 * @param initialDate
+	 */
+	public void setInitialDate( Date initialDate ) {
+		this.initialDate = initialDate;
+	}
 
-    /**
-     * @return the paymentRequest
-     */
-    public PaymentRequest getPaymentRequest() {
-        return paymentRequest;
-    }
+	/**
+	 * @return the paymentRequest
+	 */
+	public PaymentRequest getPaymentRequest() {
+		return paymentRequest;
+	}
 
-    /**
-     * Sets the payment request
-     * 
-     * @param paymentRequest
-     */
-    public void setPaymentRequest(PaymentRequest paymentRequest) {
-        this.paymentRequest = paymentRequest;
-    }
+	/**
+	 * Sets the payment request
+	 * 
+	 * @param paymentRequest
+	 */
+	public void setPaymentRequest( PaymentRequest paymentRequest ) {
+		this.paymentRequest = paymentRequest;
+	}
 
-    /**
-     * @return string
-     */
-    @Override
-    public String toString() {
-        return "RecurrenceTransaction [code=" + code + ", status=" + status + ", period=" + period
-                + ", paymentRequestQuantity=" + paymentRequestsQuantity + ", initialDate=" + initialDate
-                + ", paymentRequest=" + paymentRequest + "]";
-    }
+	/**
+	 * @return string
+	 */
+	@Override
+	public String toString() {
+		return "RecurrenceTransaction [code=" + code + ", status=" + status + ", period=" + period
+				+ ", paymentRequestQuantity=" + paymentRequestsQuantity + ", initialDate=" + initialDate
+				+ ", paymentRequest=" + paymentRequest + "]";
+	}
 }

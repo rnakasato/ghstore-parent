@@ -12,12 +12,12 @@ import com.nakasato.ghtstore.core.business.Validator;
  */
 public class PriceValidator extends Validator {
 
-	@ Override
+	@Override
 	public String validate( AbstractDomainEntity entity ) {
-		Product p =( Product ) entity;
-		msg =null;
-		if( p.getPrice() <0 ) {
-			msg ="O preço de venda deve ser maior do que 0";
+		Product p = ( Product ) entity;
+		msg = null;
+		if( p.getPrice() < 0 ) {
+			msg = "O preço de venda deve ser maior do que 0";
 		}
 		return msg;
 	}

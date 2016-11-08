@@ -13,7 +13,7 @@ public class ProductFilter extends Filter {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID =1L;
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String code;
 	private StoreCategory category;
@@ -27,11 +27,11 @@ public class ProductFilter extends Filter {
 	private List < StoreCategory > storeCategoryList;
 
 	public ProductFilter() {
-		category =new StoreCategory();
-		subcategory =new Subcategory();
+		category = new StoreCategory();
+		subcategory = new Subcategory();
 		subcategory.setStoreCategory( new StoreCategory() );
-		subcategoryList =new ArrayList<>();
-		storeCategoryList =new ArrayList<>();
+		subcategoryList = new ArrayList<>();
+		storeCategoryList = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -39,7 +39,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setName( String name ) {
-		this.name =name;
+		this.name = name;
 	}
 
 	public StoreCategory getCategory() {
@@ -47,7 +47,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setCategory( StoreCategory category ) {
-		this.category =category;
+		this.category = category;
 	}
 
 	public Subcategory getSubcategory() {
@@ -55,7 +55,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setSubcategory( Subcategory subcategory ) {
-		this.subcategory =subcategory;
+		this.subcategory = subcategory;
 	}
 
 	public Double getPrice() {
@@ -63,7 +63,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setPrice( Double price ) {
-		this.price =price;
+		this.price = price;
 	}
 
 	public Integer getStock() {
@@ -71,7 +71,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setStock( Integer stock ) {
-		this.stock =stock;
+		this.stock = stock;
 	}
 
 	public Integer getStatus() {
@@ -79,7 +79,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setStatus( Integer status ) {
-		this.status =status;
+		this.status = status;
 	}
 
 	public Product getProduct() {
@@ -87,7 +87,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setProduct( Product product ) {
-		this.product =product;
+		this.product = product;
 	}
 
 	public List < Subcategory > getSubcategoryList() {
@@ -95,7 +95,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setSubcategoryList( List < Subcategory > subcategoryList ) {
-		this.subcategoryList =subcategoryList;
+		this.subcategoryList = subcategoryList;
 	}
 
 	public List < StoreCategory > getStoreCategoryList() {
@@ -103,7 +103,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setStoreCategoryList( List < StoreCategory > storeCategoryList ) {
-		this.storeCategoryList =storeCategoryList;
+		this.storeCategoryList = storeCategoryList;
 	}
 
 	public List < String > getSelectedSubcategoryIds() {
@@ -111,7 +111,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setSelectedSubcategoryIds( List < String > selectedSubcategoryIds ) {
-		this.selectedSubcategoryIds =selectedSubcategoryIds;
+		this.selectedSubcategoryIds = selectedSubcategoryIds;
 	}
 
 	public String getCode() {
@@ -119,7 +119,7 @@ public class ProductFilter extends Filter {
 	}
 
 	public void setCode( String code ) {
-		this.code =code;
+		this.code = code;
 	}
 
 }

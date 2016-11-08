@@ -6,13 +6,13 @@ import br.com.uol.pagseguro.enums.PermissionStatus;
 import br.com.uol.pagseguro.enums.PermissionType;
 
 public class Permission {
-	
+
 	/** Permission of an authorization **/
 	private PermissionType permission;
-	
+
 	/** Status of this permission **/
 	private PermissionStatus status;
-	
+
 	/** Last update date of this permission **/
 	private Date lastUpdate;
 
@@ -26,7 +26,7 @@ public class Permission {
 	/**
 	 * Set Permission
 	 */
-	public void setPermission(PermissionType permission) {
+	public void setPermission( PermissionType permission ) {
 		this.permission = permission;
 	}
 
@@ -40,10 +40,10 @@ public class Permission {
 	/**
 	 * Set Status
 	 */
-	public void setStatus(PermissionStatus status) {
+	public void setStatus( PermissionStatus status ) {
 		this.status = status;
 	}
-	
+
 	/**
 	 * Get last update date
 	 */
@@ -54,9 +54,8 @@ public class Permission {
 	/**
 	 * Set last update date
 	 */
-	public void setLastUpdate(Date lastUpdate) {
+	public void setLastUpdate( Date lastUpdate ) {
 		this.lastUpdate = lastUpdate;
 	}
-	
-	
+
 }

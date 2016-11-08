@@ -10,15 +10,15 @@ import com.nakasato.ghtstore.core.business.Complementor;
 
 public class ComplementProductExchangeProductStock extends Complementor < ProductExchange > {
 
-	@ Override
+	@Override
 	public String complement( ProductExchange productExchange ) {
 		try {
-			ProductDAO dao =new ProductDAO();
-			List < ExchangeItem > exchangeList =productExchange.getExchangeItems();
+			ProductDAO dao = new ProductDAO();
+			List < ExchangeItem > exchangeList = productExchange.getExchangeItems();
 			for( ExchangeItem ex: exchangeList ) {
-				Product p =ex.getProduct();
-				Integer stock =p.getStock();
-				stock -=ex.getAmount();
+				Product p = ex.getProduct();
+				Integer stock = p.getStock();
+				stock -= ex.getAmount();
 				dao.update( p );
 			}
 

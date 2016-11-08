@@ -26,8 +26,8 @@ import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghstore.web.mb.BaseMB;
 import com.nakasato.web.util.Redirector;
 
-@ ManagedBean( name ="customerMB" )
-@ ViewScoped
+@ManagedBean( name = "customerMB" )
+@ViewScoped
 public class CustomerMB extends BaseMB {
 	private Customer customer;
 	private String passwordConfirmation;
@@ -43,48 +43,48 @@ public class CustomerMB extends BaseMB {
 
 	private boolean saveOperation;
 
-	@ PostConstruct
+	@PostConstruct
 	public void init() {
-		customer =new Customer();
+		customer = new Customer();
 		customer.setDeliveryAddressList( new LinkedList<>() );
 		customer.setPhoneList( new LinkedList<>() );
 
-		newPhone =new Phone();
-		selectedAddress =new Address();
+		newPhone = new Phone();
+		selectedAddress = new Address();
 		selectedAddress.setCity( new City() );
 
-		newAddress =new Address();
+		newAddress = new Address();
 		newAddress.setCity( new City() );
 
 		initStateList();
 	}
 
 	public void clearFields() {
-		customer =new Customer();
+		customer = new Customer();
 		customer.setDeliveryAddressList( new LinkedList<>() );
 		customer.setPhoneList( new LinkedList<>() );
 
-		newPhone =new Phone();
-		newAddress =new Address();
+		newPhone = new Phone();
+		newAddress = new Address();
 		newAddress.setCity( new City() );
 
 	}
 
 	public void save() {
 		try {
-			boolean samePassword =confirmPassword();
-			if( !samePassword ) {
+			boolean samePassword = confirmPassword();
+			if( ! samePassword ) {
 				addMessage( "A confirmação da senha difere da senha" );
 			} else {
 				addPhone();
-				ICommand command =FactoryCommand.build( customer, EOperation.SAVE );
-				String msg =command.execute().getMsg();
+				ICommand command = FactoryCommand.build( customer, EOperation.SAVE );
+				String msg = command.execute().getMsg();
 				if( StringUtils.isNotEmpty( msg ) ) {
 					addMessage( msg );
 				}
 
 			}
-			FacesContext context =FacesContext.getCurrentInstance();
+			FacesContext context = FacesContext.getCurrentInstance();
 
 			Redirector.redirectTo( context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
 
@@ -95,9 +95,9 @@ public class CustomerMB extends BaseMB {
 
 	public void initStateList() {
 		try {
-			ICommand command =FactoryCommand.build( new State(), EOperation.FINDALL );
-			Result result =command.execute();
-			stateList =result.getEntityList();
+			ICommand command = FactoryCommand.build( new State(), EOperation.FINDALL );
+			Result result = command.execute();
+			stateList = result.getEntityList();
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
@@ -106,12 +106,12 @@ public class CustomerMB extends BaseMB {
 
 	public void initCityList( AjaxBehaviorEvent event ) {
 		try {
-			if( selectedState !=null ) {
-				CityFilter filter =new CityFilter();
+			if( selectedState != null ) {
+				CityFilter filter = new CityFilter();
 				filter.setStateAcronym( selectedState.getAcronym() );
-				ICommand command =FactoryCommand.build( filter, EOperation.FIND );
-				Result result =command.execute();
-				cityList =result.getEntityList();
+				ICommand command = FactoryCommand.build( filter, EOperation.FIND );
+				Result result = command.execute();
+				cityList = result.getEntityList();
 			}
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
@@ -119,37 +119,37 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void addNewAddress() {
-		saveOperation =true;
-		newAddress =new Address();
+		saveOperation = true;
+		newAddress = new Address();
 		newAddress.setCity( new City() );
-		RequestContext ctx =RequestContext.getCurrentInstance();
+		RequestContext ctx = RequestContext.getCurrentInstance();
 		ctx.execute( "PF('addressDialog').show()" );
 	}
 
 	public void cancelAddress() {
-		RequestContext ctx =RequestContext.getCurrentInstance();
+		RequestContext ctx = RequestContext.getCurrentInstance();
 		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
 	public void addAddress() {
 		customer.getDeliveryAddressList().add( newAddress );
-		newAddress =new Address();
+		newAddress = new Address();
 		newAddress.setCity( new City() );
-		RequestContext ctx =RequestContext.getCurrentInstance();
+		RequestContext ctx = RequestContext.getCurrentInstance();
 		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
 	public void removeAddress() {
-		List < Address > addressList =customer.getDeliveryAddressList();
+		List < Address > addressList = customer.getDeliveryAddressList();
 		addressList.remove( newAddress );
 	}
 
 	public void changeAddress() {
-		saveOperation =false;
+		saveOperation = false;
 	}
 
 	public void updateAddress() {
-		RequestContext ctx =RequestContext.getCurrentInstance();
+		RequestContext ctx = RequestContext.getCurrentInstance();
 		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
@@ -160,10 +160,10 @@ public class CustomerMB extends BaseMB {
 	}
 
 	private boolean confirmPassword() {
-		boolean same =false;
-		if( StringUtils.isNotEmpty( passwordConfirmation ) &&StringUtils.isNotEmpty( customer.getPassword() )
-				&&passwordConfirmation.equals( customer.getPassword() ) ) {
-			same =true;
+		boolean same = false;
+		if( StringUtils.isNotEmpty( passwordConfirmation ) && StringUtils.isNotEmpty( customer.getPassword() )
+				&& passwordConfirmation.equals( customer.getPassword() ) ) {
+			same = true;
 		}
 		return same;
 	}
@@ -173,7 +173,7 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setCustomer( Customer customer ) {
-		this.customer =customer;
+		this.customer = customer;
 	}
 
 	public String getPasswordConfirmation() {
@@ -181,7 +181,7 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setPasswordConfirmation( String passwordConfirmation ) {
-		this.passwordConfirmation =passwordConfirmation;
+		this.passwordConfirmation = passwordConfirmation;
 	}
 
 	public Phone getNewPhone() {
@@ -189,7 +189,7 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setNewPhone( Phone newPhone ) {
-		this.newPhone =newPhone;
+		this.newPhone = newPhone;
 	}
 
 	public List < State > getStateList() {
@@ -197,7 +197,7 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setStateList( List < State > stateList ) {
-		this.stateList =stateList;
+		this.stateList = stateList;
 	}
 
 	public List < City > getCityList() {
@@ -205,7 +205,7 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setCityList( List < City > cityList ) {
-		this.cityList =cityList;
+		this.cityList = cityList;
 	}
 
 	public State getSelectedState() {
@@ -213,7 +213,7 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setSelectedState( State selectedState ) {
-		this.selectedState =selectedState;
+		this.selectedState = selectedState;
 	}
 
 	public Address getSelectedAddress() {
@@ -221,7 +221,7 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setSelectedAddress( Address selectedAddress ) {
-		this.selectedAddress =selectedAddress;
+		this.selectedAddress = selectedAddress;
 	}
 
 	public Address getNewAddress() {
@@ -229,7 +229,7 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setNewAddress( Address newAddress ) {
-		this.newAddress =newAddress;
+		this.newAddress = newAddress;
 	}
 
 	public boolean isSaveOperation() {
@@ -237,10 +237,10 @@ public class CustomerMB extends BaseMB {
 	}
 
 	public void setSaveOperation( boolean saveOperation ) {
-		this.saveOperation =saveOperation;
+		this.saveOperation = saveOperation;
 	}
 
-	@ Override
+	@Override
 	public void clearFilter() {
 		// TODO Auto-generated method stub
 

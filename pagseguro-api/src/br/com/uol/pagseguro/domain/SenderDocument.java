@@ -27,73 +27,73 @@ import br.com.uol.pagseguro.helper.PagSeguroUtil;
  */
 public class SenderDocument {
 
-    /** Sender document type */
-    private DocumentType type;
+	/** Sender document type */
+	private DocumentType type;
 
-    /** Sender document value */
-    private String value;
+	/** Sender document value */
+	private String value;
 
-    /**
-     * The constructor
-     */
-    public SenderDocument() {
+	/**
+	 * The constructor
+	 */
+	public SenderDocument() {
 
-    }
+	}
 
-    /**
-     * The constructor
-     * 
-     * @param documentType
-     * @param value
-     */
-    public SenderDocument(DocumentType type, String value) {
-        this.type = type;
-        this.value = PagSeguroUtil.getOnlyNumbers(value);
-    }
+	/**
+	 * The constructor
+	 * 
+	 * @param documentType
+	 * @param value
+	 */
+	public SenderDocument( DocumentType type, String value ) {
+		this.type = type;
+		this.value = PagSeguroUtil.getOnlyNumbers( value );
+	}
 
-    /**
-     * Gets document type
-     * 
-     * @return String
-     */
-    public DocumentType getType() {
-        return this.type;
-    }
+	/**
+	 * Gets document type
+	 * 
+	 * @return String
+	 */
+	public DocumentType getType() {
+		return this.type;
+	}
 
-    /**
-     * Sets document type
-     * 
-     * @param String
-     *            type
-     */
-    public void setType(DocumentType type) {
-        this.type = type;
-    }
+	/**
+	 * Sets document type
+	 * 
+	 * @param String
+	 *            type
+	 */
+	public void setType( DocumentType type ) {
+		this.type = type;
+	}
 
-    /**
-     * Gets document value
-     * 
-     * @return Long
-     */
-    public String getValue() {
-        return this.value;
-    }
+	/**
+	 * Gets document value
+	 * 
+	 * @return Long
+	 */
+	public String getValue() {
+		return this.value;
+	}
 
-    /**
-     * Sets document value
-     * 
-     * @param String
-     *            value
-     */
-    public void setValue(String value) {
-        this.value = PagSeguroUtil.getOnlyNumbers(value);
-    }
+	/**
+	 * Sets document value
+	 * 
+	 * @param String
+	 *            value
+	 */
+	public void setValue( String value ) {
+		this.value = PagSeguroUtil.getOnlyNumbers( value );
+	}
 
-    /**
-     * Gets toString class return string
-     */
-    @Override
-    public String toString() {
-        return "PagSeguroSenderDocument [type=" + type + ", value=" + value + "]";
-    }
+	/**
+	 * Gets toString class return string
+	 */
+	@Override
+	public String toString() {
+		return "PagSeguroSenderDocument [type=" + type + ", value=" + value + "]";
+	}
 }

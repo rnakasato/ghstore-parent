@@ -14,7 +14,7 @@ import com.nakasato.ghstore.domain.filter.Filter;
 
 public abstract class BaseMB implements Serializable {
 
-	private static final long serialVersionUID =1L;
+	private static final long serialVersionUID = 1L;
 
 	private Filter baseFilter;
 	private Boolean isSelected;
@@ -24,15 +24,15 @@ public abstract class BaseMB implements Serializable {
 	}
 
 	public void setBaseFilter( Filter filter ) {
-		this.baseFilter =filter;
+		this.baseFilter = filter;
 	}
 
 	public void select( SelectEvent event ) {
-		isSelected =true;
+		isSelected = true;
 	}
 
 	public void unSelect( UnselectEvent event ) {
-		isSelected =false;
+		isSelected = false;
 	}
 
 	public Boolean getIsSelected() {
@@ -42,13 +42,13 @@ public abstract class BaseMB implements Serializable {
 	public abstract void clearFilter();
 
 	public void addMessage( String msg ) {
-		FacesContext context =FacesContext.getCurrentInstance();
+		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage( null, new FacesMessage( msg ) );
 	}
 
 	public void addRedirectMessage( String msg ) {
-		FacesContext context =FacesContext.getCurrentInstance();
-		ExternalContext ext =context.getExternalContext();
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext ext = context.getExternalContext();
 		ext.getFlash().setKeepMessages( true );
 		ext.getFlash().setRedirect( true );
 		context.addMessage( null, new FacesMessage( msg ) );

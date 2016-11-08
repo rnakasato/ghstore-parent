@@ -12,15 +12,15 @@ import com.nakasato.ghstore.domain.productreturn.ProductReturn;
 
 public class ProductReturnDAO extends AbstractDAO < ProductReturn > {
 
-	@ Override
+	@Override
 	public List < ProductReturn > find( AbstractDomainEntity filter ) throws Exception {
-		ProductReturnFilter returnFilter =( ProductReturnFilter ) filter;
+		ProductReturnFilter returnFilter = ( ProductReturnFilter ) filter;
 
-		List < ProductReturn > returnList =null;
+		List < ProductReturn > returnList = null;
 		try {
 			openSession();
 
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM ProductReturn pr " );
 			jpql.append( " JOIN FETCH pr.order o   " );
 			jpql.append( " WHERE 1 = 1 " );
@@ -29,22 +29,22 @@ public class ProductReturnDAO extends AbstractDAO < ProductReturn > {
 				jpql.append( " AND o.code = :codOrder " );
 			}
 
-			if( returnFilter.getStartDate() !=null &&returnFilter.getEndDate() !=null ) {
+			if( returnFilter.getStartDate() != null && returnFilter.getEndDate() != null ) {
 				jpql.append( " AND o.insertDate BETWEEN :startDate AND :endDate " );
 			}
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
 			if( StringUtils.isNotEmpty( returnFilter.getCodOrder() ) ) {
 				query.setParameter( "codOrder", returnFilter.getCodOrder() );
 			}
 
-			if( returnFilter.getStartDate() !=null &&returnFilter.getEndDate() !=null ) {
+			if( returnFilter.getStartDate() != null && returnFilter.getEndDate() != null ) {
 				query.setParameter( "startDate", returnFilter.getStartDate() );
 				query.setParameter( "endDate", returnFilter.getEndDate() );
 			}
 
-			returnList =query.getResultList();
+			returnList = query.getResultList();
 			closeSession();
 		} catch( RuntimeException e ) {
 			cancelSession();
@@ -54,19 +54,19 @@ public class ProductReturnDAO extends AbstractDAO < ProductReturn > {
 
 	}
 
-	@ Override
+	@Override
 	public List < ProductReturn > findAll() throws Exception {
 
-		List < ProductReturn > productReturnList =null;
+		List < ProductReturn > productReturnList = null;
 		try {
 			openSession();
 
-			StringBuilder jpql =new StringBuilder();
+			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM ProductReturn " );
 
-			Query query =session.createQuery( jpql.toString() );
+			Query query = session.createQuery( jpql.toString() );
 
-			productReturnList =query.getResultList();
+			productReturnList = query.getResultList();
 
 			closeSession();
 		} catch( RuntimeException e ) {

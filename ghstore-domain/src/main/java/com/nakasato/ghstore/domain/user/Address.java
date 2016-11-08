@@ -8,7 +8,7 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID =1L;
+	private static final long serialVersionUID = 1L;
 	private City city;
 	private String neighborhood;
 	private String street;
@@ -21,7 +21,7 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	}
 
 	public void setCity( City city ) {
-		this.city =city;
+		this.city = city;
 	}
 
 	public String getNeighborhood() {
@@ -29,7 +29,7 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	}
 
 	public void setNeighborhood( String neighborhood ) {
-		this.neighborhood =neighborhood;
+		this.neighborhood = neighborhood;
 	}
 
 	public String getStreet() {
@@ -37,7 +37,7 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	}
 
 	public void setStreet( String street ) {
-		this.street =street;
+		this.street = street;
 	}
 
 	public String getComplement() {
@@ -45,7 +45,7 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	}
 
 	public void setComplement( String complement ) {
-		this.complement =complement;
+		this.complement = complement;
 	}
 
 	public Integer getNumber() {
@@ -53,7 +53,7 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	}
 
 	public void setNumber( Integer number ) {
-		this.number =number;
+		this.number = number;
 	}
 
 	public String getCep() {
@@ -65,13 +65,13 @@ public class Address extends AbstractDomainEntity implements Serializable {
 	}
 
 	public void setCep( String cep ) {
-		this.cep =cep;
+		this.cep = cep;
 	}
 
 	public String getFormattedAddress() {
-		String formattedAddress =null;
-		StringBuilder sb =new StringBuilder();
-		if( getStreet() !=null &&getCity() !=null &&getCity().getState() !=null ) {
+		String formattedAddress = null;
+		StringBuilder sb = new StringBuilder();
+		if( getStreet() != null && getCity() != null && getCity().getState() != null ) {
 			sb.append( getStreet() );
 			sb.append( "," );
 			sb.append( getNeighborhood() );
@@ -79,13 +79,13 @@ public class Address extends AbstractDomainEntity implements Serializable {
 			sb.append( getCity().getName() );
 			sb.append( "," );
 			sb.append( getCity().getState().getAcronym() );
-			formattedAddress =sb.toString();
+			formattedAddress = sb.toString();
 		}
 
 		return formattedAddress;
 	}
 
-	@ Override
+	@Override
 	public boolean isEmpty() {
 
 		return super.isEmpty();

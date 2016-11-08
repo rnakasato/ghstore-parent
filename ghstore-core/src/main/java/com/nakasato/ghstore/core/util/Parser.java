@@ -25,31 +25,31 @@ public class Parser {
 	 * @return
 	 */
 	public static Order parseShoppingCartToOrder( ShoppingCart shoppingCart ) {
-		Order order =null;
+		Order order = null;
 
-		if( shoppingCart.getTotalValue() !=null &&shoppingCart.getTotalValue() >0 ) {
-			order =new Order();
-			List < OrderItem > orderItemList =new ArrayList();
+		if( shoppingCart.getTotalValue() != null && shoppingCart.getTotalValue() > 0 ) {
+			order = new Order();
+			List < OrderItem > orderItemList = new ArrayList();
 			try {
-				OrderStatusFilter statusFilter =new OrderStatusFilter();
+				OrderStatusFilter statusFilter = new OrderStatusFilter();
 				statusFilter.setCode( OrderStatus.COD_AGUARDANDO_PAGAMENTO );
-				ICommand commandFind =FactoryCommand.build( statusFilter, EOperation.FIND );
-				Result result =commandFind.execute();
-				List < OrderStatus > statusList =result.getEntityList();
-				OrderStatus status =null;
-				if( statusList !=null && !statusList.isEmpty() ) {
-					status =statusList.get( 0 );
+				ICommand commandFind = FactoryCommand.build( statusFilter, EOperation.FIND );
+				Result result = commandFind.execute();
+				List < OrderStatus > statusList = result.getEntityList();
+				OrderStatus status = null;
+				if( statusList != null && ! statusList.isEmpty() ) {
+					status = statusList.get( 0 );
 				}
-				Double totalValue =0D;
+				Double totalValue = 0D;
 				for( ShoppingCartItem cartItem: shoppingCart.getShoppingCartList() ) {
-					OrderItem orderItem =new OrderItem();
+					OrderItem orderItem = new OrderItem();
 					orderItem.setAmount( cartItem.getAmount() );
 					orderItem.setProduct( cartItem.getProduct() );
 					orderItem.setTotalValue( cartItem.getTotalValue() );
 					orderItem.setTotalWeigth( cartItem.getTotalWeigth() );
 					orderItem.setOrder( order );
 					orderItemList.add( orderItem );
-					totalValue +=cartItem.getTotalValue();
+					totalValue += cartItem.getTotalValue();
 				}
 				order.setDiscount( shoppingCart.isDiscount() );
 				order.setInsertDate( new Date() );

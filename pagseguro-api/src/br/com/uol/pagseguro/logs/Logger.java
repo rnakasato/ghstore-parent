@@ -23,48 +23,48 @@ package br.com.uol.pagseguro.logs;
  */
 public interface Logger {
 
-    /**
-     * Logger Debug
-     * 
-     * @param message
-     */
-    void debug(String message);
+	/**
+	 * Logger Debug
+	 * 
+	 * @param message
+	 */
+	void debug( String message );
 
-    /**
-     * Logger Info
-     * 
-     * @param message
-     */
-    void info(String message);
+	/**
+	 * Logger Info
+	 * 
+	 * @param message
+	 */
+	void info( String message );
 
-    /**
-     * Logger Warn
-     * 
-     * @param message
-     */
-    void warn(String message);
+	/**
+	 * Logger Warn
+	 * 
+	 * @param message
+	 */
+	void warn( String message );
 
-    /**
-     * Logger error
-     * 
-     * @param message
-     */
-    void error(String message);
+	/**
+	 * Logger error
+	 * 
+	 * @param message
+	 */
+	void error( String message );
 
-    /**
-     * Logger Warn
-     * 
-     * @param message
-     * @param t
-     */
-    void warn(String message, Throwable t);
+	/**
+	 * Logger Warn
+	 * 
+	 * @param message
+	 * @param t
+	 */
+	void warn( String message, Throwable t );
 
-    /**
-     * Logger Error
-     * 
-     * @param message
-     * @param t
-     */
-    void error(String message, Throwable t);
+	/**
+	 * Logger Error
+	 * 
+	 * @param message
+	 * @param t
+	 */
+	void error( String message, Throwable t );
 
 }

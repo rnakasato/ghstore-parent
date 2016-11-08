@@ -39,44 +39,44 @@ import br.com.uol.pagseguro.xmlparser.XMLParserUtils;
 
 public class ServiceParser {
 
-    private ServiceParser() {
-    }
+	private ServiceParser() {
+	}
 
-    /**
-     * PagSeguro Log tool
-     * 
-     * @see Logger
-     */
-    private static Log log = new Log(ServiceParser.class);
+	/**
+	 * PagSeguro Log tool
+	 * 
+	 * @see Logger
+	 */
+	private static Log log = new Log( ServiceParser.class );
 
-    public static List<Error> readErrors(InputStream xmlInputStream) throws ParserConfigurationException, SAXException,
-            IOException {
+	public static List < Error > readErrors( InputStream xmlInputStream )
+			throws ParserConfigurationException, SAXException, IOException {
 
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
-        InputSource is = new InputSource(xmlInputStream);
-        Document doc = dBuilder.parse(is);
+		InputSource is = new InputSource( xmlInputStream );
+		Document doc = dBuilder.parse( is );
 
-        Element errorsElement = doc.getDocumentElement();
-        List<Element> itElements = XMLParserUtils.getElements("error", errorsElement);
+		Element errorsElement = doc.getDocumentElement();
+		List < Element > itElements = XMLParserUtils.getElements( "error", errorsElement );
 
-        List<Error> errors = new ArrayList<Error>();
+		List < Error > errors = new ArrayList < Error >();
 
-        ServiceParser.log.debug("Parsing list of errors");
+		ServiceParser.log.debug( "Parsing list of errors" );
 
-        for (int i = 0; i < itElements.size(); i++) {
+		for( int i = 0; i < itElements.size(); i ++ ) {
 
-            Element itElement = itElements.get(i);
+			Element itElement = itElements.get( i );
 
-            Error error = new Error();
-            error.setCode(XMLParserUtils.getTagValue("code", itElement));
-            error.setMessage(XMLParserUtils.getTagValue("message", itElement));
+			Error error = new Error();
+			error.setCode( XMLParserUtils.getTagValue( "code", itElement ) );
+			error.setMessage( XMLParserUtils.getTagValue( "message", itElement ) );
 
-            errors.add(error);
-        }
+			errors.add( error );
+		}
 
-        return errors;
+		return errors;
 
-    }
+	}
 }

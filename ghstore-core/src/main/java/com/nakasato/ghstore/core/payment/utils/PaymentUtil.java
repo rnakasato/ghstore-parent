@@ -18,20 +18,20 @@ import br.com.uol.pagseguro.exception.PagSeguroServiceException;
 import br.com.uol.pagseguro.properties.PagSeguroConfig;
 
 public class PaymentUtil {
-	private static final String CEP_ORIGEM ="08751300";
-	private static final String PESO ="10.000"; // alterar posteriormente
+	private static final String CEP_ORIGEM = "08751300";
+	private static final String PESO = "10.000"; // alterar posteriormente
 
 	public static Double getTotalPayment( ShoppingCart shoppingCart ) {
-		Double totalPayment =shoppingCart.getTotalValue();
-		totalPayment +=FreteUtil.getShippingCost( shoppingCart );
+		Double totalPayment = shoppingCart.getTotalValue();
+		totalPayment += FreteUtil.getShippingCost( shoppingCart );
 		return totalPayment;
 	}
 
 	public static String createPayment( ShoppingCart shoppingCart, User loggedUser ) {
-		String response ="";
-		Checkout checkout =new Checkout();
+		String response = "";
+		Checkout checkout = new Checkout();
 		for( ShoppingCartItem item: shoppingCart.getShoppingCartList() ) {
-			Item paymentItem =new Item();
+			Item paymentItem = new Item();
 			paymentItem.setAmount(
 					new BigDecimal( FormatUtils.formatToCurrencyNoSymbol( item.getProduct().getPrice() ) ) );
 			paymentItem.setDescription( item.getProduct().getName() );
@@ -48,14 +48,14 @@ public class PaymentUtil {
 				shoppingCart.getAddress().getCep(), shoppingCart.getAddress().getStreet(),
 				shoppingCart.getAddress().getNumber().toString(), shoppingCart.getAddress().getComplement() );
 		checkout.setShippingType( ShippingType.SEDEX );
-		Customer user =( Customer ) loggedUser;
+		Customer user = ( Customer ) loggedUser;
 		checkout.setSender( user.getName(), user.getEmail(), user.getPhoneList().get( 0 ).getDdd(),
 				user.getPhoneList().get( 0 ).getNumber(), DocumentType.CPF, user.getCpf() );
 		checkout.setCurrency( Currency.BRL );
 		try {
 
-			boolean onlyCheckoutCode =false;
-			response =checkout.register( PagSeguroConfig.getAccountCredentials(), onlyCheckoutCode );
+			boolean onlyCheckoutCode = false;
+			response = checkout.register( PagSeguroConfig.getAccountCredentials(), onlyCheckoutCode );
 
 		} catch( PagSeguroServiceException e ) {
 
@@ -65,9 +65,9 @@ public class PaymentUtil {
 	}
 
 	public static void main( String[] args ) throws Exception {
-		ShoppingCart sc =new ShoppingCart();
+		ShoppingCart sc = new ShoppingCart();
 		sc.setTotalValue( 199.90 );
-		Address ad =new Address();
+		Address ad = new Address();
 		ad.setCep( "08725640" );
 		sc.setAddress( ad );
 		System.out.println( getTotalPayment( sc ) );

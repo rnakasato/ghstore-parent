@@ -23,104 +23,106 @@ package br.com.uol.pagseguro.enums;
  */
 public enum TransactionStatus {
 
-    INITIATED("THE TRANSACTION HAS NOT BEEN COMPLETED", 0),
+	INITIATED( "THE TRANSACTION HAS NOT BEEN COMPLETED", 0 ),
 
-    WAITING_PAYMENT("THE PAYMENT HAS NOT YET BEEN PROCESSED", 1),
+	WAITING_PAYMENT( "THE PAYMENT HAS NOT YET BEEN PROCESSED", 1 ),
 
-    IN_ANALYSIS("THE PAYMENT IS UNDER RISK REVIEW", 2),
+	IN_ANALYSIS( "THE PAYMENT IS UNDER RISK REVIEW", 2 ),
 
-    PAID("THE TRANSACTION PAYMENT HAS BEEN CONFIRMED", 3),
+	PAID( "THE TRANSACTION PAYMENT HAS BEEN CONFIRMED", 3 ),
 
-    AVAILABLE("THE TRANSACTION AMOUNT IS AVAILABLE FOR APPLICATION TO WITHDRAW", 4),
+	AVAILABLE( "THE TRANSACTION AMOUNT IS AVAILABLE FOR APPLICATION TO WITHDRAW", 4 ),
 
-    IN_DISPUTE("THE TRANSACTION IS IN DISPUTE", 5),
+	IN_DISPUTE( "THE TRANSACTION IS IN DISPUTE", 5 ),
 
-    REFUNDED("THE TRANSACTION AMOUNT WAS RETURNED TO BUYER", 6),
+	REFUNDED( "THE TRANSACTION AMOUNT WAS RETURNED TO BUYER", 6 ),
 
-    CANCELLED("THE TRANSACTION HAS BEEN CANCELLED", 7),
+	CANCELLED( "THE TRANSACTION HAS BEEN CANCELLED", 7 ),
 
-    SELLER_CHARGEBACK(
-            "THE PAYMENT WAS CONTESTED BY THE BUYER AND THE TRANSACTION AMOUNT PREVIOUSLY BLOCKED WAS DEBITED FROM YOUR BALANCE",
-            8),
+	SELLER_CHARGEBACK(
+			"THE PAYMENT WAS CONTESTED BY THE BUYER AND THE TRANSACTION AMOUNT PREVIOUSLY BLOCKED WAS DEBITED FROM YOUR BALANCE",
+			8 ),
 
-    CONTESTATION(
-            "THE PAYMENT WAS CONTESTED BY THE BUYER AND THE TRANSACTION AMOUNT WAS BLOCKED. YOU MUST CONTACT OUR CUSTOMER SERVICE",
-            9),
+	CONTESTATION(
+			"THE PAYMENT WAS CONTESTED BY THE BUYER AND THE TRANSACTION AMOUNT WAS BLOCKED. YOU MUST CONTACT OUR CUSTOMER SERVICE",
+			9 ),
 
-    UNKNOWN_STATUS("UNKNOWN STATUS. SEE ONLINE DOCUMENTATION", -1);
+	UNKNOWN_STATUS( "UNKNOWN STATUS. SEE ONLINE DOCUMENTATION", - 1 );
 
-    /**
-     * Enum description
-     */
-    private String description;
+	/**
+	 * Enum description
+	 */
+	private String description;
 
-    /**
-     * Enum value
-     */
-    private Integer value;
+	/**
+	 * Enum value
+	 */
+	private Integer value;
 
-    /**
-     * Initializes a newly created enum constant of this type with the specified arguments
-     * 
-     * @param description
-     *            the description of the enum constant
-     * @param value
-     *            the value of the enum constant
-     */
-    TransactionStatus(String description, Integer value) {
-        this.description = description;
-        this.value = value;
-    }
+	/**
+	 * Initializes a newly created enum constant of this type with the specified
+	 * arguments
+	 * 
+	 * @param description
+	 *            the description of the enum constant
+	 * @param value
+	 *            the value of the enum constant
+	 */
+	TransactionStatus( String description, Integer value ) {
+		this.description = description;
+		this.value = value;
+	}
 
-    /**
-     * Returns the enum constant of this type with the specified value. If a given value are not recognized return a
-     * generic enum constant <code>UNKNOWN_STATUS</code>
-     * 
-     * @param value
-     *            the value of the enum constant to be returned
-     * @return the enum constant from a given value
-     */
-    public static TransactionStatus fromValue(Integer value) {
+	/**
+	 * Returns the enum constant of this type with the specified value. If a
+	 * given value are not recognized return a generic enum constant
+	 * <code>UNKNOWN_STATUS</code>
+	 * 
+	 * @param value
+	 *            the value of the enum constant to be returned
+	 * @return the enum constant from a given value
+	 */
+	public static TransactionStatus fromValue( Integer value ) {
 
-        for (TransactionStatus transactionStatus : values()) {
-            if (transactionStatus.value.equals(value)) {
-                return transactionStatus;
-            }
-        }
+		for( TransactionStatus transactionStatus: values() ) {
+			if( transactionStatus.value.equals( value ) ) {
+				return transactionStatus;
+			}
+		}
 
-        UNKNOWN_STATUS.setValue(value);
-        return UNKNOWN_STATUS;
+		UNKNOWN_STATUS.setValue( value );
+		return UNKNOWN_STATUS;
 
-    }
+	}
 
-    /**
-     * @return the enum constant description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+	/**
+	 * @return the enum constant description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
-    /**
-     * @param description
-     *            the description for this enum constant
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @param description
+	 *            the description for this enum constant
+	 */
+	public void setDescription( String description ) {
+		this.description = description;
+	}
 
-    /**
-     * @return the enum constant value
-     */
-    public Integer getValue() {
-        return this.value;
-    }
+	/**
+	 * @return the enum constant value
+	 */
+	public Integer getValue() {
+		return this.value;
+	}
 
-    /**
-     * @param value
-     *            the value for this enum constant
-     */
-    public void setValue(Integer value) {
-        this.value = value;
-    }
+	/**
+	 * @param value
+	 *            the value for this enum constant
+	 */
+	public void setValue( Integer value ) {
+		this.value = value;
+	}
 
 }

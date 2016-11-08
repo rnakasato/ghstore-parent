@@ -15,7 +15,7 @@ public class Wishlist extends AbstractDomainEntity {
 	}
 
 	public void setProductList( List < Product > productList ) {
-		this.productList =productList;
+		this.productList = productList;
 	}
 
 	public List < Product > getNewItems() {
@@ -23,7 +23,7 @@ public class Wishlist extends AbstractDomainEntity {
 	}
 
 	public void setNewItems( List < Product > newItems ) {
-		this.newItems =newItems;
+		this.newItems = newItems;
 	}
 
 	public List < Product > getRemovedItems() {
@@ -31,7 +31,7 @@ public class Wishlist extends AbstractDomainEntity {
 	}
 
 	public void setRemovedItems( List < Product > removedItems ) {
-		this.removedItems =removedItems;
+		this.removedItems = removedItems;
 	}
 
 }

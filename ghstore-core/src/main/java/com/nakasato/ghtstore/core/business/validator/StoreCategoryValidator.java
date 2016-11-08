@@ -20,26 +20,26 @@ import com.nakasato.ghtstore.core.business.Validator;
  */
 public class StoreCategoryValidator extends Validator {
 
-	@ Override
+	@Override
 	public String validate( AbstractDomainEntity entity ) {
-		Product p =( Product ) entity;
-		msg =null;
+		Product p = ( Product ) entity;
+		msg = null;
 		IDAO dao;
 		try {
-			dao =FactoryDAO.build( StoreCategory.class.getName() );
-			StoreCategoryFilter filter =new StoreCategoryFilter();
+			dao = FactoryDAO.build( StoreCategory.class.getName() );
+			StoreCategoryFilter filter = new StoreCategoryFilter();
 			filter.setDescription( p.getStoreCategory().getDescription() );
 			filter.setId( p.getStoreCategory().getId() );
 
-			List < StoreCategory > scList =( List < StoreCategory > ) dao.find( filter );
-			if( ListUtils.isListEmpty( scList ) ) {
-				msg ="Categoria inválida";
+			List < StoreCategory > scList = ( List < StoreCategory > ) dao.find( filter );
+			if( ListUtils.isEmpty( scList ) ) {
+				msg = "Categoria inválida";
 			} else {
 				p.setStoreCategory( scList.get( 0 ) );
 			}
 		} catch( Exception e ) {
 			e.printStackTrace();
-			msg ="Erro inesperado";
+			msg = "Erro inesperado";
 		}
 		return msg;
 	}
