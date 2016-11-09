@@ -21,6 +21,7 @@ import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 import com.nakasato.ghstore.domain.productreturn.ProductReturn;
 import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghtstore.core.business.complementor.ComplementAxisData;
+import com.nakasato.ghtstore.core.business.complementor.ComplementCityAxisData;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCustomer;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCustomerCoupon;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCustomerUpdate;
@@ -139,6 +140,8 @@ public class FactoryStrategy {
 		rnsFind.add( new PerformanceGraphicRequiredFieldsValidator() );
 		rnsFind.add( new ComplementPerformanceGraphicCarrier() );
 		rnsFind.add( new ComplementAxisData() );
+		rnsFind.add( new ComplementCityAxisData() );
+		
 		
 		rnsPerformanceGraphicCarrier.put( EOperation.FIND, rnsFind );
 	}

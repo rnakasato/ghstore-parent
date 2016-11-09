@@ -35,6 +35,7 @@ public class GeneralIndicatorAdapter extends DefaultIndicatorAdapter implements 
 					data = new PerformanceGraphicData();
 					data.setDescription( item.getProduct().getName() );
 					data.setAxisData( new HashMap<>() );
+					data.setAxisTotal( 0 );
 					dataMap.put( item.getProduct().getCode(), data );
 				}
 

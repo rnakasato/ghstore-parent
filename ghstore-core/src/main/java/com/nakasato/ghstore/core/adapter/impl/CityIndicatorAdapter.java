@@ -38,6 +38,7 @@ public class CityIndicatorAdapter extends DefaultIndicatorAdapter
 					data = new PerformanceGraphicData();
 					data.setDescription( order.getDeliverAddress().getCity().getName() );
 					data.setAxisData( new HashMap<>() );
+					data.setAxisTotal( 0 );
 					dataMap.put( order.getDeliverAddress().getCity().getName(), data );
 				}
 

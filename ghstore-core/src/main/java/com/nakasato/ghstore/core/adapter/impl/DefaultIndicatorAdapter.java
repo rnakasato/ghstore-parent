@@ -16,21 +16,25 @@ public abstract class DefaultIndicatorAdapter {
 		String axisXValue = null;
 		Number axisYValue = null;
 
+		
+		
+		String dataKey = null; 
 		if( filter.getAxisX().equals( EAxisX.DAYS.getCode() ) ) {
-			axisXValue = DateFormatUtils.formatDateToDay( order.getInsertDate() );
-
+			dataKey = DateFormatUtils.formatDateToDay( order.getInsertDate() );
+			axisXValue = DateFormatUtils.formatDateToReverseDay( order.getInsertDate() );
 		} else if( filter.getAxisX().equals( EAxisX.MONTHS.getCode() ) ) {
-			axisXValue = DateFormatUtils.formatDateToMonth( order.getInsertDate() );
-
+			dataKey = DateFormatUtils.formatDateToMonth( order.getInsertDate() );
+			axisXValue = DateFormatUtils.formatDateToReverseMonth( order.getInsertDate() );
 		} else if( filter.getAxisX().equals( EAxisX.YEARS.getCode() ) ) {
+			dataKey = DateFormatUtils.formatDateToYear( order.getInsertDate() );
 			axisXValue = DateFormatUtils.formatDateToYear( order.getInsertDate() );
 		}
 
 		// Verifica se já existe registro para o dia
-		AxisData dt = data.getAxisData().get( axisXValue );
+		AxisData dt = data.getAxisData().get( dataKey );
 		if( dt == null ) {
 			dt = new AxisData();
-			data.getAxisData().put( axisXValue, dt );
+			data.getAxisData().put( dataKey, dt );
 			dt.setAxisX( axisXValue );
 		}
 
@@ -46,9 +50,16 @@ public abstract class DefaultIndicatorAdapter {
 			if( axisYValue instanceof Double ) {
 				Double axisY = axisYValue.doubleValue() + dt.getAxisY().doubleValue();
 				dt.setAxisY( axisY );
+				
+				Double dataTotal = data.getAxisTotal().doubleValue() + dt.getAxisY().doubleValue();
+				data.setAxisTotal( dataTotal );
+				
 			} else {
 				Integer axisY = axisYValue.intValue() + dt.getAxisY().intValue();
 				dt.setAxisY( axisY );
+				
+				Integer dataTotal = data.getAxisTotal().intValue() + dt.getAxisY().intValue();
+				data.setAxisTotal( dataTotal );
 			}
 		}
 

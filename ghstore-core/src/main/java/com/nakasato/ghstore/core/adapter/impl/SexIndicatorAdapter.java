@@ -32,10 +32,12 @@ public class SexIndicatorAdapter extends DefaultIndicatorAdapter implements Adap
 		PerformanceGraphicData dataM = new PerformanceGraphicData();
 		dataM.setDescription( ESex.M.getDescription() );
 		dataM.setAxisData( new HashMap<>() );
+		dataM.setAxisTotal( 0 );
 
 		PerformanceGraphicData dataF = new PerformanceGraphicData();
 		dataF.setDescription( ESex.F.getDescription() );
 		dataF.setAxisData( new HashMap<>() );
+		dataF.setAxisTotal( 0 );
 
 		dataMap.put( ESex.M.getCode(), dataM );
 		dataMap.put( ESex.F.getCode(), dataF );

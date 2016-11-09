@@ -4,18 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EAxisX {
-	DAYS( "DAY", "Dias", "%d-%m-%Y" ), MONTHS( "MON", "Meses", "%m-%Y" ), YEARS( "YRS", "Anos", "%Y" );
+	DAYS( "DAY", "Dias", "%d-%m-%Y", "86400000" ), MONTHS( "MON", "Meses", "%m-%Y", "2592000000" ), YEARS( "YRS",
+			"Anos", "%Y", "31104000000" );
 
 	private String code;
 	private String description;
 	private String tickFormat;
+	private String tickInterval;
 
 	private static Map < String, EAxisX > axisXMap;
 
-	private EAxisX( String code, String description, String tickFormat ) {
+	private EAxisX( String code, String description, String tickFormat, String tickInterval ) {
 		this.code = code;
 		this.description = description;
 		this.tickFormat = tickFormat;
+		this.tickInterval = tickInterval;
 	}
 
 	public String getCode() {
@@ -40,6 +43,14 @@ public enum EAxisX {
 
 	public void setTickFormat( String tickFormat ) {
 		this.tickFormat = tickFormat;
+	}
+
+	public String getTickInterval() {
+		return tickInterval;
+	}
+
+	public void setTickInterval( String tickInterval ) {
+		this.tickInterval = tickInterval;
 	}
 
 	public static EAxisX getValue( String code ) {

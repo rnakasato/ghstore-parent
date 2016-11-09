@@ -115,7 +115,7 @@ public class OrderDAO extends AbstractDAO < Order > {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM Order o" );
+			jpql.append( " SELECT DISTINCT(o) FROM Order o" );
 			jpql.append( " LEFT JOIN FETCH o.orderItemList oi " );
 			jpql.append( " LEFT JOIN FETCH oi.product p " );
 			jpql.append( " LEFT JOIN FETCH p.storeCategory sc " );
@@ -197,18 +197,18 @@ public class OrderDAO extends AbstractDAO < Order > {
 			if( storeCategory.getDescription().contains( "Mang" ) ) {
 				List < StoreCategory > cf = new ArrayList<>();
 				cf.add( storeCategory );
-				 filter.setCategoryList( cf );
+				filter.setCategoryList( cf );
 				break;
 			}
 		}
 
-//		List < State > stateList = new StateDAO().findAll();
-//		for( State state: stateList ) {
-//			if( state.getDescription().toLowerCase().contains( "alagoas" ) ) {
-//				filter.setState( state );
-//				break;
-//			}
-//		}
+		// List < State > stateList = new StateDAO().findAll();
+		// for( State state: stateList ) {
+		// if( state.getDescription().toLowerCase().contains( "alagoas" ) ) {
+		// filter.setState( state );
+		// break;
+		// }
+		// }
 
 		orders = dao.findGraphicData( filter );
 

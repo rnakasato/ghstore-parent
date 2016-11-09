@@ -85,11 +85,11 @@
 							var="state"
 							itemValue="#{state}"
 							itemLabel="#{state.description}" />
-						
+
 						<p:ajax
-								event="change"
-								listener="#{performanceGraphicMB.initCityList}"
-								update=":graphicFilter:inputCidade" />
+							event="change"
+							listener="#{performanceGraphicMB.initCityList}"
+							update=":graphicFilter:inputCidade" />
 					</p:selectOneMenu>
 				</p:row>
 
@@ -154,10 +154,12 @@
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy"
-						yearRange="c-80:c+0"
+						locale="pt"
+						yearRange="c-80:c+50"
 						required="true"
 						requiredMessage="Campo Data inicial é de preenchimento obrigatório"
 						value="#{performanceGraphicMB.filter.startDate}"
+						showButtonPanel="true"
 						maxdate="#{performanceGraphicMB.today}">
 					</p:calendar>
 				</p:row>
@@ -172,14 +174,15 @@
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy"
-						yearRange="c-80:c+0"
+						locale="pt"
+						yearRange="c-80:c+50"
 						required="true"
 						requiredMessage="Campo Data final é de preenchimento obrigatório"
 						value="#{performanceGraphicMB.filter.endDate}"
+						showButtonPanel="true"
 						maxdate="#{adminOrderMB.today}">
 					</p:calendar>
 				</p:row>
-
 
 				<!-- EIXO VERTICAL  -->
 				<p:row>
@@ -271,7 +274,7 @@
 							itemLabel="Indice geral"
 							itemValue="GEN" />
 						<f:selectItem
-							itemLabel="10 cidades com maior número de vendas"
+							itemLabel="10 cidades com maior total"
 							itemValue="TOP" />
 						<f:selectItem
 							itemLabel="Sexo"

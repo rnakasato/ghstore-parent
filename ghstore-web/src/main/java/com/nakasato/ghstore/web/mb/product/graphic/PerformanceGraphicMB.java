@@ -1,6 +1,7 @@
 package com.nakasato.ghstore.web.mb.product.graphic;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
@@ -26,6 +28,7 @@ import com.nakasato.ghstore.domain.enums.EAxisX;
 import com.nakasato.ghstore.domain.enums.EAxisY;
 import com.nakasato.ghstore.domain.filter.impl.CityFilter;
 import com.nakasato.ghstore.domain.filter.impl.PerformanceGraphicFilter;
+import com.nakasato.ghstore.domain.performance.graphic.AxisData;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.product.StoreCategory;
 import com.nakasato.ghstore.domain.user.City;
@@ -64,6 +67,15 @@ public class PerformanceGraphicMB extends BaseMB {
 		try {
 			PerformanceGraphicCarrier carrier = new PerformanceGraphicCarrier();
 			carrier.setFilter( filter );
+			
+			if(filter.getEndDate() != null){
+				Calendar c = Calendar.getInstance();
+				c.setTime( filter.getEndDate() );
+				c.set( Calendar.HOUR, 23 );
+				c.set( Calendar.MINUTE, 59 );
+				c.set( Calendar.SECOND, 59 );
+				filter.setEndDate( c.getTime() );
+			}
 
 			ICommand commandFind;
 			commandFind = FactoryCommand.build( carrier, EOperation.FIND );
@@ -72,7 +84,7 @@ public class PerformanceGraphicMB extends BaseMB {
 			if( StringUtils.isNotEmpty( result.getMsg() ) ) {
 				addMessage( result.getMsg() );
 				initEmptyChart();
-				
+
 			} else {
 				chartModel = initLinearModel( carrier );
 				chartModel.setTitle( "Gráfico de performance" );
@@ -87,19 +99,12 @@ public class PerformanceGraphicMB extends BaseMB {
 
 	private LineChartModel initLinearModel( PerformanceGraphicCarrier carrier ) {
 		LineChartModel model = new LineChartModel();
-
-		String maxValue = null;
-
+		model.setZoom( true );
+		
 		PerformanceGraphicDataAdapter adapter = new PerformanceGraphicDataAdapter();
 		List < LineChartSeries > seriesList = adapter.adapt( carrier );
-		for( LineChartSeries lineChartSeries: seriesList ) {
-			model.addSeries( lineChartSeries );
-
-			if( StringUtils.isEmpty( maxValue ) ) {
-				Map dataMap = lineChartSeries.getData();
-				List < String > keySet = new ArrayList<>( dataMap.keySet() );
-				maxValue = keySet.get( dataMap.size() - 1 );
-			}
+		for( LineChartSeries series: seriesList ) {
+			model.addSeries( series );
 		}
 
 		Axis yAxis = model.getAxis( AxisType.Y );
@@ -107,18 +112,47 @@ public class PerformanceGraphicMB extends BaseMB {
 		yAxis.setMin( 0 );
 		yAxis.setMax( axisYMaxValue );
 
+		if( filter.getAxisY().equals( EAxisY.TOTAL_VALUE.getCode() ) ) {
+			yAxis.setTickFormat( "R$ %.2f" );
+		} else {
+			yAxis.setTickFormat( "%.0f" );
+		}
+
 		String yLabel = EAxisY.getValue( filter.getAxisY() ).getDescription();
 		yAxis.setLabel( yLabel );
 
-		Axis xAxis = new CategoryAxis();
-
-		String xLabel = EAxisX.getValue( filter.getAxisX() ).getDescription();
-		xAxis.setLabel( xLabel );
+		Axis xAxis = null;
+		xAxis = getShowDateAxis( filter );
+		
 
 		model.getAxes().put( AxisType.X, xAxis );
+		model.setDatatipFormat( getDataTipFormat() );
+		model.setExtender( "customExtender" );
 
 		return model;
 	}
+	
+	private String getDataTipFormat(){
+		StringBuilder sb = new StringBuilder();
+		return "<span>Valor: %s</span>";
+	}
+
+	private Axis getShowDateAxis( PerformanceGraphicFilter filter ) {
+		Axis xAxis = new DateAxis();
+		String xLabel = EAxisX.getValue( filter.getAxisX() ).getDescription();
+		xAxis.setTickFormat( EAxisX.getValue( filter.getAxisX() ).getTickFormat() );
+		xAxis.setLabel( xLabel );
+		xAxis.setTickInterval( EAxisX.getValue( filter.getAxisX() ).getTickInterval() );
+		return xAxis;
+	}
+
+//	private Axis getShowOnlyResultAxis( PerformanceGraphicFilter filter ) {
+//		Axis xAxis = new CategoryAxis();
+//		String xLabel = EAxisX.getValue( filter.getAxisX() ).getDescription();
+//		xAxis.setLabel( xLabel );
+//		xAxis.setTickFormat( "%" );
+//		return xAxis;
+//	}
 
 	private void initEmptyChart() {
 		chartModel = new LineChartModel();
@@ -238,3 +272,4 @@ public class PerformanceGraphicMB extends BaseMB {
 	}
 
 }
+

@@ -17,6 +17,20 @@
 				    //show the dialog
 				    PF('dlg').show();
 				}
+				function customExtender() {
+				    this.cfg.highlighter = {
+				      tooltipAxes: 'y',
+				      show: true,
+				      showTooltip: true,
+				      sizeAdjust: 14
+				    }
+				    this.cfg.legend= {
+				            show: true,
+				            location: 'e',
+				            placement: 'outsideGrid'
+				    };
+				    
+				  }
 		</script>
 
 		<p:panelGrid
@@ -29,7 +43,7 @@
 				widgetVar="chart"
 				type="line"
 				model="#{performanceGraphicMB.chartModel}"
-				style="height:500px" />
+				style="height:700px" />
 
 		</p:panelGrid>
 
@@ -54,8 +68,8 @@
 				type="buttonClose"
 				value="Fechar"
 				icon="ui-icon-extlink"
-				onclick="PF('dlg').hide()" 
-				style="margin-left:48%"/>
+				onclick="PF('dlg').hide()"
+				style="margin-left:48%" />
 		</p:dialog>
 
 	</ui:composition>

@@ -27,9 +27,9 @@ public class ComplementAxisData extends Complementor < PerformanceGraphicCarrier
 						AxisData data = nextDataMap.get( entry.getKey() );
 						if( data == null ) {
 							data = new AxisData();
-							data.setAxisX( entry.getKey() );
+							data.setAxisX( entry.getValue().getAxisX() );
 							data.setAxisY( 0 );
-							nextDataMap.put( data.getAxisX(), data );
+							nextDataMap.put( entry.getKey(), data );
 						}
 					}
 

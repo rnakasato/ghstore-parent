@@ -36,6 +36,7 @@ public class CategoryIndicatorAdapter extends DefaultIndicatorAdapter
 			PerformanceGraphicData categoryData = new PerformanceGraphicData();
 			categoryData.setDescription( s.getDescription() );
 			categoryData.setAxisData( new HashMap<>() );
+			categoryData.setAxisTotal( 0 );
 			dataMap.put( s.getDescription(), categoryData );
 		}
 
