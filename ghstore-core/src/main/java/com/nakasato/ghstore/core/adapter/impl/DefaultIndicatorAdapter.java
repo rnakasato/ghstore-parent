@@ -46,6 +46,7 @@ public abstract class DefaultIndicatorAdapter {
 
 		if( dt.getAxisY() == null ) {
 			dt.setAxisY( axisYValue );
+			data.setAxisTotal( axisYValue );
 		} else {
 			if( axisYValue instanceof Double ) {
 				Double axisY = axisYValue.doubleValue() + dt.getAxisY().doubleValue();
