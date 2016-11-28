@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+
+	<class name="com.nakasato.ghstore.domain.gallery.GalleryItem" table="DE_GALLERY_ITEM">
+		<id name="id" column="IDGALLERYITEM">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_GALLERYITEM</param>
+			</generator>
+		</id>
+		<property name="image" column="IMAGE_PATH" />
+	</class>
+
+
+
+</hibernate-mapping>

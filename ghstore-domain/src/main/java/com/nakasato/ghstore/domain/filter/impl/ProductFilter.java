@@ -7,6 +7,7 @@ import com.nakasato.ghstore.domain.filter.Filter;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.product.StoreCategory;
 import com.nakasato.ghstore.domain.product.Subcategory;
+import com.nakasato.ghstore.domain.product.Tag;
 
 public class ProductFilter extends Filter {
 
@@ -25,6 +26,10 @@ public class ProductFilter extends Filter {
 	private List < Subcategory > subcategoryList;
 	private List < String > selectedSubcategoryIds;
 	private List < StoreCategory > storeCategoryList;
+	private List < Tag > tagList;
+
+	private Double initialValue;
+	private Double finalValue;
 
 	public ProductFilter() {
 		category = new StoreCategory();
@@ -120,6 +125,30 @@ public class ProductFilter extends Filter {
 
 	public void setCode( String code ) {
 		this.code = code;
+	}
+
+	public Double getInitialValue() {
+		return initialValue;
+	}
+
+	public void setInitialValue( Double initialValue ) {
+		this.initialValue = initialValue;
+	}
+
+	public Double getFinalValue() {
+		return finalValue;
+	}
+
+	public void setFinalValue( Double finalValue ) {
+		this.finalValue = finalValue;
+	}
+
+	public List < Tag > getTagList() {
+		return tagList;
+	}
+
+	public void setTagList( List < Tag > tagList ) {
+		this.tagList = tagList;
 	}
 
 }

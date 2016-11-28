@@ -74,7 +74,7 @@
 					<p:row>
 
 						<p:commandButton
-							update=":form_content:returnDetail :form_content:returnTable"
+							update=":form_content:returnDetail :form_content:returnTable :messages"
 							disabled="#{clientOrderMB.allowReturn(order)}"
 							actionListener="#{clientOrderMB.initReturn(order)}"
 							oncomplete="PF('returnDialog').show()"
@@ -84,7 +84,7 @@
 						</p:commandButton>
 
 						<p:commandButton
-							update=":form_content:exchangeDetail :form_content:exchangeTable"
+							update=":form_content:exchangeDetail :form_content:exchangeTable :messages"
 							disabled="#{clientOrderMB.allowExchange(order)}"
 							actionListener="#{clientOrderMB.initExchange(order)}"
 							oncomplete="PF('exchangeDialog').show()"
@@ -94,7 +94,7 @@
 						</p:commandButton>
 
 						<p:commandButton
-							update=":form_content:orderTable"
+							update=":form_content:orderTable :messages"
 							disabled="#{not (order.orderStatus.code eq 'APG')}"
 							actionListener="#{clientOrderMB.changeToCanceled(order)}"
 							value="Cancelar"
@@ -103,7 +103,7 @@
 						</p:commandButton>
 
 						<p:commandButton
-							update=":form_content:orderDetail :form_content:orderItemTable"
+							update=":form_content:orderDetail :form_content:orderItemTable :messages"
 							value="Ver Detalhes"
 							actionListener="#{clientOrderMB.viewDetails(order)}"
 							oncomplete="PF('orderDialog').show()"

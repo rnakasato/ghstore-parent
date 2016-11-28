@@ -11,6 +11,7 @@ public class ProductReturnAmountValidator extends Validator < ProductReturn > {
 
 	@Override
 	public String validate( ProductReturn entity ) {
+		msg = null;
 		List < ReturnedItem > returnList = entity.getReturnedItems();
 		if( ListUtils.isEmpty( returnList ) ) {
 			msg = "Deve haver ao menos um item selecionado e com quantidade definida para devolução";

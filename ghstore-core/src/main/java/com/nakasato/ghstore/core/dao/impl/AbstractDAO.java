@@ -12,58 +12,35 @@ public abstract class AbstractDAO < T extends AbstractDomainEntity > implements 
 
 	@Override
 	public void save( T entity ) throws Exception {
-		try {
-			openSession();
-			session.save( entity );
-			closeSession();
-		} catch( Exception e ) {
-			e.printStackTrace();
-			cancelSession();
-			throw e;
-		}
-
+		session.save( entity );
 	}
 
 	@SuppressWarnings( { "unchecked", "rawtypes" } )
 	@Override
 	public T findById( T entity ) throws Exception {
 		T result = null;
-		try {
-			openSession();
-			Class clazz = entity.getClass();
-			result = ( T ) session.find( clazz, entity.getId() );
-		} catch( Exception e ) {
-			e.printStackTrace();
-			cancelSession();
-			throw e;
-		}
+
+		Class clazz = entity.getClass();
+		result = ( T ) session.find( clazz, entity.getId() );
 		return result;
 	}
 
 	@Override
 	public void delete( T entity ) throws Exception {
-		try {
-			openSession();
-			session.delete( entity );
-			closeSession();
-		} catch( Exception e ) {
-			e.printStackTrace();
-			cancelSession();
-			throw e;
-		}
+		session.delete( entity );
 	}
 
 	@Override
 	public void update( T entity ) throws Exception {
-		try {
-			openSession();
-			session.update( entity );
-			closeSession();
-		} catch( Exception e ) {
-			e.printStackTrace();
-			cancelSession();
-			throw e;
-		}
+		session.update( entity );
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession( Session session ) {
+		this.session = session;
 	}
 
 	public void openSession() {

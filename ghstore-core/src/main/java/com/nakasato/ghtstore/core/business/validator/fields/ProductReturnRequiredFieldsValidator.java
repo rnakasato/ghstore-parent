@@ -9,6 +9,8 @@ public class ProductReturnRequiredFieldsValidator extends FieldsValidator < Prod
 
 	@Override
 	public String validate( ProductReturn entity ) {
+		super.init();
+		
 		if( StringUtils.isEmpty( entity.getReason() ) ) {
 			appendMsg( "Motivo" );
 		}

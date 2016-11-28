@@ -1,37 +1,26 @@
 package com.nakasato.ghstore.domain.user;
 
-import java.util.List;
-
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.product.Product;
 
 public class Wishlist extends AbstractDomainEntity {
-	private List < Product > productList;
-	private List < Product > newItems;
-	private List < Product > removedItems;
+	private Product product;
+	private Customer customer;
 
-	public List < Product > getProductList() {
-		return productList;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProductList( List < Product > productList ) {
-		this.productList = productList;
+	public void setProduct( Product product ) {
+		this.product = product;
 	}
 
-	public List < Product > getNewItems() {
-		return newItems;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setNewItems( List < Product > newItems ) {
-		this.newItems = newItems;
-	}
-
-	public List < Product > getRemovedItems() {
-		return removedItems;
-	}
-
-	public void setRemovedItems( List < Product > removedItems ) {
-		this.removedItems = removedItems;
+	public void setCustomer( Customer customer ) {
+		this.customer = customer;
 	}
 
 }

@@ -47,12 +47,14 @@
 		name="baseStyles.css"
 		library="css" />
 	<div id="page">
-
-		<p:ajaxStatus
-			onstart="PF('loadingDialog').show()"
-			onsuccess="PF('loadingDialog').hide()" />
-		<ui:include src="/public/loading.xhtml" />
-
+		<ui:include src="/public/loading.xhtml" />		
+		<div id="messages-container">
+			<div id="messages">
+				<ui:insert name="messages">
+					<p:growl id="messages"></p:growl>
+				</ui:insert>
+			</div>
+		</div>
 		<div id="clientHeader">
 			<ui:insert name="clientHeader">
 				<h:form id="formUserBar">
@@ -60,13 +62,16 @@
 						id="gridUserBar"
 						cols="6">
 						<div>colocar Logo</div>
-						<p:button
+
+						<p:commandButton
 							id="searchSite"
-							value="Buscar" />
+							value="Buscar"
+							actionListener="#{redirectMB.redirectToGlobalSearch(clientProductMB.productName)}" />
+
 						<p:watermark
 							for="pdSearch"
 							value="Buscar Produto..." />
-						<p:inputText id="pdSearch" />
+						<p:inputText id="pdSearch" value="#{clientProductMB.productName}"/>
 						<p:button
 							id="btnRedirLogin"
 							value="Login"
@@ -90,10 +95,10 @@
 							outcome="/clientuser/shoppingCart.xhtml" />
 
 						<p:button
-							id="btnOder"
-							value="Pedidos"
+							id="btnProfile"
+							value="Perfil"
 							rendered="#{loginMB.loggedIn}"
-							outcome="/clientuser/logged/order.xhtml" />
+							outcome="/clientuser/logged/customerUpdate.xhtml" />
 					</p:panelGrid>
 
 					<p:menubar>
@@ -167,19 +172,19 @@
 			<ui:insert name="menuBar">
 
 			</ui:insert>
-		</div>
-		<div id="messages-container">
-			<div id="messages">
-				<ui:insert name="messages">
-					<p:growl id="messages"></p:growl>
-				</ui:insert>
+		</div>				
+		<div id="tabmenu-container">
+			<div id="tabMenu">
+				<ui:insert name="tabMenu" />
 			</div>
 		</div>
+		
 		<div id="side-bar">
 			<div id="sidebar">
 				<ui:insert name="sidebar" />
 			</div>
 		</div>
+		
 		<div id="content-container">
 			<div id="content">
 				<ui:insert name="content" />

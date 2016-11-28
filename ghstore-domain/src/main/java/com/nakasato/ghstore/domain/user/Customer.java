@@ -7,18 +7,18 @@ import com.nakasato.ghstore.domain.productexchange.DiscountCoupon;
 import com.nakasato.ghstore.domain.shopping.cart.ShoppingCart;
 
 public class Customer extends User {
-	private Wishlist wishlist;
+	private List < Wishlist > wishList;
 	private List < Order > orderList;
 	private ShoppingCart shoppingCart;
 	private List < Address > deliveryAddressList;
 	private List < DiscountCoupon > coupons;
 
-	public Wishlist getWishlist() {
-		return wishlist;
+	public List < Wishlist > getWishList() {
+		return wishList;
 	}
 
-	public void setWishlist( Wishlist wishlist ) {
-		this.wishlist = wishlist;
+	public void setWishList( List < Wishlist > wishList ) {
+		this.wishList = wishList;
 	}
 
 	public List < Order > getOrderList() {

@@ -54,7 +54,7 @@ import com.nakasato.ghtstore.core.business.validator.fields.PerformanceGraphicRe
 import com.nakasato.ghtstore.core.business.validator.fields.ProductExchangeRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductReturnRequiredFieldsValidator;
-import com.nakasato.ghtstore.core.business.validator.fields.UserRequiredFieldsValidator;
+import com.nakasato.ghtstore.core.business.validator.fields.CustomerRequiredFieldsValidator;
 
 public class FactoryStrategy {
 
@@ -156,7 +156,7 @@ public class FactoryStrategy {
 		List < IStrategy > rnsDelete = new ArrayList<>();
 
 		// Adicionando regras de negócio para salvar um Usuário
-		rnsSave.add( new UserRequiredFieldsValidator() );
+		rnsSave.add( new CustomerRequiredFieldsValidator() );
 		rnsSave.add( new UserCPFValidator() );
 		rnsSave.add( new UserBirthDateValidator() );
 		rnsSave.add( new CustomerCEPValidator() );
@@ -165,6 +165,11 @@ public class FactoryStrategy {
 		rnsSave.add( new ComplementCustomer() );
 		// Verificar se Nome de usuário e CPF já existem
 
+		rnsUpdate.add( new CustomerRequiredFieldsValidator() );
+		rnsUpdate.add( new UserBirthDateValidator() );
+		rnsUpdate.add( new CustomerCEPValidator() );
+		rnsUpdate.add( new UserPhoneValidator() );
+		rnsUpdate.add( new EmailValidator() );
 		rnsUpdate.add( new UserCPFValidator() );
 		rnsUpdate.add( new CustomerCEPValidator() );
 		rnsUpdate.add( new ComplementCustomerUpdate() );

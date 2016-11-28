@@ -104,6 +104,8 @@
 			<p:commandButton
 				value="Finalizar Compra"
 				disabled="#{empty userSessionMB.loggedUser}"
+				onstart="PF('loadingDialog').show()"
+				onsuccess="PF('loadingDialog').hide()"
 				actionListener="#{userSessionMB.finishPayment()}" />
 
 

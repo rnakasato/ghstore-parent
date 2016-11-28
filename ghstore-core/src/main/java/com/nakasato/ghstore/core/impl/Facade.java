@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Session;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.IDAO;
 import com.nakasato.ghstore.core.IFacade;
 import com.nakasato.ghstore.core.IStrategy;
 import com.nakasato.ghstore.core.application.Result;
+import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.EntityCarrier;
 import com.nakasato.ghstore.factory.impl.FactoryCustomStrategy;
@@ -34,14 +36,19 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 		if( msg == null ) {
 
 			try {
-				IDAO dao = FactoryDAO.build( nmClasse );
+				Session session = SessionThreadLocal.getSession();
+				IDAO dao = FactoryDAO.build( nmClasse, session );
 				dao.save( entity );
 				List < T > entityList = new ArrayList < T >();
 				entityList.add( entity );
 				result.setEntityList( entityList );
+				SessionThreadLocal.commit();
 			} catch( Exception e ) {
+				SessionThreadLocal.rollback();
 				e.printStackTrace();
 				result.setMsg( "Erro inesperado ao salvar!" );
+			} finally {
+				SessionThreadLocal.closeSession();
 			}
 		} else {
 			result.setMsg( msg );
@@ -60,14 +67,18 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 		if( msg == null ) {
 
 			try {
-				IDAO dao = FactoryDAO.build( nmClasse );
+				Session session = SessionThreadLocal.getSession();
+				IDAO dao = FactoryDAO.build( nmClasse, session );
 				dao.update( entity );
 				List < T > entityList = new ArrayList < T >();
 				entityList.add( entity );
 				result.setEntityList( entityList );
+				SessionThreadLocal.commit();
 			} catch( Exception e ) {
 				e.printStackTrace();
 				result.setMsg( "Não foi possível realizar a alteração!" );
+			} finally {
+				SessionThreadLocal.closeSession();
 			}
 		} else {
 			result.setMsg( msg );
@@ -86,14 +97,18 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 
 		if( msg == null ) {
 			try {
-				IDAO dao = FactoryDAO.build( classNm );
+				Session session = SessionThreadLocal.getSession();
+				IDAO dao = FactoryDAO.build( classNm, session );
 				dao.delete( entity );
 				List < T > entityList = new ArrayList < T >();
 				entityList.add( entity );
 				result.setEntityList( entityList );
+				SessionThreadLocal.commit();
 			} catch( Exception e ) {
 				e.printStackTrace();
 				result.setMsg( "Não foi possível deletar o item!" );
+			} finally {
+				SessionThreadLocal.closeSession();
 			}
 		} else {
 			result.setMsg( msg );
@@ -112,11 +127,14 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 
 		if( msg == null && ! ( entity instanceof EntityCarrier ) ) {
 			try {
-				IDAO dao = FactoryDAO.build( classNm );
+				Session session = SessionThreadLocal.getSession();
+				IDAO dao = FactoryDAO.build( classNm, session );
 				result.setEntityList( dao.find( entity ) );
 			} catch( Exception e ) {
 				e.printStackTrace();
 				result.setMsg( "Não foi possível realizar a consulta!" );
+			} finally {
+				SessionThreadLocal.closeSession();
 			}
 		} else {
 			result.setMsg( msg );
@@ -124,15 +142,6 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 		}
 
 		return result;
-	}
-
-	@Override
-	public Result < T > view( T entity ) {
-		Result < T > result = new Result < T >();
-		result.setEntityList( new ArrayList < T >( 1 ) );
-		result.getEntityList().add( entity );
-		return result;
-
 	}
 
 	private String runRules( T entity, String operation ) {
@@ -164,11 +173,15 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 
 		if( msg == null ) {
 			try {
-				IDAO dao = FactoryDAO.build( classNm );
+				Session session = SessionThreadLocal.getSession();
+				IDAO dao = FactoryDAO.build( classNm, session );
 				result.setEntityList( dao.findAll() );
 			} catch( Exception e ) {
 				e.printStackTrace();
 				result.setMsg( "Não foi possível realizar a consulta!" );
+				SessionThreadLocal.rollback();
+			} finally {
+				SessionThreadLocal.closeSession();
 			}
 		} else {
 			result.setMsg( msg );

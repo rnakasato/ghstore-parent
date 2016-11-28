@@ -11,6 +11,7 @@ public class ProductExchangeAmountValidator extends Validator < ProductExchange 
 
 	@Override
 	public String validate( ProductExchange entity ) {
+		msg = null;
 		List < ExchangeItem > exchangeList = entity.getExchangeItems();
 		if( ListUtils.isEmpty( exchangeList ) ) {
 			msg = "Deve haver ao menos um item selecionado e com quantidade definida para troca";

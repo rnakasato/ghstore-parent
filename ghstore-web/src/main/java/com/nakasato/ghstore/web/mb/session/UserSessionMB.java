@@ -227,7 +227,8 @@ public class UserSessionMB extends BaseMB {
 					cart.setOwner( loggedUser );
 					cart.setProcess( false );
 					Address address = loggedUser.getDeliveryAddressList().get( 0 );
-
+					// Revisar o endereço de entrega para setar o endereço, verificar se somente remover o bloco 
+					// do setAddress resolve
 					cart.setAddress( address );
 					transactionCode = null;
 					useCoupon = false;

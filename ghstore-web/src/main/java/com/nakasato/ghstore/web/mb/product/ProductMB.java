@@ -16,7 +16,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 
+import com.nakasato.core.util.enums.EComparator;
 import com.nakasato.core.util.enums.EOperation;
+import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.command.impl.Command;
 import com.nakasato.ghstore.core.product.util.ProductSort;
@@ -36,9 +38,7 @@ import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghstore.web.mb.BaseMB;
 import com.nakasato.web.util.Redirector;
 
-@ManagedBean( name = "productMB" )
-@ViewScoped
-public class ProductMB extends BaseMB implements Serializable {
+public abstract class ProductMB extends BaseMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -59,11 +59,44 @@ public class ProductMB extends BaseMB implements Serializable {
 	protected Product product;
 	protected List < Tag > tagList;
 
+	protected Integer priceRangeOption;
+
 	protected Integer order;
 	protected List < OrderByType > orderTypeList;
+	
+	protected boolean isAscendant; 
 
 	public ProductMB() {
 	}
+	
+	protected void initProductOrderType(){
+		orderTypeList = new ArrayList<>();
+		orderTypeList.add( new OrderByType( EComparator.PRODUCT_NAME, "Nome" ) );
+		orderTypeList.add( new OrderByType( EComparator.PRODUCT_CATEGORY, "Categoria" ) );
+		orderTypeList.add( new OrderByType( EComparator.PRODUCT_PRICE, "Preço" ) );
+		orderTypeList.add( new OrderByType( EComparator.PRODUCT_STATUS, "Status" ) );
+		orderTypeList.add( new OrderByType( EComparator.PRODUCT_STOCK, "Estoque" ) );
+		orderTypeList.add( new OrderByType( EComparator.PRODUCT_INSERTDATE, "Data de inserção" ) );
+	}
+	
+	protected void initStoreCategory(){
+		List < AbstractDomainEntity > ctList = null;
+		try {
+			ICommand commandFind = FactoryCommand.build( new StoreCategory(), EOperation.FINDALL );
+			ctList = commandFind.execute().getEntityList();
+		} catch( ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+
+		if( ! ListUtils.isEmpty( ctList ) ) {
+			categoryList = new ArrayList<>();
+			for( AbstractDomainEntity e: ctList ) {
+				StoreCategory s = ( StoreCategory ) e;
+				categoryList.add( s );
+			}
+		}
+	}
+	
 
 	public List < String > fillSubcategory( String query ) {
 		SubcategoryFilter filter = new SubcategoryFilter();
@@ -157,9 +190,14 @@ public class ProductMB extends BaseMB implements Serializable {
 
 	public void listProducts() {
 		try {
+			if( priceRangeOption != null ) {
+				fillPriceRange();
+			}
+			
 			Command command;
 			command = FactoryCommand.build( filter, EOperation.FIND );
 			List < Product > products = command.execute().getEntityList();
+
 			if( products != null && ! products.isEmpty() ) {
 				productList = new ArrayList<>();
 				for( AbstractDomainEntity e: products ) {
@@ -173,7 +211,7 @@ public class ProductMB extends BaseMB implements Serializable {
 					}
 				}
 				if( order != null ) {
-					ProductSort.sortProducts( productList, order );
+					ProductSort.sortProducts( productList, order,isAscendant );
 				}
 
 			} else {
@@ -183,6 +221,8 @@ public class ProductMB extends BaseMB implements Serializable {
 			e1.printStackTrace();
 		}
 	}
+
+	public abstract void fillPriceRange();
 
 	public void save() {
 		Product p = prepareProduct();
@@ -235,7 +275,7 @@ public class ProductMB extends BaseMB implements Serializable {
 				ctx.addMessage( null, new FacesMessage( "Produto alterado" ) );
 				Flash flash = ctx.getExternalContext().getFlash();
 				flash.setKeepMessages( true );
-				;
+
 				flash.setRedirect( true );
 				Redirector.redirectTo( ctx.getExternalContext(), "/admin/productSearch.jsf?faces-redirect=true" );
 			}
@@ -412,6 +452,7 @@ public class ProductMB extends BaseMB implements Serializable {
 		description = null;
 		tagList = null;
 		weight = null;
+		priceRangeOption = 0;				
 	}
 
 	public List < Product > getProductList() {
@@ -453,12 +494,7 @@ public class ProductMB extends BaseMB implements Serializable {
 
 	@Override
 	public void clearFilter() {
-		filter.setName( null );
-		filter.getCategory().setDescription( null );
-		filter.setStatus( 0 );
-		filter.setCode( null );
-		filter.getSubcategory().setDescription( null );
-		tagList = null;
+		filter = new ProductFilter();
 		listProducts();
 	}
 
@@ -501,5 +537,23 @@ public class ProductMB extends BaseMB implements Serializable {
 	public void setWeight( Double weight ) {
 		this.weight = weight;
 	}
+
+	public Integer getPriceRangeOption() {
+		return priceRangeOption;
+	}
+
+	public void setPriceRangeOption( Integer priceRangeOption ) {
+		this.priceRangeOption = priceRangeOption;
+	}
+
+	public boolean isAscendant() {
+		return isAscendant;
+	}
+
+	public void setAscendant( boolean isAscendant ) {
+		this.isAscendant = isAscendant;
+	}
+	
+	
 
 }

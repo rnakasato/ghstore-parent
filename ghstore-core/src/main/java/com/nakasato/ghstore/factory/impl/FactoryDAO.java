@@ -3,11 +3,14 @@ package com.nakasato.ghstore.factory.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.Session;
+
 import com.nakasato.ghstore.core.IDAO;
 import com.nakasato.ghstore.core.dao.impl.AddressDAO;
 import com.nakasato.ghstore.core.dao.impl.CityDAO;
 import com.nakasato.ghstore.core.dao.impl.CustomerDAO;
 import com.nakasato.ghstore.core.dao.impl.DiscountCouponDAO;
+import com.nakasato.ghstore.core.dao.impl.GalleryItemDAO;
 import com.nakasato.ghstore.core.dao.impl.OrderDAO;
 import com.nakasato.ghstore.core.dao.impl.OrderItemDAO;
 import com.nakasato.ghstore.core.dao.impl.OrderStatusDAO;
@@ -21,6 +24,7 @@ import com.nakasato.ghstore.core.dao.impl.SubcategoryDAO;
 import com.nakasato.ghstore.core.dao.impl.SysUserDAO;
 import com.nakasato.ghstore.core.dao.impl.TagDAO;
 import com.nakasato.ghstore.core.dao.impl.UserTypeDAO;
+import com.nakasato.ghstore.core.dao.impl.WishlistDAO;
 import com.nakasato.ghstore.domain.filter.impl.CityFilter;
 import com.nakasato.ghstore.domain.filter.impl.CustomerFilter;
 import com.nakasato.ghstore.domain.filter.impl.DiscountCouponFilter;
@@ -33,6 +37,8 @@ import com.nakasato.ghstore.domain.filter.impl.StateFilter;
 import com.nakasato.ghstore.domain.filter.impl.StoreCategoryFilter;
 import com.nakasato.ghstore.domain.filter.impl.SubcategoryFilter;
 import com.nakasato.ghstore.domain.filter.impl.TagFilter;
+import com.nakasato.ghstore.domain.filter.impl.WishlistFilter;
+import com.nakasato.ghstore.domain.gallery.GalleryItem;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.order.OrderItem;
 import com.nakasato.ghstore.domain.order.OrderStatus;
@@ -50,6 +56,7 @@ import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghstore.domain.user.State;
 import com.nakasato.ghstore.domain.user.SysUser;
 import com.nakasato.ghstore.domain.user.UserType;
+import com.nakasato.ghstore.domain.user.Wishlist;
 
 public class FactoryDAO {
 
@@ -78,6 +85,9 @@ public class FactoryDAO {
 			daoMap.put( ProductExchange.class.getName(), new ProductExchangeDAO() );
 
 			daoMap.put( DiscountCoupon.class.getName(), new DiscountCouponDAO() );
+			daoMap.put( Wishlist.class.getName(), new WishlistDAO() );
+
+			daoMap.put( GalleryItem.class.getName(), new GalleryItemDAO() );
 
 			// Filtros
 			daoMap.put( ProductFilter.class.getName(), new ProductDAO() );
@@ -92,6 +102,7 @@ public class FactoryDAO {
 			daoMap.put( ProductReturnFilter.class.getName(), new ProductReturnDAO() );
 			daoMap.put( ProductExchangeFilter.class.getName(), new ProductExchangeDAO() );
 			daoMap.put( DiscountCouponFilter.class.getName(), new DiscountCouponDAO() );
+			daoMap.put( WishlistFilter.class.getName(), new WishlistDAO() );
 
 		}
 	}
@@ -100,9 +111,10 @@ public class FactoryDAO {
 	 * @param className
 	 * @return retorna instância de DAO para o Objeto
 	 */
-	public static IDAO build( String className ) throws ClassNotFoundException {
+	public static IDAO build( String className, Session session ) throws ClassNotFoundException {
 		initMap();
 		IDAO dao = daoMap.get( className );
+		dao.setSession( session );
 		if( dao == null ) {
 			throw new ClassNotFoundException();
 		}

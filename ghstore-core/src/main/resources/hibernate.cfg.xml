@@ -16,6 +16,7 @@
         <mapping resource="order_orm.xml"></mapping>
         <mapping resource="product_orm.xml"></mapping>
         <mapping resource="user_orm.xml"></mapping>
+        <mapping resource="gallery_orm.xml"></mapping>
         
         
         

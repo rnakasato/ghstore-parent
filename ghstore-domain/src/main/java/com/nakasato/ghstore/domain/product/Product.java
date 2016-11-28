@@ -24,16 +24,16 @@ public class Product extends DomainSpecificEntity implements Serializable {
 	public static final Integer UNAVAILABLE = 2;
 
 	private String name;
-	private StoreCategory storeCategory;
-	private Subcategory subcategory;
 	private Double price;
 	private Integer stock;
 	private String image;
 	private Date updateDate;
 	private Integer status;
-	private List < Tag > tagList;
 	private Double weight;
 	private Boolean active;
+	private StoreCategory storeCategory;
+	private Subcategory subcategory;
+	private List < Tag > tagList;
 
 	public String getName() {
 		return name;

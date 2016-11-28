@@ -15,6 +15,8 @@ public class ProductRequiredFieldsValidator extends FieldsValidator < Product > 
 
 	@Override
 	public String validate( Product entity ) {
+		super.init();
+		
 		Product p = entity;
 		if( StringUtils.isEmpty( p.getName() ) ) {
 			appendMsg( "Nome" );

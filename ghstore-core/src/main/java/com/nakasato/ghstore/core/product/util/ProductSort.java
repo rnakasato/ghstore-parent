@@ -9,8 +9,12 @@ import com.nakasato.ghstore.factory.impl.FactoryComparator;
 
 public class ProductSort {
 
-	public static void sortProducts( List < Product > productList, Integer sortBy ) {
+	public static void sortProducts( List < Product > productList, Integer sortBy, boolean ascend ) {
 		Comparator comparator = FactoryComparator.build( sortBy );
 		Collections.sort( productList, comparator );
+
+		if( !ascend ) {
+			Collections.reverse( productList );
+		}
 	}
 }

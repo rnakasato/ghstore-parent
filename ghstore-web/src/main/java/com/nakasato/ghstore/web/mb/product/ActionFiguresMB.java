@@ -38,4 +38,32 @@ public class ActionFiguresMB extends ProductMB {
 		filter.getCategory().setDescription( StoreCategory.ACTION_FIGURE );
 		super.listProducts();
 	}
+
+	@Override
+	public void fillPriceRange() {
+		switch( priceRangeOption ) {
+			case 1:
+				filter.setInitialValue( 10D );
+				filter.setFinalValue( 100D );
+				break;
+			case 2:
+				filter.setInitialValue( 100D );
+				filter.setFinalValue( 200D );
+				break;
+			case 3:				
+				filter.setInitialValue( 200D );
+				filter.setFinalValue( 300D );
+				break;	
+			case 4:				
+				filter.setInitialValue( 300D );
+				filter.setFinalValue( 400D );
+				break;
+			case 5:				
+				break;
+			default:
+				filter.setInitialValue( null );
+				filter.setFinalValue( null );
+				break;
+		}
+	}
 }

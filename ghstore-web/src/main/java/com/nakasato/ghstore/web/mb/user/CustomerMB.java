@@ -29,19 +29,19 @@ import com.nakasato.web.util.Redirector;
 @ManagedBean( name = "customerMB" )
 @ViewScoped
 public class CustomerMB extends BaseMB {
-	private Customer customer;
-	private String passwordConfirmation;
-	private ICommand command;
+	protected Customer customer;
+	protected String passwordConfirmation;
+	protected ICommand command;
 
-	private Phone newPhone;
-	private State selectedState;
-	private Address selectedAddress;
-	private Address newAddress;
+	protected Phone newPhone;
+	protected State selectedState;
+	protected Address selectedAddress;
+	protected Address newAddress;
 
-	private List < State > stateList;
-	private List < City > cityList;
+	protected List < State > stateList;
+	protected List < City > cityList;
 
-	private boolean saveOperation;
+	protected boolean saveOperation;
 
 	@PostConstruct
 	public void init() {
@@ -87,6 +87,30 @@ public class CustomerMB extends BaseMB {
 			FacesContext context = FacesContext.getCurrentInstance();
 
 			Redirector.redirectTo( context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
+
+		} catch( ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update() {
+		try {
+			boolean samePassword = confirmPassword();
+			if( ! samePassword ) {
+				addMessage( "A confirmação da senha difere da senha" );
+			} else {
+				customer.setPhoneList( new LinkedList<>() );
+				addPhone();
+				
+				ICommand command = FactoryCommand.build( customer, EOperation.UPDATE );
+				String msg = command.execute().getMsg();
+				if( StringUtils.isNotEmpty( msg ) ) {
+					addMessage( msg );
+				} else {
+					addMessage( "Dados alterados com sucesso!" );
+				}
+
+			}
 
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();

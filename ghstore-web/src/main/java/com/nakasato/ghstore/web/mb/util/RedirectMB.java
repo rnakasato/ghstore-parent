@@ -8,6 +8,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.web.mb.session.UserSessionMB;
 import com.nakasato.web.util.Redirector;
@@ -98,6 +100,26 @@ public class RedirectMB {
 		} else {
 			ctx.addMessage( null, new FacesMessage( "Selecione um produto para comprar" ) );
 		}
+	}
+
+	public void redirectToGlobalSearch( String productName ) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext context = ctx.getExternalContext();
+
+		HttpServletRequest request = ( HttpServletRequest ) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+		String uri = request.getRequestURI();
+		uri = uri.replace( "ghstore-web/", "" );
+		userSessionMB.setOldPage( uri );
+
+		context.getFlash().put( "productName", productName );
+
+		StringBuilder sb = new StringBuilder();
+		sb.append( "/clientuser/globalSearch.jsf?faces-redirect=true" );
+
+		String url = sb.toString();
+		Redirector.redirectTo( context, url );
+
 	}
 
 	public UserSessionMB getUserSessionMB() {

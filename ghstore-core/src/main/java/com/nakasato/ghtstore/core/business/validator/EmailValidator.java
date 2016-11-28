@@ -14,6 +14,7 @@ public class EmailValidator extends Validator < Customer > {
 
 	@Override
 	public String validate( Customer customer ) {
+		msg = null;
 		Matcher matcher = pattern.matcher( customer.getEmail() );
 		if( ! matcher.matches() ) {
 			msg = "E-mail inválido";

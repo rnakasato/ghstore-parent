@@ -44,28 +44,14 @@ public class AdminProductMB extends ProductMB {
 			status = product.getStatus();
 			tagList = product.getTagList();
 		}
-		List < AbstractDomainEntity > ctList = null;
-		try {
-			ICommand commandFind = FactoryCommand.build( new StoreCategory(), EOperation.FINDALL );
-			ctList = commandFind.execute().getEntityList();
-		} catch( ClassNotFoundException e ) {
-			e.printStackTrace();
-		}
+		
+		super.initStoreCategory();
+		super.initProductOrderType();
+	}
 
-		if( ! ListUtils.isEmpty( ctList ) ) {
-			categoryList = new ArrayList<>();
-			for( AbstractDomainEntity e: ctList ) {
-				StoreCategory s = ( StoreCategory ) e;
-				categoryList.add( s );
-			}
-		}
-		orderTypeList = new ArrayList<>();
-		orderTypeList.add( new OrderByType( EComparator.PRODUCT_NAME, "Nome" ) );
-		orderTypeList.add( new OrderByType( EComparator.PRODUCT_CATEGORY, "Categoria" ) );
-		orderTypeList.add( new OrderByType( EComparator.PRODUCT_PRICE, "Preço" ) );
-		orderTypeList.add( new OrderByType( EComparator.PRODUCT_STATUS, "Status" ) );
-		orderTypeList.add( new OrderByType( EComparator.PRODUCT_STOCK, "Estoque" ) );
-		listProducts();
+	@Override
+	public void fillPriceRange() {
+		// TODO Auto-generated method stub
 
 	}
 

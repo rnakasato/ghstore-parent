@@ -10,10 +10,11 @@ import com.nakasato.ghtstore.core.business.FieldsValidator;
  * 
  * @author rafae Descrição:
  */
-public class UserRequiredFieldsValidator extends FieldsValidator < Customer > {
+public class CustomerRequiredFieldsValidator extends FieldsValidator < Customer > {
 
 	@Override
 	public String validate( Customer c ) {
+		super.init();
 		if( StringUtils.isEmpty( c.getUsername() ) ) {
 			appendMsg( "Usuário" );
 		}

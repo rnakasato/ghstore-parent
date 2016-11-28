@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dataTable
+			var="wishlist"
+			id="wishlistTable"
+			value="#{wishlistMB.wishList}"
+			paginator="true"
+			rows="15"
+			style="width:100%">
+			<f:facet name="header">
+				<p:outputLabel value="Resultados" />
+			</f:facet>
+
+			<p:column
+				headerText="Produto"
+				style="width:12%"
+				sortBy="#{wishlist.product.name}">
+				<p:panelGrid columns="1">
+					<p:row>
+						<p:outputLabel
+							value="#{wishlist.product.name}"
+							title="#{wishlist.product.name}" />
+					</p:row>
+
+					<p:row>
+						<p:commandLink actionListener="#{redirectMB.redirectToProductPage(wishlist.product)}">
+							<p:graphicImage
+								value="#{wishlistMB.getImagePath(wishlist)}"
+								style="width:192px;heigth:192px" />
+							<f:setPropertyActionListener
+								value="#{wishlist}"
+								target="#{wishlistMB.wish}" />
+						</p:commandLink>
+					</p:row>
+
+				</p:panelGrid>
+			</p:column>
+
+			<p:column
+				headerText="Operação"
+				style="width:88%; text-align:left">
+				<p:commandButton
+					id="removeWishlist"
+					value="Remover da lista de desejos"
+					actionListener="#{wishlistMB.removeWishlist(wishlist)}"
+					update=":form_content:wishlistTable :messages" />
+
+				<p:commandButton
+					value="Ir para produto"
+					actionListener="#{redirectMB.redirectToProductPage(wishlist.product)}"
+					update=":form_content:wishlistTable :messages" />
+			</p:column>
+
+
+		</p:dataTable>
+	</ui:composition>
+</h:body>
+</html>

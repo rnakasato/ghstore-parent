@@ -39,4 +39,30 @@ public class HQMB extends ProductMB {
 		super.listProducts();
 	}
 
+	@Override
+	public void fillPriceRange() {
+		switch( priceRangeOption ) {
+			case 1:
+				filter.setInitialValue( 4D );
+				filter.setFinalValue( 10D );
+				break;
+			case 2:
+				filter.setInitialValue( 10D );
+				filter.setFinalValue( 20D );
+				break;
+			case 3:
+				filter.setInitialValue( 20D );
+				filter.setFinalValue( 30D );
+				break;
+			case 4:
+				filter.setInitialValue( 30D );
+				filter.setFinalValue( 40D );
+				break;
+			default:
+				filter.setInitialValue( null );
+				filter.setFinalValue( null );
+				break;
+		}
+	}
+
 }

@@ -111,6 +111,8 @@
 					icon="ui-icon-search"
 					value="Buscar"
 					actionListener="#{adminOrderMB.listOrders()}"
+					onstart="PF('loadingDialog').show()"
+					onsuccess="PF('loadingDialog').hide()"
 					update=":form_content:orderTable :messages" />
 				<p:commandButton
 					value="Limpar filtros"

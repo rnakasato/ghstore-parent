@@ -44,10 +44,6 @@
         </id>
         <property name="insertDate" type="date" column="INSERTDATE"/>
         <property name="description" type="string" column="DESCRIPTION"/>
-        <bag name="productList" table="DE_PRODUCT_TAG" inverse="true" lazy="true">
-        	<key column="IDTAG"/>
-        	<many-to-many class="com.nakasato.ghstore.domain.product.Product" column="IDPRODUCT"/>
-    	</bag>
     </class>
 	
 	<class name="com.nakasato.ghstore.domain.product.Product" table="DE_PRODUCT">
@@ -105,7 +101,7 @@
         	<column name="IDSUBCATEGORY" not-null="true"/>
         </many-to-one>
         
-        <bag name="tagList" table="DE_PRODUCT_TAG" lazy="false" cascade="save-update">
+        <bag name="tagList" table="DE_PRODUCT_TAG" lazy="false" cascade="all">
         	<key column="IDPRODUCT"/>
         	<many-to-many class="com.nakasato.ghstore.domain.product.Tag" column="IDTAG"/>
     	</bag>

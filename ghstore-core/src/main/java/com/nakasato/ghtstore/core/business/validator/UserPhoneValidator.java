@@ -14,6 +14,7 @@ public class UserPhoneValidator extends Validator < User > {
 
 	@Override
 	public String validate( User user ) {
+		msg = null;
 		Phone phone = user.getPhoneList().get( 0 );
 		Matcher dddMatcher = dddPattern.matcher( phone.getDdd() );
 		Matcher phoneNumberMatcher = phoneNumberPattern.matcher( phone.getNumber() );

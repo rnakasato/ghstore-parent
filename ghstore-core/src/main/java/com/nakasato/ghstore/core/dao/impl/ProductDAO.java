@@ -18,71 +18,87 @@ public class ProductDAO extends AbstractDAO < Product > {
 	public List < Product > find( AbstractDomainEntity entity ) {
 		ProductFilter filter = ( ProductFilter ) entity;
 
-		boolean isDescriptionEmpty = StringUtils.isEmpty( filter.getDescription() );
-		boolean isIdNull = ( filter.getId() == null );
-		boolean isStoreCategoryNull = ( filter.getCategory() == null );
-		boolean isStoreCategoryListNull = ListUtils.isEmpty( filter.getStoreCategoryList() );
-		boolean isSubCategoryNull = ( filter.getSubcategory() == null );
-		boolean isSubcategoryListNull = ListUtils.isEmpty( filter.getSubcategoryList() );
-		boolean isNameEmpty = StringUtils.isEmpty( filter.getName() );
-		boolean isCodeEmpty = StringUtils.isEmpty( filter.getCode() );
-
 		List < Product > productList = null;
 		try {
-			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM Product p" );
+			jpql.append( " SELECT DISTINCT (p) FROM Product p" );
+			jpql.append( " LEFT JOIN p.tagList t " );
+			jpql.append( " LEFT JOIN p.storeCategory sc " );
+			jpql.append( " LEFT JOIN p.subcategory sb " );
 			jpql.append( " WHERE 1=1 AND p.active = true " );
 
-			if( ! isIdNull ) {
+			if( filter.getId() != null ) {
 				jpql.append( " AND p.id = :id" );
 			}
 
-			if( ! isDescriptionEmpty ) {
+			if( ListUtils.isNotEmpty( filter.getTagList() ) ) {
+				jpql.append( " AND t in (:tagList)" );
+			}
+
+			if( filter.getInitialValue() != null && filter.getFinalValue() != null ) {
+				jpql.append( " AND p.price BETWEEN :initialValue AND :finalValue " );
+			}
+
+			if( StringUtils.isNotEmpty( filter.getDescription() ) ) {
 				jpql.append( " AND UPPER(p.description) like :description" );
 
 			}
-			if( ! isStoreCategoryNull ) {
+
+			if( filter.getCategory() != null )  {
 				if( StringUtils.isNotEmpty( filter.getCategory().getDescription() ) ) {
-					jpql.append( " AND UPPER(p.storeCategory.description) like :storeCategoryDescription" );
+					jpql.append( " AND UPPER(sc.description) like :storeCategoryDescription" );
 				}
 				if( filter.getCategory().getId() != null ) {
-					jpql.append( " AND p.storeCategory.id = :storeCategoryId" );
+					jpql.append( " AND sc.id = :storeCategoryId" );
 				}
-			} else if( ! isStoreCategoryListNull ) {
-				jpql.append( " AND p.storeCategory in (:storeCategoryList)" );
+			} else if( ListUtils.isNotEmpty( filter.getStoreCategoryList() ) ) {
+				jpql.append( " AND sc in (:storeCategoryList)" );
 			}
 
-			if( ! isSubCategoryNull ) {
+			if( filter.getSubcategory() != null ) {
 				if( StringUtils.isNotEmpty( filter.getSubcategory().getDescription() ) ) {
-					jpql.append( " AND UPPER(p.subcategory.description) like :subcategoryDescription" );
+					jpql.append( " AND UPPER(sb.description) like :subcategoryDescription" );
 				}
 				if( filter.getSubcategory().getId() != null ) {
-					jpql.append( " AND p.subcategory.id = :subcategoryId" );
+					jpql.append( " AND sb.id = :subcategoryId" );
 				}
-			} else if( ! isSubcategoryListNull ) {
-				jpql.append( " AND p.subcategory in (:subcategoryList)" );
+			} else if( ListUtils.isNotEmpty( filter.getSubcategoryList() ) ) {
+				jpql.append( " AND sb in (:subcategoryList)" );
 			}
 
-			if( ! isNameEmpty ) {
-				jpql.append( " AND p.name like :name" );
+			if( StringUtils.isNotEmpty( filter.getName() ) ) {
+				jpql.append( " AND UPPER(p.name) like :name" );
 			}
 
-			if( ! isCodeEmpty ) {
+			if( StringUtils.isNotEmpty( filter.getCode() ) ) {
 				jpql.append( " AND p.code = :code" );
 			}
 
 			Query query = session.createQuery( jpql.toString() );
 
-			if( ! isIdNull ) {
+			if( filter.getId() != null ) {
 				query.setParameter( "id", filter.getId() );
 			}
 
-			if( ! isDescriptionEmpty ) {
+			if( ListUtils.isNotEmpty( filter.getTagList() ) ) {
+				query.setParameter( "tagList", filter.getTagList() );
+			}
+
+			if( filter.getInitialValue() != null && filter.getFinalValue() != null ) {
+				query.setParameter( "initialValue", filter.getInitialValue() );
+				query.setParameter( "finalValue", filter.getFinalValue() );
+			}
+
+			if( StringUtils.isNotEmpty( filter.getDescription() ) ) {
+				jpql.append( " AND UPPER(p.description) like :description" );
+
+			}
+
+			if( StringUtils.isNotEmpty( filter.getDescription() ) ) {
 				query.setParameter( "description", "%" + filter.getDescription() + "%" );
 			}
-			if( ! isStoreCategoryNull ) {
+			if( filter.getCategory() != null ) {
 				if( StringUtils.isNotEmpty( filter.getCategory().getDescription() ) ) {
 					query.setParameter( "storeCategoryDescription",
 							"%" + filter.getCategory().getDescription().toUpperCase() + "%" );
@@ -90,11 +106,11 @@ public class ProductDAO extends AbstractDAO < Product > {
 				if( filter.getCategory().getId() != null ) {
 					query.setParameter( "storeCategoryId", filter.getCategory().getId() );
 				}
-			} else if( ! isStoreCategoryListNull ) {
+			} else if( ListUtils.isNotEmpty( filter.getStoreCategoryList() ) ) {
 				query.setParameter( "storeCategoryList", filter.getStoreCategoryList() );
 			}
 
-			if( ! isSubCategoryNull ) {
+			if( filter.getSubcategory() != null ) {
 				if( StringUtils.isNotEmpty( filter.getSubcategory().getDescription() ) ) {
 					query.setParameter( "subcategoryDescription",
 							"%" + filter.getSubcategory().getDescription().toUpperCase() + "%" );
@@ -102,24 +118,22 @@ public class ProductDAO extends AbstractDAO < Product > {
 				if( filter.getSubcategory().getId() != null ) {
 					query.setParameter( "subcategoryId", filter.getSubcategory().getId() );
 				}
-			} else if( ! isSubcategoryListNull ) {
+			} else if( ListUtils.isNotEmpty( filter.getSubcategoryList() ) ) {
 				query.setParameter( "subcategoryList", filter.getSubcategoryList() );
 			}
 
-			if( ! isNameEmpty ) {
-				query.setParameter( "name", "%" + filter.getName() + "%" );
+			if( StringUtils.isNotEmpty( filter.getName() ) ) {
+				query.setParameter( "name", "%" + filter.getName().toUpperCase() + "%" );
 			}
 
-			if( ! isCodeEmpty ) {
+			if( StringUtils.isNotEmpty( filter.getCode() ) ) {
 				query.setParameter( "code", filter.getCode() );
 			}
 
 			productList = query.getResultList();
 
-			closeSession();
 		} catch( RuntimeException e ) {
 			e.printStackTrace();
-			cancelSession();
 			throw e;
 		}
 		return productList;
@@ -130,7 +144,6 @@ public class ProductDAO extends AbstractDAO < Product > {
 	public List < Product > findAll() {
 		List < Product > productList = null;
 		try {
-			openSession();
 
 			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM Product " );
@@ -139,9 +152,8 @@ public class ProductDAO extends AbstractDAO < Product > {
 
 			productList = query.getResultList();
 
-			closeSession();
 		} catch( RuntimeException e ) {
-			cancelSession();
+
 		}
 		return productList;
 	}

@@ -3,6 +3,7 @@ package com.nakasato.ghtstore.core.business.complementor;
 import java.util.List;
 
 import com.nakasato.ghstore.core.dao.impl.ProductDAO;
+import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.productexchange.ExchangeItem;
 import com.nakasato.ghstore.domain.productexchange.ProductExchange;
@@ -14,6 +15,7 @@ public class ComplementProductExchangeProductStock extends Complementor < Produc
 	public String complement( ProductExchange productExchange ) {
 		try {
 			ProductDAO dao = new ProductDAO();
+			dao.setSession( SessionThreadLocal.getSession() );
 			List < ExchangeItem > exchangeList = productExchange.getExchangeItems();
 			for( ExchangeItem ex: exchangeList ) {
 				Product p = ex.getProduct();

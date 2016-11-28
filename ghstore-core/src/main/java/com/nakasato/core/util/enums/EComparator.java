@@ -8,4 +8,5 @@ public enum EComparator {
 	public static final Integer PRODUCT_PRICE = 4;
 	public static final Integer PRODUCT_STATUS = 5;
 	public static final Integer PRODUCT_SELL = 6;
+	public static final Integer PRODUCT_INSERTDATE = 7;
 }

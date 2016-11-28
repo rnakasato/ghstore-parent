@@ -3,6 +3,7 @@ package com.nakasato.ghtstore.core.business.complementor;
 import java.util.List;
 
 import com.nakasato.ghstore.core.dao.impl.ProductDAO;
+import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.productreturn.ProductReturn;
 import com.nakasato.ghstore.domain.productreturn.ReturnedItem;
@@ -14,6 +15,7 @@ public class ComplementProductReturnProductStock extends Complementor < ProductR
 	public String complement( ProductReturn productReturn ) {
 		try {
 			ProductDAO dao = new ProductDAO();
+			dao.setSession( SessionThreadLocal.getSession() );
 			List < ReturnedItem > returnList = productReturn.getReturnedItems();
 			for( ReturnedItem returnedItem: returnList ) {
 				Product p = returnedItem.getProduct();

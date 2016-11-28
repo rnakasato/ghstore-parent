@@ -33,6 +33,25 @@
 		<property name="code" column="COD_TYPE" />
 	</class>
 
+
+	<class name="com.nakasato.ghstore.domain.user.Wishlist" table="DE_WISHLIST">
+		<id name="id" column="IDWISHLIST">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_WISHLIST</param>
+			</generator>
+		</id>
+		<many-to-one name="customer"
+			class="com.nakasato.ghstore.domain.user.Customer" lazy="false"
+			cascade="save-update">
+			<column name="IDUSER" not-null="true" />
+		</many-to-one>
+		
+		<many-to-one name="product"
+			class="com.nakasato.ghstore.domain.product.Product" lazy="false">
+			<column name="IDPRODUCT" not-null="true" />
+		</many-to-one>
+	</class>
+
 	<class name="com.nakasato.ghstore.domain.user.User" table="DE_USER">
 		<id name="id" column="IDUSER">
 			<generator class="sequence">
@@ -66,14 +85,15 @@
 		<subclass name="com.nakasato.ghstore.domain.user.Customer"
 			discriminator-value="1">
 
-			<!-- <many-to-one name="wishList" class="com.nakasato.ghstore.domain.Wishlist" 
-				lazy="false" cascade="save-update" > <column name="IDWISHLIST" not-null="true"/> 
-				</many-to-one> -->
 			<!-- <many-to-one name="shoppingCart" class="com.nakasato.ghstore.domain.ShoppingCart" 
 				fetch="join" lazy="false"> <column name="IDSHOPPINGCART" not-null="true"/> 
 				</many-to-one> -->
 
-
+			<bag name="wishList" table="DE_WISHLIST" inverse="true" lazy="false"
+				cascade="save-update">
+				<key column="IDUSER" />
+				<one-to-many class="com.nakasato.ghstore.domain.user.Wishlist" />
+			</bag>
 
 			<bag name="orderList" table="DE_ORDER" inverse="true" lazy="false"
 				cascade="save-update">
@@ -87,15 +107,29 @@
 				<many-to-many class="com.nakasato.ghstore.domain.user.Address"
 					column="IDADDRESS" />
 			</bag>
-			
-			<bag name="coupons" table="DE_COUPON" inverse="false"
-				lazy="false" cascade="save-update">
+
+			<bag name="coupons" table="DE_COUPON" inverse="false" lazy="false"
+				cascade="save-update">
 				<key column="IDUSER" />
-				<many-to-many class="com.nakasato.ghstore.domain.productexchange.DiscountCoupon"
+				<many-to-many
+					class="com.nakasato.ghstore.domain.productexchange.DiscountCoupon"
 					column="IDCOUPON" />
 			</bag>
-			
+
 		</subclass>
+		
+		<!-- <subclass name="com.nakasato.ghstore.domain.user.SysUser"
+			discriminator-value="2">
+
+			<bag name="deliveryAddressList" table="DE_USER_ADDRESS" inverse="false"
+				lazy="false" cascade="save-update">
+				<key column="IDUSER" />
+				<many-to-many class="com.nakasato.ghstore.domain.user.Address"
+					column="IDADDRESS" />
+			</bag>
+
+
+		</subclass> -->
 
 	</class>
 
@@ -144,17 +178,5 @@
 		<property name="acronym" column="UF" />
 		<property name="description" column="NAME" />
 	</class>
-
-	<class name="com.nakasato.ghstore.domain.user.Wishlist" table="DE_WISHLIST">
-		<id name="id" column="IDWISHLIST">
-			<generator class="sequence">
-				<param name="sequence_name">SQ_TAG</param>
-			</generator>
-		</id>
-		<!-- <bag name="productList" table="DE_PRODUCT" inverse="true" fetch="join" 
-			lazy="true"> <key column="IDWISHLIST" /> <one-to-many class="com.nakasato.ghstore.domain.Wishlist" 
-			/> </bag> -->
-	</class>
-
 
 </hibernate-mapping>

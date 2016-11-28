@@ -44,6 +44,8 @@
 					<p:commandButton
 						value="Login"
 						update=":messages :formUserBar"
+						onstart="PF('loadingDialog').show()"
+						onsuccess="PF('loadingDialog').hide()"
 						actionListener="#{loginMB.doLogin()}" />
 
 					<p:commandButton

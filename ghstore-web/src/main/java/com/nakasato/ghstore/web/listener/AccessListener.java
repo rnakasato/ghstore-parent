@@ -22,7 +22,7 @@ public class AccessListener implements PhaseListener {
 		HttpSession session = ( HttpSession ) context.getExternalContext().getSession( true );
 		Object currentUser = session.getAttribute( User.LOGGED_USER );
 
-		if( isLoginPage && ( currentUser == null || currentUser == "" ) ) {
+		if( !isLoginPage && ( currentUser == null || currentUser == "" ) ) {
 			NavigationHandler nh = context.getApplication().getNavigationHandler();
 			if( isClientPage && currentPage.contains( "logged" ) ) {
 				nh.handleNavigation( context, null, "/clientuser/login.xhtml" );

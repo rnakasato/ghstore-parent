@@ -9,6 +9,7 @@ import com.nakasato.ghstore.core.adapter.Adapter;
 import com.nakasato.ghstore.core.dao.impl.OrderDAO;
 import com.nakasato.ghstore.core.dao.impl.StoreCategoryDAO;
 import com.nakasato.ghstore.core.hibernate.HibernateUtil;
+import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.domain.carrier.PerformanceGraphicCarrier;
 import com.nakasato.ghstore.domain.enums.EAxisX;
 import com.nakasato.ghstore.domain.enums.EAxisY;
@@ -28,8 +29,10 @@ public class CategoryIndicatorAdapter extends DefaultIndicatorAdapter
 
 		Map < String, PerformanceGraphicData > dataMap = new HashMap<>();
 
-		// Inicializa mapa com PerformanceGraphicData para todas as categorias
+		// Inicializa mapa com PerformanceGraphicData para todas as
+		// categorias
 		StoreCategoryDAO dao = new StoreCategoryDAO();
+		dao.setSession( SessionThreadLocal.getSession() );
 		List < StoreCategory > categoryList = dao.findAll();
 
 		for( StoreCategory s: categoryList ) {
@@ -50,6 +53,7 @@ public class CategoryIndicatorAdapter extends DefaultIndicatorAdapter
 		}
 
 		dataList = new ArrayList<>( dataMap.values() );
+
 		return dataList;
 	}
 
@@ -61,6 +65,7 @@ public class CategoryIndicatorAdapter extends DefaultIndicatorAdapter
 		carrier.setFilter( filter );
 
 		OrderDAO dao = new OrderDAO();
+		dao.setSession( SessionThreadLocal.getSession() );
 		List < Order > orderList = dao.find( new OrderFilter() );
 		carrier.setOrderList( orderList );
 

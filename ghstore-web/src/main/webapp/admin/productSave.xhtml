@@ -220,9 +220,11 @@
 					id="save"
 					value="Sim"
 					type="button"
+					onstart="PF('loadingDialog').show()"
+					onsuccess="PF('loadingDialog').hide()"
 					styleClass="ui-confirmdialog-yes"
 					icon="ui-icon-check"
-					onsuccess="" />
+					 />
 				<p:commandButton
 					id="ignore"
 					value="Não"

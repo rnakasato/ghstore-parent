@@ -9,6 +9,7 @@ public class UserBirthDateValidator extends Validator < User > {
 
 	@Override
 	public String validate( User user ) {
+		msg = null;
 		Date today = new Date();
 		if( today.before( user.getBirthDate() ) ) {
 			msg = "Data de nascimento inválida";

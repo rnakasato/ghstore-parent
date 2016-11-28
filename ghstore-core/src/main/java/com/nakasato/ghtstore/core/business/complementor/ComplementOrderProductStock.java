@@ -1,6 +1,7 @@
 package com.nakasato.ghtstore.core.business.complementor;
 
 import com.nakasato.ghstore.core.dao.impl.ProductDAO;
+import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.order.OrderItem;
 import com.nakasato.ghstore.domain.order.OrderStatus;
@@ -13,6 +14,7 @@ public class ComplementOrderProductStock extends Complementor < Order > {
 	public String complement( Order order ) {
 		try {
 			ProductDAO dao = new ProductDAO();
+			dao.setSession( SessionThreadLocal.getSession() );
 
 			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_AGUARDANDO_PAGAMENTO ) ) {
 				for( OrderItem orderItem: order.getOrderItemList() ) {

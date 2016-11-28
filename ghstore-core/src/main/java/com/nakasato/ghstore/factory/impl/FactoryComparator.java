@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.nakasato.core.util.enums.EComparator;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByCat;
+import com.nakasato.ghstore.core.product.comparator.CompareProductByInsertDate;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByName;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByPrice;
 import com.nakasato.ghstore.core.product.comparator.CompareProductBySell;
@@ -24,6 +25,7 @@ public class FactoryComparator {
 			comparatorMap.put( EComparator.PRODUCT_STATUS, new CompareProductByStatus() );
 			comparatorMap.put( EComparator.PRODUCT_STOCK, new CompareProductByStock() );
 			comparatorMap.put( EComparator.PRODUCT_SELL, new CompareProductBySell() );
+			comparatorMap.put( EComparator.PRODUCT_INSERTDATE, new CompareProductByInsertDate() );			
 		}
 	}
 

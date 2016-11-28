@@ -3,6 +3,7 @@ package com.nakasato.ghtstore.core.business.complementor;
 import java.util.List;
 
 import com.nakasato.ghstore.core.dao.impl.DiscountCouponDAO;
+import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.productexchange.DiscountCoupon;
 import com.nakasato.ghstore.domain.user.Customer;
@@ -28,6 +29,7 @@ public class ComplementDiscountOrder extends Complementor < Order > {
 				}
 				if( usedCoupon != null ) {
 					DiscountCouponDAO dao = new DiscountCouponDAO();
+					dao.setSession( SessionThreadLocal.getSession() );
 					dao.update( usedCoupon );
 				}
 			}

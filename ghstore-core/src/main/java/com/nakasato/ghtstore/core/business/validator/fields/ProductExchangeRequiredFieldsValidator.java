@@ -9,6 +9,7 @@ public class ProductExchangeRequiredFieldsValidator extends FieldsValidator < Pr
 
 	@Override
 	public String validate( ProductExchange entity ) {
+		super.init();
 		if( StringUtils.isEmpty( entity.getReason() ) ) {
 			appendMsg( "Motivo" );
 		}

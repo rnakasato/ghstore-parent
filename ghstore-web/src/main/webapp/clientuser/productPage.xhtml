@@ -31,7 +31,20 @@
 					</f:facet>
 					<p:commandButton
 						id="addWishlist"
-						value="Adicionar à lista de desejos" />
+						value="Adicionar à lista de desejos"
+						actionListener="#{productDetailMB.addWishlist()}"
+						rendered="#{ ! productDetailMB.existWishlist() }"
+						update=":form_content :messages"
+						disabled="#{!loginMB.loggedIn}" />
+
+					<p:commandButton
+						id="removeWishlist"
+						value="Remover da lista de desejos"
+						actionListener="#{productDetailMB.removeWishlist()}"
+						rendered="#{ productDetailMB.existWishlist() }"
+						update=":form_content :messages" 
+						disabled="#{!loginMB.loggedIn}" />
+
 					<p:panelGrid columns="3">
 						<p:commandButton
 							id="remAmount"

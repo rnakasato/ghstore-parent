@@ -10,6 +10,8 @@ public class PerformanceGraphicRequiredFieldsValidator extends FieldsValidator <
 
 	@Override
 	public String validate( PerformanceGraphicCarrier carrier ) {
+		super.init();
+		
 		PerformanceGraphicFilter filter = carrier.getFilter();
 
 		if( StringUtils.isEmpty( filter.getAxisX() ) ) {

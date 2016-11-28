@@ -1,5 +1,5 @@
 package com.nakasato.ghstore.domain;
 
-public class EntityCarrier extends AbstractDomainEntity {
+public abstract class EntityCarrier extends AbstractDomainEntity {
 
 }

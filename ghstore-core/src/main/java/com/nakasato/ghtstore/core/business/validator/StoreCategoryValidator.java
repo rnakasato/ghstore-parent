@@ -3,6 +3,7 @@ package com.nakasato.ghtstore.core.business.validator;
 import java.util.List;
 
 import com.nakasato.ghstore.core.IDAO;
+import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.filter.impl.StoreCategoryFilter;
@@ -26,7 +27,7 @@ public class StoreCategoryValidator extends Validator {
 		msg = null;
 		IDAO dao;
 		try {
-			dao = FactoryDAO.build( StoreCategory.class.getName() );
+			dao = FactoryDAO.build( StoreCategory.class.getName(), SessionThreadLocal.getSession() );
 			StoreCategoryFilter filter = new StoreCategoryFilter();
 			filter.setDescription( p.getStoreCategory().getDescription() );
 			filter.setId( p.getStoreCategory().getId() );
@@ -40,7 +41,7 @@ public class StoreCategoryValidator extends Validator {
 		} catch( Exception e ) {
 			e.printStackTrace();
 			msg = "Erro inesperado";
-		}
+		} 
 		return msg;
 	}
 
