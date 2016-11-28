@@ -213,25 +213,7 @@
 					</p:commandButton>
 				</p:row>
 
-				<p:confirmDialog
-					severity="alert"
-					global="true"
-					widgetVar="dialog">
-					<p:commandButton
-						id="save"
-						value="Sim"
-						type="button"
-						styleClass="ui-confirmdialog-yes"
-						onstart="PF('loadingDialog').show()"
-						onsuccess="PF('loadingDialog').hide()"
-						icon="ui-icon-check" />
-					<p:commandButton
-						id="ignore"
-						value="Não"
-						type="button"
-						styleClass="ui-confirmdialog-no"
-						icon="ui-icon-close" />
-				</p:confirmDialog>
+				<ui:include src="/public/confirmDialog.xhtml" />
 			</p:panelGrid>
 		</h:form>
 	</ui:define>

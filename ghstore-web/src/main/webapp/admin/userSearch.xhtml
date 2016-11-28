@@ -9,7 +9,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/layout/adminLayout.xhtml">
 	<h:head>
-		<title>GHStore - Salvar Produto</title>
+		<title>GHStore -</title>
 		<h:outputStylesheet
 			name="adminLayout.css"
 			library="css" />
@@ -18,74 +18,12 @@
 			library="css" />
 	</h:head>
 	<ui:define name="sidebar">
-		<ui:include src="/admin/product/productFilter.xhtml" />
+		<ui:include src="/admin/user/userFilter.xhtml" />
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="form_content">
-
-			<ui:include src="/admin/product/productDataList.xhtml" />
-
-			<p:panelGrid
-				styleClass="baseGrid"
-				id="gridButtons"
-				columns="5">
-
-
-				<p:commandButton
-					id="btnNewProduct"
-					value="Cadastrar produto"
-					update=":messages "
-					actionListener="#{redirectMB.redirectToSaveProduct()}" />
-
-				<p:commandButton
-					id="btnUpdateProduct"
-					value="Alterar produto"
-					update=":messages "
-					disabled="#{adminProductMB.isSelected == null || adminProductMB.isSelected == false }"
-					actionListener="#{redirectMB.redirectToUpdate(adminProductMB.product)}" />
-
-				<p:commandButton
-					id="delete"
-					value="Excluir produto selecionado"
-					update="productTable,:messages"
-					disabled="#{adminProductMB.isSelected == null || adminProductMB.isSelected == false }"
-					actionListener="#{adminProductMB.delete}">
-					<p:confirm
-						header="Produto"
-						message="Tem certeza que deseja excluir o produto selecionado?" />
-				</p:commandButton>
-
-				<p:commandButton
-					id="btnDetail"
-					value="Detalhes do produto"
-					disabled="#{adminProductMB.isSelected == null || adminProductMB.isSelected == false }"
-					update=":form_content:prodDetail, :messages "
-					onclick="PF('prodDialog').show()" />
-
-			</p:panelGrid>
-
-			<ui:include src="/admin/product/productDetailDialog.xhtml" />
-
-			<p:confirmDialog
-				severity="alert"
-				global="true"
-				widgetVar="dialog">
-				<p:commandButton
-					id="save"
-					value="Sim"
-					type="button"
-					styleClass="ui-confirmdialog-yes"
-					icon="ui-icon-check" />
-				<p:commandButton
-					id="ignore"
-					value="Não"
-					type="button"
-					styleClass="ui-confirmdialog-no"
-					icon="ui-icon-close" />
-			</p:confirmDialog>
-
-			<ui:include src="/admin/product/addStockDialog.xhtml" />
-
+			<ui:include src="/admin/user/userDataList.xhtml" />
+			<ui:include src="/public/confirmDialog.xhtml" />
 		</h:form>
 
 	</ui:define>

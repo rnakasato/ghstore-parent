@@ -49,23 +49,7 @@
 
 			</p:dataGrid>
 
-			<p:confirmDialog
-				severity="alert"
-				global="true"
-				widgetVar="dialog">
-				<p:commandButton
-					id="save"
-					value="Sim"
-					type="button"
-					styleClass="ui-confirmdialog-yes"
-					icon="ui-icon-check" />
-				<p:commandButton
-					id="ignore"
-					value="Não"
-					type="button"
-					styleClass="ui-confirmdialog-no"
-					icon="ui-icon-close" />
-			</p:confirmDialog>
+			<ui:include src="/public/confirmDialog.xhtml" />
 		</h:form>
 	</ui:composition>
 </h:body>

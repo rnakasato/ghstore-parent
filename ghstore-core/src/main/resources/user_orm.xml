@@ -45,7 +45,7 @@
 			cascade="save-update">
 			<column name="IDUSER" not-null="true" />
 		</many-to-one>
-		
+
 		<many-to-one name="product"
 			class="com.nakasato.ghstore.domain.product.Product" lazy="false">
 			<column name="IDPRODUCT" not-null="true" />
@@ -117,19 +117,35 @@
 			</bag>
 
 		</subclass>
-		
-		<!-- <subclass name="com.nakasato.ghstore.domain.user.SysUser"
+
+		<subclass name="com.nakasato.ghstore.domain.user.Administrator"
 			discriminator-value="2">
 
-			<bag name="deliveryAddressList" table="DE_USER_ADDRESS" inverse="false"
+			<property name="firstLogin" column="FIRST_LOGIN" />
+			<property name="active" column="ACTIVE" />
+
+			<bag name="addressList" table="DE_USER_ADDRESS" inverse="false"
 				lazy="false" cascade="save-update">
 				<key column="IDUSER" />
 				<many-to-many class="com.nakasato.ghstore.domain.user.Address"
 					column="IDADDRESS" />
 			</bag>
+		</subclass>
+		
+		<subclass name="com.nakasato.ghstore.domain.user.Operator"
+			discriminator-value="3">
 
-
-		</subclass> -->
+			<property name="firstLogin" column="FIRST_LOGIN" />
+			<property name="active" column="ACTIVE" />
+			
+			<bag name="addressList" table="DE_USER_ADDRESS" inverse="false"
+				lazy="false" cascade="save-update">
+				<key column="IDUSER" />
+				<many-to-many class="com.nakasato.ghstore.domain.user.Address"
+					column="IDADDRESS" />
+			</bag>
+		</subclass>
+		
 
 	</class>
 

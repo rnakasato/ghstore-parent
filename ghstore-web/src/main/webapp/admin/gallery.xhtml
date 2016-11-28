@@ -28,25 +28,9 @@
 			<ui:include src="/admin/gallery/galleryData.xhtml" />
 			
 			<ui:include src="/admin/gallery/galleryUpdateDialog.xhtml" />
-			<p:confirmDialog
-				severity="alert"
-				global="true"
-				widgetVar="dialog">
-				<p:commandButton
-					id="save"
-					value="Sim"
-					type="button"
-					onstart="PF('loadingDialog').show()"
-					onsuccess="PF('loadingDialog').hide()"
-					styleClass="ui-confirmdialog-yes"
-					icon="ui-icon-check" />
-				<p:commandButton
-					id="ignore"
-					value="Não"
-					type="button"
-					styleClass="ui-confirmdialog-no"
-					icon="ui-icon-close" />
-			</p:confirmDialog>
+			
+			<ui:include src="/public/confirmDialog.xhtml" />
+			
 		</h:form>
 	</ui:define>
 

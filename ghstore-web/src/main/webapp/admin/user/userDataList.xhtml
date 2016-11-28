@@ -90,6 +90,37 @@
 					title="#{prod.statusDesc}" />
 			</p:column>
 		</p:dataTable>
+		<p:panelGrid
+			styleClass="baseGrid"
+			id="gridButtons"
+			columns="3">
+			<p:commandButton
+				id="btnNewUser"
+				value="Cadastrar usuário"
+				update=":messages "
+				actionListener="#{redirectMB.redirectToSaveUser()}" />
+
+			<p:commandButton
+				id="btnUpdateUser"
+				value="Alterar usuário"
+				update=":messages "
+				disabled="#{sysUserMB.isSelected == null || sysUserMB.isSelected == false }"
+				actionListener="#{redirectMB.redirectToUpdate(sysUserMB.selectedUser)}" />
+
+			<p:commandButton
+				id="delete"
+				value="Desativar usuário selecionado"
+				update="userTable,:messages"
+				disabled="#{sysUserMB.isSelected == null || sysUserMB.isSelected == false }"
+				actionListener="#{sysUserMB.deactivate()}">
+				<p:confirm
+					header="Usuário"
+					message="Tem certeza que deseja excluir o usuário selecionado?" />
+			</p:commandButton>
+
+
+		</p:panelGrid>
+
 	</ui:composition>
 </h:body>
 </html>

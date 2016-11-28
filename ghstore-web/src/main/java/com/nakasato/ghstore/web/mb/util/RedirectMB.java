@@ -8,9 +8,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.nakasato.ghstore.domain.product.Product;
+import com.nakasato.ghstore.domain.user.SysUser;
 import com.nakasato.ghstore.web.mb.session.UserSessionMB;
 import com.nakasato.web.util.Redirector;
 
@@ -121,6 +120,26 @@ public class RedirectMB {
 		Redirector.redirectTo( context, url );
 
 	}
+	
+	public void redirectToUpdate( SysUser user ) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext context = ctx.getExternalContext();
+		if( user != null && ! user.isEmpty() ) {
+			context.getFlash().put( "user", user );
+			String url = "/admin/userUpdate.jsf?faces-redirect=true";
+			Redirector.redirectTo( context, url );
+		} else {
+			ctx.addMessage( null, new FacesMessage( "Selecione um usupario para alterar" ) );
+		}
+	}
+
+	public void redirectToSaveUser() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext context = ctx.getExternalContext();
+		String url = "/admin/userSave.jsf?faces-redirect=true";
+		Redirector.redirectTo( context, url );
+	}
+	
 
 	public UserSessionMB getUserSessionMB() {
 		return userSessionMB;
