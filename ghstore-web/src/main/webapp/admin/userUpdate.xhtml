@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/layout/adminLayout.xhtml">
+	<h:head>
+		<title>GHStore -</title>
+		<h:outputStylesheet
+			name="baseStyles.css"
+			library="css" />
+	</h:head>
+	<ui:define name="messages">
+		<p:growl id="messages"></p:growl>
+	</ui:define>
+	<ui:define name="sidebar">
+	</ui:define>
+	<ui:define name="content">
+		<h:form
+			id="form_content"
+			style="width:50%">
+
+			<p:panelGrid
+				styleClass="baseGrid"
+				columns="1">
+				<f:facet name="header">
+					<p:outputLabel value="Alterar Usuário" />
+				</f:facet>
+				<p:row>
+					<p:outputLabel
+						for="user"
+						value="Usuário:"
+						style="font-weight:bold; width:20%;" />
+					<p:inputText
+						id="user"
+						value="#{sysUserMB.selectedUser.username}"
+						maxlength="12"
+						style="width:80%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						id="labelUserType"
+						value="Tipo de usuário:" />
+
+					<p:outputLabel
+						id="outputUserType"
+						value="#{sysUserMB.selectedUser.userType.name}" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="password"
+						value="Senha: "
+						style="font-weight:bold; width:35%" />
+					<h:inputSecret
+						id="password"
+						redisplay="true"
+						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+						value="#{sysUserMB.selectedUser.password}"
+						maxlength="20"
+						style="width:80%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						value="Confirmar senha:"
+						for="passwordConfirm"
+						style="font-weight:bold ; width:40%" />
+					<h:inputSecret
+						id="passwordConfirm"
+						redisplay="true"
+						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+						value="#{sysUserMB.passwordConfirmation}"
+						maxlength="20"
+						style="width:80%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="name"
+						value="Nome completo:"
+						style="font-weight:bold; width:20%;" />
+					<p:inputText
+						id="name"
+						value="#{sysUserMB.selectedUser.name}"
+						maxlength="75"
+						style="width:80%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="cpf"
+						value="CPF:"
+						style="font-weight:bold; width:20%;" />
+					<p:inputMask
+						id="cpf"
+						value="#{sysUserMB.selectedUser.cpf}"
+						mask="999.999.999-99"
+						maxlength="75"
+						style="width:80%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputBirthDate"
+						value="Data de nascimento:"
+						style="font-weight:bold; width:20%;" />
+					<p:calendar
+						id="inputBirthDate"
+						mask="true"
+						navigator="true"
+						pattern="dd/MM/yyyy"
+						yearRange="c-80:c+50"
+						value="#{sysUserMB.selectedUser.birthDate}"
+						maxdate="#{sysUserMB.today}">
+					</p:calendar>
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputSex"
+						value="Sexo:"
+						style="font-weight:bold; width:20%;" />
+					<p:selectOneRadio
+						id="inputSex"
+						value="#{sysUserMB.selectedUser.sex}">
+						<f:selectItem
+							itemLabel="Masculino"
+							itemValue="M" />
+						<f:selectItem
+							itemLabel="Feminino"
+							itemValue="F" />
+					</p:selectOneRadio>
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="email"
+						value="E-mail:"
+						style="font-weight:bold; width:20%;" />
+					<p:inputText
+						id="email"
+						value="#{sysUserMB.selectedUser.email}"
+						maxlength="30"
+						style="width:80%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputDDD"
+						value="DDD:"
+						style="font-weight:bold; width:10%;" />
+					<p:inputText
+						id="inputDDD"
+						value="#{sysUserMB.newPhone.ddd}"
+						maxlength="2"
+						style="width:5%;" />
+					<p:outputLabel
+						for="inputPhoneNumber"
+						value="Número:"
+						style="font-weight:bold; width:20%;padding-left:10px" />
+					<p:inputMask
+						id="inputPhoneNumber"
+						mask="99999-9999"
+						style="width:10%"
+						value="#{sysUserMB.newPhone.number}" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						value="Endereço:"
+						style="font-weight:bold; width:20%;" />
+					<p:commandButton
+						value="+"
+						style="width:50px"
+						actionListener="#{sysUserMB.addNewAddress()}"
+						update=":form_content" />
+				</p:row>
+
+				<ui:include src="/admin/user/update/addressDataList.xhtml" />
+
+				<p:row>
+					<p:commandButton
+						actionListener="#{sysUserMB.update()}"
+						value="Alterar"
+						id="confirm"
+						update=":form_content :messages">
+						<p:confirm
+							header="Usuário"
+							message="Confirmar alterações?" />
+					</p:commandButton>
+
+					<p:commandButton
+						value="Cancelar"
+						id="cancel"
+						action="/admin/userSearch.xhtml">
+						<p:confirm
+							header="Usuário"
+							message="Cancelar alteração?" />
+					</p:commandButton>
+				</p:row>
+			</p:panelGrid>
+
+			<ui:include src="/admin/user/update/addressDialog.xhtml" />
+
+			<ui:include src="/public/confirmDialog.xhtml" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

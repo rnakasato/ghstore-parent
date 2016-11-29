@@ -10,12 +10,12 @@
 <h:body>
 	<ui:composition>
 		<p:dataTable
-			var="prod"
-			id="productTable"
-			value="#{adminProductMB.productList}"
+			var="usr"
+			id="userTable"
+			value="#{sysUserMB.userList}"
 			paginator="true"
-			selection="#{adminProductMB.product}"
-			rowKey="#{prod.id}"
+			selection="#{sysUserMB.selectedUser}"
+			rowKey="#{usr.id}"
 			rows="15"
 			style="width:100%">
 			<f:facet name="header">
@@ -24,76 +24,66 @@
 			<p:ajax
 				event="rowSelectRadio"
 				update=":form_content:gridButtons"
-				listener="#{adminProductMB.select}" />
+				listener="#{sysUserMB.select}" />
 			<p:ajax
 				event="rowUnselect"
 				update=":form_content:gridButtons"
-				listener="#{adminProductMB.unSelect}" />
+				listener="#{sysUserMB.unSelect}" />
 
 			<p:column
 				selectionMode="single"
-				style="width:16px;text-align:center" />
+				style="width:2%;text-align:center" />
+				
 			<p:column
 				headerText="Nome"
-				style="width:14%">
-				<!-- row record -->
+				style="width:25%">
+
 				<p:outputLabel
-					value="#{prod.name}"
-					title="#{prod.name}" />
+					value="#{usr.name}"
+					title="#{usr.name}" />
 			</p:column>
+
 			<p:column
-				headerText="Código"
-				style="width:16%">
-				<!-- row record -->
+				headerText="Nome de usuário"
+				style="width:25%">
+
 				<p:outputLabel
-					value="#{prod.code}"
-					title="#{prod.code}" />
+					value="#{usr.username}"
+					title="#{usr.username}" />
 			</p:column>
+
+
 			<p:column
-				headerText="Categoria"
-				style="width:14%">
-				<!-- row record -->
+				headerText="CPF"
+				style="width:20%">
+
 				<p:outputLabel
-					value="#{prod.storeCategory.description}"
-					title="#{prod.storeCategory.description}" />
+					value="#{usr.formattedCPF}"
+					title="#{usr.formattedCPF}" />
 			</p:column>
+
 			<p:column
-				headerText="Subcategoria"
-				style="width:14%">
-				<!-- row record -->
+				headerText="Tipo de usuário"
+				style="width:15%">
+
 				<p:outputLabel
-					value="#{prod.subcategory.description}"
-					title="#{prod.subcategory.description}" />
+					value="#{usr.userType.name}"
+					title="#{usr.userType.name}" />
 			</p:column>
-			<p:column
-				headerText="Estoque"
-				style="width:14%">
-				<!-- row record -->
-				<p:outputLabel
-					value="#{prod.stock}"
-					title="#{prod.stock}" />
-			</p:column>
-			<p:column
-				headerText="Preço unitário"
-				style="width:14%">
-				<!-- row record -->
-				<p:outputLabel
-					value="#{prod.price}"
-					title="#{prod.price}" />
-			</p:column>
+			
 			<p:column
 				headerText="Status"
-				style="width:14%">
-				<!-- row record -->
+				style="width:13%">
 				<p:outputLabel
-					value="#{prod.statusDesc}"
-					title="#{prod.statusDesc}" />
+					value="#{usr.activeDescription}"
+					title="#{usr.activeDescription}" />
 			</p:column>
 		</p:dataTable>
+		
 		<p:panelGrid
 			styleClass="baseGrid"
 			id="gridButtons"
-			columns="3">
+			columns="4">
 			<p:commandButton
 				id="btnNewUser"
 				value="Cadastrar usuário"
@@ -108,14 +98,25 @@
 				actionListener="#{redirectMB.redirectToUpdate(sysUserMB.selectedUser)}" />
 
 			<p:commandButton
-				id="delete"
+				id="deactivate"
 				value="Desativar usuário selecionado"
-				update="userTable,:messages"
-				disabled="#{sysUserMB.isSelected == null || sysUserMB.isSelected == false }"
+				update="userTable,:messages :form_content:gridButtons"
+				disabled="#{sysUserMB.isSelected == null || sysUserMB.isSelected == false || not sysUserMB.selectedUser.active}"
 				actionListener="#{sysUserMB.deactivate()}">
 				<p:confirm
 					header="Usuário"
-					message="Tem certeza que deseja excluir o usuário selecionado?" />
+					message="Tem certeza que deseja desativar o usuário selecionado?" />
+			</p:commandButton>
+			
+			<p:commandButton
+				id="activate"
+				value="Ativar usuário selecionado"
+				update="userTable,:messages :form_content:gridButtons"
+				disabled="#{sysUserMB.isSelected == null || sysUserMB.isSelected == false || sysUserMB.selectedUser.active}"
+				actionListener="#{sysUserMB.activate()}">
+				<p:confirm
+					header="Usuário"
+					message="Tem certeza que deseja ativar o usuário selecionado?" />
 			</p:commandButton>
 
 

@@ -40,6 +40,7 @@ import com.nakasato.ghstore.domain.filter.impl.StateFilter;
 import com.nakasato.ghstore.domain.filter.impl.StoreCategoryFilter;
 import com.nakasato.ghstore.domain.filter.impl.SubcategoryFilter;
 import com.nakasato.ghstore.domain.filter.impl.TagFilter;
+import com.nakasato.ghstore.domain.filter.impl.UserTypeFilter;
 import com.nakasato.ghstore.domain.filter.impl.WishlistFilter;
 import com.nakasato.ghstore.domain.gallery.GalleryItem;
 import com.nakasato.ghstore.domain.order.Order;
@@ -110,6 +111,7 @@ public class FactoryDAO {
 			daoMap.put( ProductExchangeFilter.class.getName(), new ProductExchangeDAO() );
 			daoMap.put( DiscountCouponFilter.class.getName(), new DiscountCouponDAO() );
 			daoMap.put( WishlistFilter.class.getName(), new WishlistDAO() );
+			daoMap.put( UserTypeFilter.class.getName(), new UserTypeDAO() );
 
 		}
 	}

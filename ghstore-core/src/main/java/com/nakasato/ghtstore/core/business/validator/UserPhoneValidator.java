@@ -11,6 +11,8 @@ public class UserPhoneValidator extends Validator < User > {
 
 	private Pattern dddPattern = Pattern.compile( "[0-9]{2}" );
 	private Pattern phoneNumberPattern = Pattern.compile( "[0-9]{5}-[0-9]{4}" );
+	
+	private Pattern flatNumberPattern = Pattern.compile( "[0-9]{9}" );
 
 	@Override
 	public String validate( User user ) {
@@ -18,14 +20,18 @@ public class UserPhoneValidator extends Validator < User > {
 		Phone phone = user.getPhoneList().get( 0 );
 		Matcher dddMatcher = dddPattern.matcher( phone.getDdd() );
 		Matcher phoneNumberMatcher = phoneNumberPattern.matcher( phone.getNumber() );
+		Matcher flatMatcher = flatNumberPattern.matcher( phone.getNumber() );
+		
 		boolean isDDDValid = dddMatcher.matches();
 		boolean isPhoneNumberValid = phoneNumberMatcher.matches();
+		
+		boolean isFlatValid = flatMatcher.matches();
 
 		StringBuilder sb = new StringBuilder();
-		if( ! isDDDValid ) {
+		if( !isFlatValid && ! isDDDValid ) {
 			sb.append( "DDD inválido" );
 		}
-		if( ! isPhoneNumberValid ) {
+		if( !isFlatValid &&  ! isPhoneNumberValid ) {
 			if( sb.length() > 0 ) {
 				sb.append( ", " );
 			}

@@ -28,7 +28,19 @@ public class AdministratorDAO extends AbstractDAO < Administrator > {
 
 			jpql.append( " WHERE 1=1 " );
 			if( StringUtils.isNotEmpty( adminFilter.getUserName() ) ) {
+				jpql.append( " AND UPPER(adm.username) like :username" );
+			}
+
+			if( StringUtils.isNotEmpty( adminFilter.getLoginUserName() ) ) {
 				jpql.append( " AND adm.username = :username" );
+			}
+
+			if( StringUtils.isNotEmpty( adminFilter.getName() ) ) {
+				jpql.append( " AND UPPER(adm.name) like :name" );
+			}
+
+			if( StringUtils.isNotEmpty( adminFilter.getCpf() ) ) {
+				jpql.append( " AND UPPER(adm.cpf) like :cpf" );
 			}
 
 			if( adminFilter.getActive() != null ) {
@@ -38,7 +50,19 @@ public class AdministratorDAO extends AbstractDAO < Administrator > {
 			Query query = session.createQuery( jpql.toString() );
 
 			if( StringUtils.isNotEmpty( adminFilter.getUserName() ) ) {
+				query.setParameter( "username", "%" + adminFilter.getUserName().toUpperCase() + "%" );
+			}
+
+			if( StringUtils.isNotEmpty( adminFilter.getLoginUserName() ) ) {
 				query.setParameter( "username", adminFilter.getUserName() );
+			}
+
+			if( StringUtils.isNotEmpty( adminFilter.getCpf() ) ) {
+				query.setParameter( "cpf", "%" + adminFilter.getCpf().toUpperCase() + "%" );
+			}
+
+			if( StringUtils.isNotEmpty( adminFilter.getName() ) ) {
+				query.setParameter( "name", "%" + adminFilter.getUserName().toUpperCase() + "%" );
 			}
 
 			if( adminFilter.getActive() != null ) {

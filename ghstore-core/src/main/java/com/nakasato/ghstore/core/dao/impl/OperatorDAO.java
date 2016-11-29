@@ -30,9 +30,21 @@ public class OperatorDAO extends AbstractDAO < Operator > {
 
 			jpql.append( " WHERE 1=1 " );
 			if( StringUtils.isNotEmpty( operatorFilter.getUserName() ) ) {
+				jpql.append( " AND UPPER(op.username) like :username" );
+			}
+
+			if( StringUtils.isNotEmpty( operatorFilter.getLoginUserName() ) ) {
 				jpql.append( " AND op.username = :username" );
 			}
 
+			if( StringUtils.isNotEmpty( operatorFilter.getName() ) ) {
+				jpql.append( " AND UPPER(op.name) like :name" );
+			}
+			
+			if( StringUtils.isNotEmpty( operatorFilter.getCpf() ) ) {
+				jpql.append( " AND UPPER(op.cpf) like :cpf" );
+			}
+			
 			if( operatorFilter.getActive() != null ) {
 				jpql.append( " AND op.active= :active" );
 			}
@@ -40,7 +52,19 @@ public class OperatorDAO extends AbstractDAO < Operator > {
 			Query query = session.createQuery( jpql.toString() );
 
 			if( StringUtils.isNotEmpty( operatorFilter.getUserName() ) ) {
+				query.setParameter( "username", "%" + operatorFilter.getUserName().toUpperCase() + "%" );
+			}
+
+			if( StringUtils.isNotEmpty( operatorFilter.getLoginUserName() ) ) {
 				query.setParameter( "username", operatorFilter.getUserName() );
+			}
+
+			if( StringUtils.isNotEmpty( operatorFilter.getName() ) ) {
+				query.setParameter( "name", "%" + operatorFilter.getUserName().toUpperCase() + "%" );
+			}
+			
+			if( StringUtils.isNotEmpty( operatorFilter.getCpf() ) ) {
+				query.setParameter( "cpf", "%" + operatorFilter.getCpf().toUpperCase() + "%" );				
 			}
 
 			if( operatorFilter.getActive() != null ) {

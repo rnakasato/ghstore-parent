@@ -9,63 +9,69 @@
 <h:body>
 	<ui:composition>
 		<h:form
-			id="productFilter"
+			id="userFilter"
 			style="height:100%;width:100%">
-			<p:watermark
-				for="inputName"
-				value="Buscar Produto..." />
 			<p:panelGrid
 				styleClass="baseGrid"
-				columns="2"
+				columns="1"
 				style="width:100%">
 				<f:facet name="header">
 					<p:outputLabel value="Filtros" />
 				</f:facet>
 
-				<p:outputLabel
-					id="labelName"
-					value="Nome: "
-					for="inputName" />
-				<p:inputText
-					id="inputName"
-					value="#{adminProductMB.filter.name}" />
+				<p:row>
+					<p:outputLabel
+						id="labelName"
+						value="Nome: "
+						for="inputName" />
+					<p:inputText
+						id="inputName"
+						value="#{sysUserMB.filter.name}" />
+				</p:row>
 
-				<p:outputLabel
-					id="labelCode"
-					value="Código do produto: "
-					for="inputCode" />
-				<p:inputText
-					id="inputCode"
-					value="#{adminProductMB.filter.code}" />
+				<p:row>
+					<p:outputLabel
+						id="labelUserName"
+						value="Nome de usuário: "
+						for="inputUserName" />
+					<p:inputText
+						id="inputUserName"
+						value="#{sysUserMB.filter.userName}" />
+				</p:row>
 
-				<p:outputLabel
-					id="labelCategory"
-					for="selectCategory"
-					value="Categoria:" />
-				<p:selectOneMenu
-					id="selectCategory"
-					value="#{adminProductMB.filter.category.description}">
-					<f:selectItem
-						itemLabel="Todos"
-						itemValue="#{null}" />
-					<f:selectItems
-						value="#{adminProductMB.categoryList}"
-						var="cat"
-						itemValue="#{cat.description}"
-						itemLabel="#{cat.description}" />
-				</p:selectOneMenu>
+				<p:row>
+					<p:outputLabel
+						id="labelUserType"
+						for="selectUserType"
+						value="Tipo de usuário:" />
 
+					<p:selectOneMenu
+						id="selectUserType"
+						value="#{sysUserMB.filter.userType}"
+						converter="defaultConverter">
+						<f:selectItem
+							itemLabel="Todos"
+							itemValue="#{null}" />
+						<f:selectItems
+							value="#{sysUserMB.userTypeList}"
+							var="tp"
+							itemValue="#{tp}"
+							itemLabel="#{tp.name}" />
+					</p:selectOneMenu>
+				</p:row>
 
-				<p:outputLabel
-					id="labelSubcategory"
-					value="Subcategoria:"
-					for="inputSubcategory" />
-				<p:autoComplete
-					id="inputSubcategory"
-					dropdown="true"
-					value="#{adminProductMB.filter.subcategory.description}"
-					completeMethod="#{adminProductMB.fillSubcategory}" />
-
+				<p:row>
+					<p:outputLabel
+						for="cpf"
+						value="CPF:"
+						style="font-weight:bold; width:20%;" />
+					<p:inputMask
+						id="cpf"
+						value="#{sysUserMB.filter.cpf}"
+						mask="999.999.999-99"
+						maxlength="75"
+						style="width:80%" />
+				</p:row>
 
 				<p:outputLabel
 					id="labelStatus"
@@ -73,31 +79,18 @@
 					value="Status:" />
 				<p:selectOneRadio
 					id="selectStatus"
-					value="#{adminProductMB.filter.status}">
+					value="#{sysUserMB.status}">
 					<f:selectItem
-						itemLabel="Disponível"
+						itemLabel="Ativo"
 						itemValue="1" />
 					<f:selectItem
-						itemLabel="Indisponível"
-						itemValue="2" />
+						itemLabel="Inativo"
+						itemValue="0" />
 					<f:selectItem
 						itemLabel="Todos"
-						itemValue="0" />
+						itemValue="2" />
 				</p:selectOneRadio>
 
-
-				<p:outputLabel
-					for="orderby"
-					value="Ordenar por:" />
-				<p:selectOneMenu
-					id="orderby"
-					value="#{adminProductMB.order}">
-					<f:selectItems
-						value="#{adminProductMB.orderTypeList}"
-						var="orderP"
-						itemValue="#{orderP.id}"
-						itemLabel="#{orderP.description}" />
-				</p:selectOneMenu>
 			</p:panelGrid>
 
 			<p:panelGrid
@@ -107,14 +100,14 @@
 				<p:commandButton
 					icon="ui-icon-search"
 					value="Buscar"
-					actionListener="#{adminProductMB.listProducts}"
+					actionListener="#{sysUserMB.listUsers()}"
 					onstart="PF('loadingDialog').show()"
 					onsuccess="PF('loadingDialog').hide()"
-					update=":form_content:productTable" />
+					update=":form_content:userTable" />
 				<p:commandButton
 					value="Limpar filtros"
-					actionListener="#{adminProductMB.clearFilter}"
-					update=":productFilter" />
+					actionListener="#{sysUserMB.clearFilter()}"
+					update=":userFilter" />
 			</p:panelGrid>
 		</h:form>
 	</ui:composition>

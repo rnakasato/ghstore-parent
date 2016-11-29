@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.nakasato.ghstore.domain.product.Product;
-import com.nakasato.ghstore.domain.user.SysUser;
+import com.nakasato.ghstore.domain.user.User;
 import com.nakasato.ghstore.web.mb.session.UserSessionMB;
 import com.nakasato.web.util.Redirector;
 
@@ -121,7 +121,7 @@ public class RedirectMB {
 
 	}
 	
-	public void redirectToUpdate( SysUser user ) {
+	public void redirectToUpdate( User user ) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext context = ctx.getExternalContext();
 		if( user != null && ! user.isEmpty() ) {
@@ -129,7 +129,7 @@ public class RedirectMB {
 			String url = "/admin/userUpdate.jsf?faces-redirect=true";
 			Redirector.redirectTo( context, url );
 		} else {
-			ctx.addMessage( null, new FacesMessage( "Selecione um usupario para alterar" ) );
+			ctx.addMessage( null, new FacesMessage( "Selecione um usuário para alterar" ) );
 		}
 	}
 

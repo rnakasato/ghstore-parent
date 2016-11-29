@@ -1,5 +1,5 @@
 package com.nakasato.ghstore.domain.user;
 
-public class Operator extends SysUser {
+public class Operator extends User {
 
 }

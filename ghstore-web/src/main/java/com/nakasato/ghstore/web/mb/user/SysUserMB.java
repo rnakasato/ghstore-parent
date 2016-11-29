@@ -1,5 +1,6 @@
 package com.nakasato.ghstore.web.mb.user;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,40 +17,66 @@ import org.primefaces.context.RequestContext;
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
+import com.nakasato.ghstore.core.util.ListUtils;
+import com.nakasato.ghstore.domain.filter.impl.AdministratorFilter;
 import com.nakasato.ghstore.domain.filter.impl.CityFilter;
+import com.nakasato.ghstore.domain.filter.impl.OperatorFilter;
+import com.nakasato.ghstore.domain.filter.impl.SysUserFilter;
+import com.nakasato.ghstore.domain.filter.impl.UserTypeFilter;
+import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.user.Address;
 import com.nakasato.ghstore.domain.user.Administrator;
 import com.nakasato.ghstore.domain.user.City;
 import com.nakasato.ghstore.domain.user.Operator;
 import com.nakasato.ghstore.domain.user.Phone;
 import com.nakasato.ghstore.domain.user.State;
-import com.nakasato.ghstore.domain.user.SysUser;
+import com.nakasato.ghstore.domain.user.User;
 import com.nakasato.ghstore.domain.user.UserType;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
+import com.nakasato.ghstore.web.adapter.UserToAdmininistratorAdapter;
+import com.nakasato.ghstore.web.adapter.UserToOperatorAdapter;
 import com.nakasato.ghstore.web.mb.BaseMB;
+import com.nakasato.ghstore.web.mb.util.RedirectMB;
 import com.nakasato.web.util.Redirector;
 
 @ManagedBean( name = "sysUserMB" )
 @ViewScoped
 public class SysUserMB extends BaseMB {
-	private SysUser newUser;
-	private SysUser selectedUser;
+	private User newUser;
+	private User selectedUser;
+	private SysUserFilter filter;
 
-	protected String passwordConfirmation;
+	private String passwordConfirmation;
 
-	protected Phone newPhone;
-	protected State selectedState;
-	protected Address selectedAddress;
-	protected Address newAddress;
+	// O status está como String porque
+	// o componente de Radio não processa
+	// as opções como boleanos quando
+	// há #{null} como opção
+	private String status;
 
-	protected List < State > stateList;
-	protected List < City > cityList;
+	private Phone newPhone;
+	private State selectedState;
+	private Address selectedAddress;
+	private Address newAddress;
 
-	protected boolean saveOperation;
+	private List < State > stateList;
+	private List < City > cityList;
+	private List < UserType > userTypeList;
+
+	private List < User > userList;
+
+	private boolean saveOperation;
+
+	private UserToAdmininistratorAdapter adapterToAdmin;
+	private UserToOperatorAdapter adapterToOperator;
 
 	@PostConstruct
 	public void init() {
-		newUser = new SysUser();
+		adapterToAdmin = new UserToAdmininistratorAdapter();
+		adapterToOperator = new UserToOperatorAdapter();
+
+		filter = new SysUserFilter();
+		newUser = new User();
 		newUser.setAddressList( new LinkedList<>() );
 		newUser.setPhoneList( new LinkedList<>() );
 
@@ -60,11 +87,106 @@ public class SysUserMB extends BaseMB {
 
 		newAddress = new Address();
 		newAddress.setCity( new City() );
+		
+		selectedUser = ( User ) FacesContext.getCurrentInstance().getExternalContext().getFlash().get( "user" );
+		
+		if(selectedUser != null){
+			newPhone = selectedUser.getPhoneList().get( 0 );
+		}
 
 		initStateList();
+		initUserType();
 	}
 
-	public void initStateList() {
+	public void listUsers() {
+		userList = new ArrayList<>();
+		if( StringUtils.isNotEmpty( status ) ) {
+			if( status.equals( "0" ) ) {
+				filter.setActive( false );
+			} else if( status.equals( "1" ) ) {
+				filter.setActive( true );
+			}
+		}
+		
+		List < User > admList = findAdministrators();
+		List < User > opList = findOperators();
+
+		if( ListUtils.isNotEmpty( admList ) ) {
+			userList.addAll( admList );
+		}
+
+		if( ListUtils.isNotEmpty( opList ) ) {
+			userList.addAll( opList );
+		}
+	}
+
+	private List < User > findAdministrators() {
+		List < User > userList = null;
+		try {
+			AdministratorFilter adminFilter = new AdministratorFilter();
+			adminFilter.setName( filter.getName() );
+			adminFilter.setUserName( filter.getUserName() );
+			adminFilter.setActive( filter.getActive() );
+			adminFilter.setUserType( filter.getUserType() );
+			adminFilter.setCpf( filter.getCpf() );
+			adminFilter.setLoadAddress( true );
+
+			ICommand commandFind;
+			commandFind = FactoryCommand.build( adminFilter, EOperation.FIND );
+			List < Administrator > adminList = commandFind.execute().getEntityList();
+			if( ListUtils.isNotEmpty( adminList ) ) {
+				userList = new ArrayList<>();
+				userList.addAll( adminList );
+			}
+		} catch( ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+
+		return userList;
+	}
+
+	private List < User > findOperators() {
+		List < User > userList = null;
+		try {
+			OperatorFilter opFilter = new OperatorFilter();
+
+			opFilter.setName( filter.getName() );
+			opFilter.setUserName( filter.getUserName() );
+			opFilter.setActive( filter.getActive() );
+			opFilter.setUserType( filter.getUserType() );
+			opFilter.setCpf( filter.getCpf() );
+			opFilter.setLoadAddress( true );
+
+			ICommand commandFind;
+			commandFind = FactoryCommand.build( opFilter, EOperation.FIND );
+			List < Operator > opList = commandFind.execute().getEntityList();
+			if( ListUtils.isNotEmpty( opList ) ) {
+				userList = new ArrayList<>();
+				userList.addAll( opList );
+			}
+		} catch( ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+		return userList;
+	}
+
+	private void initUserType() {
+		try {
+			UserTypeFilter filter = new UserTypeFilter();
+			List < String > codeList = new ArrayList<>();
+			codeList.add( UserType.COD_ADMINISTRATOR );
+			codeList.add( UserType.COD_OPERATOR );
+
+			filter.setCodeList( codeList );
+			ICommand commandFind = FactoryCommand.build( filter, EOperation.FIND );
+			userTypeList = commandFind.execute().getEntityList();
+		} catch( ClassNotFoundException e ) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void initStateList() {
 		try {
 			ICommand command = FactoryCommand.build( new State(), EOperation.FINDALL );
 			Result result = command.execute();
@@ -85,22 +207,21 @@ public class SysUserMB extends BaseMB {
 
 				ICommand command;
 				if( newUser.getUserType().getCode().equals( UserType.COD_ADMINISTRATOR ) ) {
-					Administrator admin = ( Administrator ) newUser;
+					Administrator admin = adapterToAdmin.adapt( newUser );
 					command = FactoryCommand.build( admin, EOperation.SAVE );
 				} else {
-					Operator op = ( Operator ) newUser;
+					Operator op = adapterToOperator.adapt( newUser );
 					command = FactoryCommand.build( op, EOperation.SAVE );
 				}
-
 				String msg = command.execute().getMsg();
 				if( StringUtils.isNotEmpty( msg ) ) {
 					addMessage( msg );
 				}
 
 			}
-			FacesContext context = FacesContext.getCurrentInstance();
-
-			Redirector.redirectTo( context.getExternalContext(), "/admin/login.jsf?faces-redirect=true" );
+			
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			Redirector.redirectTo( ctx.getExternalContext(), "/admin/userSearch.jsf?faces-redirect=true" );
 
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
@@ -117,11 +238,11 @@ public class SysUserMB extends BaseMB {
 				addPhone( selectedUser );
 
 				ICommand command;
-				if( newUser.getUserType().getCode().equals( UserType.COD_ADMINISTRATOR ) ) {
-					Administrator admin = ( Administrator ) newUser;
+				if( selectedUser.getUserType().getCode().equals( UserType.COD_ADMINISTRATOR ) ) {
+					Administrator admin = adapterToAdmin.adapt( selectedUser );
 					command = FactoryCommand.build( admin, EOperation.UPDATE );
 				} else {
-					Operator op = ( Operator ) newUser;
+					Operator op = adapterToOperator.adapt( selectedUser );
 					command = FactoryCommand.build( op, EOperation.UPDATE );
 				}
 
@@ -130,6 +251,9 @@ public class SysUserMB extends BaseMB {
 					addMessage( msg );
 				} else {
 					addMessage( "Dados alterados com sucesso!" );
+					
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					Redirector.redirectTo( ctx.getExternalContext(), "/admin/userSearch.jsf?faces-redirect=true" );
 				}
 
 			}
@@ -144,10 +268,10 @@ public class SysUserMB extends BaseMB {
 			ICommand command;
 			selectedUser.setActive( false );
 			if( selectedUser.getUserType().getCode().equals( UserType.COD_ADMINISTRATOR ) ) {
-				Administrator admin = ( Administrator ) selectedUser;
+				Administrator admin = adapterToAdmin.adapt( selectedUser );
 				command = FactoryCommand.build( admin, EOperation.UPDATE );
 			} else {
-				Operator op = ( Operator ) selectedUser;
+				Operator op = adapterToOperator.adapt( selectedUser );
 				command = FactoryCommand.build( op, EOperation.UPDATE );
 			}
 
@@ -163,8 +287,31 @@ public class SysUserMB extends BaseMB {
 		}
 	}
 
-	public void addPhone( SysUser user ) {
-		newPhone.setUser( user );
+	public void activate() {
+		try {
+			ICommand command;
+			selectedUser.setActive( true );
+			if( selectedUser.getUserType().getCode().equals( UserType.COD_ADMINISTRATOR ) ) {
+				Administrator admin = adapterToAdmin.adapt( selectedUser );
+				command = FactoryCommand.build( admin, EOperation.UPDATE );
+			} else {
+				Operator op = adapterToOperator.adapt( selectedUser );
+				command = FactoryCommand.build( op, EOperation.UPDATE );
+			}
+
+			String msg = command.execute().getMsg();
+			if( StringUtils.isNotEmpty( msg ) ) {
+				addMessage( msg );
+			} else {
+				addMessage( "Usuário ativado!" );
+			}
+
+		} catch( ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addPhone( User user ) {
 		newPhone.setInsertDate( new Date() );
 		user.getPhoneList().add( newPhone );
 	}
@@ -196,7 +343,7 @@ public class SysUserMB extends BaseMB {
 		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
-	public void addAddress( SysUser user ) {
+	public void addAddress( User user ) {
 		user.getAddressList().add( newAddress );
 		newAddress = new Address();
 		newAddress.setCity( new City() );
@@ -204,7 +351,7 @@ public class SysUserMB extends BaseMB {
 		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
-	public void removeAddress( SysUser user ) {
+	public void removeAddress( User user ) {
 		List < Address > addressList = user.getAddressList();
 		addressList.remove( newAddress );
 	}
@@ -219,7 +366,7 @@ public class SysUserMB extends BaseMB {
 	}
 
 	public void clearFields() {
-		newUser = new SysUser();
+		newUser = new User();
 		newUser.setAddressList( new LinkedList<>() );
 		newUser.setPhoneList( new LinkedList<>() );
 
@@ -229,7 +376,7 @@ public class SysUserMB extends BaseMB {
 
 	}
 
-	private boolean confirmPassword( SysUser user ) {
+	private boolean confirmPassword( User user ) {
 		boolean same = false;
 		if( StringUtils.isNotEmpty( passwordConfirmation ) && StringUtils.isNotEmpty( user.getPassword() )
 				&& passwordConfirmation.equals( user.getPassword() ) ) {
@@ -240,23 +387,23 @@ public class SysUserMB extends BaseMB {
 
 	@Override
 	public void clearFilter() {
-		// TODO Auto-generated method stub
-
+		filter = new SysUserFilter();
+		status = null;
 	}
 
-	public SysUser getNewUser() {
+	public User getNewUser() {
 		return newUser;
 	}
 
-	public void setNewUser( SysUser newUser ) {
+	public void setNewUser( User newUser ) {
 		this.newUser = newUser;
 	}
 
-	public SysUser getSelectedUser() {
+	public User getSelectedUser() {
 		return selectedUser;
 	}
 
-	public void setSelectedUser( SysUser selectedUser ) {
+	public void setSelectedUser( User selectedUser ) {
 		this.selectedUser = selectedUser;
 	}
 
@@ -322,6 +469,38 @@ public class SysUserMB extends BaseMB {
 
 	public void setSaveOperation( boolean saveOperation ) {
 		this.saveOperation = saveOperation;
+	}
+
+	public SysUserFilter getFilter() {
+		return filter;
+	}
+
+	public void setFilter( SysUserFilter filter ) {
+		this.filter = filter;
+	}
+
+	public List < UserType > getUserTypeList() {
+		return userTypeList;
+	}
+
+	public void setUserTypeList( List < UserType > userTypeList ) {
+		this.userTypeList = userTypeList;
+	}
+
+	public List < User > getUserList() {
+		return userList;
+	}
+
+	public void setUserList( List < User > userList ) {
+		this.userList = userList;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus( String status ) {
+		this.status = status;
 	}
 
 }

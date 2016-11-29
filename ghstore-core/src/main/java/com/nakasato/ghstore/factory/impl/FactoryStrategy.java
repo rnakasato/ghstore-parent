@@ -10,6 +10,7 @@ import com.nakasato.ghstore.core.IStrategy;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.carrier.PaymentCreationCarrier;
 import com.nakasato.ghstore.domain.carrier.PerformanceGraphicCarrier;
+import com.nakasato.ghstore.domain.filter.impl.AdministratorFilter;
 import com.nakasato.ghstore.domain.filter.impl.CustomerFilter;
 import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
 import com.nakasato.ghstore.domain.filter.impl.ProductExchangeFilter;
@@ -19,6 +20,7 @@ import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 import com.nakasato.ghstore.domain.productreturn.ProductReturn;
+import com.nakasato.ghstore.domain.user.Administrator;
 import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghtstore.core.business.complementor.ComplementAxisData;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCityAxisData;
@@ -34,6 +36,8 @@ import com.nakasato.ghtstore.core.business.complementor.ComplementProductExchang
 import com.nakasato.ghtstore.core.business.complementor.ComplementProductExchangeProductStock;
 import com.nakasato.ghtstore.core.business.complementor.ComplementProductReturn;
 import com.nakasato.ghtstore.core.business.complementor.ComplementProductReturnProductStock;
+import com.nakasato.ghtstore.core.business.complementor.ComplementSysUserSave;
+import com.nakasato.ghtstore.core.business.complementor.ComplementSysUserUpdate;
 import com.nakasato.ghtstore.core.business.complementor.ComplementTags;
 import com.nakasato.ghtstore.core.business.filler.PaymentCreationFiller;
 import com.nakasato.ghtstore.core.business.filler.StoreCategoryFiller;
@@ -46,15 +50,17 @@ import com.nakasato.ghtstore.core.business.validator.ProductExchangeAmountValida
 import com.nakasato.ghtstore.core.business.validator.ProductReturnAmountValidator;
 import com.nakasato.ghtstore.core.business.validator.StockValidator;
 import com.nakasato.ghtstore.core.business.validator.StoreCategoryValidator;
+import com.nakasato.ghtstore.core.business.validator.SysUserCEPValidator;
 import com.nakasato.ghtstore.core.business.validator.TransactionCodeValidator;
 import com.nakasato.ghtstore.core.business.validator.UserBirthDateValidator;
 import com.nakasato.ghtstore.core.business.validator.UserCPFValidator;
 import com.nakasato.ghtstore.core.business.validator.UserPhoneValidator;
+import com.nakasato.ghtstore.core.business.validator.fields.CustomerRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.PerformanceGraphicRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductExchangeRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductReturnRequiredFieldsValidator;
-import com.nakasato.ghtstore.core.business.validator.fields.CustomerRequiredFieldsValidator;
+import com.nakasato.ghtstore.core.business.validator.fields.SysUserRequiredFieldsValidator;
 
 public class FactoryStrategy {
 
@@ -69,6 +75,9 @@ public class FactoryStrategy {
 
 	private static Map < String, List < IStrategy > > rnsProduct;
 	private static Map < String, List < IStrategy > > rnsCustomer;
+	private static Map < String, List < IStrategy > > rnsAdministrator;
+	private static Map < String, List < IStrategy > > rnsOperator;
+	
 	private static Map < String, List < IStrategy > > rnsOrder;
 	private static Map < String, List < IStrategy > > rnsProductReturn;
 	private static Map < String, List < IStrategy > > rnsProductExchange;
@@ -103,7 +112,17 @@ public class FactoryStrategy {
 		rns.put( Customer.class.getName(), rnsCustomer );
 		rns.put( CustomerFilter.class.getName(), rnsCustomer );
 		initCustomerRns();
-
+		
+		rnsAdministrator = new HashMap<>();
+		rns.put( Administrator.class.getName(), rnsAdministrator );
+		rns.put( AdministratorFilter.class.getName(), rnsAdministrator );
+		initAdministratorRns();
+		
+		rnsOperator = new HashMap<>();
+		rns.put( Administrator.class.getName(), rnsOperator );
+		rns.put( AdministratorFilter.class.getName(), rnsOperator );
+		initOperatorRns();
+		
 		rnsOrder = new HashMap<>();
 		rns.put( Order.class.getName(), rnsOrder );
 		rns.put( OrderFilter.class.getName(), rnsOrder );
@@ -181,6 +200,74 @@ public class FactoryStrategy {
 		rnsCustomer.put( EOperation.FIND, rnsFind );
 
 	}
+	
+	private static void initAdministratorRns() {
+		List < IStrategy > rnsSave = new ArrayList<>();
+		List < IStrategy > rnsUpdate = new ArrayList<>();
+		// Não há regras para a busca de usuário
+		List < IStrategy > rnsFind = new ArrayList<>();
+		List < IStrategy > rnsDelete = new ArrayList<>();
+
+		// Adicionando regras de negócio para salvar um Usuário
+		rnsSave.add( new SysUserRequiredFieldsValidator() );
+		rnsSave.add( new UserCPFValidator() );
+		rnsSave.add( new UserBirthDateValidator() );
+		rnsSave.add( new SysUserCEPValidator() );
+		rnsSave.add( new UserPhoneValidator() );
+		rnsSave.add( new EmailValidator() );
+		rnsSave.add( new ComplementSysUserSave() );
+		// Verificar se Nome de usuário e CPF já existem
+
+		rnsUpdate.add( new SysUserRequiredFieldsValidator() );
+		rnsUpdate.add( new UserBirthDateValidator() );
+		rnsUpdate.add( new SysUserCEPValidator() );
+		rnsUpdate.add( new UserPhoneValidator() );
+		rnsUpdate.add( new EmailValidator() );
+		rnsUpdate.add( new SysUserCEPValidator() );
+		rnsUpdate.add( new ComplementSysUserUpdate() );
+
+		// Insere as regras de negócio por operação
+		rnsAdministrator.put( EOperation.SAVE, rnsSave );
+		rnsAdministrator.put( EOperation.UPDATE, rnsUpdate );
+		rnsAdministrator.put( EOperation.DELETE, rnsDelete );
+		rnsAdministrator.put( EOperation.FIND, rnsFind );
+
+	}
+
+	
+	private static void initOperatorRns() {
+		List < IStrategy > rnsSave = new ArrayList<>();
+		List < IStrategy > rnsUpdate = new ArrayList<>();
+		// Não há regras para a busca de usuário
+		List < IStrategy > rnsFind = new ArrayList<>();
+		List < IStrategy > rnsDelete = new ArrayList<>();
+
+		// Adicionando regras de negócio para salvar um Usuário
+		rnsSave.add( new SysUserRequiredFieldsValidator() );
+		rnsSave.add( new UserCPFValidator() );
+		rnsSave.add( new UserBirthDateValidator() );
+		rnsSave.add( new SysUserCEPValidator() );
+		rnsSave.add( new UserPhoneValidator() );
+		rnsSave.add( new EmailValidator() );
+		rnsSave.add( new ComplementSysUserSave() );
+		// Verificar se Nome de usuário e CPF já existem
+
+		rnsUpdate.add( new SysUserRequiredFieldsValidator() );
+		rnsUpdate.add( new UserBirthDateValidator() );
+		rnsUpdate.add( new SysUserCEPValidator() );
+		rnsUpdate.add( new UserPhoneValidator() );
+		rnsUpdate.add( new EmailValidator() );
+		rnsUpdate.add( new UserCPFValidator() );
+		rnsUpdate.add( new ComplementSysUserUpdate() );
+
+		// Insere as regras de negócio por operação
+		rnsOperator.put( EOperation.SAVE, rnsSave );
+		rnsOperator.put( EOperation.UPDATE, rnsUpdate );
+		rnsOperator.put( EOperation.DELETE, rnsDelete );
+		rnsOperator.put( EOperation.FIND, rnsFind );
+
+	}
+
 
 	private static void initOrderRns() {
 		List < IStrategy > rnsSave = new ArrayList<>();

@@ -69,6 +69,8 @@
 		<property name="email" column="EMAIL" />
 		<property name="insertDate" column="INSERTDATE" />
 		<property name="updateDate" column="UPDATEDATE" />
+		<property name="firstLogin" type="boolean" column="FIRST_LOGIN" />
+		<property name="active" type="boolean" column="ACTIVE" />
 
 		<many-to-one name="userType"
 			class="com.nakasato.ghstore.domain.user.UserType" cascade="none"
@@ -120,24 +122,18 @@
 
 		<subclass name="com.nakasato.ghstore.domain.user.Administrator"
 			discriminator-value="2">
-
-			<property name="firstLogin" column="FIRST_LOGIN" />
-			<property name="active" column="ACTIVE" />
-
 			<bag name="addressList" table="DE_USER_ADDRESS" inverse="false"
 				lazy="false" cascade="save-update">
 				<key column="IDUSER" />
 				<many-to-many class="com.nakasato.ghstore.domain.user.Address"
 					column="IDADDRESS" />
 			</bag>
+
 		</subclass>
-		
+
 		<subclass name="com.nakasato.ghstore.domain.user.Operator"
 			discriminator-value="3">
 
-			<property name="firstLogin" column="FIRST_LOGIN" />
-			<property name="active" column="ACTIVE" />
-			
 			<bag name="addressList" table="DE_USER_ADDRESS" inverse="false"
 				lazy="false" cascade="save-update">
 				<key column="IDUSER" />
@@ -145,7 +141,7 @@
 					column="IDADDRESS" />
 			</bag>
 		</subclass>
-		
+
 
 	</class>
 
