@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dataTable
+			var="item"
+			id="promotionItemTable"
+			value="#{promotionMB.selectedPromotion.productList}"
+			paginator="true"
+			rows="5"
+			style="width:100%">
+			<f:facet name="header">
+				<p:outputLabel value="Itens do pedido" />
+			</f:facet>
+
+			<p:column
+				headerText="Produto"
+				style="width:30%">
+				<p:panelGrid
+					styleClass="baseGrid"
+					columns="1">
+					<p:outputLabel
+						value="#{item.name}"
+						title="#{item.name}" />
+					<p:graphicImage
+						value="#{promotionMB.getImagePath(item)}"
+						style="width:96px;height:96px" />
+				</p:panelGrid>
+			</p:column>
+
+			<p:column
+				headerText="Valor unitário"
+				style="width:60%">
+				<p:panelGrid
+					styleClass="baseGrid"
+					columns="1">
+					<h:outputText value="De: #{formatterMB.formatCurrency(item.price)}" />
+					<h:outputText value="Por: #{formatterMB.formatCurrency(promotionMB.promotionValue(item))}" />
+				</p:panelGrid>
+			</p:column>
+
+		</p:dataTable>
+	</ui:composition>
+</h:body>
+</html>

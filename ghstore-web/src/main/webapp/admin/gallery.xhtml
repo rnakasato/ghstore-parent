@@ -8,12 +8,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/layout/adminLayout.xhtml">
-	<h:head>
+	<ui:define name="head">
 		<title>GHStore - Galeria</title>
-		<h:outputStylesheet
-			name="baseStyles.css"
-			library="css" />
-	</h:head>
+	</ui:define>
 	<ui:define name="messages">
 		<p:growl id="messages"></p:growl>
 	</ui:define>

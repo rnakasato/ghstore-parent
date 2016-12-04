@@ -8,15 +8,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/clientuser/logged/profile.xhtml">
-	<h:head>
-		<title>GHStore - Salvar Produto</title>
-		<h:outputStylesheet
-			name="adminLayout.css"
-			library="css" />
-		<h:outputStylesheet
-			name="baseStyles.css"
-			library="css" />
-	</h:head>
+	<ui:define name="head">
+		<title>GHStore - Pedidos</title>
+	</ui:define>
 
 	<ui:define name="sidebar">
 		<ui:include src="/clientuser/logged/order/orderFilter.xhtml" />

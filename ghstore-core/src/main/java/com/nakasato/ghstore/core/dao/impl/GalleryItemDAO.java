@@ -11,7 +11,7 @@ public class GalleryItemDAO extends AbstractDAO < GalleryItem >{
 
 	@Override
 	public List < GalleryItem > find( AbstractDomainEntity filter ) throws Exception {
-		
+	
 		return null;
 	}
 

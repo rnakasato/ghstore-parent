@@ -14,6 +14,14 @@ public class FormatUtils {
 		return formatted.toString();
 	}
 
+	public static String formatToPercentage( Double value ) {
+		String symbol = " %";
+		StringBuilder formatted = new StringBuilder();
+		formatted.append( String.format( "%.2f", value ) );
+		formatted.append( symbol );
+		return formatted.toString();
+	}
+
 	public static String formatToCurrencyNoSymbol( Double value ) {
 		String formatted = String.format( "%.2f", value );
 		formatted = formatted.replace( ",", "." );

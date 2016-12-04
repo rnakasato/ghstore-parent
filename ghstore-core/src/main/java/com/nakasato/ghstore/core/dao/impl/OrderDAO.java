@@ -1,20 +1,16 @@
 package com.nakasato.ghstore.core.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.nakasato.ghstore.core.hibernate.HibernateUtil;
 import com.nakasato.ghstore.core.util.ListUtils;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
 import com.nakasato.ghstore.domain.filter.impl.PerformanceGraphicFilter;
 import com.nakasato.ghstore.domain.order.Order;
-import com.nakasato.ghstore.domain.product.StoreCategory;
-import com.nakasato.ghstore.domain.user.State;
 
 public class OrderDAO extends AbstractDAO < Order > {
 
@@ -53,6 +49,8 @@ public class OrderDAO extends AbstractDAO < Order > {
 			if( orderFilter.getStartDate() != null && orderFilter.getEndDate() != null ) {
 				jpql.append( " AND o.insertDate BETWEEN :startDate AND :endDate " );
 			}
+			
+			jpql.append( " ORDER BY o.insertDate desc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
@@ -76,6 +74,8 @@ public class OrderDAO extends AbstractDAO < Order > {
 				query.setParameter( "startDate", orderFilter.getStartDate() );
 				query.setParameter( "endDate", orderFilter.getEndDate() );
 			}
+			
+			jpql.append( " ORDER BY o.insertDate desc " );
 
 			orderList = query.getResultList();
 			closeSession();
@@ -90,20 +90,15 @@ public class OrderDAO extends AbstractDAO < Order > {
 	public List < Order > findAll() throws Exception {
 
 		List < Order > orderList = null;
-		try {
-			openSession();
 
-			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM Order " );
+		StringBuilder jpql = new StringBuilder();
+		jpql.append( " FROM Order o " );
+		jpql.append( " ORDER BY o.insertDate desc " );
 
-			Query query = session.createQuery( jpql.toString() );
+		Query query = session.createQuery( jpql.toString() );
 
-			orderList = query.getResultList();
+		orderList = query.getResultList();
 
-			closeSession();
-		} catch( RuntimeException e ) {
-			cancelSession();
-		}
 		return orderList;
 
 	}
@@ -184,39 +179,6 @@ public class OrderDAO extends AbstractDAO < Order > {
 		}
 
 		return orderList;
-	}
-
-	public static void main( String[] args ) throws Exception {
-		OrderDAO dao = new OrderDAO();
-		List < Order > orders;
-
-		PerformanceGraphicFilter filter = new PerformanceGraphicFilter();
-
-		List < StoreCategory > categoryList = new StoreCategoryDAO().findAll();
-		for( StoreCategory storeCategory: categoryList ) {
-			if( storeCategory.getDescription().contains( "Mang" ) ) {
-				List < StoreCategory > cf = new ArrayList<>();
-				cf.add( storeCategory );
-				filter.setCategoryList( cf );
-				break;
-			}
-		}
-
-		// List < State > stateList = new StateDAO().findAll();
-		// for( State state: stateList ) {
-		// if( state.getDescription().toLowerCase().contains( "alagoas" ) ) {
-		// filter.setState( state );
-		// break;
-		// }
-		// }
-
-		orders = dao.findGraphicData( filter );
-
-		for( Order o: orders ) {
-			System.out.println( o.getOrderItemList().get( 0 ).getProduct().getName() );
-		}
-
-		HibernateUtil.shutdown();
 	}
 
 }

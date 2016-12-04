@@ -69,8 +69,10 @@ public class UserSessionMB extends BaseMB {
 			cart.setProcess( false );
 		}
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		loggedUser = ( Customer ) loginMB.getLoggedUser();
+		if( loginMB.getLoggedUser() instanceof Customer ) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			loggedUser = ( Customer ) loginMB.getLoggedUser();
+		}
 		useCoupon = false;
 	}
 
@@ -100,6 +102,7 @@ public class UserSessionMB extends BaseMB {
 
 	public void removeItem( ShoppingCartItem cartItem ) {
 		cart.getShoppingCartList().remove( cartItem );
+		temporaryTotal -= cartItem.getTotalValue();
 		if( useCoupon ) {
 			cart.setTotalValue( new Double( temporaryTotal ) );
 		}
@@ -136,7 +139,7 @@ public class UserSessionMB extends BaseMB {
 		cartWeight -= totalWeight;
 
 		// recalcula totais do item
-		totalValue = changeItem.getProduct().getPrice() * newAmount;
+		totalValue = changeItem.getProduct().getDiscountPrice() * newAmount;
 		totalWeight = changeItem.getProduct().getWeight().longValue() * newAmount;
 
 		cartValue += totalValue;
@@ -202,9 +205,11 @@ public class UserSessionMB extends BaseMB {
 			if( cart.getTotalValue() != null ) {
 				temporaryTotal = new Double( cart.getTotalValue() );
 				cart.setTotalValue( new Double( temporaryTotal - ( temporaryTotal * 0.1 ) ) );
+				cart.setDiscountValue( ( temporaryTotal * 0.1 ) );
 			}
 		} else {
 			cart.setTotalValue( new Double( temporaryTotal ) );
+			cart.setDiscountValue( 0D );
 			temporaryTotal = null;
 		}
 	}
@@ -226,8 +231,10 @@ public class UserSessionMB extends BaseMB {
 					cart.setTotalWeight( 0L );
 					cart.setOwner( loggedUser );
 					cart.setProcess( false );
+					temporaryTotal = 0D;
 					Address address = loggedUser.getDeliveryAddressList().get( 0 );
-					// Revisar o endereço de entrega para setar o endereço, verificar se somente remover o bloco 
+					// Revisar o endereço de entrega para setar o endereço,
+					// verificar se somente remover o bloco
 					// do setAddress resolve
 					cart.setAddress( address );
 					transactionCode = null;
@@ -247,6 +254,8 @@ public class UserSessionMB extends BaseMB {
 			List < ShoppingCartItem > itemList = cart.getShoppingCartList();
 			boolean alreadyExists = false;
 			int index = 0;
+			
+			// verifica se o item já existe
 			for( ShoppingCartItem item: itemList ) {
 				if( item.getProduct().getId() == product.getId() ) {
 					alreadyExists = true;
@@ -272,7 +281,8 @@ public class UserSessionMB extends BaseMB {
 				// carrega novos valores do item
 				Integer totalAmount = cartItem.getAmount() + amount;
 				cartItem.setAmount( totalAmount );
-				cartItem.setTotalValue( totalAmount * cartItem.getProduct().getPrice() );
+				cartItem.setTotalValue( totalAmount * cartItem.getProduct().getDiscountPrice() );
+
 				Long weight = cartItem.getProduct().getWeight().longValue();
 				cartItem.setTotalWeigth( totalAmount * weight );
 
@@ -281,8 +291,9 @@ public class UserSessionMB extends BaseMB {
 			} else {
 				ShoppingCartItem cartItem = new ShoppingCartItem();
 				cartItem.setAmount( amount );
+				cartItem.setItemValue( product.getDiscountPrice() );
 				cartItem.setProduct( product );
-				cartItem.setTotalValue( amount * product.getPrice() );
+				cartItem.setTotalValue( amount * product.getDiscountPrice() );
 
 				Long weight = product.getWeight().longValue();
 				cartItem.setTotalWeigth( amount * weight );

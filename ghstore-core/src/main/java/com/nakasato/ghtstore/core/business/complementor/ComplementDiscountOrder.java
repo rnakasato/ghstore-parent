@@ -14,7 +14,7 @@ public class ComplementDiscountOrder extends Complementor < Order > {
 	@Override
 	public String complement( Order entity ) {
 		try {
-			if( entity.isDiscount() ) {
+			if( entity.getDiscount() != null && entity.getDiscount() ) {
 				Customer customer = entity.getCustomer();
 				List < DiscountCoupon > coupons = customer.getCoupons();
 				DiscountCoupon usedCoupon = null;

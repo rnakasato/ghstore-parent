@@ -17,6 +17,10 @@ public class FormatterMB {
 		return FormatUtils.formatToCurrency( price );
 	}
 
+	public String formatToPercentage( Double value ) {
+		return FormatUtils.formatToPercentage( value );
+	}
+
 	public String formatTagList( List < Tag > tagList ) {
 		if( tagList != null ) {
 			StringBuilder sb = new StringBuilder();
@@ -44,7 +48,17 @@ public class FormatterMB {
 		}
 		return formattedDate;
 	}
-
+	
+	public String formatDateTime( Date date ){
+		String formattedDate = null;
+		if(date != null){
+			SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyy HH:mm:ss" );
+			formattedDate = sdf.format( date );
+		}
+		return formattedDate;
+	}
+	
+	
 	public String formatCEP( String value ) {
 		return FormatUtils.formatString( value, "#####-###" );
 	}

@@ -42,7 +42,10 @@
 							actionListener="#{redirectMB.redirectToProductPage(prod)}" />
 
 						<h:outputText value="#{prod.name}" />
-						<h:outputText value="#{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText rendered="#{empty prod.activePromotion}" value="#{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText rendered="#{not empty prod.activePromotion}" value="Promoção: - #{formatterMB.formatToPercentage(prod.activePromotion.discountPercentage)}" />
+						<h:outputText rendered="#{not empty prod.activePromotion}" value="De: #{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText rendered="#{not empty prod.activePromotion}" value="Por: #{formatterMB.formatCurrency(prod.discountPrice)}" />
 						<h:outputText value="#{prod.statusDesc}" />
 					</h:panelGrid>
 				</p:panel>

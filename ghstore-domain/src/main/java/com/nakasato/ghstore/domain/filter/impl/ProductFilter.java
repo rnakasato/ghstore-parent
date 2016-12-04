@@ -27,9 +27,17 @@ public class ProductFilter extends Filter {
 	private List < String > selectedSubcategoryIds;
 	private List < StoreCategory > storeCategoryList;
 	private List < Tag > tagList;
+	private List < Product > notInList;
+	private Boolean activePromotion;
+
+	private Boolean newProducts;
+
+	private Integer resultAmount;
 
 	private Double initialValue;
 	private Double finalValue;
+
+	private Integer maxResults;
 
 	public ProductFilter() {
 		category = new StoreCategory();
@@ -149,6 +157,46 @@ public class ProductFilter extends Filter {
 
 	public void setTagList( List < Tag > tagList ) {
 		this.tagList = tagList;
+	}
+
+	public Boolean getActivePromotion() {
+		return activePromotion;
+	}
+
+	public void setActivePromotion( Boolean activePromotion ) {
+		this.activePromotion = activePromotion;
+	}
+
+	public List < Product > getNotInList() {
+		return notInList;
+	}
+
+	public void setNotInList( List < Product > notInList ) {
+		this.notInList = notInList;
+	}
+
+	public Boolean getNewProducts() {
+		return newProducts;
+	}
+
+	public void setNewProducts( Boolean newProducts ) {
+		this.newProducts = newProducts;
+	}
+
+	public Integer getResultAmount() {
+		return resultAmount;
+	}
+
+	public void setResultAmount( Integer resultAmount ) {
+		this.resultAmount = resultAmount;
+	}
+
+	public Integer getMaxResults() {
+		return maxResults;
+	}
+
+	public void setMaxResults( Integer maxResults ) {
+		this.maxResults = maxResults;
 	}
 
 }

@@ -1,13 +1,16 @@
 package com.nakasato.ghstore.web.listener;
 
-import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
 
+import com.nakasato.ghstore.domain.user.Administrator;
+import com.nakasato.ghstore.domain.user.Customer;
+import com.nakasato.ghstore.domain.user.Operator;
 import com.nakasato.ghstore.domain.user.User;
+import com.nakasato.web.util.Redirector;
 
 public class AccessListener implements PhaseListener {
 
@@ -16,16 +19,35 @@ public class AccessListener implements PhaseListener {
 		FacesContext context = event.getFacesContext();
 		String currentPage = context.getViewRoot().getViewId();
 
-		boolean isLoginPage = currentPage.contains( "login.xhtml" );
+		boolean isLoginPage = currentPage.contains( "login" );
 		boolean isClientPage = currentPage.contains( "clientuser" );
 		boolean isAdminPage = currentPage.contains( "admin" );
-		HttpSession session = ( HttpSession ) context.getExternalContext().getSession( true );
-		Object currentUser = session.getAttribute( User.LOGGED_USER );
 
-		if( !isLoginPage && ( currentUser == null || currentUser == "" ) ) {
-			NavigationHandler nh = context.getApplication().getNavigationHandler();
+		Object currentUser = context.getExternalContext().getSessionMap().get( User.LOGGED_USER );
+
+		boolean isAdminUser = currentUser instanceof Administrator;
+		boolean isOpUser = currentUser instanceof Operator;
+		boolean isClientUser = currentUser instanceof Customer;
+
+		if( ! isClientUser || ( ! isLoginPage && ( currentUser == null || currentUser == "" ) ) ) {
+			// caso o usuário esteja logado como Administrador ou Operador será
+			// realizado o logout automatico
+			if( ! isClientUser && isClientPage && currentUser != null ) {
+				context.getExternalContext().getSessionMap().put( User.LOGGED_USER, null );
+			}
 			if( isClientPage && currentPage.contains( "logged" ) ) {
-				nh.handleNavigation( context, null, "/clientuser/login.xhtml" );
+				Redirector.redirectTo( context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
+			}
+		}
+
+		if( ( ! isAdminUser && ! isOpUser ) || ( ! isLoginPage && ( currentUser == null || currentUser == "" ) ) ) {
+			// caso o usuário esteja logado como Administrador ou Operador será
+			// realizado o logout automatico
+			if( ! isAdminUser && isAdminPage && currentUser != null ) {
+				context.getExternalContext().getSessionMap().put( User.LOGGED_USER, null );
+			}
+			if( isAdminPage && ! isLoginPage ) {
+				Redirector.redirectTo( context.getExternalContext(), "/admin/login.jsf?faces-redirect=true" );
 			}
 		}
 

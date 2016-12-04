@@ -35,8 +35,22 @@
 				<h:outputText value="#{cartItem.product.statusDesc}" />
 			</p:column>
 
-			<p:column headerText="Preço unitário">
+			<p:column
+				headerText="Preço unitário"
+				rendered="#{empty cartItem.product.activePromotion}">
 				<h:outputText value="#{formatterMB.formatCurrency(cartItem.product.price)}" />
+			</p:column>
+
+			<p:column
+				headerText="Preço unitário"
+				rendered="#{not empty cartItem.product.activePromotion}">
+				<p:panelGrid
+					styleClass="baseGrid"
+					columns="1">
+					<h:outputText value="Promoção - #{formatterMB.formatToPercentage(cartItem.product.activePromotion.discountPercentage)}" />
+					<h:outputText value="De: #{formatterMB.formatCurrency(cartItem.product.price)}" />
+					<h:outputText value="Por: #{formatterMB.formatCurrency(cartItem.product.discountPrice)}" />
+				</p:panelGrid>
 			</p:column>
 
 			<p:column headerText="Quantidade">
@@ -51,6 +65,8 @@
 				<p:commandButton
 					update=":form_content"
 					actionListener="#{userSessionMB.removeItem(cartItem)}"
+					onstart="PF('loadingDialog').show()"
+					onsuccess="PF('loadingDialog').hide()"
 					value="Remover"
 					title="Remover">
 				</p:commandButton>
@@ -61,6 +77,8 @@
 					update=":form_content:amountDialog"
 					actionListener="#{userSessionMB.setUpdateItem(cartItem)}"
 					oncomplete="PF('amountDialog').show()"
+					onstart="PF('loadingDialog').show()"
+					onsuccess="PF('loadingDialog').hide()"
 					value="Alterar"
 					title="Alterar">
 				</p:commandButton>

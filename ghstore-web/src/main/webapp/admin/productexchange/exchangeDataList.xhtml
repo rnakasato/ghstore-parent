@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dataTable
+			var="prodExchange"
+			id="exchangeTable"
+			value="#{exchangeMB.exchangeResults}"
+			paginator="true"
+			rows="15"
+			style="width:100%">
+			<f:facet name="header">
+				<p:outputLabel value="Resultados" />
+			</f:facet>
+
+			<p:column
+				headerText="Código do pedido"
+				style="width:12%"
+				sortBy="#{prodExchange.order.code}">
+				<p:outputLabel
+					value="#{prodExchange.order.code}"
+					title="#{prodExchange.order.code}" />
+			</p:column>
+
+			<p:column
+				headerText="Usuário"
+				style="width:12%"
+				sortBy="#{prodExchange.order.customer.username}">
+				<p:outputLabel
+					value="#{prodExchange.order.customer.username}"
+					title="#{prodExchange.order.customer.username}" />
+			</p:column>
+
+			<p:column
+				headerText="Data da solicitação"
+				style="width:10%"
+				sortBy="#{prodExchange.insertDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodExchange.insertDate)}"
+					title="#{formatterMB.formatDate(prodExchange.insertDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Data de recebimento"
+				style="width:10%"
+				sortBy="#{prodExchange.deliverDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodExchange.deliverDate)}"
+					title="#{formatterMB.formatDate(prodExchange.deliverDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Data de entrega"
+				style="width:10%"
+				sortBy="#{prodExchange.returnedDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodExchange.returnedDate)}"
+					title="#{formatterMB.formatDate(prodExchange.returnedDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Status do pedido"
+				style="width:14%"
+				sortBy="#{prodExchange.status.description}">
+				<p:outputLabel
+					value="#{prodExchange.status.description}"
+					title="#{prodExchange.status.description}" />
+			</p:column>
+
+			<p:column
+				headerText="Valor total"
+				style="width:14%"
+				sortBy="#{prodExchange.totalValue}">
+				<p:outputLabel
+					value="#{formatterMB.formatCurrency(prodExchange.totalValue)}"
+					title="#{prodExchange.totalValue}" />
+			</p:column>
+
+			<p:column
+				headerText="Alterar status"
+				style="width:20%;text-align:center">
+				<p:commandButton
+					update=":form_content:exchangeTable"
+					rendered="#{prodExchange.status.code eq 'REC'}"
+					actionListener="#{exchangeMB.changeToAccepted(prodExchange)}"
+					value="Aceitar"
+					style="margin-right:10px"
+					title="Aceitar">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+
+				<p:commandButton
+					update=":form_content:exchangeTable"
+					rendered="#{prodExchange.status.code eq 'REC'}"
+					value="Rejeitar"
+					title="Rejeitar"
+					actionListener="#{exchangeMB.changeToRejected(prodExchange)}">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+
+				<p:commandButton
+					update=":form_content:exchangeTable"
+					rendered="#{prodExchange.status.code eq 'AGR'}"
+					actionListener="#{exchangeMB.changeToReceived(prodExchange)}"
+					value="Receber"
+					title="Receber">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+
+				<p:commandButton
+					update=":form_content:exchangeTable"
+					rendered="#{(prodExchange.status.code eq 'ACT') or (prodExchange.status.code eq 'REJ') }"
+					actionListener="#{exchangeMB.changeToTransport(prodExchange)}"
+					value="Enviar"
+					title="Enviar">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+
+				<p:commandButton
+					update=":form_content:exchangeTable"
+					rendered="#{prodExchange.status.code eq 'TRA'}"
+					actionListener="#{exchangeMB.changeToDelivered(prodExchange)}"
+					value="Entregar"
+					title="Entregar">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+			</p:column>
+
+			<p:column
+				style="width:14%;text-align:center"
+				headerText="">
+				<p:commandButton
+					update=":form_content:exchangeDetail :form_content:exchangeItemTable"
+					value="Ver Detalhes"
+					actionListener="#{exchangeMB.viewDetails(prodExchange)}"
+					oncomplete="PF('exchangeDialog').show()"
+					title="Ver Detalhes">
+				</p:commandButton>
+			</p:column>
+
+
+
+		</p:dataTable>
+	</ui:composition>
+</h:body>
+</html>

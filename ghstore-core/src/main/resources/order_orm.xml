@@ -12,14 +12,16 @@
 		</id>
 
 		<property name="code" column="COD_ORDER" />
+		<property name="discountValue" column="DISCOUNT" />
 		<property name="insertDate" column="INSERTDATE" />
 		<property name="deliverDate" column="DELIVERDATE" />
 		<property name="totalValue" column="TOTAL_VALUE" />
+		<property name="shippingCost" column="SHIPPINGCOST" />		
 		<property name="transactionCode" column="TRANSACTION_CODE" />
 
 		<many-to-one name="customer"
 			class="com.nakasato.ghstore.domain.user.Customer" lazy="false"
-			cascade="save-update">
+			cascade="none">
 			<column name="IDUSER" not-null="true" />
 		</many-to-one>
 
@@ -35,15 +37,21 @@
 		</many-to-one>
 
 		<bag name="orderItemList" table="DE_ORDERITEM" inverse="true"
-			lazy="false" cascade="save-update">
+			lazy="false" cascade="all">
 			<key column="IDORDER" />
 			<one-to-many class="com.nakasato.ghstore.domain.order.OrderItem" />
 		</bag>
 		
 		<bag name="productReturnList" table="DE_PRODUCT_RETURN" inverse="true"
-			lazy="false" cascade="save-update">
+			lazy="false" cascade="all">
 			<key column="IDORDER" />
 			<one-to-many class="com.nakasato.ghstore.domain.productreturn.ProductReturn" />
+		</bag>
+		
+		<bag name="productExchangeList" table="DE_PRODUCT_EXCHANGE" inverse="true"
+			lazy="false" cascade="all">
+			<key column="IDORDER" />
+			<one-to-many class="com.nakasato.ghstore.domain.productexchange.ProductExchange" />
 		</bag>
 	</class>
 
@@ -56,10 +64,16 @@
 		<property name="amount" column="AMOUNT" />
 		<property name="totalWeigth" column="WEIGHT" />
 		<property name="totalValue" column="VALUE" />
+		<property name="itemValue" column="ITEMVALUE" />
 
 		<many-to-one name="product"
 			class="com.nakasato.ghstore.domain.product.Product" lazy="false">
 			<column name="IDPRODUCT" not-null="true" />
+		</many-to-one>
+		
+		<many-to-one name="promotion"
+			class="com.nakasato.ghstore.domain.product.Promotion" lazy="false">
+			<column name="IDPROMOTION" not-null="false" />
 		</many-to-one>
 
 		<many-to-one name="order"
@@ -79,7 +93,28 @@
 		<property name="description" column="DESCRIPTION" />
 		<property name="code" column="COD_STATUS" />
 	</class>
-
+	
+	<class name="com.nakasato.ghstore.domain.productreturn.ReturnStatus"
+		table="DE_RETURNSTATUS">
+		<id name="id" column="IDRETURNSTATUS">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_RETURNSTATUS</param>
+			</generator>
+		</id>
+		<property name="description" column="DESCRIPTION" />
+		<property name="code" column="COD_STATUS" />
+	</class>
+	
+	<class name="com.nakasato.ghstore.domain.productexchange.ExchangeStatus"
+		table="DE_EXCHANGESTATUS">
+		<id name="id" column="IDEXCHANGESTATUS">
+			<generator class="sequence">
+				<param name="sequence_name">SQ_EXCHANGESTATUS</param>
+			</generator>
+		</id>
+		<property name="description" column="DESCRIPTION" />
+		<property name="code" column="COD_STATUS" />
+	</class>
 
 	<class name="com.nakasato.ghstore.domain.productreturn.ProductReturn"
 		table="DE_PRODUCT_RETURN">
@@ -91,7 +126,14 @@
 
 		<property name="reason" column="REASON" />
 		<property name="insertDate" column="INSERTDATE" />
+		<property name="deliverDate" column="DELIVERDATE" />
+		<property name="returnedDate" column="RETURNDATE" />
 		<property name="totalValue" column="TOTAL_VALUE" />
+		
+		<many-to-one name="status"
+			class="com.nakasato.ghstore.domain.productreturn.ReturnStatus" lazy="false">
+			<column name="IDRETURNSTATUS" not-null="true" />
+		</many-to-one>
 
 		<many-to-one name="order"
 			class="com.nakasato.ghstore.domain.order.Order" lazy="false">
@@ -99,7 +141,7 @@
 		</many-to-one>
 
 		<bag name="returnedItems" table="DE_RETURN_ITEM" inverse="true"
-			lazy="false" cascade="save-update">
+			lazy="false" cascade="all">
 			<key column="IDRETURN" />
 			<one-to-many class="com.nakasato.ghstore.domain.productreturn.ReturnedItem" />
 		</bag>
@@ -141,7 +183,14 @@
 
 		<property name="reason" column="REASON" />
 		<property name="insertDate" column="INSERTDATE" />
+		<property name="deliverDate" column="DELIVERDATE" />
+		<property name="returnedDate" column="RETURNDATE" />
 		<property name="totalValue" column="TOTAL_VALUE" />
+		
+		<many-to-one name="status"
+			class="com.nakasato.ghstore.domain.productexchange.ExchangeStatus" lazy="false">
+			<column name="IDEXCHANGESTATUS" not-null="true" />
+		</many-to-one>
 
 		<many-to-one name="order"
 			class="com.nakasato.ghstore.domain.order.Order" lazy="false">
@@ -149,7 +198,7 @@
 		</many-to-one>
 
 		<bag name="exchangeItems" table="DE_EXCHANGE_ITEM" inverse="true"
-			lazy="false" cascade="save-update">
+			lazy="false" cascade="all">
 			<key column="IDEXCHANGE" />
 			<one-to-many class="com.nakasato.ghstore.domain.productexchange.ExchangeItem" />
 		</bag>

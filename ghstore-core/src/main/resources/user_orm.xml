@@ -92,13 +92,13 @@
 				</many-to-one> -->
 
 			<bag name="wishList" table="DE_WISHLIST" inverse="true" lazy="false"
-				cascade="save-update">
+				cascade="none">
 				<key column="IDUSER" />
 				<one-to-many class="com.nakasato.ghstore.domain.user.Wishlist" />
 			</bag>
 
 			<bag name="orderList" table="DE_ORDER" inverse="true" lazy="false"
-				cascade="save-update">
+				cascade="none">
 				<key column="IDUSER" />
 				<one-to-many class="com.nakasato.ghstore.domain.order.Order" />
 			</bag>
@@ -111,7 +111,7 @@
 			</bag>
 
 			<bag name="coupons" table="DE_COUPON" inverse="false" lazy="false"
-				cascade="save-update">
+				cascade="none">
 				<key column="IDUSER" />
 				<many-to-many
 					class="com.nakasato.ghstore.domain.productexchange.DiscountCoupon"

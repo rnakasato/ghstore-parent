@@ -23,7 +23,11 @@ public class PaymentUtil {
 
 	public static Double getTotalPayment( ShoppingCart shoppingCart ) {
 		Double totalPayment = shoppingCart.getTotalValue();
-		totalPayment += FreteUtil.getShippingCost( shoppingCart );
+		try {
+			totalPayment += FreteUtil.getShippingCost( shoppingCart );
+		} catch( Exception e ) {
+			// Para propósitos de teste caso o WS não esteja disponível o Frete é igual a 0
+		}
 		return totalPayment;
 	}
 
@@ -33,7 +37,7 @@ public class PaymentUtil {
 		for( ShoppingCartItem item: shoppingCart.getShoppingCartList() ) {
 			Item paymentItem = new Item();
 			paymentItem.setAmount(
-					new BigDecimal( FormatUtils.formatToCurrencyNoSymbol( item.getProduct().getPrice() ) ) );
+					new BigDecimal( FormatUtils.formatToCurrencyNoSymbol( item.getProduct().getDiscountPrice() ) ) );
 			paymentItem.setDescription( item.getProduct().getName() );
 			paymentItem.setId( item.getProduct().getId().toString() );
 			paymentItem.setQuantity( item.getAmount() );
@@ -41,8 +45,14 @@ public class PaymentUtil {
 																	// gramas
 			checkout.addItem( paymentItem );
 		}
-		checkout.setShippingCost(
-				new BigDecimal( FormatUtils.formatToCurrencyNoSymbol( FreteUtil.getShippingCost( shoppingCart ) ) ) );
+		try {
+			checkout.setShippingCost( new BigDecimal(
+					FormatUtils.formatToCurrencyNoSymbol( FreteUtil.getShippingCost( shoppingCart ) ) ) );
+		} catch( Exception e ) {
+			// Para propósitos de teste caso o WS não esteja disponível o Frete é igual a 0
+			checkout.setShippingCost( new BigDecimal( FormatUtils.formatToCurrencyNoSymbol( 0D ) ) );
+		}
+
 		checkout.setShippingAddress( "BRA", shoppingCart.getAddress().getCity().getUf(),
 				shoppingCart.getAddress().getCity().getName(), shoppingCart.getAddress().getNeighborhood(),
 				shoppingCart.getAddress().getCep(), shoppingCart.getAddress().getStreet(),

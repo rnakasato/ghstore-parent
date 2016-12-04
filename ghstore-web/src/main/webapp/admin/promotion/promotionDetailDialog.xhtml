@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dialog
+			id="promotionDialog"
+			header="Promoção"
+			widgetVar="promoDialog"
+			modal="true"
+			showEffect="fade"
+			hideEffect="fade"
+			resizable="false"
+			width="1000px"
+			position="center top">
+			<p:outputPanel
+				id="promoDetail"
+				style="align:center">
+				<p:panelGrid
+					styleClass="baseGrid"
+					columns="1"
+					rendered="true"
+					columnClasses="label,value">
+
+					<p:row style="text-align:left">
+						<p:outputLabel
+							id="outputName"
+							value="Nome da promoção: "
+							style="font-weight:bold" />
+						<p:outputLabel value="#{promotionMB.selectedPromotion.description}" />
+					</p:row>
+
+					<p:row style="text-align:left">
+						<p:outputLabel
+							id="outputStartDate"
+							value="Início da promoção: "
+							style="font-weight:bold" />
+						<p:outputLabel value="#{formatterMB.formatDateTime(promotionMB.selectedPromotion.startDate)}" />
+					</p:row>
+					
+					<p:row style="text-align:left">
+						<p:outputLabel
+							id="outputEndDate"
+							value="Fim da promoção: "
+							style="font-weight:bold" />
+						<p:outputLabel value="#{formatterMB.formatDateTime(promotionMB.selectedPromotion.endDate)}" />
+					</p:row>
+					
+					<p:row style="text-align:left">
+						<p:outputLabel
+							id="outputDiscount"
+							value="Desconto: "
+							style="font-weight:bold" />
+						<p:outputLabel value="#{formatterMB.formatToPercentage(promotionMB.selectedPromotion.discountPercentage)}" />
+					</p:row>														
+
+					<p:row style="text-align:left">
+						<ui:include src="/admin/promotion/promotionItemDataList.xhtml" />
+					</p:row>
+
+				</p:panelGrid>
+
+				<p:commandButton
+					value="Fechar"
+					onclick="PF('promoDialog').hide()" />
+			</p:outputPanel>
+		</p:dialog>
+	</ui:composition>
+</h:body>
+</html>

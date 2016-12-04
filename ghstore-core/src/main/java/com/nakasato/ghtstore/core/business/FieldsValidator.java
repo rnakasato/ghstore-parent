@@ -13,6 +13,9 @@ public abstract class FieldsValidator < T extends AbstractDomainEntity > extends
 
 	private StringBuilder sbMessage;
 	
+	/**
+	 * Inicializa mensagem como null
+	 */
 	protected void init(){
 		sbMessage = null;
 	}

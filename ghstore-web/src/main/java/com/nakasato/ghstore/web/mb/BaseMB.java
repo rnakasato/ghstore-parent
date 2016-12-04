@@ -1,6 +1,7 @@
 package com.nakasato.ghstore.web.mb;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;
@@ -55,7 +56,12 @@ public abstract class BaseMB implements Serializable {
 	}
 
 	public Date getToday() {
-		return new Date();
+		Calendar today = Calendar.getInstance();
+		today.set( Calendar.HOUR, 0 );
+		today.set( Calendar.MINUTE, 0 );
+		today.set( Calendar.SECOND, 0 );
+		today.set( Calendar.MILLISECOND, 0 );
+		return today.getTime();
 	}
 
 }

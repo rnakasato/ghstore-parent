@@ -35,7 +35,9 @@ public class StoreCategoryDAO extends AbstractDAO < StoreCategory > {
 				jpql.append( " AND UPPER(s.description) like :description" );
 
 			}
-
+			
+			jpql.append( " ORDER BY s.description asc " );
+			
 			Query query = session.createQuery( jpql.toString() );
 
 			if( ! isIdNull ) {
@@ -70,7 +72,8 @@ public class StoreCategoryDAO extends AbstractDAO < StoreCategory > {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM StoreCategory " );
+			jpql.append( " FROM StoreCategory s " );			
+			jpql.append( " ORDER BY s.description asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 

@@ -42,6 +42,8 @@
 							itemLabel="#{address.formattedAddress}" />
 						<p:ajax
 							event="change"
+							onstart="PF('loadingDialog').show()"
+							onsuccess="PF('loadingDialog').hide()"
 							update=":form_content:gridTotal" />
 					</p:selectOneMenu>
 					<p:commandButton
@@ -74,6 +76,8 @@
 						value="#{userSessionMB.useCoupon}">
 						<p:ajax
 							update=":form_content:gridTotal"
+							onstart="PF('loadingDialog').show()"
+							onsuccess="PF('loadingDialog').hide()"
 							listener="#{userSessionMB.setDiscount()}" />
 					</p:selectBooleanCheckbox>
 				</p:row>

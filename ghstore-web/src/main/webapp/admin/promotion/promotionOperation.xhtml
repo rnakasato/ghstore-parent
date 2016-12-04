@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition>
+		<p:panelGrid
+			styleClass="baseGrid"
+			id="gridButtons"
+			columns="5">
+
+
+			<p:commandButton
+				id="btnNewPromotion"
+				value="Agendar promoção"
+				update=":messages "
+				actionListener="#{redirectMB.redirectToSavePromotion()}" />
+
+			<p:commandButton
+				id="btnUpdatePromotion"
+				value="Alterar promoção"
+				update=":messages "
+				disabled="#{promotionMB.isSelected == null || promotionMB.isSelected == false || promotionMB.notAllowUpdate() }"
+				actionListener="#{redirectMB.redirectToUpdatePromotion(promotionMB.selectedPromotion)}" />
+
+			<p:commandButton
+				id="btnDisable"
+				value="Cancelar promoção"
+				update="promotionTable, :form_content:gridButtons,:messages"
+				disabled="#{promotionMB.isSelected == null || promotionMB.isSelected == false || promotionMB.notAllowUpdate()}"
+				actionListener="#{promotionMB.cancel()}">
+				<p:confirm
+					header="Promoção"
+					message="Tem certeza que deseja cancelar a promoção selecionada?" />
+			</p:commandButton>
+
+			<p:commandButton
+				id="btnDetail"
+				value="Detalhes da promoção"
+				disabled="#{promotionMB.isSelected == null || promotionMB.isSelected == false }"
+				update=":form_content:promoDetail, :messages "
+				onclick="PF('promoDialog').show()" />
+
+		</p:panelGrid>
+	</ui:composition>
+</h:body>
+</html>

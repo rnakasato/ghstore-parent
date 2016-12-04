@@ -14,12 +14,14 @@ import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.util.ListUtils;
+import com.nakasato.ghstore.domain.filter.impl.ExchangeStatusFilter;
 import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
 import com.nakasato.ghstore.domain.filter.impl.OrderStatusFilter;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.order.OrderItem;
 import com.nakasato.ghstore.domain.order.OrderStatus;
 import com.nakasato.ghstore.domain.productexchange.ExchangeItem;
+import com.nakasato.ghstore.domain.productexchange.ExchangeStatus;
 import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 import com.nakasato.ghstore.domain.productreturn.ProductReturn;
 import com.nakasato.ghstore.domain.productreturn.ReturnedItem;
@@ -101,6 +103,8 @@ public class ClientOrderMB extends OrderMB {
 	public void initReturn( Order order ) {
 		returnOrder = order;
 		returnList = new ArrayList<>();
+		returnReason = null;
+		selectedReturnList = new ArrayList<>();
 		for( OrderItem item: order.getOrderItemList() ) {
 			ReturnedItem ret = new ReturnedItem();
 			ret.setOriginalAmount( item.getAmount() );
@@ -127,7 +131,8 @@ public class ClientOrderMB extends OrderMB {
 
 	public void initExchange( Order order ) {
 		exchangeOrder = order;
-
+		exchangeReason = null;
+		selectedExchangeList = new ArrayList<>();
 		exchangeList = new ArrayList<>();
 		for( OrderItem item: order.getOrderItemList() ) {
 			ExchangeItem ex = new ExchangeItem();
@@ -170,7 +175,7 @@ public class ClientOrderMB extends OrderMB {
 			productExchange.setOrder( exchangeOrder );
 			productExchange.setExchangeItems( selectedExchangeList );
 			productExchange.setReason( exchangeReason );
-
+			
 			ICommand commandSave;
 			commandSave = FactoryCommand.build( productExchange, EOperation.SAVE );
 			Result result = commandSave.execute();

@@ -17,7 +17,7 @@
 			showEffect="fade"
 			hideEffect="fade"
 			resizable="false"
-			width="512px"
+			width="1000px"
 			position="center top">
 			<p:outputPanel
 				id="panelDetail"
@@ -75,6 +75,20 @@
 							value="Valor total: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{formatterMB.formatCurrency(clientOrderMB.selectedOrder.totalValue)}" />
+					</p:row>
+
+					<p:row style="text-align:left">
+						<p:outputLabel
+							value="Valor do desconto: "
+							style="font-weight:bold" />
+						<p:outputLabel value="#{formatterMB.formatCurrency(clientOrderMB.getDiscount(clientOrderMB.selectedOrder.discountValue))}" />
+					</p:row>
+
+					<p:row style="text-align:left">
+						<p:outputLabel
+							value="Valor do frete: "
+							style="font-weight:bold" />
+						<p:outputLabel value="#{formatterMB.formatCurrency(clientOrderMB.selectedOrder.shippingCost)}" />
 					</p:row>
 
 					<p:row style="text-align:left">

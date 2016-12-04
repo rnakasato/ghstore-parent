@@ -35,7 +35,7 @@
 
 				<p:row>
 					<p:outputLabel value="Fabricantes:" />
-					<p:selectCheckboxMenu
+					<p:selectManyCheckbox
 						id="grid"
 						label="Fabricantes"
 						value="#{boardGamesMB.filter.selectedSubcategoryIds}"
@@ -46,7 +46,7 @@
 							var="subcategory"
 							itemLabel="#{subcategory.description}"
 							itemValue="#{subcategory.id}" />
-					</p:selectCheckboxMenu>
+					</p:selectManyCheckbox>
 				</p:row>
 
 				<p:row>

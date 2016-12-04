@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
+	<ui:insert name="head" />
 </h:head>
 <h:body style="background-color:#000000">
 	<script>
@@ -47,7 +47,7 @@
 		name="baseStyles.css"
 		library="css" />
 	<div id="page">
-		<ui:include src="/public/loading.xhtml" />		
+		<ui:include src="/public/loading.xhtml" />
 		<div id="messages-container">
 			<div id="messages">
 				<ui:insert name="messages">
@@ -71,7 +71,9 @@
 						<p:watermark
 							for="pdSearch"
 							value="Buscar Produto..." />
-						<p:inputText id="pdSearch" value="#{clientProductMB.productName}"/>
+						<p:inputText
+							id="pdSearch"
+							value="#{clientProductMB.productName}" />
 						<p:button
 							id="btnRedirLogin"
 							value="Login"
@@ -92,6 +94,8 @@
 						<p:button
 							id="btnShoppingCart"
 							value="Carrinho de compras"
+							onstart="PF('loadingDialog').show()"
+							onsuccess="PF('loadingDialog').hide()"
 							outcome="/clientuser/shoppingCart.xhtml" />
 
 						<p:button
@@ -172,19 +176,19 @@
 			<ui:insert name="menuBar">
 
 			</ui:insert>
-		</div>				
+		</div>
 		<div id="tabmenu-container">
 			<div id="tabMenu">
 				<ui:insert name="tabMenu" />
 			</div>
 		</div>
-		
+
 		<div id="side-bar">
 			<div id="sidebar">
 				<ui:insert name="sidebar" />
 			</div>
 		</div>
-		
+
 		<div id="content-container">
 			<div id="content">
 				<ui:insert name="content" />

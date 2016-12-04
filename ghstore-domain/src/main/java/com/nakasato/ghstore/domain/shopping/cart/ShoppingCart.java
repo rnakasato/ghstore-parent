@@ -24,6 +24,7 @@ public class ShoppingCart extends AbstractDomainEntity implements Serializable {
 	private Customer owner;
 	private boolean process;
 	private boolean discount;
+	private Double discountValue;
 
 	public List < ShoppingCartItem > getShoppingCartList() {
 		return shoppingCartList;
@@ -98,6 +99,14 @@ public class ShoppingCart extends AbstractDomainEntity implements Serializable {
 	public boolean isEmpty() {
 
 		return false;
+	}
+
+	public Double getDiscountValue() {
+		return discountValue;
+	}
+
+	public void setDiscountValue( Double discountValue ) {
+		this.discountValue = discountValue;
 	}
 
 }

@@ -38,6 +38,8 @@ public class CityDAO extends AbstractDAO < City > {
 			if( StringUtils.isNotEmpty( cityFilter.getStateName() ) ) {
 				jpql.append( " AND UPPER(s.description) like :stateName " );
 			}
+			
+			jpql.append( " ORDER BY c.name asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
@@ -68,7 +70,8 @@ public class CityDAO extends AbstractDAO < City > {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM City " );
+			jpql.append( " FROM City c " );
+			jpql.append( " ORDER BY c.name asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 

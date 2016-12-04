@@ -16,7 +16,7 @@ public class ComplementOrderProductStock extends Complementor < Order > {
 			ProductDAO dao = new ProductDAO();
 			dao.setSession( SessionThreadLocal.getSession() );
 
-			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_AGUARDANDO_PAGAMENTO ) ) {
+			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_ENTREGE ) ) {
 				for( OrderItem orderItem: order.getOrderItemList() ) {
 					Product p = orderItem.getProduct();
 					Integer newAmount = p.getStock();
@@ -24,19 +24,7 @@ public class ComplementOrderProductStock extends Complementor < Order > {
 					p.setStock( newAmount );
 					dao.update( p );
 				}
-			}
-			// Foram feitos dois ifs porque apesar da única diferença do bloco
-			// ser a soma/subtração
-			// dessa forma a condição teria de ser avaliada somente uma vez
-			if( order.getOrderStatus().getCode().equals( OrderStatus.COD_CANCELADO ) ) {
-				for( OrderItem orderItem: order.getOrderItemList() ) {
-					Product p = orderItem.getProduct();
-					Integer newAmount = p.getStock();
-					newAmount += orderItem.getAmount();
-					p.setStock( newAmount );
-					dao.update( p );
-				}
-			}
+			}			
 
 		} catch( Exception e ) {
 			// TODO Auto-generated catch block

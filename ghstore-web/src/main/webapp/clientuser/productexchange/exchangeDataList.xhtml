@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dataTable
+			var="prodExchange"
+			id="exchangeTable"
+			value="#{customerExchangeMB.exchangeResults}"
+			paginator="true"
+			rows="15"
+			style="width:100%">
+			<f:facet name="header">
+				<p:outputLabel value="Resultados" />
+			</f:facet>
+
+			<p:column
+				headerText="Código do pedido"
+				style="width:12%"
+				sortBy="#{prodExchange.order.code}">
+				<p:outputLabel
+					value="#{prodExchange.order.code}"
+					title="#{prodExchange.order.code}" />
+			</p:column>
+
+			<p:column
+				headerText="Usuário"
+				style="width:12%"
+				sortBy="#{prodExchange.order.customer.username}">
+				<p:outputLabel
+					value="#{prodExchange.order.customer.username}"
+					title="#{prodExchange.order.customer.username}" />
+			</p:column>
+
+			<p:column
+				headerText="Data da solicitação"
+				style="width:10%"
+				sortBy="#{prodExchange.insertDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodExchange.insertDate)}"
+					title="#{formatterMB.formatDate(prodExchange.insertDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Data de recebimento"
+				style="width:10%"
+				sortBy="#{prodExchange.deliverDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodExchange.deliverDate)}"
+					title="#{formatterMB.formatDate(prodExchange.deliverDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Data de entrega"
+				style="width:10%"
+				sortBy="#{prodExchange.returnedDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodExchange.returnedDate)}"
+					title="#{formatterMB.formatDate(prodExchange.returnedDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Status do pedido"
+				style="width:14%"
+				sortBy="#{prodExchange.status.description}">
+				<p:outputLabel
+					value="#{prodExchange.status.description}"
+					title="#{prodExchange.status.description}" />
+			</p:column>
+
+			<p:column
+				headerText="Valor total"
+				style="width:14%"
+				sortBy="#{prodExchange.totalValue}">
+				<p:outputLabel
+					value="#{formatterMB.formatCurrency(prodExchange.totalValue)}"
+					title="#{prodExchange.totalValue}" />
+			</p:column>
+
+			<p:column
+				style="width:14%;text-align:center"
+				headerText="Operação">
+				<p:commandButton
+					update=":form_content:exchangeDetail :form_content:exchangeItemTable"
+					value="Ver Detalhes"
+					actionListener="#{customerExchangeMB.viewDetails(prodExchange)}"
+					oncomplete="PF('exchangeDialog').show()"
+					title="Ver Detalhes">
+				</p:commandButton>
+			</p:column>
+
+
+
+		</p:dataTable>
+	</ui:composition>
+</h:body>
+</html>

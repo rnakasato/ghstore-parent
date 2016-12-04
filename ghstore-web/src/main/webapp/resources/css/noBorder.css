@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+
+.ui-datagrid-data, .ui-datagrid-row .ui-datagrid-column
+.ui-widget-content{
+	border: none !important;
+}

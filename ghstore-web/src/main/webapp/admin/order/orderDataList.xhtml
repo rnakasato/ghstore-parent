@@ -91,17 +91,6 @@
 
 				<p:commandButton
 					update=":form_content:orderTable"
-					rendered="#{order.orderStatus.code eq 'APG'}"
-					value="Cancelar"
-					title="Cancelar"
-					actionListener="#{adminOrderMB.changeToCanceled(order)}">
-					<p:confirm
-						header="Alterar status"
-						message="Confirmar operação?" />
-				</p:commandButton>
-
-				<p:commandButton
-					update=":form_content:orderTable"
 					rendered="#{order.orderStatus.code eq 'PGO'}"
 					actionListener="#{adminOrderMB.changeToTransportation(order)}"
 					value="Transportar"
@@ -117,6 +106,17 @@
 					actionListener="#{adminOrderMB.changeToDelivered(order)}"
 					value="Entregar"
 					title="Entregar">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+				
+				<p:commandButton
+					update=":form_content:orderTable"
+					rendered="#{not ((order.orderStatus.code eq 'CAN') or (order.orderStatus.code eq 'ETR'))}"
+					value="Cancelar"
+					title="Cancelar"
+					actionListener="#{adminOrderMB.changeToCanceled(order)}">
 					<p:confirm
 						header="Alterar status"
 						message="Confirmar operação?" />

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dataTable
+			var="prodReturn"
+			id="returnTable"
+			value="#{returnMB.returnResults}"
+			paginator="true"
+			rows="15"
+			style="width:100%">
+			<f:facet name="header">
+				<p:outputLabel value="Resultados" />
+			</f:facet>
+
+			<p:column
+				headerText="Código do pedido"
+				style="width:12%"
+				sortBy="#{prodReturn.order.code}">
+				<p:outputLabel
+					value="#{prodReturn.order.code}"
+					title="#{prodReturn.order.code}" />
+			</p:column>
+
+			<p:column
+				headerText="Usuário"
+				style="width:12%"
+				sortBy="#{prodReturn.order.customer.username}">
+				<p:outputLabel
+					value="#{prodReturn.order.customer.username}"
+					title="#{prodReturn.order.customer.username}" />
+			</p:column>
+
+			<p:column
+				headerText="Data da solicitação"
+				style="width:10%"
+				sortBy="#{prodReturn.insertDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodReturn.insertDate)}"
+					title="#{formatterMB.formatDate(prodReturn.insertDate)}" />
+			</p:column>
+			
+			<p:column
+				headerText="Data de recebimento"
+				style="width:10%"
+				sortBy="#{prodReturn.deliverDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodReturn.deliverDate)}"
+					title="#{formatterMB.formatDate(prodReturn.deliverDate)}" />
+			</p:column>
+			
+			<p:column
+				headerText="Data de retorno (Rejeição)"
+				style="width:10%"
+				sortBy="#{prodReturn.returnedDate}">
+				<p:outputLabel
+					value="#{formatterMB.formatDate(prodReturn.returnedDate)}"
+					title="#{formatterMB.formatDate(prodReturn.returnedDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Status do pedido"
+				style="width:14%"
+				sortBy="#{prodReturn.status.description}">
+				<p:outputLabel
+					value="#{prodReturn.status.description}"
+					title="#{prodReturn.status.description}" />
+			</p:column>
+
+			<p:column
+				headerText="Valor total"
+				style="width:14%"
+				sortBy="#{prodReturn.totalValue}">
+				<p:outputLabel
+					value="#{formatterMB.formatCurrency(prodReturn.totalValue)}"
+					title="#{prodReturn.totalValue}" />
+			</p:column>
+
+			<p:column
+				headerText="Alterar status"
+				style="width:20%;text-align:center">
+				<p:commandButton
+					update=":form_content:returnTable"
+					rendered="#{prodReturn.status.code eq 'REC'}"
+					actionListener="#{returnMB.changeToAccepted(prodReturn)}"
+					value="Aceitar"
+					style="margin-right:10px"
+					title="Aceitar">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+
+				<p:commandButton
+					update=":form_content:returnTable"
+					rendered="#{prodReturn.status.code eq 'REC'}"
+					value="Rejeitar"
+					title="Rejeitar"
+					actionListener="#{returnMB.changeToRejected(prodReturn)}">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+
+				<p:commandButton
+					update=":form_content:returnTable"
+					rendered="#{prodReturn.status.code eq 'AGR'}"
+					actionListener="#{returnMB.changeToReceived(prodReturn)}"
+					value="Receber"
+					title="Receber">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+
+				<p:commandButton
+					update=":form_content:returnTable"
+					rendered="#{prodReturn.status.code eq 'REJ'}"
+					actionListener="#{returnMB.changeToInReturn(prodReturn)}"
+					value="Reenviar"
+					title="Reenviar">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+
+				<p:commandButton
+					update=":form_content:returnTable"
+					rendered="#{prodReturn.status.code eq 'PRE'}"
+					actionListener="#{returnMB.changeToReturned(prodReturn)}"
+					value="Reenviar"
+					title="Reenviar">
+					<p:confirm
+						header="Alterar status"
+						message="Confirmar operação?" />
+				</p:commandButton>
+			</p:column>
+
+			<p:column
+				style="width:14%;text-align:center"
+				headerText="">
+				<p:commandButton
+					update=":form_content:returnDetail :form_content:returnItemTable"
+					value="Ver Detalhes"
+					actionListener="#{returnMB.viewDetails(prodReturn)}"
+					oncomplete="PF('returnDialog').show()"
+					title="Ver Detalhes">
+				</p:commandButton>
+			</p:column>
+
+
+
+		</p:dataTable>
+	</ui:composition>
+</h:body>
+</html>

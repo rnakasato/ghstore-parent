@@ -8,12 +8,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/layout/clientLayout.xhtml">
-	<h:head>
-		<title>GHStore</title>
-	</h:head>
+	
 	<ui:define name="tabMenu">
 	<h:form id="formTabMenu">
-		<p:tabMenu activeIndex="#{param.i}">
+		<p:tabMenu id="tabMenuProfile" style="height: 30px" activeIndex="#{param.i}">
 			<p:menuitem
 				value="Dados pessoais"
 				outcome="/clientuser/logged/customerUpdate.xhtml"
@@ -38,14 +36,14 @@
 			</p:menuitem>
 			<p:menuitem
 				value="Trocas"
-				outcome="/clientuser/logged/order.xhtml">
+				outcome="/clientuser/logged/exchange.xhtml">
 				<f:param
 					name="i"
 					value="3" />
 			</p:menuitem>
 			<p:menuitem
 				value="Devoluções"
-				outcome="/clientuser/logged/order.xhtml">
+				outcome="/clientuser/logged/return.xhtml">
 				<f:param
 					name="i"
 					value="4" />

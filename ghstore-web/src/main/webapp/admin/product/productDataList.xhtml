@@ -73,14 +73,25 @@
 					value="#{prod.stock}"
 					title="#{prod.stock}" />
 			</p:column>
+
 			<p:column
 				headerText="Preço unitário"
-				style="width:14%">
-				<!-- row record -->
-				<p:outputLabel
-					value="#{prod.price}"
-					title="#{prod.price}" />
+				rendered="#{empty prod.activePromotion}">
+				<h:outputText value="#{formatterMB.formatCurrency(prod.price)}" />
 			</p:column>
+
+			<p:column
+				headerText="Preço unitário"
+				rendered="#{not empty prod.activePromotion}">
+				<p:panelGrid
+					styleClass="baseGrid"
+					columns="1">
+					<h:outputText value="Promoção: - #{formatterMB.formatToPercentage(prod.activePromotion.discountPercentage)}" />
+					<h:outputText value="De: #{formatterMB.formatCurrency(prod.price)}" />
+					<h:outputText value="Por: #{formatterMB.formatCurrency(prod.discountPrice)}" />
+				</p:panelGrid>
+			</p:column>
+
 			<p:column
 				headerText="Status"
 				style="width:14%">

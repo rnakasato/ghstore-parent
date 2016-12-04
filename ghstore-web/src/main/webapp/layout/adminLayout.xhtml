@@ -11,6 +11,7 @@
 	<h:outputStylesheet
 		name="adminLayout.css"
 		library="css" />
+		<ui:insert name="head"/>
 
 
 </h:head>
@@ -47,7 +48,22 @@
 		<ui:include src="/public/loading.xhtml" />	
 		<div id="adminHeader">
 			<ui:insert name="adminHeader">
-				<h:form>
+				<h:form id="menuBar">
+					<p:panelGrid
+						id="gridUserBar"
+						cols="6">
+						<div>colocar Logo</div>
+
+						<p:commandButton
+							id="btnRedirLogout"
+							value="Logout"
+							update=":menuBar:gridUserBar"
+							rendered="#{loginMB.loggedIn}"
+							actionListener="#{loginMB.doLogout()}">
+						</p:commandButton>
+
+					</p:panelGrid>
+
 					<p:menubar>
 						<p:menuitem
 							value="Inicio"
@@ -62,18 +78,30 @@
 							icon="ui-icon-gear">
 
 						</p:menuitem>
+						
+						<p:menuitem
+							value="Promoções"
+							outcome="/admin/promotionSearch.xhtml"
+							icon="ui-icon-gear">
+
+						</p:menuitem>
 
 						<p:menuitem
 							value="Pedidos"
 							outcome="/admin/order.xhtml"
 							icon="ui-icon-gear">
 						</p:menuitem>
-
+						
 						<p:menuitem
-							value="Relatórios"
-							outcome="/admin/productSearch.xhtml"
-							icon="ui-icon-document">
-
+							value="Devoluções"
+							outcome="/admin/return.xhtml"
+							icon="ui-icon-gear">
+						</p:menuitem>
+						
+						<p:menuitem
+							value="Trocas"
+							outcome="/admin/exchange.xhtml"
+							icon="ui-icon-gear">
 						</p:menuitem>
 
 						<p:menuitem

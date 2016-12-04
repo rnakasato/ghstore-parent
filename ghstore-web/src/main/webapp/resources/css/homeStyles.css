@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+
+#side-bar {
+	float: left !important;
+	width: 0% !important;
+}
+
+#content-container {
+	float: left !important;
+	height: 1000px;
+	width: 100% !important;
+}
+
+

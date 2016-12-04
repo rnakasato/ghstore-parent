@@ -48,6 +48,8 @@
 							value="Alterar"
 							style="width:120px;padding-right:10px"
 							actionListener="#{userSessionMB.saveNewItemAmount()}"
+							onstart="PF('loadingDialog').show()"
+							onsuccess="PF('loadingDialog').hide()"
 							update=":form_content">
 						</p:commandButton>
 

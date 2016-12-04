@@ -46,6 +46,8 @@ public class AdministratorDAO extends AbstractDAO < Administrator > {
 			if( adminFilter.getActive() != null ) {
 				jpql.append( " AND adm.active= :active" );
 			}
+			
+			jpql.append( " ORDER BY adm.username asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
@@ -87,7 +89,8 @@ public class AdministratorDAO extends AbstractDAO < Administrator > {
 
 			StringBuilder jpql = new StringBuilder();
 			jpql.append( " FROM Administrator " );
-
+			jpql.append( " ORDER BY adm.username asc " );
+			
 			Query query = session.createQuery( jpql.toString() );
 
 			administratorList = query.getResultList();

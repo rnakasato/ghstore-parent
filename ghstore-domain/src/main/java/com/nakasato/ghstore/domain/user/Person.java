@@ -1,7 +1,10 @@
 package com.nakasato.ghstore.domain.user;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+
+import javax.swing.text.MaskFormatter;
 
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
@@ -26,7 +29,15 @@ public abstract class Person extends AbstractDomainEntity {
 	}
 
 	public String getFormattedCPF() {
-		return String.format( "xxx.xxx.xxx-xx", cpf );
+		String pattern = "###.###.###-##";
+		MaskFormatter mf;
+		try {
+			mf = new MaskFormatter( pattern );
+			mf.setValueContainsLiteralCharacters( false );
+			return mf.valueToString( cpf );
+		} catch( ParseException ex ) {
+			return cpf;
+		}
 	}
 
 	public void setCpf( String cpf ) {

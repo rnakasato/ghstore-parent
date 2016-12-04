@@ -34,6 +34,8 @@ public class CustomerDAO extends AbstractDAO < Customer > {
 			if( StringUtils.isNotEmpty( customerFilter.getUserName() ) ) {
 				jpql.append( " AND c.username = :username" );
 			}
+			
+			jpql.append( " ORDER BY c.username asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
@@ -57,7 +59,8 @@ public class CustomerDAO extends AbstractDAO < Customer > {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM Customer " );
+			jpql.append( " FROM Customer c " );
+			jpql.append( " ORDER BY c.username asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 

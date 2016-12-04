@@ -95,7 +95,7 @@
 
 						<p:commandButton
 							update=":form_content:orderTable :messages"
-							disabled="#{not (order.orderStatus.code eq 'APG')}"
+							disabled="#{(order.orderStatus.code eq 'CAN') or (order.orderStatus.code eq 'ETR')  }"
 							actionListener="#{clientOrderMB.changeToCanceled(order)}"
 							value="Cancelar"
 							title="Cancelar"

@@ -8,9 +8,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/layout/clientLayout.xhtml">
-	<h:head>
-		<title>GHStore</title>
-	</h:head>
+	<ui:define name="head">
+		<title>GHStore - Mangás</title>
+		<h:outputStylesheet
+			name="noBorder.css"
+			library="css" />
+	</ui:define>
 	<ui:define name="sidebar">
 		<ui:include src="/clientuser/mangas/mangasFilter.xhtml" />
 	</ui:define>

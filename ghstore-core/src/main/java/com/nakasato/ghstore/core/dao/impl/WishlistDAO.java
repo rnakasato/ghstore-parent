@@ -51,6 +51,8 @@ public class WishlistDAO extends AbstractDAO < Wishlist > {
 			if( filter.getCustomer() != null ) {
 				jpql.append( " AND c = :customer" );
 			}
+			
+			jpql.append( " ORDER BY p.name asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 

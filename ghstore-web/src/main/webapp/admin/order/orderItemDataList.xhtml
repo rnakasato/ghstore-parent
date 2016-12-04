@@ -33,10 +33,24 @@
 
 			<p:column
 				headerText="Valor unitário"
-				style="width:14%">
-				<p:outputLabel
-					value="#{formatterMB.formatCurrency(item.product.price)}"
-					title="#{formatterMB.formatCurrency(item.product.price)}" />
+				rendered="#{empty item.promotion}">
+				<p:panelGrid
+					styleClass="baseGrid"
+					columns="1">
+					<h:outputText value="#{formatterMB.formatCurrency(item.itemValue)}" />
+				</p:panelGrid>
+			</p:column>
+			
+			<p:column
+				headerText="Valor unitário"
+				rendered="#{not empty item.promotion}">
+				<p:panelGrid
+					styleClass="baseGrid"
+					columns="1">
+					<h:outputText value="Promoção - #{formatterMB.formatToPercentage(item.promotion.discountPercentage)}" />
+					<h:outputText value="De: #{formatterMB.formatCurrency(item.itemValue)}" />
+					<h:outputText value="Por: #{formatterMB.formatCurrency(item.promotionUnitValue)}" />
+				</p:panelGrid>
 			</p:column>
 
 			<p:column

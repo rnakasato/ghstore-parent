@@ -48,6 +48,8 @@ public class OperatorDAO extends AbstractDAO < Operator > {
 			if( operatorFilter.getActive() != null ) {
 				jpql.append( " AND op.active= :active" );
 			}
+			
+			jpql.append( " ORDER BY op.username asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
@@ -88,7 +90,8 @@ public class OperatorDAO extends AbstractDAO < Operator > {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM Operator " );
+			jpql.append( " FROM Operator op " );
+			jpql.append( " ORDER BY op.username asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 

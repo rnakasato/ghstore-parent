@@ -17,7 +17,7 @@
 			showEffect="fade"
 			hideEffect="fade"
 			resizable="false"
-			width="512px"
+			width="1000px"
 			position="center top">
 			<p:outputPanel
 				id="prodDetail"
@@ -53,9 +53,32 @@
 						<p:outputLabel value="#{formatterMB.formatTagList(adminProductMB.product.tagList)}" />
 					</p:row>
 
-					<p:row style="text-align:left">
+					<p:row
+						style="text-align:left"
+						rendered="#{empty adminProductMB.product.activePromotion}">
 						<p:outputLabel value="Preço: " />
-						<p:outputLabel value="R$#{adminProductMB.product.price}" />
+						<p:outputLabel value="#{formatterMB.formatCurrency(adminProductMB.product.price)}" />
+					</p:row>
+
+					<p:row
+						style="text-align:left"
+						rendered="#{not empty adminProductMB.product.activePromotion}">
+						<p:outputLabel value="Preço original: " />
+						<p:outputLabel value="#{formatterMB.formatCurrency(adminProductMB.product.price)}" />
+					</p:row>
+
+					<p:row
+						style="text-align:left"
+						rendered="#{not empty adminProductMB.product.activePromotion}">
+						<p:outputLabel value="Desconto: " />
+						<p:outputLabel value="#{formatterMB.formatCurrency(adminProductMB.product.activePromotion.discountPercentage)}" />
+					</p:row>
+
+					<p:row
+						style="text-align:left"
+						rendered="#{not empty adminProductMB.product.activePromotion}">
+						<p:outputLabel value="Preço com desconto: " />
+						<p:outputLabel value="#{formatterMB.formatCurrency(adminProductMB.product.discountPrice)}" />
 					</p:row>
 
 					<p:row style="text-align:left">

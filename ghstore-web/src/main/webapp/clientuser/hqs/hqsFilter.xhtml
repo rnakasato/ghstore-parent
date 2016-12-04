@@ -34,7 +34,7 @@
 				</p:row>
 				<p:row>
 					<p:outputLabel value="Editoras:" />
-					<p:selectCheckboxMenu
+					<p:selectManyCheckbox
 						id="grid"
 						label="Editoras:"
 						value="#{hqMB.filter.selectedSubcategoryIds}"
@@ -45,7 +45,7 @@
 							var="subcategory"
 							itemLabel="#{subcategory.description}"
 							itemValue="#{subcategory.id}" />
-					</p:selectCheckboxMenu>
+					</p:selectManyCheckbox>
 				</p:row>
 
 				<p:row>

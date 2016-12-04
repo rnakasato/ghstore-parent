@@ -32,6 +32,7 @@ public class AdminProductMB extends ProductMB {
 	public void init() {
 		setBaseFilter( new ProductFilter() );
 		filter = ( ProductFilter ) getBaseFilter();
+		setAscendant( true );
 
 		product = ( Product ) FacesContext.getCurrentInstance().getExternalContext().getFlash().get( "product" );
 		if( product != null ) {

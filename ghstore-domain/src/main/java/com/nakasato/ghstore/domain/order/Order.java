@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.nakasato.ghstore.domain.DomainSpecificEntity;
 import com.nakasato.ghstore.domain.product.Product;
+import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 import com.nakasato.ghstore.domain.productreturn.ProductReturn;
 import com.nakasato.ghstore.domain.user.Address;
 import com.nakasato.ghstore.domain.user.Customer;
@@ -13,13 +14,16 @@ import com.nakasato.ghstore.domain.user.Customer;
 public class Order extends DomainSpecificEntity {
 	private List < OrderItem > orderItemList;
 	private List < ProductReturn > productReturnList;
+	private List < ProductExchange > productExchangeList;
 	private Double totalValue;
+	private Double shippingCost;
 	private OrderStatus orderStatus;
 	private Date deliverDate;
 	private Customer customer;
 	private String transactionCode;
 	private Address deliverAddress;
-	private boolean discount;
+	private Boolean discount;
+	private Double discountValue;
 
 	public List < OrderItem > getOrderItemList() {
 		return orderItemList;
@@ -85,6 +89,14 @@ public class Order extends DomainSpecificEntity {
 		this.deliverAddress = deliverAddress;
 	}
 
+	public Double getShippingCost() {
+		return shippingCost;
+	}
+
+	public void setShippingCost( Double shippingCost ) {
+		this.shippingCost = shippingCost;
+	}
+
 	public void addItem( Product product, Integer amount ) {
 		OrderItem item = new OrderItem();
 		boolean exists = false;
@@ -122,12 +134,28 @@ public class Order extends DomainSpecificEntity {
 		}
 	}
 
-	public boolean isDiscount() {
+	public Boolean getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount( boolean discount ) {
+	public void setDiscount( Boolean discount ) {
 		this.discount = discount;
+	}
+
+	public Double getDiscountValue() {
+		return discountValue;
+	}
+
+	public void setDiscountValue( Double discountValue ) {
+		this.discountValue = discountValue;
+	}
+
+	public List < ProductExchange > getProductExchangeList() {
+		return productExchangeList;
+	}
+
+	public void setProductExchangeList( List < ProductExchange > productExchangeList ) {
+		this.productExchangeList = productExchangeList;
 	}
 
 }

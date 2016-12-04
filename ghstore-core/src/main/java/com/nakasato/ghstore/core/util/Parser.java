@@ -7,6 +7,7 @@ import java.util.List;
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
+import com.nakasato.ghstore.core.payment.utils.FreteUtil;
 import com.nakasato.ghstore.domain.filter.impl.OrderStatusFilter;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.order.OrderItem;
@@ -41,6 +42,11 @@ public class Parser {
 					status = statusList.get( 0 );
 				}
 				Double totalValue = 0D;
+				Double shippingCost =  FreteUtil.getShippingCost( shoppingCart );
+				
+				order.setShippingCost( shippingCost );
+				order.setDiscountValue( shoppingCart.getDiscountValue() );
+				totalValue += shippingCost;
 				for( ShoppingCartItem cartItem: shoppingCart.getShoppingCartList() ) {
 					OrderItem orderItem = new OrderItem();
 					orderItem.setAmount( cartItem.getAmount() );
@@ -48,6 +54,7 @@ public class Parser {
 					orderItem.setTotalValue( cartItem.getTotalValue() );
 					orderItem.setTotalWeigth( cartItem.getTotalWeigth() );
 					orderItem.setOrder( order );
+					orderItem.setItemValue( cartItem.getItemValue() );
 					orderItemList.add( orderItem );
 					totalValue += cartItem.getTotalValue();
 				}

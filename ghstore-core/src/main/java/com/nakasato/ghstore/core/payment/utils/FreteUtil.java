@@ -156,7 +156,7 @@ public class FreteUtil {
 		transformer.transform( sourceContent, result );
 	}
 
-	public static Double getShippingCost( ShoppingCart cart ) {
+	public static Double getShippingCost( ShoppingCart cart ) throws Exception{
 
 		Double value = 0D;
 		if( cart.getShoppingCartList() != null && ! cart.getShoppingCartList().isEmpty() ) {
@@ -191,7 +191,7 @@ public class FreteUtil {
 
 				value = Double.valueOf( cost );
 			} catch( Exception e ) {
-				e.printStackTrace();
+				throw e;
 			}
 
 		}

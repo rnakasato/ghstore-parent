@@ -34,6 +34,8 @@ public class StateDAO extends AbstractDAO < State > {
 			if( StringUtils.isNotEmpty( stateFilter.getAcronym() ) ) {
 				jpql.append( " AND UPPER(s.acronym) like :acronym " );
 			}
+			
+			jpql.append( " ORDER BY s.description asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
@@ -63,7 +65,8 @@ public class StateDAO extends AbstractDAO < State > {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM State " );
+			jpql.append( " FROM State s " );
+			jpql.append( " ORDER BY s.description asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 

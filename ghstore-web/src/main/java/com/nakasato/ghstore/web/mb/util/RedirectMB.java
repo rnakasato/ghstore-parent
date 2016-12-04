@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.nakasato.ghstore.domain.product.Product;
+import com.nakasato.ghstore.domain.product.Promotion;
 import com.nakasato.ghstore.domain.user.User;
 import com.nakasato.ghstore.web.mb.session.UserSessionMB;
 import com.nakasato.web.util.Redirector;
@@ -77,6 +78,31 @@ public class RedirectMB {
 		Redirector.redirectTo( context, url );
 	}
 
+	public void redirectToUpdatePromotion( Promotion promotion ) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext context = ctx.getExternalContext();
+		if( promotion != null && ! promotion.isEmpty() ) {
+			context.getFlash().put( "promotion", promotion );
+			String url = "/admin/promotionUpdate.jsf?faces-redirect=true";
+			Redirector.redirectTo( context, url );
+		} else {
+			ctx.addMessage( null, new FacesMessage( "Selecione uma promoção para alterar" ) );
+		}
+	}
+
+	public void redirectToSavePromotion() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext context = ctx.getExternalContext();
+		String url = "/admin/promotionSave.jsf?faces-redirect=true";
+		Redirector.redirectTo( context, url );
+	}
+	public void redirectToPromotionSearch() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext context = ctx.getExternalContext();
+		String url = "/admin/promotionSearch.jsf?faces-redirect=true";
+		Redirector.redirectTo( context, url );
+	}
+
 	public void redirectToProductPage( Product product ) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext context = ctx.getExternalContext();
@@ -120,7 +146,7 @@ public class RedirectMB {
 		Redirector.redirectTo( context, url );
 
 	}
-	
+
 	public void redirectToUpdate( User user ) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext context = ctx.getExternalContext();
@@ -139,7 +165,6 @@ public class RedirectMB {
 		String url = "/admin/userSave.jsf?faces-redirect=true";
 		Redirector.redirectTo( context, url );
 	}
-	
 
 	public UserSessionMB getUserSessionMB() {
 		return userSessionMB;

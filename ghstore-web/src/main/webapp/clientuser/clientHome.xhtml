@@ -8,12 +8,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/layout/clientLayout.xhtml">
-	<h:head>
-		<title>GHStore</title>
+	<ui:define name="head">
+		<title>GHStore - Página Principal</title>
 		<h:outputStylesheet
-			name="baseStyles.css"
+			name="homeStyles.css"
 			library="css" />
-	</h:head>
+		<h:outputStylesheet
+			name="noBorder.css"
+			library="css" />
+	</ui:define>
 	<ui:define name="metadate">
 		<f:metadata>
 			<f:event
@@ -26,80 +29,176 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="form_content">
+
+			<p:galleria
+				id="galGallery"
+				value="#{homePageMB.galleryList}"
+				var="image"
+				panelWidth="872"
+				panelHeight="300"
+				style="margin-left:35%"
+				showCaption="false">
+				<p:graphicImage
+					style="width:872; height:300"
+					value="#{homePageMB.getImagePath(image)}" />
+			</p:galleria>
+
+
 			<p:dataGrid
-				id="recomendationDataGrid"
-				columns="8"
+				var="rec"
+				id="recommendedTable"
+				value="#{homePageMB.carrier.recommendedProducts}"
 				paginator="false"
-				rendered="false">
+				selection="#{homePageMB.selectedRecommended}"
+				rowKey="#{rec.product.id}"
+				rows="1"
+				columns="5"
+				style="width:100%"
+				rendered="#{loginMB.loggedIn}">
 				<!--  Trocar para verificar usuário logado -->
-				<f:facet name="header">
-			        	Recomendações
-			        </f:facet>
+				<f:facet
+					name="header"
+					style="align:left">
+				            Recomendações
+				        </f:facet>
+
 				<p:panel style="text-align:center">
 					<h:panelGrid
 						columns="1"
 						style="width:100%">
-						<p:graphicImage name="imagem" />
+						<p:commandLink actionListener="#{redirectMB.redirectToProductPage(rec.product)}">
+							<p:graphicImage
+								value="#{homePageMB.getImagePath(rec.product)}"
+								style="width:192px;heigth:192" />
+							<f:setPropertyActionListener
+								value="#{rec.product}"
+								target="#{homePageMB.selectedRecommended}" />
+						</p:commandLink>
+						<p:commandButton
+							value="Comprar"
+							actionListener="#{redirectMB.redirectToProductPage(rec.product)}" />
 
-						<h:outputText value="nomeProduto" />
-						<h:outputText value="precoProduto" />
-						<h:outputText value="statusProduto" />
-
-						<!--  <f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />  -->
-
+						<h:outputText value="#{rec.product.name}" />
+						<h:outputText
+							rendered="#{empty rec.product.activePromotion}"
+							value="#{formatterMB.formatCurrency(rec.product.price)}" />
+						<h:outputText
+							rendered="#{not empty rec.product.activePromotion}"
+							value="Promoção: - #{formatterMB.formatToPercentage(rec.product.activePromotion.discountPercentage)}" />
+						<h:outputText
+							rendered="#{not empty rec.product.activePromotion}"
+							value="De: #{formatterMB.formatCurrency(rec.product.price)}" />
+						<h:outputText
+							rendered="#{not empty rec.product.activePromotion}"
+							value="Por: #{formatterMB.formatCurrency(rec.product.discountPrice)}" />
+						<h:outputText value="#{rec.product.statusDesc}" />
 					</h:panelGrid>
 				</p:panel>
 			</p:dataGrid>
 
 			<p:dataGrid
-				id="featuredDataGrid"
-				columns="8"
+				var="msd"
+				id="mostSoldTable"
+				value="#{homePageMB.carrier.mostSold}"
 				paginator="false"
-				rendered="false">
+				selection="#{homePageMB.selectedMostSold}"
+				rowKey="#{msd.product.id}"
+				rows="1"
+				columns="5"
+				style="width:100%">
 				<!--  Trocar para verificar usuário logado -->
-				<f:facet name="header">
-			        	PRODUTOS EM DESTAQUE
-			        </f:facet>
+				<f:facet
+					name="header"
+					style="align:left">
+				            Destaques
+				        </f:facet>
+
 				<p:panel style="text-align:center">
 					<h:panelGrid
 						columns="1"
 						style="width:100%">
-						<p:graphicImage name="imagem" />
+						<p:commandLink actionListener="#{redirectMB.redirectToProductPage(msd.product)}">
+							<p:graphicImage
+								value="#{homePageMB.getImagePath(msd.product)}"
+								style="width:192px;heigth:192" />
+							<f:setPropertyActionListener
+								value="#{msd.product}"
+								target="#{homePageMB.selectedMostSold}" />
+						</p:commandLink>
+						<p:commandButton
+							value="Comprar"
+							actionListener="#{redirectMB.redirectToProductPage(msd.product)}" />
 
-						<h:outputText value="nomeProduto" />
-						<h:outputText value="precoProduto" />
-						<h:outputText value="statusProduto" />
-
-						<!--  <f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />  -->
-
+						<h:outputText value="#{msd.product.name}" />
+						<h:outputText
+							rendered="#{empty msd.product.activePromotion}"
+							value="#{formatterMB.formatCurrency(msd.product.price)}" />
+						<h:outputText
+							rendered="#{not empty msd.product.activePromotion}"
+							value="Promoção: - #{formatterMB.formatToPercentage(msd.product.activePromotion.discountPercentage)}" />
+						<h:outputText
+							rendered="#{not empty msd.product.activePromotion}"
+							value="De: #{formatterMB.formatCurrency(msd.product.price)}" />
+						<h:outputText
+							rendered="#{not empty msd.product.activePromotion}"
+							value="Por: #{formatterMB.formatCurrency(msd.product.discountPrice)}" />
+						<h:outputText value="#{msd.product.statusDesc}" />
 					</h:panelGrid>
 				</p:panel>
 			</p:dataGrid>
 
 			<p:dataGrid
-				id="newProductsDataGrid"
-				columns="8"
+				var="prod"
+				id="newProductsTable"
+				value="#{homePageMB.carrier.newProducts}"
 				paginator="false"
-				rendered="false">
+				selection="#{homePageMB.selectedProduct}"
+				rowKey="#{prod.id}"
+				rows="1"
+				columns="5"
+				style="width:100%">
 				<!--  Trocar para verificar usuário logado -->
-				<f:facet name="header">
-			        	Lançamentos
-			        </f:facet>
+				<f:facet
+					name="header"
+					style="align:left">
+				            Novidades
+				        </f:facet>
+
 				<p:panel style="text-align:center">
 					<h:panelGrid
 						columns="1"
 						style="width:100%">
-						<p:graphicImage name="imagem" />
+						<p:commandLink actionListener="#{redirectMB.redirectToProductPage(prod)}">
+							<p:graphicImage
+								value="#{homePageMB.getImagePath(prod)}"
+								style="width:192px;heigth:192" />
+							<f:setPropertyActionListener
+								value="#{prod}"
+								target="#{homePageMB.selectedProduct}" />
+						</p:commandLink>
+						<p:commandButton
+							value="Comprar"
+							actionListener="#{redirectMB.redirectToProductPage(prod)}" />
 
-						<h:outputText value="nomeProduto" />
-						<h:outputText value="precoProduto" />
-						<h:outputText value="statusProduto" />
-
-						<!--  <f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />  -->
-
+						<h:outputText value="#{prod.name}" />
+						<h:outputText
+							rendered="#{empty prod.activePromotion}"
+							value="#{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText
+							rendered="#{not empty prod.activePromotion}"
+							value="Promoção: - #{formatterMB.formatToPercentage(prod.activePromotion.discountPercentage)}" />
+						<h:outputText
+							rendered="#{not empty prod.activePromotion}"
+							value="De: #{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText
+							rendered="#{not empty prod.activePromotion}"
+							value="Por: #{formatterMB.formatCurrency(prod.discountPrice)}" />
+						<h:outputText value="#{prod.statusDesc}" />
 					</h:panelGrid>
 				</p:panel>
 			</p:dataGrid>
+
+
 		</h:form>
 	</ui:define>
 </ui:composition>

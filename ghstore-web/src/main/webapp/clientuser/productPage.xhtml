@@ -81,9 +81,19 @@
 					<h:outputText value="#{productDetailMB.product.name}" />
 					<h:outputText value="" />
 
-					<h:outputText value="Preço: " />
-					<h:outputText value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
-
+					<h:outputText rendered="#{empty productDetailMB.product.activePromotion}"  value="Preço: " />
+					<h:outputText rendered="#{empty productDetailMB.product.activePromotion}" value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
+					
+					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}"  value="Promoção" />
+					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}" value=" - #{formatterMB.formatToPercentage(productDetailMB.product.activePromotion.discountPercentage)}" />
+					
+					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}"  value="Preço original: " />
+					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}" value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
+					
+					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}"  value="Preço promocional: " />
+					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}" value="#{formatterMB.formatCurrency(productDetailMB.product.discountPrice)}" />
+					
+					
 					<h:outputText value="Categoria: " />
 					<h:outputText value="#{productDetailMB.product.storeCategory.description}" />
 

@@ -35,7 +35,7 @@
 
 				<p:row>
 					<p:outputLabel value="Editoras:" />
-					<p:selectCheckboxMenu
+					<p:selectManyCheckbox
 						label="Editoras"
 						id="grid"
 						value="#{mangasMB.filter.selectedSubcategoryIds}"
@@ -46,7 +46,7 @@
 							var="subcategory"
 							itemLabel="#{subcategory.description}"
 							itemValue="#{subcategory.id}" />
-					</p:selectCheckboxMenu>
+					</p:selectManyCheckbox>
 				</p:row>
 
 				<p:row>

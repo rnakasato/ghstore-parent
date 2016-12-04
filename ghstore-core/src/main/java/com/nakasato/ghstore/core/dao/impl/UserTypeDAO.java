@@ -31,6 +31,8 @@ public class UserTypeDAO extends DomainSpecificEntityDAO < UserType > {
 			if( ListUtils.isNotEmpty( utFilter.getCodeList() ) ) {
 				jpql.append( " AND u.code in (:codeList)" );
 			}
+			
+			jpql.append( " ORDER BY u.name asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
@@ -55,7 +57,8 @@ public class UserTypeDAO extends DomainSpecificEntityDAO < UserType > {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM UserType " );
+			jpql.append( " FROM UserType u " );
+			jpql.append( " ORDER BY u.name asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 

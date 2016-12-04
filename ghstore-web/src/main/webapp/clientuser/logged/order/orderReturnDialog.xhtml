@@ -17,7 +17,7 @@
 			showEffect="fade"
 			hideEffect="fade"
 			resizable="false"
-			width="800px"
+			width="1000px"
 			position="center top">
 			<p:panelGrid
 				id="gridReasonReturn"
@@ -53,7 +53,8 @@
 						value="Devolver"
 						actionListener="#{clientOrderMB.doReturn()}"
 						disabled="#{empty clientOrderMB.selectedReturnList}"
-						onsuccess="PF('returnDialog').hide()"
+						onstart="PF('loadingDialog').show()"
+						onsuccess="PF('loadingDialog').hide(); PF('returnDialog').hide();"
 						update=":form_content:orderTable" />
 					<p:commandButton
 						value="Fechar"

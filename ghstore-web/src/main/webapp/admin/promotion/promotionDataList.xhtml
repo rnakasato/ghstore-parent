@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<p:dataTable
+			var="promo"
+			id="promotionTable"
+			value="#{promotionMB.promotionList}"
+			paginator="true"
+			selection="#{promotionMB.selectedPromotion}"
+			rowKey="#{promo.id}"
+			rows="15"
+			style="width:100%">
+			<f:facet name="header">
+				<p:outputLabel value="Resultados" />
+			</f:facet>
+
+			<p:ajax
+				event="rowSelectRadio"
+				update=":form_content:gridButtons"
+				listener="#{promotionMB.select}" />
+			<p:ajax
+				event="rowUnselect"
+				update=":form_content:gridButtons"
+				listener="#{promotionMB.unSelect}" />
+
+			<p:column
+				selectionMode="single"
+				style="width:16px;text-align:center" />
+
+			<p:column
+				headerText="Nome"
+				style="width:14%">
+				<!-- row record -->
+				<p:outputLabel
+					value="#{promo.description}"
+					title="#{promo.description}" />
+			</p:column>
+
+			<p:column
+				headerText="Data de início"
+				style="width:14%">
+				<!-- row record -->
+				<p:outputLabel
+					value="#{formatterMB.formatDateTime(promo.startDate)}"
+					title="#{formatterMB.formatDateTime(promo.startDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Data de fim"
+				style="width:14%">
+				<p:outputLabel
+					value="#{formatterMB.formatDateTime(promo.endDate)}"
+					title="#{formatterMB.formatDateTime(promo.endDate)}" />
+			</p:column>
+
+			<p:column
+				headerText="Desconto"
+				style="width:14%">
+				<!-- row record -->
+				<p:outputLabel
+					value="#{formatterMB.formatToPercentage(promo.discountPercentage)}"
+					title="{formatterMB.formatToPercentage(promo.discountPercentage)}" />
+			</p:column>
+
+			<p:column
+				headerText="Status"
+				style="width:14%">
+				<p:outputLabel
+					value="#{promo.activeDescription}"
+					title="#{promo.activeDescription}" />
+			</p:column>s
+
+		</p:dataTable>
+	</ui:composition>
+</h:body>
+</html>

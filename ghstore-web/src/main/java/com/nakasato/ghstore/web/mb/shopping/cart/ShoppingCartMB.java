@@ -36,7 +36,6 @@ public class ShoppingCartMB extends BaseMB {
 	protected LoginMB loginMB;
 
 	private Customer loggedUser;
-	private ICommand command;
 
 	private State selectedState;
 	private Address selectedAddress;

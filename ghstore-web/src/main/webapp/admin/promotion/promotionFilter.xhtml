@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition>
+		<h:form
+			id="promotionFilter"
+			style="height:100%;width:100%">
+
+			<p:panelGrid
+				styleClass="baseGrid"
+				columns="1"
+				style="width:100%">
+				<f:facet name="header">
+					<p:outputLabel value="Filtros" />
+				</f:facet>
+
+				<p:row>
+					<p:outputLabel value="Produtos:" />
+					<p:selectCheckboxMenu
+						id="inputProduct"
+						value="#{promotionMB.filter.productList}"
+						label="Produtos"
+						converter="defaultConverter"
+						filter="true"
+						filterMatchMode="startsWith"
+						panelStyle="width:250px">
+						<f:selectItems
+							value="#{promotionMB.filterProducts}"
+							var="prod"
+							itemValue="#{prod}"
+							itemLabel="#{prod.name}" />
+					</p:selectCheckboxMenu>
+				</p:row>
+
+				<p:row>
+					<p:outputLabel value="Categorias:" />
+					<p:selectCheckboxMenu
+						id="inputCategory"
+						value="#{promotionMB.filter.categoryList}"
+						label="Categorias"
+						converter="defaultConverter"
+						filter="true"
+						filterMatchMode="startsWith"
+						panelStyle="width:250px">
+						<f:selectItems
+							value="#{promotionMB.categoryList}"
+							var="cat"
+							itemValue="#{cat}"
+							itemLabel="#{cat.description}" />
+					</p:selectCheckboxMenu>
+				</p:row>
+
+
+				<p:row>
+					<p:outputLabel
+						value="Intervalo de Desconto"
+						style="font-weight:bold;width:30%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputStartDiscount"
+						value="De:"
+						style="font-weight:bold;width:30%" />
+
+					<pe:inputNumber
+						id="inputStartDiscount"
+						value="#{promotionMB.filter.startDiscount}"
+						minValue="1"
+						decimalPlaces="0"
+						decimalSeparator=","
+						thousandSeparator="."
+						maxValue="99" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputEndDiscount"
+						value="Até:"
+						style="font-weight:bold;width:30%" />
+
+					<pe:inputNumber
+						id="inputEndDiscount"
+						value="#{promotionMB.filter.endDiscount}"
+						minValue="0"
+						decimalPlaces="0"
+						decimalSeparator=","
+						thousandSeparator="."
+						maxValue="99" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						value="Início da promoção:"
+						style="font-weight:bold;width:30%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputStartDateBegin"
+						value="De:"
+						style="font-weight:bold;width:30%" />
+
+					<p:calendar
+						id="inputStartDateBegin"
+						mask="true"
+						navigator="true"
+						pattern="dd/MM/yyyy HH:mm:ss"
+						yearRange="c-80:c+50"
+						value="#{promotionMB.filter.startDateBegin}">
+					</p:calendar>
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputStartDateEnd"
+						value="Até:"
+						style="font-weight:bold;width:30%" />
+
+					<p:calendar
+						id="inputStartDateEnd"
+						mask="true"
+						navigator="true"
+						pattern="dd/MM/yyyy HH:mm:ss"
+						yearRange="c-80:c+50"
+						value="#{promotionMB.filter.startDateEnd}">
+					</p:calendar>
+				</p:row>
+
+
+				<p:row>
+					<p:outputLabel
+						value="Fim da promoção:"
+						style="font-weight:bold;width:30%" />
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputEndDateBegin"
+						value="De:"
+						style="font-weight:bold;width:30%" />
+
+					<p:calendar
+						id="inputEndDateBegin"
+						mask="true"
+						navigator="true"
+						pattern="dd/MM/yyyy HH:mm:ss"
+						yearRange="c-80:c+50"
+						value="#{promotionMB.filter.endDateBegin}">
+					</p:calendar>
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputEndDateEnd"
+						value="Até:"
+						style="font-weight:bold;width:30%" />
+
+					<p:calendar
+						id="inputEndDateEnd"
+						mask="true"
+						navigator="true"
+						pattern="dd/MM/yyyy HH:mm:ss"
+						yearRange="c-80:c+50"
+						value="#{promotionMB.filter.endDateEnd}">
+					</p:calendar>
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
+						for="inputPromotionStatus"
+						value="Status da promoção"
+						style="font-weight:bold;width:30%" />
+
+					<p:selectOneRadio
+						id="inputPromotionStatus"
+						value="#{promotionMB.promotionStatus}"
+						layout="grid"
+						columns="1">
+						<f:selectItem
+							itemLabel="Todos"
+							itemValue="#{null}" />
+						<f:selectItem
+							itemLabel="Ativo"
+							itemValue="#{true}" />
+						<f:selectItem
+							itemLabel="Inativo"
+							itemValue="#{false}" />
+					</p:selectOneRadio>
+				</p:row>
+
+			</p:panelGrid>
+
+			<p:panelGrid
+				styleClass="baseGrid"
+				columns="2"
+				style="width:100%">
+				<p:commandButton
+					icon="ui-icon-search"
+					value="Buscar"
+					actionListener="#{promotionMB.listPromotion()}"
+					onstart="PF('loadingDialog').show()"
+					onsuccess="PF('loadingDialog').hide()"
+					update=":form_content:promotionTable" />
+				<p:commandButton
+					value="Limpar filtros"
+					actionListener="#{promotionMB.clearFilter}"
+					update=":promotionFilter" />
+			</p:panelGrid>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

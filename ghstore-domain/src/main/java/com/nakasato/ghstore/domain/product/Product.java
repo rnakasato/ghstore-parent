@@ -25,6 +25,7 @@ public class Product extends DomainSpecificEntity implements Serializable {
 
 	private String name;
 	private Double price;
+	private Double soldAmount;
 	private Integer stock;
 	private String image;
 	private Date updateDate;
@@ -34,6 +35,8 @@ public class Product extends DomainSpecificEntity implements Serializable {
 	private StoreCategory storeCategory;
 	private Subcategory subcategory;
 	private List < Tag > tagList;
+
+	private List < Promotion > promotionList;
 
 	public String getName() {
 		return name;
@@ -57,6 +60,19 @@ public class Product extends DomainSpecificEntity implements Serializable {
 
 	public void setSubcategory( Subcategory subcategory ) {
 		this.subcategory = subcategory;
+	}
+
+	public Double getDiscountPrice() {
+		Double value = 0D;
+		Promotion promotion = getActivePromotion();
+		if( promotion != null && price != null ) {
+			Double discount = price * ( ( promotion.getDiscountPercentage() ) / 100 );
+			value = price - discount;
+		} else {
+			value = price;
+		}
+
+		return value;
 	}
 
 	public Double getPrice() {
@@ -134,6 +150,36 @@ public class Product extends DomainSpecificEntity implements Serializable {
 
 	public void setActive( Boolean active ) {
 		this.active = active;
+	}
+
+	public List < Promotion > getPromotionList() {
+		return promotionList;
+	}
+
+	public void setPromotionList( List < Promotion > promotionList ) {
+		this.promotionList = promotionList;
+	}
+
+	public Double getSoldAmount() {
+		return soldAmount;
+	}
+
+	public void setSoldAmount( Double soldAmount ) {
+		this.soldAmount = soldAmount;
+	}
+
+	public Promotion getActivePromotion() {
+		Promotion promotion = null;
+		if( promotionList != null && ! promotionList.isEmpty() ) {
+			for( Promotion p: promotionList ) {
+				if( p.getActive() ) {
+					promotion = p;
+					break;
+				}
+			}
+		}
+
+		return promotion;
 	}
 
 	@Override

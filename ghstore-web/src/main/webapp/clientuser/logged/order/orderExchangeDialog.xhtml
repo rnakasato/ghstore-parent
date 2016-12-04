@@ -17,7 +17,7 @@
 			showEffect="fade"
 			hideEffect="fade"
 			resizable="false"
-			width="512px"
+			width="1000px"
 			position="center top">
 			<p:panelGrid
 				id="gridReason"
@@ -53,7 +53,8 @@
 						value="Trocar"
 						actionListener="#{clientOrderMB.doExchange()}"
 						disabled="#{empty clientOrderMB.selectedExchangeList}"
-						onsuccess="PF('exchangeDialog').hide()"
+						onstart="PF('loadingDialog').show()"
+						onsuccess="PF('loadingDialog').hide(); PF('exchangeDialog').hide();"
 						update=":form_content:orderTable" />
 					<p:commandButton
 						value="Cancelar"

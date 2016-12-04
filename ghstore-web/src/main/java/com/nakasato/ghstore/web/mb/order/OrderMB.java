@@ -46,6 +46,14 @@ public abstract class OrderMB extends BaseMB {
 		return hasError;
 	}
 
+	public Double getDiscount( Order order ) {
+		Double discount = 0D;
+		if( order != null && order.getDiscountValue() != null ) {
+			discount = order.getDiscountValue();
+		}
+		return discount;
+	}
+
 	public OrderFilter getFilter() {
 		return filter;
 	}

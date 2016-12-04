@@ -14,4 +14,18 @@ public class ShoppingCartItem extends StoreItem {
 		this.reserved = reserved;
 	}
 
+	@Override
+	public boolean equals( Object obj ) {
+		boolean equal = false;
+		if(obj instanceof ShoppingCartItem ){
+			ShoppingCartItem item = (ShoppingCartItem) obj;
+			if(this.getProduct() != null && item.getProduct() != null){
+				equal = this.getProduct().equals( item.getProduct() );
+			}
+		}
+		return equal;
+	}
+	
+	
+
 }

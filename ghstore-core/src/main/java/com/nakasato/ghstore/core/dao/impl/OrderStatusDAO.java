@@ -27,6 +27,8 @@ public class OrderStatusDAO extends AbstractDAO < OrderStatus > {
 			if( StringUtils.isNotEmpty( statusFilter.getCode() ) ) {
 				jpql.append( " AND o.code like :code " );
 			}
+			
+			jpql.append( " ORDER BY o.description asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
@@ -52,7 +54,8 @@ public class OrderStatusDAO extends AbstractDAO < OrderStatus > {
 			openSession();
 
 			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM OrderStatus " );
+			jpql.append( " FROM OrderStatus o " );
+			jpql.append( " ORDER BY o.description asc " );
 
 			Query query = session.createQuery( jpql.toString() );
 
