@@ -22,13 +22,18 @@
 				</f:facet>
 
 				<p:row>
-					<p:outputLabel value="Produtos:" />
+					<p:outputLabel
+						value="Produtos:"
+						style="font-weight:bold;" />
+				</p:row>
+				<p:row>
 					<p:selectCheckboxMenu
 						id="inputProduct"
 						value="#{promotionMB.filter.productList}"
 						label="Produtos"
 						converter="defaultConverter"
 						filter="true"
+						style="font-weight:normal"
 						filterMatchMode="startsWith"
 						panelStyle="width:250px">
 						<f:selectItems
@@ -40,13 +45,19 @@
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Categorias:" />
+					<p:outputLabel
+						value="Categorias:"
+						style="font-weight:bold;" />
+
+				</p:row>
+				<p:row>
 					<p:selectCheckboxMenu
 						id="inputCategory"
 						value="#{promotionMB.filter.categoryList}"
 						label="Categorias"
 						converter="defaultConverter"
 						filter="true"
+						style="font-weight:normal"
 						filterMatchMode="startsWith"
 						panelStyle="width:250px">
 						<f:selectItems

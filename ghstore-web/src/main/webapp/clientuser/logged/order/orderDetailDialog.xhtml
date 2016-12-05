@@ -23,6 +23,7 @@
 				id="panelDetail"
 				style="align:center">
 				<p:panelGrid
+					id="gridOrderDetail"
 					styleClass="baseGrid"
 					columns="1"
 					rendered="true"
@@ -32,63 +33,81 @@
 						<p:outputLabel
 							value="Código do pedido: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{clientOrderMB.selectedOrder.code}" />
+						<p:outputLabel
+							id="outputOrderCode"
+							value="#{clientOrderMB.selectedOrder.code}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Código de transação PagSeguro: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{clientOrderMB.selectedOrder.transactionCode}" />
+						<p:outputLabel
+							id="outputTransactionCode"
+							value="#{clientOrderMB.selectedOrder.transactionCode}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Status do pedido: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{clientOrderMB.selectedOrder.orderStatus.description}" />
+						<p:outputLabel
+							id="outputStatus"
+							value="#{clientOrderMB.selectedOrder.orderStatus.description}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Endereço de entrega: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{clientOrderMB.selectedOrder.deliverAddress.formattedAddress}" />
+						<p:outputLabel
+							id="outputAddress"
+							value="#{clientOrderMB.selectedOrder.deliverAddress.formattedAddress}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="CEP: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCEP(clientOrderMB.selectedOrder.deliverAddress.cep)}" />
+						<p:outputLabel
+							id="outputCEP"
+							value="#{formatterMB.formatCEP(clientOrderMB.selectedOrder.deliverAddress.cep)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="E-mail: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{clientOrderMB.selectedOrder.customer.email}" />
+						<p:outputLabel
+							id="outputEmail"
+							value="#{clientOrderMB.selectedOrder.customer.email}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Valor total: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCurrency(clientOrderMB.selectedOrder.totalValue)}" />
+						<p:outputLabel
+							id="outputTotalValue"
+							value="#{formatterMB.formatCurrency(clientOrderMB.selectedOrder.totalValue)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Valor do desconto: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCurrency(clientOrderMB.getDiscount(clientOrderMB.selectedOrder.discountValue))}" />
+						<p:outputLabel
+							id="outputDiscountValue"
+							value="#{formatterMB.formatCurrency(clientOrderMB.getDiscount(clientOrderMB.selectedOrder.discountValue))}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Valor do frete: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCurrency(clientOrderMB.selectedOrder.shippingCost)}" />
+						<p:outputLabel
+							id="outputFreight"
+							value="#{formatterMB.formatCurrency(clientOrderMB.selectedOrder.shippingCost)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
@@ -98,6 +117,7 @@
 				</p:panelGrid>
 
 				<p:commandButton
+					id="btnCloseOrderDialog"
 					value="Fechar"
 					onclick="PF('orderDialog').hide()" />
 			</p:outputPanel>

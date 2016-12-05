@@ -23,7 +23,10 @@
 					<p:outputLabel
 						id="labelOrderCode"
 						value="Código do pedido: "
+						style="font-weight:bold"
 						for="inputOrderCode" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputOrderCode"
 						value="#{returnMB.filter.codOrder}" />
@@ -33,7 +36,10 @@
 					<p:outputLabel
 						id="labelCustomer"
 						for="selectCustomer"
-						value="Usuário:" />
+						value="Usuário:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectOneMenu
 						id="selectCustomer"
 						value="#{returnMB.filter.username}"
@@ -53,7 +59,10 @@
 					<p:outputLabel
 						id="labelReturnStatus"
 						for="selectReturnStatus"
-						value="Status:" />
+						value="Status:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectCheckboxMenu
 						id="selectReturnStatus"
 						label="Status"
@@ -74,6 +83,8 @@
 						for="startReturnDate"
 						value="Data inicial da devolução:"
 						style="font-weight:bold; width:20%;" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="startReturnDate"
 						mask="true"
@@ -90,6 +101,8 @@
 						for="endReturnDate"
 						value="Data final da devolução:"
 						style="font-weight:bold; width:20%;" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="endReturnDate"
 						mask="true"
@@ -104,10 +117,12 @@
 			</p:panelGrid>
 
 			<p:panelGrid
+				id="gridButtons"
 				styleClass="baseGrid"
 				columns="2"
 				style="width:100%">
 				<p:commandButton
+					id="btnFind"
 					icon="ui-icon-search"
 					value="Buscar"
 					actionListener="#{returnMB.listProductReturn()}"
@@ -115,6 +130,7 @@
 					onsuccess="PF('loadingDialog').hide()"
 					update=":form_content:returnTable :messages" />
 				<p:commandButton
+					id="btnClearFilter"
 					value="Limpar filtros"
 					actionListener="#{returnMB.clearFilter}"
 					update=":returnFilter" />

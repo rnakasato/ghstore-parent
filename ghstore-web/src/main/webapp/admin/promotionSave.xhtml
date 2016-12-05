@@ -22,9 +22,7 @@
 	<ui:define name="messages">
 		<p:growl id="messages"></p:growl>
 	</ui:define>
-	<ui:define
-		name="sidebar"
-		style="width:0">
+	<ui:define name="sidebar">
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="form_content">
@@ -41,24 +39,28 @@
 					<p:outputLabel
 						for="inputName"
 						value="Nome da promoção:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputName"
 						value="#{promotionSaveMB.newPromotion.description}"
 						maxlength="50"
-						style="width:80%" />
+						style="width:80%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						for="inputStatus"
 						value="Status: "
-						style="font-weight:bold; width:35%" />
-
+						style="font-weight:bold; width:35%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:selectOneButton
 						id="inputStatus"
 						value="#{promotionSaveMB.newPromotion.active}"
 						layout="grid"
+						style="margin-left:50px"
 						valueChangeListener="#{promotionSaveMB.setActive()}"
 						columns="1">
 						<f:selectItem
@@ -67,7 +69,7 @@
 						<f:selectItem
 							itemLabel="Inativo"
 							itemValue="#{false}" />
-						<p:ajax	update=":form_content" />
+						<p:ajax update=":form_content" />
 					</p:selectOneButton>
 
 				</p:row>
@@ -76,8 +78,9 @@
 					<p:outputLabel
 						for="inputStartDate"
 						value="Início da promoção:"
-						style="font-weight:bold;width:30%" />
-
+						style="font-weight:bold;width:30%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="inputStartDate"
 						mask="true"
@@ -85,6 +88,7 @@
 						pattern="dd/MM/yyyy HH:mm:ss"
 						disabled="#{promotionSaveMB.newPromotion.active}"
 						yearRange="c-80:c+50"
+						style="margin-left:50px"
 						value="#{promotionSaveMB.newPromotion.startDate}"
 						showButtonPanel="true">
 					</p:calendar>
@@ -94,14 +98,16 @@
 					<p:outputLabel
 						for="inputEndDate"
 						value="Fim da promoção:"
-						style="font-weight:bold;width:30%" />
-
+						style="font-weight:bold;width:30%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="inputEndDate"
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy HH:mm:ss"
 						yearRange="c-80:c+50"
+						style="margin-left:50px"
 						value="#{promotionSaveMB.newPromotion.endDate}"
 						showButtonPanel="true">
 					</p:calendar>
@@ -111,8 +117,9 @@
 					<p:outputLabel
 						for="inputDiscount"
 						value="Desconto (%)"
-						style="font-weight:bold;width:30%" />
-
+						style="font-weight:bold;width:30%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<pe:inputNumber
 						id="inputDiscount"
 						value="#{promotionSaveMB.newPromotion.discountPercentage}"
@@ -120,13 +127,14 @@
 						decimalPlaces="0"
 						decimalSeparator=","
 						thousandSeparator="."
-						maxValue="99" />
+						maxValue="99"
+						style="margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						value="Defina abaixo os produtos que estarão na promoção"
-						style="font-weight:bold;width:30%" />
+						style="font-weight:bold;width:30%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
@@ -142,7 +150,8 @@
 						showSourceFilter="true"
 						showTargetFilter="true"
 						filterMatchMode="contains"
-						converter="defaultConverter">
+						converter="defaultConverter"
+						style="margin-left:50px">
 
 						<f:facet name="sourceCaption">Produtos fora da promoção</f:facet>
 						<f:facet name="targetCaption">Produtos na promoção</f:facet>
@@ -165,6 +174,7 @@
 						actionListener="#{promotionSaveMB.save}"
 						value="Confirmar"
 						id="confirm"
+						style="margin-left:50px"
 						update=":form_content,:messages">
 						<p:confirm
 							header="Promoção"
@@ -173,6 +183,7 @@
 					<p:commandButton
 						value="Cancelar"
 						id="cancel"
+						style="margin-left:50px"
 						actionListener="#{redirectMB.redirectToPromotionSearch()}">
 						<p:confirm
 							header="Promotion"
@@ -182,6 +193,7 @@
 						value="Limpar Campos"
 						update="form_content"
 						id="clear"
+						style="margin-left:50px"
 						actionListener="#{promotionSaveMB.clearFields}">
 						<p:confirm
 							header="Promoção"

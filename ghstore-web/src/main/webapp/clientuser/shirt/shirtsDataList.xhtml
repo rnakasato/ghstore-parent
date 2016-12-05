@@ -26,12 +26,18 @@
 				            Camisas
 				        </f:facet>
 
-				<p:panel style="text-align:center">
+				<p:panel
+					id="panelShirt"
+					style="text-align:center">
 					<h:panelGrid
+						id="gridShirt"
 						columns="1"
 						style="width:100%">
-						<p:commandLink actionListener="#{redirectMB.redirectToProductPage(shirtMB.product)}">
+						<p:commandLink
+							id="linkShirt"
+							actionListener="#{redirectMB.redirectToProductPage(shirtMB.product)}">
 							<p:graphicImage
+								id="imageShirt"
 								value="#{shirtMB.getImagePath(prod)}"
 								style="width:256px;heigth:256px" />
 							<f:setPropertyActionListener
@@ -39,14 +45,29 @@
 								target="#{shirtMB.product}" />
 						</p:commandLink>
 						<p:commandButton
+							id="btnBuy"
 							value="Comprar"
 							actionListener="#{redirectMB.redirectToProductPage(prod)}" />
 
-						<h:outputText value="#{prod.name}" />
-						<h:outputText rendered="#{empty prod.activePromotion}" value="#{formatterMB.formatCurrency(prod.price)}" />
-						<h:outputText rendered="#{not empty prod.activePromotion}" value="Promoção: - #{formatterMB.formatToPercentage(prod.activePromotion.discountPercentage)}" />
-						<h:outputText rendered="#{not empty prod.activePromotion}" value="De: #{formatterMB.formatCurrency(prod.price)}" />
-						<h:outputText rendered="#{not empty prod.activePromotion}" value="Por: #{formatterMB.formatCurrency(prod.discountPrice)}" />
+						<h:outputText
+							id="outputProductName"
+							value="#{prod.name}" />
+						<h:outputText
+							id="outputPrice"
+							rendered="#{empty prod.activePromotion}"
+							value="#{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText
+							id="outputPromotionValue"
+							rendered="#{not empty prod.activePromotion}"
+							value="Promoção: - #{formatterMB.formatToPercentage(prod.activePromotion.discountPercentage)}" />
+						<h:outputText
+							id="outputOriginalPrice"
+							rendered="#{not empty prod.activePromotion}"
+							value="De: #{formatterMB.formatCurrency(prod.price)}" />
+						<h:outputText
+							id="outputPromotionPrice"
+							rendered="#{not empty prod.activePromotion}"
+							value="Por: #{formatterMB.formatCurrency(prod.discountPrice)}" />
 						<h:outputText value="#{prod.statusDesc}" />
 					</h:panelGrid>
 				</p:panel>
@@ -54,7 +75,7 @@
 			</p:dataGrid>
 
 			<ui:include src="/public/confirmDialog.xhtml" />
-			
+
 		</h:form>
 	</ui:composition>
 </h:body>

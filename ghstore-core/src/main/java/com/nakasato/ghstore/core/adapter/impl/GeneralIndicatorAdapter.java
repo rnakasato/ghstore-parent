@@ -6,18 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.nakasato.ghstore.core.adapter.Adapter;
-import com.nakasato.ghstore.core.dao.impl.OrderDAO;
-import com.nakasato.ghstore.core.hibernate.HibernateUtil;
 import com.nakasato.ghstore.domain.carrier.PerformanceGraphicCarrier;
-import com.nakasato.ghstore.domain.enums.EAxisX;
-import com.nakasato.ghstore.domain.enums.EAxisY;
-import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
-import com.nakasato.ghstore.domain.filter.impl.PerformanceGraphicFilter;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.order.OrderItem;
 import com.nakasato.ghstore.domain.performance.graphic.PerformanceGraphicData;
 
-public class GeneralIndicatorAdapter extends DefaultIndicatorAdapter implements Adapter < PerformanceGraphicCarrier, List < PerformanceGraphicData > > {
+public class GeneralIndicatorAdapter extends DefaultIndicatorAdapter
+		implements Adapter < PerformanceGraphicCarrier, List < PerformanceGraphicData > > {
 
 	@Override
 	public List < PerformanceGraphicData > adapt( PerformanceGraphicCarrier carrier ) {
@@ -49,24 +44,4 @@ public class GeneralIndicatorAdapter extends DefaultIndicatorAdapter implements 
 		return dataList;
 	}
 
-	public static void main( String[] args ) throws Exception {
-		PerformanceGraphicCarrier carrier = new PerformanceGraphicCarrier();
-		PerformanceGraphicFilter filter = new PerformanceGraphicFilter();
-		filter.setAxisX( EAxisX.DAYS.getCode() );
-		filter.setAxisY( EAxisY.SOLD_AMOUNT.getCode() );
-		carrier.setFilter( filter );
-
-		OrderDAO dao = new OrderDAO();
-		List < Order > orderList = dao.find( new OrderFilter() );
-		carrier.setOrderList( orderList );
-
-		List < PerformanceGraphicData > dataList = new GeneralIndicatorAdapter().adapt( carrier );
-
-		for( PerformanceGraphicData p: dataList ) {
-			System.out.println( p.getDescription() );
-		}
-
-		HibernateUtil.shutdown();
-
-	}
 }

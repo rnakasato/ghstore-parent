@@ -41,26 +41,30 @@
 					<p:outputLabel
 						for="inputName"
 						value="Nome da promoção:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputName"
 						value="#{promotionUpdateMB.selectedPromotion.description}"
 						maxlength="50"
-						style="width:80%" />
+						style="width:80%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						for="inputStartDate"
 						value="Início da promoção:"
-						style="font-weight:bold;width:30%" />
-
+						style="font-weight:bold;width:30%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="inputStartDate"
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy HH:mm:ss"
 						yearRange="c-80:c+50"
+						style="margin-left:50px"
 						value="#{promotionUpdateMB.selectedPromotion.startDate}"
 						showButtonPanel="true">
 					</p:calendar>
@@ -70,8 +74,9 @@
 					<p:outputLabel
 						for="inputEndDate"
 						value="Fim da promoção:"
-						style="font-weight:bold;width:30%" />
-
+						style="font-weight:bold;width:30%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="inputEndDate"
 						mask="true"
@@ -79,6 +84,7 @@
 						pattern="dd/MM/yyyy HH:mm:ss"
 						yearRange="c-80:c+50"
 						value="#{promotionUpdateMB.selectedPromotion.endDate}"
+						style="margin-left:50px"
 						showButtonPanel="true">
 					</p:calendar>
 				</p:row>
@@ -87,8 +93,9 @@
 					<p:outputLabel
 						for="inputDiscount"
 						value="Desconto (%)"
-						style="font-weight:bold;width:30%" />
-
+						style="font-weight:bold;width:30%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<pe:inputNumber
 						id="inputDiscount"
 						value="#{promotionUpdateMB.selectedPromotion.discountPercentage}"
@@ -96,15 +103,16 @@
 						decimalPlaces="0"
 						decimalSeparator=","
 						thousandSeparator="."
+						style="margin-left:50px"
 						maxValue="99" />
 				</p:row>
-				
+
 				<p:row>
 					<p:outputLabel
 						value="Defina abaixo os produtos que estarão na promoção"
-						style="font-weight:bold;width:30%" />
+						style="font-weight:bold;width:30%;margin-left:50px" />
 				</p:row>
-				
+
 				<p:row>
 					<p:pickList
 						id="productPickList"
@@ -118,7 +126,8 @@
 						showSourceFilter="true"
 						showTargetFilter="true"
 						filterMatchMode="contains"
-						converter="defaultConverter">
+						converter="defaultConverter"
+						style="margin-left:50px">
 
 						<f:facet name="sourceCaption">Produtos fora da promoção</f:facet>
 						<f:facet name="targetCaption">Produtos na promoção</f:facet>
@@ -141,7 +150,8 @@
 						actionListener="#{promotionUpdateMB.update()}"
 						value="Confirmar"
 						id="confirm"
-						update=":form_content,:messages">
+						update=":form_content,:messages"
+						style="margin-left:50px">
 						<p:confirm
 							header="Promoção"
 							message="Confirmar agendamento?" />
@@ -149,6 +159,7 @@
 					<p:commandButton
 						value="Cancelar"
 						id="cancel"
+						style="margin-left:50px"
 						actionListener="#{redirectMB.redirectToPromotionSearch()}">
 						<p:confirm
 							header="Promotion"

@@ -17,8 +17,7 @@ public class PromotionListener implements ServletContextListener {
 		try {
 			t.start();
 		} catch( Throwable e ) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 
 	}

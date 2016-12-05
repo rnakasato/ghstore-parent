@@ -72,6 +72,7 @@ import com.nakasato.ghtstore.core.business.validator.TransactionCodeValidator;
 import com.nakasato.ghtstore.core.business.validator.UserBirthDateValidator;
 import com.nakasato.ghtstore.core.business.validator.UserCPFValidator;
 import com.nakasato.ghtstore.core.business.validator.UserPhoneValidator;
+import com.nakasato.ghtstore.core.business.validator.UsernameValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.CustomerRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.PerformanceGraphicRequiredFieldsValidator;
 import com.nakasato.ghtstore.core.business.validator.fields.ProductExchangeRequiredFieldsValidator;
@@ -170,12 +171,10 @@ public class FactoryStrategy {
 		rnsPerformanceGraphicCarrier = new HashMap<>();
 		rns.put( PerformanceGraphicCarrier.class.getName(), rnsPerformanceGraphicCarrier );
 		initPerformanceGraphicRns();
-		
-		
+
 		rnsHomeProductsCarrier = new HashMap<>();
 		rns.put( HomeProductsCarrier.class.getName(), rnsHomeProductsCarrier );
 		initrnsHomeProductsRns();
-		
 
 	}
 
@@ -194,7 +193,7 @@ public class FactoryStrategy {
 
 		rnsPerformanceGraphicCarrier.put( EOperation.FIND, rnsFind );
 	}
-	
+
 	private static void initrnsHomeProductsRns() {
 		List < IStrategy > rnsFind = new ArrayList<>();
 		rnsFind.add( new NewProductComplementor() );
@@ -213,6 +212,7 @@ public class FactoryStrategy {
 
 		// Adicionando regras de negócio para salvar um Usuário
 		rnsSave.add( new CustomerRequiredFieldsValidator() );
+		rnsSave.add( new UsernameValidator() );
 		rnsSave.add( new UserCPFValidator() );
 		rnsSave.add( new UserBirthDateValidator() );
 		rnsSave.add( new CustomerCEPValidator() );
@@ -222,6 +222,7 @@ public class FactoryStrategy {
 		// Verificar se Nome de usuário e CPF já existem
 
 		rnsUpdate.add( new CustomerRequiredFieldsValidator() );
+		rnsUpdate.add( new UsernameValidator() );
 		rnsUpdate.add( new UserBirthDateValidator() );
 		rnsUpdate.add( new CustomerCEPValidator() );
 		rnsUpdate.add( new UserPhoneValidator() );
@@ -247,6 +248,7 @@ public class FactoryStrategy {
 
 		// Adicionando regras de negócio para salvar um Usuário
 		rnsSave.add( new SysUserRequiredFieldsValidator() );
+		rnsSave.add( new UsernameValidator() );
 		rnsSave.add( new UserCPFValidator() );
 		rnsSave.add( new UserBirthDateValidator() );
 		rnsSave.add( new SysUserCEPValidator() );
@@ -256,6 +258,7 @@ public class FactoryStrategy {
 		// Verificar se Nome de usuário e CPF já existem
 
 		rnsUpdate.add( new SysUserRequiredFieldsValidator() );
+		rnsUpdate.add( new UsernameValidator() );
 		rnsUpdate.add( new UserBirthDateValidator() );
 		rnsUpdate.add( new SysUserCEPValidator() );
 		rnsUpdate.add( new UserPhoneValidator() );
@@ -280,6 +283,7 @@ public class FactoryStrategy {
 
 		// Adicionando regras de negócio para salvar um Usuário
 		rnsSave.add( new SysUserRequiredFieldsValidator() );
+		rnsSave.add( new UsernameValidator() );
 		rnsSave.add( new UserCPFValidator() );
 		rnsSave.add( new UserBirthDateValidator() );
 		rnsSave.add( new SysUserCEPValidator() );
@@ -289,6 +293,7 @@ public class FactoryStrategy {
 		// Verificar se Nome de usuário e CPF já existem
 
 		rnsUpdate.add( new SysUserRequiredFieldsValidator() );
+		rnsUpdate.add( new UsernameValidator() );
 		rnsUpdate.add( new UserBirthDateValidator() );
 		rnsUpdate.add( new SysUserCEPValidator() );
 		rnsUpdate.add( new UserPhoneValidator() );
@@ -315,7 +320,7 @@ public class FactoryStrategy {
 		rnsSave.add( new PromotionDiscountValidator() );
 		rnsSave.add( new PromotionPeriodValidator() );
 		rnsSave.add( new ComplementPromotionStatus() );
-			
+
 		rnsUpdate.add( new PromotionRequiredFieldsValidator() );
 		rnsUpdate.add( new ProductUpdateValidator() );
 		rnsUpdate.add( new PromotionEndDateValidator() );
@@ -323,7 +328,7 @@ public class FactoryStrategy {
 		rnsUpdate.add( new PromotionPeriodValidator() );
 		rnsUpdate.add( new ComplementPromotionStatus() );
 		rnsUpdate.add( new ComplementPromotionCancel() );
-		
+
 		rnsFind.add( new PromotionFilterDiscountValidator() );
 		rnsFind.add( new PromotionFilterStartDateValidator() );
 		rnsFind.add( new PromotionFilterEndDateValidator() );

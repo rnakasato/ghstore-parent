@@ -22,86 +22,108 @@
 	<ui:define name="content">
 		<h:form
 			id="form_content"
-			style="width:50%">
+			style="width:100%">
 
 			<p:panelGrid
+				id="gridUpdateUser"
 				styleClass="baseGrid"
-				columns="1">
+				columns="1"
+				style="width:100%">
 				<f:facet name="header">
 					<p:outputLabel value="Alterar Usuário" />
 				</f:facet>
+				
 				<p:row>
 					<p:outputLabel
-						for="user"
-						value="Usuário:"
-						style="font-weight:bold; width:20%;" />
+						id="labelName"
+						for="inputName"
+						value="Nome completo:"
+						style="font-weight:bold; width:20%;padding-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:inputText
-						id="user"
+						id="inputName"
+						value="#{customerUpdateMB.customer.name}"
+						maxlength="75"
+						style="width:40%;margin-left:50px" />
+				</p:row>
+				
+				<p:row>
+					<p:outputLabel
+						id="labelUsername"
+						for="inputUsername"
+						value="Usuário:"
+						style="font-weight:bold; width:20%;padding-left:50px" />
+				</p:row>
+				<p:row>
+					<p:inputText
+						id="inputUsername"
 						value="#{customerUpdateMB.customer.username}"
 						maxlength="12"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
-						for="password"
+						id="labelPassword"
+						for="inputPassword"
 						value="Senha: "
-						style="font-weight:bold; width:35%" />
+						style="font-weight:bold; width:35%;padding-left:50px" />
+				</p:row>
+				<p:row>
 					<h:inputSecret
-						id="password"
+						id="inputPassword"
 						redisplay="true"
 						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
 						value="#{customerUpdateMB.customer.password}"
 						maxlength="20"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
+						id="labelPasswordConfirmation"
 						value="Confirmar senha:"
-						for="passwordConfirm"
-						style="font-weight:bold ; width:40%" />
+						for="inputPasswordConfirmation"
+						style="font-weight:bold ; width:40%;padding-left:50px" />
+				</p:row>
+				<p:row>
 					<h:inputSecret
-						id="passwordConfirm"
+						id="inputPasswordConfirmation"
 						redisplay="true"
 						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
 						value="#{customerUpdateMB.passwordConfirmation}"
 						maxlength="20"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
-						for="name"
-						value="Nome completo:"
-						style="font-weight:bold; width:20%;" />
-					<p:inputText
-						id="name"
-						value="#{customerUpdateMB.customer.name}"
-						maxlength="75"
-						style="width:80%" />
-				</p:row>
-
-				<p:row>
-					<p:outputLabel
-						for="cpf"
+						id="labelCPF"
+						for="inputCPF"
 						value="CPF:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;padding-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:inputMask
-						id="cpf"
+						id="inputCPF"
 						value="#{customerUpdateMB.customer.cpf}"
 						mask="999.999.999-99"
 						maxlength="75"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
+						id="outputBirthDate"
 						for="inputBirthDate"
 						value="Data de nascimento:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;padding-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="inputBirthDate"
+						style="margin-left:50px"
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy"
@@ -113,12 +135,14 @@
 
 				<p:row>
 					<p:outputLabel
+						id="outputSex"
 						for="inputSex"
 						value="Sexo:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;padding-left:50px;" />
 					<p:selectOneRadio
 						id="inputSex"
-						value="#{customerUpdateMB.customer.sex}">
+						value="#{customerUpdateMB.customer.sex}"
+						style="padding-left:50px">
 						<f:selectItem
 							itemLabel="Masculino"
 							itemValue="M" />
@@ -130,27 +154,32 @@
 
 				<p:row>
 					<p:outputLabel
-						for="email"
+						id="outputEmail"
+						for="inputEmail"
 						value="E-mail:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;padding-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:inputText
-						id="email"
+						id="inputEmail"
 						value="#{customerUpdateMB.customer.email}"
 						maxlength="30"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
+						id="outputDDD"
 						for="inputDDD"
 						value="DDD:"
-						style="font-weight:bold; width:10%;" />
+						style="font-weight:bold; width:10%;padding-left:50px;" />
 					<p:inputText
 						id="inputDDD"
 						value="#{customerUpdateMB.newPhone.ddd}"
 						maxlength="2"
 						style="width:5%;" />
 					<p:outputLabel
+						id="outputPhoneNumber"
 						for="inputPhoneNumber"
 						value="Número:"
 						style="font-weight:bold; width:20%;padding-left:10px" />
@@ -163,9 +192,11 @@
 
 				<p:row>
 					<p:outputLabel
+						id="labelAddress"
 						value="Endereço:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;padding-left:50px;" />
 					<p:commandButton
+						id="btnAddAddress"
 						value="+"
 						style="width:50px"
 						actionListener="#{customerUpdateMB.addNewAddress()}"
@@ -176,9 +207,10 @@
 
 				<p:row>
 					<p:commandButton
+						id="confirm"
 						actionListener="#{customerUpdateMB.update()}"
 						value="Alterar"
-						id="confirm"
+						style="padding-left:50px"
 						update=":form_content :messages">
 						<p:confirm
 							header="Usuário"

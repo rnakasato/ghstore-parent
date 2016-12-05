@@ -10,8 +10,8 @@
 <h:body>
 	<ui:composition>
 		<p:dataTable
-			var="address"
 			id="addressTable"
+			var="address"
 			value="#{customerUpdateMB.customer.deliveryAddressList}"
 			paginator="true"
 			selection="#{customerUpdateMB.selectedAddress}"
@@ -28,6 +28,7 @@
 				headerText="Endereço"
 				style="width:80%">
 				<p:outputLabel
+					id="outputAddress"
 					value="#{address.formattedAddress}"
 					title="#{address.formattedAddress}"
 					style="text-overflow:ellipsis" />
@@ -35,6 +36,7 @@
 
 			<p:column style="width:20%;text-align: center">
 				<p:commandButton
+					id="btnChangeAddress"
 					update=":form_content:adDialog"
 					actionListener="#{customerUpdateMB.changeAddress()}"
 					oncomplete="PF('addressDialog').show()"
@@ -48,6 +50,7 @@
 
 			<p:column style="width:20%;text-align: center">
 				<p:commandButton
+					id="btnRemoveAddress"
 					update=":form_content"
 					actionListener="#{customerUpdateMB.removeAddress()}"
 					value="Remover"

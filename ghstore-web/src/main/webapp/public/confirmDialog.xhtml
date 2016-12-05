@@ -10,11 +10,12 @@
 <h:body>
 	<ui:composition>
 		<p:confirmDialog
+			id="confirmDialog"
 			severity="alert"
 			global="true"
 			widgetVar="dialog">
 			<p:commandButton
-				id="save"
+				id="btnYes"
 				value="Sim"
 				type="button"
 				onstart="PF('loadingDialog').show()"
@@ -22,7 +23,7 @@
 				styleClass="ui-confirmdialog-yes"
 				icon="ui-icon-check" />
 			<p:commandButton
-				id="ignore"
+				id="btnNo"
 				value="Não"
 				type="button"
 				styleClass="ui-confirmdialog-no"

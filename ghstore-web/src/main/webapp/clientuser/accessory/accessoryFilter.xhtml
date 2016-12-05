@@ -9,55 +9,52 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
 	<ui:composition>
-		<h:form id="formFilter" style="height:100%;width:100%">
+		<h:form
+			id="formFilter"
+			style="height:100%;width:100%">
 			<p:panelGrid
 				id="gridFilter"
 				columns="1"
 				style="height:100%;width:100%">
+				<f:facet name="header">
+					<p:outputLabel value="Filtros" />
+				</f:facet>
 
 				<p:row>
-					<p:commandButton
-						icon="ui-icon-search"
-						actionListener="#{accessoryMB.listProducts}"
-						style="width:20%"
-						update=":form_content:productTable" />
 					<p:watermark
-						for="name"
+						for="inputName"
 						value="Buscar Produto..." />
 					<p:inputText
-						id="name"
+						id="inputName"
 						value="#{accessoryMB.filter.name}"
 						style="width:75%" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Filtros:" />
-				</p:row>
-
-				<p:row>
-					<p:outputLabel value="Fabricantes:" />
+					<p:outputLabel value="Fabricantes:" style="font-weight:bold"/>
 
 					<p:selectManyCheckbox
-						id="grid"
+						id="selectSubcategory"
 						label="Fabricantes"
-						value="#{accessoryMB.filter.selectedSubcategoryIds}"
+						value="#{accessoryMB.filter.subcategoryList}"
+						converter="defaultConverter"
 						layout="grid"
 						columns="1">
 						<f:selectItems
 							value="#{accessoryMB.subcategoryList}"
 							var="subcategory"
 							itemLabel="#{subcategory.description}"
-							itemValue="#{subcategory.id}" />
+							itemValue="#{subcategory}" />
 					</p:selectManyCheckbox>
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Faixa de preço:" />
+					<p:outputLabel value="Faixa de preço:" style="font-weight:bold"/>
 				</p:row>
 
 				<p:row>
 					<p:selectOneRadio
-						id="radioGroup"
+						id="radioPriceRange"
 						value="#{accessoryMB.priceRangeOption}"
 						layout="grid"
 						columns="1">
@@ -79,26 +76,26 @@
 						<f:selectItem
 							itemLabel="Personalizado"
 							itemValue="5" />
-						<p:ajax update=":formFilter:startValue" />
-						<p:ajax update=":formFilter:endValue" />
+						<p:ajax update=":formFilter:inputStartValue" />
+						<p:ajax update=":formFilter:inputEndValue" />
 					</p:selectOneRadio>
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="De: R$" />
+					<p:outputLabel value="De: R$" style="font-weight:bold"/>
 					<pe:inputNumber
 						disabled="#{not (accessoryMB.priceRangeOption eq 5)}"
-						id="startValue"
+						id="inputStartValue"
 						value="#{accessoryMB.filter.initialValue}"
 						decimalSeparator=","
 						thousandSeparator="."
 						maxValue="9999.99">
 					</pe:inputNumber>
 
-					<p:outputLabel value="Até: R$" />
+					<p:outputLabel value="Até: R$" style="font-weight:bold" />
 					<pe:inputNumber
 						disabled="#{not (accessoryMB.priceRangeOption eq 5)}"
-						id="endValue"
+						id="inputEndValue"
 						value="#{accessoryMB.filter.finalValue}"
 						decimalSeparator=","
 						thousandSeparator="."
@@ -109,10 +106,10 @@
 				<p:row>
 					<p:outputLabel
 						value="Tags:"
-						for="tags"
+						for="inputTag"
 						style="font-weight:bold; width:20% " />
 					<p:autoComplete
-						id="tags"
+						id="inputTag"
 						multiple="true"
 						value="#{accessoryMB.filter.tagList}"
 						completeMethod="#{accessoryMB.fillTags}"
@@ -126,8 +123,11 @@
 				</p:row>
 
 				<p:row>
-					<p:panelGrid columns="2">
+					<p:panelGrid
+						id="gridButtons"
+						columns="2">
 						<p:commandButton
+							id="btnFind"
 							value="Filtrar"
 							actionListener="#{accessoryMB.listProducts}"
 							onstart="PF('loadingDialog').show()"
@@ -135,6 +135,7 @@
 							update=":form_content:productTable" />
 
 						<p:commandButton
+							id="btnClearFilter"
 							value="Limpar Filtros"
 							actionListener="#{accessoryMB.clearFilters}"
 							update=":form_content:productTable :formFilter" />

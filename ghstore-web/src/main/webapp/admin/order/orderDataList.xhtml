@@ -25,6 +25,7 @@
 				style="width:12%"
 				sortBy="#{order.code}">
 				<p:outputLabel
+					id="outpoutCode"
 					value="#{order.code}"
 					title="#{order.code}" />
 			</p:column>
@@ -34,6 +35,7 @@
 				style="width:12%"
 				sortBy="#{order.customer.username}">
 				<p:outputLabel
+					id="outpoutUsername"
 					value="#{order.customer.username}"
 					title="#{order.customer.username}" />
 			</p:column>
@@ -43,6 +45,7 @@
 				style="width:10%"
 				sortBy="#{order.insertDate}">
 				<p:outputLabel
+					id="outpoutInsertDate"
 					value="#{formatterMB.formatDate(order.insertDate)}"
 					title="#{formatterMB.formatDate(order.insertDate)}" />
 			</p:column>
@@ -52,6 +55,7 @@
 				style="width:10%"
 				sortBy="#{order.deliverDate}">
 				<p:outputLabel
+					id="outpoutDeliverDate"
 					value="#{formatterMB.formatDate(order.deliverDate)}"
 					title="#{formatterMB.formatDate(order.deliverDate)}" />
 			</p:column>
@@ -61,6 +65,7 @@
 				style="width:14%"
 				sortBy="#{order.orderStatus.description}">
 				<p:outputLabel
+					id="outpoutStatus"
 					value="#{order.orderStatus.description}"
 					title="#{order.orderStatus.description}" />
 			</p:column>
@@ -70,6 +75,7 @@
 				style="width:14%"
 				sortBy="#{order.totalValue}">
 				<p:outputLabel
+					id="outpoutTotalValue"
 					value="#{formatterMB.formatCurrency(order.totalValue)}"
 					title="#{order.totalValue}" />
 			</p:column>
@@ -78,6 +84,7 @@
 				headerText="Alterar status"
 				style="width:20%;text-align:center">
 				<p:commandButton
+					id="btnPay"
 					update=":form_content:orderTable"
 					rendered="#{order.orderStatus.code eq 'APG'}"
 					actionListener="#{adminOrderMB.changeToPaid(order)}"
@@ -90,6 +97,7 @@
 				</p:commandButton>
 
 				<p:commandButton
+					id="btnTransport"
 					update=":form_content:orderTable"
 					rendered="#{order.orderStatus.code eq 'PGO'}"
 					actionListener="#{adminOrderMB.changeToTransportation(order)}"
@@ -101,6 +109,7 @@
 				</p:commandButton>
 
 				<p:commandButton
+					id="btnDeliver"
 					update=":form_content:orderTable"
 					rendered="#{order.orderStatus.code eq 'TRA'}"
 					actionListener="#{adminOrderMB.changeToDelivered(order)}"
@@ -110,8 +119,9 @@
 						header="Alterar status"
 						message="Confirmar operação?" />
 				</p:commandButton>
-				
+
 				<p:commandButton
+					id="btnCancel"
 					update=":form_content:orderTable"
 					rendered="#{not ((order.orderStatus.code eq 'CAN') or (order.orderStatus.code eq 'ETR'))}"
 					value="Cancelar"
@@ -127,6 +137,7 @@
 				style="width:14%;text-align:center"
 				headerText="">
 				<p:commandButton
+					id="btnDetails"
 					update=":form_content:orderDetail :form_content:orderItemTable"
 					value="Ver Detalhes"
 					actionListener="#{adminOrderMB.viewDetails(order)}"

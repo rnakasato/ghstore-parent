@@ -23,6 +23,7 @@
 				id="panelDetail"
 				style="align:center">
 				<p:panelGrid
+					id="gridDetail"
 					styleClass="baseGrid"
 					columns="1"
 					rendered="true"
@@ -32,77 +33,99 @@
 						<p:outputLabel
 							value="Código do pedido: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.order.code}" />
+						<p:outputLabel
+							id="outputDetailOrderCode"
+							value="#{exchangeMB.selectedExchange.order.code}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Status da devolução: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.status.description}" />
+						<p:outputLabel
+							id="outputDetailStatus"
+							value="#{exchangeMB.selectedExchange.status.description}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Data da solicitação: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.insertDate}" />
+						<p:outputLabel
+							id="outputDetailInsertDate"
+							value="#{exchangeMB.selectedExchange.insertDate}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Data de recebimento: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.deliverDate}" />
+						<p:outputLabel
+							id="outputDetailDeliverDate"
+							value="#{exchangeMB.selectedExchange.deliverDate}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Data de entrega: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.returnedDate}" />
+						<p:outputLabel
+							id="outputDetailReturnedDate"
+							value="#{exchangeMB.selectedExchange.returnedDate}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Comprador: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.order.customer.name}" />
+						<p:outputLabel
+							id="outputDetailCustomer"
+							value="#{exchangeMB.selectedExchange.order.customer.name}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Endereço de entrega: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.order.deliverAddress.formattedAddress}" />
+						<p:outputLabel
+							id="outputDetailDeliverAddress"
+							value="#{exchangeMB.selectedExchange.order.deliverAddress.formattedAddress}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="CEP: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCEP(exchangeMB.selectedExchange.order.deliverAddress.cep)}" />
+						<p:outputLabel
+							id="outputDetailCEP"
+							value="#{formatterMB.formatCEP(exchangeMB.selectedExchange.order.deliverAddress.cep)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Nome de usuário: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.order.customer.username}" />
+						<p:outputLabel
+							id="outputDetailUsername"
+							value="#{exchangeMB.selectedExchange.order.customer.username}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="E-mail: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{exchangeMB.selectedExchange.order.customer.email}" />
+						<p:outputLabel
+							id="outputDetailEmail"
+							value="#{exchangeMB.selectedExchange.order.customer.email}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Valor total: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCurrency(exchangeMB.selectedExchange.totalValue)}" />
+						<p:outputLabel
+							id="outputDetailTotalValue"
+							value="#{formatterMB.formatCurrency(exchangeMB.selectedExchange.totalValue)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
@@ -112,6 +135,7 @@
 				</p:panelGrid>
 
 				<p:commandButton
+					id="btnFechar"
 					value="Fechar"
 					onclick="PF('exchangeDialog').hide()" />
 			</p:outputPanel>

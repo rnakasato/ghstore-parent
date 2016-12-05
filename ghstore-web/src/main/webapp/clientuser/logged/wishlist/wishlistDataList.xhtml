@@ -17,23 +17,29 @@
 			rows="15"
 			style="width:100%">
 			<f:facet name="header">
-				<p:outputLabel value="Resultados" />
+				<p:outputLabel value="Lista de Desejos" />
 			</f:facet>
 
 			<p:column
 				headerText="Produto"
-				style="width:12%"
+				style="width:30%"
 				sortBy="#{wishlist.product.name}">
-				<p:panelGrid columns="1">
+				<p:panelGrid
+					id="gridProduct"
+					columns="1">
 					<p:row>
 						<p:outputLabel
+							id="outputProductName"
 							value="#{wishlist.product.name}"
 							title="#{wishlist.product.name}" />
 					</p:row>
 
 					<p:row>
-						<p:commandLink actionListener="#{redirectMB.redirectToProductPage(wishlist.product)}">
+						<p:commandLink
+							id="linkProduct"
+							actionListener="#{redirectMB.redirectToProductPage(wishlist.product)}">
 							<p:graphicImage
+								id="imageProduct"
 								value="#{wishlistMB.getImagePath(wishlist)}"
 								style="width:192px;heigth:192px" />
 							<f:setPropertyActionListener
@@ -47,14 +53,15 @@
 
 			<p:column
 				headerText="Operação"
-				style="width:88%; text-align:left">
+				style="width:70%; text-align:left">
 				<p:commandButton
-					id="removeWishlist"
+					id="btnRemoveWishlist"
 					value="Remover da lista de desejos"
 					actionListener="#{wishlistMB.removeWishlist(wishlist)}"
 					update=":form_content:wishlistTable :messages" />
 
 				<p:commandButton
+					id="btnRedirect"
 					value="Ir para produto"
 					actionListener="#{redirectMB.redirectToProductPage(wishlist.product)}"
 					update=":form_content:wishlistTable :messages" />

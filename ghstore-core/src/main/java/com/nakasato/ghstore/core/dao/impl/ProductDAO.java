@@ -56,7 +56,9 @@ public class ProductDAO extends AbstractDAO < Product > {
 			if( filter.getCategory().getId() != null ) {
 				jpql.append( " AND sc.id = :storeCategoryId" );
 			}
-		} else if( ListUtils.isNotEmpty( filter.getStoreCategoryList() ) ) {
+		}
+		
+		if( ListUtils.isNotEmpty( filter.getStoreCategoryList() ) ) {
 			jpql.append( " AND sc in (:storeCategoryList)" );
 		}
 
@@ -67,7 +69,9 @@ public class ProductDAO extends AbstractDAO < Product > {
 			if( filter.getSubcategory().getId() != null ) {
 				jpql.append( " AND sb.id = :subcategoryId" );
 			}
-		} else if( ListUtils.isNotEmpty( filter.getSubcategoryList() ) ) {
+		}
+
+		if( ListUtils.isNotEmpty( filter.getSubcategoryList() ) ) {
 			jpql.append( " AND sb in (:subcategoryList)" );
 		}
 
@@ -123,7 +127,9 @@ public class ProductDAO extends AbstractDAO < Product > {
 			if( filter.getCategory().getId() != null ) {
 				query.setParameter( "storeCategoryId", filter.getCategory().getId() );
 			}
-		} else if( ListUtils.isNotEmpty( filter.getStoreCategoryList() ) ) {
+		} 
+		
+		if( ListUtils.isNotEmpty( filter.getStoreCategoryList() ) ) {
 			query.setParameter( "storeCategoryList", filter.getStoreCategoryList() );
 		}
 
@@ -135,7 +141,9 @@ public class ProductDAO extends AbstractDAO < Product > {
 			if( filter.getSubcategory().getId() != null ) {
 				query.setParameter( "subcategoryId", filter.getSubcategory().getId() );
 			}
-		} else if( ListUtils.isNotEmpty( filter.getSubcategoryList() ) ) {
+		} 
+		
+		if( ListUtils.isNotEmpty( filter.getSubcategoryList() ) ) {
 			query.setParameter( "subcategoryList", filter.getSubcategoryList() );
 		}
 

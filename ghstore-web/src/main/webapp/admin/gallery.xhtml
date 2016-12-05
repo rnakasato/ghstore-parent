@@ -10,6 +10,9 @@
 <ui:composition template="/layout/adminLayout.xhtml">
 	<ui:define name="head">
 		<title>GHStore - Galeria</title>
+		<h:outputStylesheet
+			name="noBorder.css"
+			library="css" />
 	</ui:define>
 	<ui:define name="messages">
 		<p:growl id="messages"></p:growl>
@@ -23,11 +26,11 @@
 	<ui:define name="content">
 		<h:form id="form_content">
 			<ui:include src="/admin/gallery/galleryData.xhtml" />
-			
+
 			<ui:include src="/admin/gallery/galleryUpdateDialog.xhtml" />
-			
+
 			<ui:include src="/public/confirmDialog.xhtml" />
-			
+
 		</h:form>
 	</ui:define>
 

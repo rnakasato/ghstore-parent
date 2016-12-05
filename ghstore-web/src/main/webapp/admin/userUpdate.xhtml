@@ -22,10 +22,11 @@
 	<ui:define name="content">
 		<h:form
 			id="form_content"
-			style="width:50%">
+			style="width:100%">
 
 			<p:panelGrid
 				styleClass="baseGrid"
+				style="width:100%"
 				columns="1">
 				<f:facet name="header">
 					<p:outputLabel value="Alterar Usuário" />
@@ -34,21 +35,26 @@
 					<p:outputLabel
 						for="user"
 						value="Usuário:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="user"
 						value="#{sysUserMB.selectedUser.username}"
 						maxlength="12"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						id="labelUserType"
-						value="Tipo de usuário:" />
-
+						value="Tipo de usuário:"
+						style="font-weight:bold;margin-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:outputLabel
 						id="outputUserType"
+						style="margin-left:50px"
 						value="#{sysUserMB.selectedUser.userType.name}" />
 				</p:row>
 
@@ -56,60 +62,70 @@
 					<p:outputLabel
 						for="password"
 						value="Senha: "
-						style="font-weight:bold; width:35%" />
+						style="font-weight:bold; width:35%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<h:inputSecret
 						id="password"
 						redisplay="true"
 						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
 						value="#{sysUserMB.selectedUser.password}"
 						maxlength="20"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						value="Confirmar senha:"
 						for="passwordConfirm"
-						style="font-weight:bold ; width:40%" />
+						style="font-weight:bold ; width:40%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<h:inputSecret
 						id="passwordConfirm"
 						redisplay="true"
 						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
 						value="#{sysUserMB.passwordConfirmation}"
 						maxlength="20"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						for="name"
 						value="Nome completo:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="name"
 						value="#{sysUserMB.selectedUser.name}"
 						maxlength="75"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						for="cpf"
 						value="CPF:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:inputMask
 						id="cpf"
 						value="#{sysUserMB.selectedUser.cpf}"
 						mask="999.999.999-99"
 						maxlength="75"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						for="inputBirthDate"
 						value="Data de nascimento:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="inputBirthDate"
 						mask="true"
@@ -117,6 +133,7 @@
 						pattern="dd/MM/yyyy"
 						yearRange="c-80:c+50"
 						value="#{sysUserMB.selectedUser.birthDate}"
+						style="margin-left:50px"
 						maxdate="#{sysUserMB.today}">
 					</p:calendar>
 				</p:row>
@@ -125,10 +142,12 @@
 					<p:outputLabel
 						for="inputSex"
 						value="Sexo:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px;" />
+
 					<p:selectOneRadio
 						id="inputSex"
-						value="#{sysUserMB.selectedUser.sex}">
+						value="#{sysUserMB.selectedUser.sex}"
+						style="margin-left:50px">
 						<f:selectItem
 							itemLabel="Masculino"
 							itemValue="M" />
@@ -142,19 +161,21 @@
 					<p:outputLabel
 						for="email"
 						value="E-mail:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px;" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="email"
 						value="#{sysUserMB.selectedUser.email}"
 						maxlength="30"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						for="inputDDD"
 						value="DDD:"
-						style="font-weight:bold; width:10%;" />
+						style="font-weight:bold; width:10%;margin-left:50px;" />
 					<p:inputText
 						id="inputDDD"
 						value="#{sysUserMB.newPhone.ddd}"
@@ -174,10 +195,10 @@
 				<p:row>
 					<p:outputLabel
 						value="Endereço:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px;" />
 					<p:commandButton
 						value="+"
-						style="width:50px"
+						style="width:50px;margin-left:50px"
 						actionListener="#{sysUserMB.addNewAddress()}"
 						update=":form_content" />
 				</p:row>
@@ -189,6 +210,7 @@
 						actionListener="#{sysUserMB.update()}"
 						value="Alterar"
 						id="confirm"
+						style="margin-left:50px"
 						update=":form_content :messages">
 						<p:confirm
 							header="Usuário"
@@ -198,6 +220,7 @@
 					<p:commandButton
 						value="Cancelar"
 						id="cancel"
+						style="margin-left:50px"
 						action="/admin/userSearch.xhtml">
 						<p:confirm
 							header="Usuário"

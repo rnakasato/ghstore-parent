@@ -10,8 +10,8 @@
 <h:body>
 	<ui:composition>
 		<p:dataTable
-			var="prodExchange"
 			id="exchangeTable"
+			var="prodExchange"
 			value="#{customerExchangeMB.exchangeResults}"
 			paginator="true"
 			rows="15"
@@ -25,6 +25,7 @@
 				style="width:12%"
 				sortBy="#{prodExchange.order.code}">
 				<p:outputLabel
+					id="outputOrderCode"
 					value="#{prodExchange.order.code}"
 					title="#{prodExchange.order.code}" />
 			</p:column>
@@ -34,6 +35,7 @@
 				style="width:12%"
 				sortBy="#{prodExchange.order.customer.username}">
 				<p:outputLabel
+					id="outputUsername"
 					value="#{prodExchange.order.customer.username}"
 					title="#{prodExchange.order.customer.username}" />
 			</p:column>
@@ -43,6 +45,7 @@
 				style="width:10%"
 				sortBy="#{prodExchange.insertDate}">
 				<p:outputLabel
+					id="outputInsertDate"
 					value="#{formatterMB.formatDate(prodExchange.insertDate)}"
 					title="#{formatterMB.formatDate(prodExchange.insertDate)}" />
 			</p:column>
@@ -52,6 +55,7 @@
 				style="width:10%"
 				sortBy="#{prodExchange.deliverDate}">
 				<p:outputLabel
+					id="outputDeliverDate"
 					value="#{formatterMB.formatDate(prodExchange.deliverDate)}"
 					title="#{formatterMB.formatDate(prodExchange.deliverDate)}" />
 			</p:column>
@@ -61,6 +65,7 @@
 				style="width:10%"
 				sortBy="#{prodExchange.returnedDate}">
 				<p:outputLabel
+					id="outputReturnedDate"
 					value="#{formatterMB.formatDate(prodExchange.returnedDate)}"
 					title="#{formatterMB.formatDate(prodExchange.returnedDate)}" />
 			</p:column>
@@ -70,6 +75,7 @@
 				style="width:14%"
 				sortBy="#{prodExchange.status.description}">
 				<p:outputLabel
+					id="outputStatus"
 					value="#{prodExchange.status.description}"
 					title="#{prodExchange.status.description}" />
 			</p:column>
@@ -79,6 +85,7 @@
 				style="width:14%"
 				sortBy="#{prodExchange.totalValue}">
 				<p:outputLabel
+					id="outputTotalValue"
 					value="#{formatterMB.formatCurrency(prodExchange.totalValue)}"
 					title="#{prodExchange.totalValue}" />
 			</p:column>
@@ -87,6 +94,7 @@
 				style="width:14%;text-align:center"
 				headerText="Operação">
 				<p:commandButton
+					id="btnDetail"
 					update=":form_content:exchangeDetail :form_content:exchangeItemTable"
 					value="Ver Detalhes"
 					actionListener="#{customerExchangeMB.viewDetails(prodExchange)}"

@@ -12,6 +12,7 @@
 			id="exchangeFilter"
 			style="height:100%;width:100%">
 			<p:panelGrid
+				id="gridFilter"
 				styleClass="baseGrid"
 				columns="1"
 				style="width:100%">
@@ -23,7 +24,10 @@
 					<p:outputLabel
 						id="labelOrderCode"
 						value="Código do pedido: "
-						for="inputOrderCode" />
+						for="inputOrderCode"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputOrderCode"
 						value="#{customerExchangeMB.filter.codOrder}" />
@@ -31,29 +35,12 @@
 
 				<p:row>
 					<p:outputLabel
-						id="labelCustomer"
-						for="selectCustomer"
-						value="Usuário:" />
-					<p:selectOneMenu
-						id="selectCustomer"
-						value="#{customerExchangeMB.filter.username}"
-						filter="true">
-						<f:selectItem
-							itemLabel="Todos"
-							itemValue="#{null}" />
-						<f:selectItems
-							value="#{customerExchangeMB.customerList}"
-							var="cust"
-							itemValue="#{cust.username}"
-							itemLabel="#{cust.username}" />
-					</p:selectOneMenu>
-				</p:row>
-
-				<p:row>
-					<p:outputLabel
 						id="labelExchangeStatus"
 						for="selectExchangeStatus"
-						value="Status:" />
+						value="Status:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectCheckboxMenu
 						id="selectExchangeStatus"
 						label="Status"
@@ -71,11 +58,13 @@
 
 				<p:row>
 					<p:outputLabel
-						for="startExchangeDate"
+						for="inputStartExchangeDate"
 						value="Data inicial da devolução:"
 						style="font-weight:bold; width:20%;" />
+				</p:row>
+				<p:row>
 					<p:calendar
-						id="startExchangeDate"
+						id="inputStartExchangeDate"
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy"
@@ -87,11 +76,13 @@
 
 				<p:row>
 					<p:outputLabel
-						for="endExchangeDate"
+						for="inputEndExchangeDate"
 						value="Data final da devolução:"
 						style="font-weight:bold; width:20%;" />
+				</p:row>
+				<p:row>
 					<p:calendar
-						id="endExchangeDate"
+						id="inputEndExchangeDate"
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy"
@@ -104,10 +95,12 @@
 			</p:panelGrid>
 
 			<p:panelGrid
+				id="gridExchangeButtons"
 				styleClass="baseGrid"
 				columns="2"
 				style="width:100%">
 				<p:commandButton
+					id="btnFind"
 					icon="ui-icon-search"
 					value="Buscar"
 					actionListener="#{customerExchangeMB.listProductExchange()}"
@@ -115,6 +108,7 @@
 					onsuccess="PF('loadingDialog').hide()"
 					update=":form_content:exchangeTable :messages" />
 				<p:commandButton
+					id="btnClearFilters"
 					value="Limpar filtros"
 					actionListener="#{customerExchangeMB.clearFilter}"
 					update=":exchangeFilter" />

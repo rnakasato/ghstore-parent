@@ -23,32 +23,43 @@
 					<p:outputLabel
 						id="labelName"
 						value="Nome: "
-						for="inputName" />
+						for="inputName"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputName"
-						value="#{sysUserMB.filter.name}" />
+						value="#{sysUserMB.filter.name}"
+						style="width:40%" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						id="labelUserName"
 						value="Nome de usuário: "
-						for="inputUserName" />
+						for="inputUserName"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputUserName"
-						value="#{sysUserMB.filter.userName}" />
+						value="#{sysUserMB.filter.userName}" 
+						style="width:40%"/>
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						id="labelUserType"
 						for="selectUserType"
-						value="Tipo de usuário:" />
-
+						value="Tipo de usuário:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectOneMenu
 						id="selectUserType"
 						value="#{sysUserMB.filter.userType}"
-						converter="defaultConverter">
+						converter="defaultConverter"
+						style="width:40%">
 						<f:selectItem
 							itemLabel="Todos"
 							itemValue="#{null}" />
@@ -64,33 +75,37 @@
 					<p:outputLabel
 						for="cpf"
 						value="CPF:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:40%;" />
+				</p:row>
+				<p:row>
 					<p:inputMask
 						id="cpf"
 						value="#{sysUserMB.filter.cpf}"
 						mask="999.999.999-99"
 						maxlength="75"
-						style="width:80%" />
+						style="width:40%" />
 				</p:row>
 
-				<p:outputLabel
-					id="labelStatus"
-					for="selectStatus"
-					value="Status:" />
-				<p:selectOneRadio
-					id="selectStatus"
-					value="#{sysUserMB.status}">
-					<f:selectItem
-						itemLabel="Ativo"
-						itemValue="1" />
-					<f:selectItem
-						itemLabel="Inativo"
-						itemValue="0" />
-					<f:selectItem
-						itemLabel="Todos"
-						itemValue="2" />
-				</p:selectOneRadio>
-
+				<p:row>
+					<p:outputLabel
+						id="labelStatus"
+						for="selectStatus"
+						value="Status:"
+						style="font-weight:bold" />
+					<p:selectOneRadio
+						id="selectStatus"
+						value="#{sysUserMB.status}">
+						<f:selectItem
+							itemLabel="Ativo"
+							itemValue="1" />
+						<f:selectItem
+							itemLabel="Inativo"
+							itemValue="0" />
+						<f:selectItem
+							itemLabel="Todos"
+							itemValue="2" />
+					</p:selectOneRadio>
+				</p:row>
 			</p:panelGrid>
 
 			<p:panelGrid

@@ -22,15 +22,17 @@
 				id="addressDetail"
 				style="text-align:left;width:500px">
 				<p:panelGrid
+					id="gridAddress"
 					columns="1"
 					style="text-align:left;width:500px">
 					<p:row>
 						<p:outputLabel
-							for="states"
+							id="labelState"
+							for="selectState"
 							value="Estado"
 							style="font-weight:bold" />
 						<p:selectOneMenu
-							id="states"
+							id="selectState"
 							value="#{customerMB.selectedState}"
 							converter="defaultConverter"
 							style="width:75%;vertical-align:middle"
@@ -46,16 +48,16 @@
 							<p:ajax
 								event="change"
 								listener="#{customerMB.initCityList}"
-								update=":form_content:cities" />
+								update=":form_content:selectCity" />
 						</p:selectOneMenu>
 					</p:row>
 					<p:row>
 						<p:outputLabel
-							id="city"
+							id="labelCity"
 							value="Cidade"
 							style="font-weight:bold" />
 						<p:selectOneMenu
-							id="cities"
+							id="selectCity"
 							converter="defaultConverter"
 							disabled="#{empty customerMB.selectedState}"
 							value="#{customerMB.newAddress.city}"
@@ -71,11 +73,12 @@
 
 					<p:row>
 						<p:outputLabel
-							for="neighborhood"
+							id="outputNeighborhood"
+							for="inputNeighborhood"
 							value="Bairro:"
 							style="font-weight:bold; width:20%;" />
 						<p:inputText
-							id="neighborhood"
+							id="inputNeighborhood"
 							value="#{customerMB.newAddress.neighborhood}"
 							maxlength="75"
 							style="width:80%" />
@@ -83,11 +86,12 @@
 
 					<p:row>
 						<p:outputLabel
-							for="street"
+							id="labelStreet"
+							for="inputStreet"
 							value="Rua:"
 							style="font-weight:bold; width:20%;" />
 						<p:inputText
-							id="street"
+							id="inputStreet"
 							value="#{customerMB.newAddress.street}"
 							maxlength="75"
 							style="width:84%" />
@@ -95,11 +99,12 @@
 
 					<p:row>
 						<p:outputLabel
-							for="complement"
+							id="labelComplement"
+							for="inputComplement"
 							value="Complemento:"
 							style="font-weight:bold; width:20%;" />
 						<p:inputText
-							id="complement"
+							id="inputComplement"
 							value="#{customerMB.newAddress.complement}"
 							maxlength="75"
 							style="width:69%" />
@@ -107,11 +112,12 @@
 
 					<p:row>
 						<p:outputLabel
-							for="adNumber"
+							id="labelAdNumber"
+							for="inputAdNumber"
 							value="Número:"
 							style="font-weight:bold; width:20%;" />
 						<pe:inputNumber
-							id="adNumber"
+							id="inputAdNumber"
 							value="#{customerMB.newAddress.number}"
 							maxValue="9999"
 							style="width:78%" />
@@ -119,6 +125,7 @@
 
 					<p:row>
 						<p:outputLabel
+							id="labelCep"
 							for="inputCEP"
 							value="CEP:"
 							style="font-weight:bold; width:20%;" />
@@ -131,6 +138,7 @@
 
 					<p:row>
 						<p:commandButton
+							id="btnAdd"
 							value="Adicionar"
 							rendered="#{customerMB.saveOperation}"
 							actionListener="#{customerMB.addAddress()}"
@@ -138,6 +146,7 @@
 						</p:commandButton>
 
 						<p:commandButton
+							id="btnUpdate"
 							value="Alterar"
 							rendered="#{not customerMB.saveOperation}"
 							actionListener="#{customerMB.updateAddress()}"
@@ -145,6 +154,7 @@
 						</p:commandButton>
 
 						<p:commandButton
+							id="btnCancel"
 							value="Cancelar"
 							action="#{customerMB.cancelAddress()}">
 						</p:commandButton>

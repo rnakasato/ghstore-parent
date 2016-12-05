@@ -28,7 +28,7 @@
 				</p:row>
 				<p:row>
 					<p:inputTextarea
-						id="returnReasonDescription"
+						id="outputReason"
 						style="width:100%"
 						value="#{clientOrderMB.returnReason}"
 						rows="5"
@@ -50,6 +50,7 @@
 				columns="1">
 				<p:row>
 					<p:commandButton
+						id="btnFinishReturn"
 						value="Devolver"
 						actionListener="#{clientOrderMB.doReturn()}"
 						disabled="#{empty clientOrderMB.selectedReturnList}"
@@ -57,6 +58,7 @@
 						onsuccess="PF('loadingDialog').hide(); PF('returnDialog').hide();"
 						update=":form_content:orderTable" />
 					<p:commandButton
+						id="btnCloseReturnDialog"
 						value="Fechar"
 						onclick="PF('returnDialog').hide()" />
 				</p:row>

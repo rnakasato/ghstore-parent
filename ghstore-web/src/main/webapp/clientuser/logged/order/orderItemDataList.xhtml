@@ -23,33 +23,44 @@
 			<p:column
 				headerText="Produto"
 				style="width:14%">
-				<p:outputLabel
-					value="#{item.product.name}"
-					title="#{item.product.name}" />
-				<p:graphicImage
-					value="#{adminOrderMB.getImagePath(item.product)}"
-					style="width:96px;height:96px" />
+				<p:panelGrid
+					id="gridProduct"
+					columns="1">
+					<p:outputLabel
+						id="outputOrderItemName"
+						value="#{item.product.name}"
+						title="#{item.product.name}" />
+					<p:graphicImage
+						id="imageOrderItem"
+						value="#{adminOrderMB.getImagePath(item.product)}"
+						style="width:96px;height:96px" />
+				</p:panelGrid>
 			</p:column>
 
 			<p:column
 				headerText="Valor unitário"
 				rendered="#{empty item.promotion}">
-				<p:panelGrid
-					styleClass="baseGrid"
-					columns="1">
-					<h:outputText value="#{formatterMB.formatCurrency(item.itemValue)}" />
-				</p:panelGrid>
+				<h:outputText
+					id="outputOrderItemValue"
+					value="#{formatterMB.formatCurrency(item.itemValue)}" />
 			</p:column>
-			
+
 			<p:column
 				headerText="Valor unitário"
 				rendered="#{not empty item.promotion}">
 				<p:panelGrid
+					id="gridPromotionPrice"
 					styleClass="baseGrid"
 					columns="1">
-					<h:outputText value="Promoção - #{formatterMB.formatToPercentage(item.promotion.discountPercentage)}" />
-					<h:outputText value="De: #{formatterMB.formatCurrency(item.itemValue)}" />
-					<h:outputText value="Por: #{formatterMB.formatCurrency(item.promotionUnitValue)}" />
+					<h:outputText
+						id="outputItemPromotion"
+						value="Promoção - #{formatterMB.formatToPercentage(item.promotion.discountPercentage)}" />
+					<h:outputText
+						id="outputOrderItemNormalValue"
+						value="De: #{formatterMB.formatCurrency(item.itemValue)}" />
+					<h:outputText
+						id="outputOrderItemUnitValue"
+						value="Por: #{formatterMB.formatCurrency(item.promotionUnitValue)}" />
 				</p:panelGrid>
 			</p:column>
 
@@ -57,6 +68,7 @@
 				headerText="Quantidade"
 				style="width:14%">
 				<p:outputLabel
+					id="outputOrderItemAmount"
 					value="#{item.amount}"
 					title="#{item.amount}" />
 			</p:column>
@@ -65,6 +77,7 @@
 				headerText="Valor total"
 				style="width:14%">
 				<p:outputLabel
+					id="outputOrderItemTotalValue"
 					value="#{formatterMB.formatCurrency(item.totalValue)}"
 					title="#{formatterMB.formatCurrency(item.totalValue)}" />
 			</p:column>

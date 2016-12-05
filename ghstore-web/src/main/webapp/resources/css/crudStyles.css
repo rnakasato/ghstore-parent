@@ -8,11 +8,13 @@
 #content-container {
 	float: left !important;
 	height: 1000px;
-	width: 100%;
+	width: 100% !important;
 }
 
+.ui-picklist .ui-picklist-list {
+	height: 600px !important;
+}
 
-.ui-picklist .ui-picklist-list{
-	
-	height:600px !important;
+.ui-panelgrid .ui-panelgrid-cell {
+	padding: 4px!important;
 }

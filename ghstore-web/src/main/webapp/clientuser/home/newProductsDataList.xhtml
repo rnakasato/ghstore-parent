@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition>
+		<p:dataGrid
+			var="prod"
+			id="newProductsTable"
+			value="#{homePageMB.carrier.newProducts}"
+			paginator="false"
+			selection="#{homePageMB.selectedProduct}"
+			rowKey="#{prod.id}"
+			rows="1"
+			columns="5"
+			style="width:100%">
+			<!--  Trocar para verificar usuário logado -->
+			<f:facet
+				name="header"
+				style="align:left">
+				            Novidades
+				        </f:facet>
+
+			<p:panel
+				id="panelNewProducts"
+				style="text-align:center">
+				<h:panelGrid
+					id="gridNewProducts"
+					columns="1"
+					style="width:100%">
+					<p:commandLink
+						id="linkNewProducts"
+						actionListener="#{redirectMB.redirectToProductPage(prod)}">
+						<p:graphicImage
+							id="imageNewProducts"
+							value="#{homePageMB.getImagePath(prod)}"
+							style="width:192px;heigth:192" />
+						<f:setPropertyActionListener
+							value="#{prod}"
+							target="#{homePageMB.selectedProduct}" />
+					</p:commandLink>
+					<p:commandButton
+						id="btnComprarNewProducts"
+						value="Comprar"
+						actionListener="#{redirectMB.redirectToProductPage(prod)}" />
+
+					<h:outputText
+						id="outputNewProductsName"
+						value="#{prod.name}" />
+					<h:outputText
+						id="outputNewProductsPrice"
+						rendered="#{empty prod.activePromotion}"
+						value="#{formatterMB.formatCurrency(prod.price)}" />
+					<h:outputText
+						id="outputNewProductsPromotion"
+						rendered="#{not empty prod.activePromotion}"
+						value="Promoção: - #{formatterMB.formatToPercentage(prod.activePromotion.discountPercentage)}" />
+					<h:outputText
+						id="outputNewProductsOriginalPrice"
+						rendered="#{not empty prod.activePromotion}"
+						value="De: #{formatterMB.formatCurrency(prod.price)}" />
+					<h:outputText
+						id="outputNewProductsPromoPrice"
+						rendered="#{not empty prod.activePromotion}"
+						value="Por: #{formatterMB.formatCurrency(prod.discountPrice)}" />
+					<h:outputText value="#{prod.statusDesc}" />
+				</h:panelGrid>
+			</p:panel>
+		</p:dataGrid>
+
+	</ui:composition>
+</h:body>
+</html>

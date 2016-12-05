@@ -177,7 +177,6 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 				IDAO dao = FactoryDAO.build( classNm, session );
 				result.setEntityList( dao.findAll() );
 			} catch( Exception e ) {
-				e.printStackTrace();
 				result.setMsg( "Não foi possível realizar a consulta!" );
 				SessionThreadLocal.rollback();
 			} finally {

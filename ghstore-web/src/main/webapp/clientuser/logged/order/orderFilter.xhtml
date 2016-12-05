@@ -12,6 +12,7 @@
 			id="orderFilter"
 			style="height:100%;width:100%">
 			<p:panelGrid
+				id="gridOrderFilter"
 				styleClass="baseGrid"
 				columns="1"
 				style="width:100%">
@@ -23,7 +24,10 @@
 					<p:outputLabel
 						id="labelOrderCode"
 						value="Código do pedido: "
+						style="font-weight:bold"
 						for="inputOrderCode" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputOrderCode"
 						value="#{clientOrderMB.filter.orderCode}" />
@@ -33,7 +37,10 @@
 					<p:outputLabel
 						id="labelOrderStatus"
 						for="selectOrderStatus"
+						style="font-weight:bold"
 						value="Status:" />
+				</p:row>
+				<p:row>
 					<p:selectOneMenu
 						id="selectOrderStatus"
 						value="#{clientOrderMB.filter.statusCode}"
@@ -51,11 +58,13 @@
 
 				<p:row>
 					<p:outputLabel
-						for="startOrderDate"
+						for="inputStartOrderDate"
 						value="Data inicial do pedido:"
 						style="font-weight:bold; width:20%;" />
+				</p:row>
+				<p:row>
 					<p:calendar
-						id="startOrderDate"
+						id="inputStartOrderDate"
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy"
@@ -67,11 +76,13 @@
 
 				<p:row>
 					<p:outputLabel
-						for="endOrderDate"
+						for="inputEndOrderDate"
 						value="Data final do pedido:"
 						style="font-weight:bold; width:20%;" />
+				</p:row>
+				<p:row>
 					<p:calendar
-						id="endOrderDate"
+						id="inputEndOrderDate"
 						mask="true"
 						navigator="true"
 						pattern="dd/MM/yyyy"
@@ -84,15 +95,18 @@
 			</p:panelGrid>
 
 			<p:panelGrid
+				id="gridFilterButtons"
 				styleClass="baseGrid"
 				columns="2"
 				style="width:100%">
 				<p:commandButton
+					id="btnFind"
 					icon="ui-icon-search"
 					value="Buscar"
 					actionListener="#{clientOrderMB.listOrders()}"
 					update=":form_content:orderTable :messages" />
 				<p:commandButton
+					id="btnClearFilter"
 					value="Limpar filtros"
 					actionListener="#{clientOrderMB.clearFilter}"
 					update=":orderFilter" />

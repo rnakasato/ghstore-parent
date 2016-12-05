@@ -23,6 +23,7 @@
 				id="panelDetail"
 				style="align:center">
 				<p:panelGrid
+					id="gridDetail"
 					styleClass="baseGrid"
 					columns="1"
 					rendered="true"
@@ -32,77 +33,97 @@
 						<p:outputLabel
 							value="Código do pedido: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{adminOrderMB.selectedOrder.code}" />
+						<p:outputLabel
+							id="outputDetailCode"
+							value="#{adminOrderMB.selectedOrder.code}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Código de transação PagSeguro: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{adminOrderMB.selectedOrder.transactionCode}" />
+						<p:outputLabel
+							id="outputDetailTransactionCode"
+							value="#{adminOrderMB.selectedOrder.transactionCode}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Status do pedido: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{adminOrderMB.selectedOrder.orderStatus.description}" />
+						<p:outputLabel
+							id="outputDetailStatus"
+							value="#{adminOrderMB.selectedOrder.orderStatus.description}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Comprador: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{adminOrderMB.selectedOrder.customer.name}" />
+						<p:outputLabel
+							id="outputDetailCustomerName"
+							value="#{adminOrderMB.selectedOrder.customer.name}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Endereço de entrega: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{adminOrderMB.selectedOrder.deliverAddress.formattedAddress}" />
+						<p:outputLabel
+							id="outputDetailDeliverAddress"
+							value="#{adminOrderMB.selectedOrder.deliverAddress.formattedAddress}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="CEP: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCEP(adminOrderMB.selectedOrder.deliverAddress.cep)}" />
+						<p:outputLabel
+							id="outputDetailCEP"
+							value="#{formatterMB.formatCEP(adminOrderMB.selectedOrder.deliverAddress.cep)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Nome de usuário: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{adminOrderMB.selectedOrder.customer.username}" />
+						<p:outputLabel
+							id="outputDetailUserName"
+							value="#{adminOrderMB.selectedOrder.customer.username}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="E-mail: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{adminOrderMB.selectedOrder.customer.email}" />
+						<p:outputLabel
+							id="outputDetailEmail"
+							value="#{adminOrderMB.selectedOrder.customer.email}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Valor total: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCurrency(adminOrderMB.selectedOrder.totalValue)}" />
+						<p:outputLabel
+							id="outputDetailTotalValue"
+							value="#{formatterMB.formatCurrency(adminOrderMB.selectedOrder.totalValue)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Valor do frete: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCurrency(adminOrderMB.selectedOrder.shippingCost)}" />
+						<p:outputLabel
+							id="outputDetailFreight"
+							value="#{formatterMB.formatCurrency(adminOrderMB.selectedOrder.shippingCost)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Valor do desconto: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCurrency(adminOrderMB.getDiscount(adminOrderMB.selectedOrder.discountValue))}" />
+						<p:outputLabel id="outputDetailPromotion" value="#{formatterMB.formatCurrency(adminOrderMB.getDiscount(adminOrderMB.selectedOrder.discountValue))}" />
 					</p:row>
 
 					<p:row style="text-align:left">

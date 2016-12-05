@@ -25,6 +25,7 @@
 				style="width:12%"
 				sortBy="#{prodReturn.order.code}">
 				<p:outputLabel
+					id="outputOrderCode"
 					value="#{prodReturn.order.code}"
 					title="#{prodReturn.order.code}" />
 			</p:column>
@@ -34,6 +35,7 @@
 				style="width:12%"
 				sortBy="#{prodReturn.order.customer.username}">
 				<p:outputLabel
+					id="outputUserName"
 					value="#{prodReturn.order.customer.username}"
 					title="#{prodReturn.order.customer.username}" />
 			</p:column>
@@ -43,24 +45,27 @@
 				style="width:10%"
 				sortBy="#{prodReturn.insertDate}">
 				<p:outputLabel
+					id="outputInsertDate"
 					value="#{formatterMB.formatDate(prodReturn.insertDate)}"
 					title="#{formatterMB.formatDate(prodReturn.insertDate)}" />
 			</p:column>
-			
+
 			<p:column
 				headerText="Data de recebimento"
 				style="width:10%"
 				sortBy="#{prodReturn.deliverDate}">
 				<p:outputLabel
+					id="outputDeliverDate"
 					value="#{formatterMB.formatDate(prodReturn.deliverDate)}"
 					title="#{formatterMB.formatDate(prodReturn.deliverDate)}" />
 			</p:column>
-			
+
 			<p:column
 				headerText="Data de retorno (Rejeição)"
 				style="width:10%"
 				sortBy="#{prodReturn.returnedDate}">
 				<p:outputLabel
+					id="outputReturnedDate"
 					value="#{formatterMB.formatDate(prodReturn.returnedDate)}"
 					title="#{formatterMB.formatDate(prodReturn.returnedDate)}" />
 			</p:column>
@@ -70,6 +75,7 @@
 				style="width:14%"
 				sortBy="#{prodReturn.status.description}">
 				<p:outputLabel
+					id="outputStatus"
 					value="#{prodReturn.status.description}"
 					title="#{prodReturn.status.description}" />
 			</p:column>
@@ -79,6 +85,7 @@
 				style="width:14%"
 				sortBy="#{prodReturn.totalValue}">
 				<p:outputLabel
+					id="outputTotalValue"
 					value="#{formatterMB.formatCurrency(prodReturn.totalValue)}"
 					title="#{prodReturn.totalValue}" />
 			</p:column>
@@ -87,6 +94,7 @@
 				headerText="Alterar status"
 				style="width:20%;text-align:center">
 				<p:commandButton
+					id="btnAccept"
 					update=":form_content:returnTable"
 					rendered="#{prodReturn.status.code eq 'REC'}"
 					actionListener="#{returnMB.changeToAccepted(prodReturn)}"
@@ -99,6 +107,7 @@
 				</p:commandButton>
 
 				<p:commandButton
+					id="btnReject"
 					update=":form_content:returnTable"
 					rendered="#{prodReturn.status.code eq 'REC'}"
 					value="Rejeitar"
@@ -110,6 +119,7 @@
 				</p:commandButton>
 
 				<p:commandButton
+					id="btnReceive"
 					update=":form_content:returnTable"
 					rendered="#{prodReturn.status.code eq 'AGR'}"
 					actionListener="#{returnMB.changeToReceived(prodReturn)}"
@@ -121,6 +131,7 @@
 				</p:commandButton>
 
 				<p:commandButton
+					id="btnResend"
 					update=":form_content:returnTable"
 					rendered="#{prodReturn.status.code eq 'REJ'}"
 					actionListener="#{returnMB.changeToInReturn(prodReturn)}"
@@ -132,11 +143,12 @@
 				</p:commandButton>
 
 				<p:commandButton
+					id="btnDeliver"
 					update=":form_content:returnTable"
 					rendered="#{prodReturn.status.code eq 'PRE'}"
 					actionListener="#{returnMB.changeToReturned(prodReturn)}"
-					value="Reenviar"
-					title="Reenviar">
+					value="Entregue"
+					title="Entregue">
 					<p:confirm
 						header="Alterar status"
 						message="Confirmar operação?" />
@@ -147,6 +159,7 @@
 				style="width:14%;text-align:center"
 				headerText="">
 				<p:commandButton
+					id="btnDetail"
 					update=":form_content:returnDetail :form_content:returnItemTable"
 					value="Ver Detalhes"
 					actionListener="#{returnMB.viewDetails(prodReturn)}"

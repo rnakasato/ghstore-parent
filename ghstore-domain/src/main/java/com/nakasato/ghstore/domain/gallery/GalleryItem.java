@@ -13,4 +13,16 @@ public class GalleryItem extends AbstractDomainEntity {
 		this.image = image;
 	}
 
+	@Override
+	public boolean equals( Object obj ) {
+		boolean same = false;
+		if( obj instanceof GalleryItem ) {
+			GalleryItem item = ( GalleryItem ) obj;
+			if( item.getImage() != null && this.getImage() != null ) {
+				same = item.getImage().equals( this.getImage() );
+			}
+		}
+		return same;
+	}
+
 }

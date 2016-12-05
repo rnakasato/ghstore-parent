@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition>
+		<p:dataGrid
+			var="msd"
+			id="mostSoldTable"
+			value="#{homePageMB.carrier.mostSold}"
+			paginator="false"
+			selection="#{homePageMB.selectedMostSold}"
+			rowKey="#{msd.product.id}"
+			rows="1"
+			columns="5"
+			style="width:100%">
+			<!--  Trocar para verificar usuário logado -->
+			<f:facet
+				name="header"
+				style="align:left">
+				            Destaques
+				        </f:facet>
+
+			<p:panel
+				id="panelMostSold"
+				style="text-align:center">
+				<h:panelGrid
+					id="gridMostSold"
+					columns="1"
+					style="width:100%">
+					<p:commandLink
+						id="linkMostSold"
+						actionListener="#{redirectMB.redirectToProductPage(msd.product)}">
+						<p:graphicImage
+							id="imageMostSold"
+							value="#{homePageMB.getImagePath(msd.product)}"
+							style="width:192px;heigth:192" />
+						<f:setPropertyActionListener
+							value="#{msd.product}"
+							target="#{homePageMB.selectedMostSold}" />
+					</p:commandLink>
+					<p:commandButton
+						id="btnComprarMostSold"
+						value="Comprar"
+						actionListener="#{redirectMB.redirectToProductPage(msd.product)}" />
+
+					<h:outputText
+						id="outputMostSoldName"
+						value="#{msd.product.name}" />
+					<h:outputText
+						id="outputMostSoldPrice"
+						rendered="#{empty msd.product.activePromotion}"
+						value="#{formatterMB.formatCurrency(msd.product.price)}" />
+					<h:outputText
+						id="outputMostSoldPromotion"
+						rendered="#{not empty msd.product.activePromotion}"
+						value="Promoção: - #{formatterMB.formatToPercentage(msd.product.activePromotion.discountPercentage)}" />
+					<h:outputText
+						id="outputMostSoldOriginalPrice"
+						rendered="#{not empty msd.product.activePromotion}"
+						value="De: #{formatterMB.formatCurrency(msd.product.price)}" />
+					<h:outputText
+						id="outputMostSoldPromoPrice"
+						rendered="#{not empty msd.product.activePromotion}"
+						value="Por: #{formatterMB.formatCurrency(msd.product.discountPrice)}" />
+					<h:outputText value="#{msd.product.statusDesc}" />
+				</h:panelGrid>
+			</p:panel>
+		</p:dataGrid>
+	</ui:composition>
+</h:body>
+</html>

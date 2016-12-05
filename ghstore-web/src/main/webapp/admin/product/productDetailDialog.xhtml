@@ -11,7 +11,7 @@
 	<ui:composition>
 		<p:dialog
 			id="productDetail"
-			header="Produto"
+			header="Produto "
 			widgetVar="prodDialog"
 			modal="true"
 			showEffect="fade"
@@ -23,78 +23,130 @@
 				id="prodDetail"
 				style="align:center">
 				<p:panelGrid
+					id="gridDetail"
 					styleClass="baseGrid"
 					columns="1"
 					rendered="true"
+					style="width:100%"
 					columnClasses="label,value">
 					<f:facet name="header">
-						<p:graphicImage
-							value="#{adminProductMB.getImagePath(adminProductMB.product)}"
-							style="width:256px;heigth:256px" />
+						<p:panelGrid
+							id="gridHeader"
+							style="width:100%"
+							styleClass="baseGrid"
+							columns="1">
+							<p:row>
+								<p:graphicImage
+									id="imageProduct"
+									value="#{adminProductMB.getImagePath(adminProductMB.product)}"
+									style="width:256px;heigth:256px" />
+							</p:row>
+						</p:panelGrid>
 					</f:facet>
 
-					<p:row style="text-align:left">
-						<p:outputLabel value="Nome: " />
-						<p:outputLabel value="#{adminProductMB.product.name}" />
+					<p:row>
+						<p:outputLabel
+							value="Nome: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputName"
+							value="#{adminProductMB.product.name}" />
 					</p:row>
 
 					<p:row style="text-align:left">
-						<p:outputLabel value="Categoria: " />
-						<p:outputLabel value="#{adminProductMB.product.storeCategory.description}" />
+						<p:outputLabel
+							value="Categoria: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputCategory"
+							value="#{adminProductMB.product.storeCategory.description}" />
 					</p:row>
 
 					<p:row style="text-align:left">
-						<p:outputLabel value="Subcategoria: " />
-						<p:outputLabel value="#{adminProductMB.product.subcategory.description}" />
+						<p:outputLabel
+							value="Subcategoria: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputSubcategory"
+							value="#{adminProductMB.product.subcategory.description}" />
 					</p:row>
 
 					<p:row style="text-align:left">
-						<p:outputLabel value="Tags: " />
-						<p:outputLabel value="#{formatterMB.formatTagList(adminProductMB.product.tagList)}" />
+						<p:outputLabel
+							value="Tags: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputTagList"
+							value="#{formatterMB.formatTagList(adminProductMB.product.tagList)}" />
 					</p:row>
 
 					<p:row
 						style="text-align:left"
 						rendered="#{empty adminProductMB.product.activePromotion}">
-						<p:outputLabel value="Preço: " />
-						<p:outputLabel value="#{formatterMB.formatCurrency(adminProductMB.product.price)}" />
+						<p:outputLabel
+							value="Preço: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputPrice"
+							value="#{formatterMB.formatCurrency(adminProductMB.product.price)}" />
 					</p:row>
 
 					<p:row
 						style="text-align:left"
 						rendered="#{not empty adminProductMB.product.activePromotion}">
-						<p:outputLabel value="Preço original: " />
-						<p:outputLabel value="#{formatterMB.formatCurrency(adminProductMB.product.price)}" />
+						<p:outputLabel
+							value="Preço original: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputOriginalPrice"
+							value="#{formatterMB.formatCurrency(adminProductMB.product.price)}" />
 					</p:row>
 
 					<p:row
 						style="text-align:left"
 						rendered="#{not empty adminProductMB.product.activePromotion}">
-						<p:outputLabel value="Desconto: " />
-						<p:outputLabel value="#{formatterMB.formatCurrency(adminProductMB.product.activePromotion.discountPercentage)}" />
+						<p:outputLabel
+							value="Desconto: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputPromotion"
+							value="#{formatterMB.formatCurrency(adminProductMB.product.activePromotion.discountPercentage)}" />
 					</p:row>
 
 					<p:row
 						style="text-align:left"
 						rendered="#{not empty adminProductMB.product.activePromotion}">
-						<p:outputLabel value="Preço com desconto: " />
-						<p:outputLabel value="#{formatterMB.formatCurrency(adminProductMB.product.discountPrice)}" />
+						<p:outputLabel
+							value="Preço com desconto: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputPromotionPrice"
+							value="#{formatterMB.formatCurrency(adminProductMB.product.discountPrice)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
-						<p:outputLabel value="Início de venda: " />
-						<p:outputLabel value="#{adminProductMB.product.insertDate}" />
+						<p:outputLabel
+							value="Início de venda: "
+							style="font-weight:bold" />
+						<p:outputLabel
+							id="outputInsertDate"
+							value="#{adminProductMB.product.insertDate}" />
 					</p:row>
 
 
 					<p:row style="text-align:left">
-						<p:outputLabel value="Descrição: " />
+						<p:outputLabel
+							value="Descrição: "
+							style="font-weight:bold" />
 					</p:row>
 					<p:row style="text-align:left">
-						<p:outputLabel value="#{adminProductMB.product.description}" />
+						<p:outputLabel
+							id="outputDescription"
+							value="#{adminProductMB.product.description}" />
 					</p:row>
 				</p:panelGrid>
 				<p:commandButton
+					id="btnClose"
 					value="Fechar"
 					onclick="PF('prodDialog').hide()" />
 			</p:outputPanel>

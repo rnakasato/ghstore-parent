@@ -112,6 +112,10 @@ public class GalleryMB extends BaseMB {
 
 	}
 
+	public void removeNew( GalleryItem item ) {
+		newItemList.remove( item );
+	}
+
 	public void update() {
 
 		try {

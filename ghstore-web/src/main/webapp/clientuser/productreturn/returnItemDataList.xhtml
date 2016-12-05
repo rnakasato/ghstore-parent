@@ -23,18 +23,25 @@
 			<p:column
 				headerText="Produto"
 				style="width:14%">
-				<p:outputLabel
-					value="#{item.product.name}"
-					title="#{item.product.name}" />
-				<p:graphicImage
-					value="#{customerReturnMB.getImagePath(item.product)}"
-					style="width:96px;height:96px" />
+				<p:panelGrid
+					id="gridProduct"
+					columns="1">
+					<p:outputLabel
+						id="outputProductName"
+						value="#{item.product.name}"
+						title="#{item.product.name}" />
+					<p:graphicImage
+						id="imageProduct"
+						value="#{customerReturnMB.getImagePath(item.product)}"
+						style="width:96px;height:96px" />
+				</p:panelGrid>
 			</p:column>
 
 			<p:column
 				headerText="Valor unitário"
 				style="width:14%">
 				<p:outputLabel
+					id="outputPrice"
 					value="#{formatterMB.formatCurrency(item.product.price)}"
 					title="#{formatterMB.formatCurrency(item.product.price)}" />
 			</p:column>
@@ -43,6 +50,7 @@
 				headerText="Quantidade"
 				style="width:14%">
 				<p:outputLabel
+					id="outputAmount"
 					value="#{item.amount}"
 					title="#{item.amount}" />
 			</p:column>
@@ -51,6 +59,7 @@
 				headerText="Valor total"
 				style="width:14%">
 				<p:outputLabel
+					id="outputTotal"
 					value="#{formatterMB.formatCurrency(item.totalValue)}"
 					title="#{formatterMB.formatCurrency(item.totalValue)}" />
 			</p:column>

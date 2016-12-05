@@ -57,25 +57,4 @@ public class CategoryIndicatorAdapter extends DefaultIndicatorAdapter
 		return dataList;
 	}
 
-	public static void main( String[] args ) throws Exception {
-		PerformanceGraphicCarrier carrier = new PerformanceGraphicCarrier();
-		PerformanceGraphicFilter filter = new PerformanceGraphicFilter();
-		filter.setAxisX( EAxisX.DAYS.getCode() );
-		filter.setAxisY( EAxisY.SOLD_AMOUNT.getCode() );
-		carrier.setFilter( filter );
-
-		OrderDAO dao = new OrderDAO();
-		dao.setSession( SessionThreadLocal.getSession() );
-		List < Order > orderList = dao.find( new OrderFilter() );
-		carrier.setOrderList( orderList );
-
-		List < PerformanceGraphicData > dataList = new CategoryIndicatorAdapter().adapt( carrier );
-
-		for( PerformanceGraphicData p: dataList ) {
-			System.out.println( p.getDescription() );
-		}
-
-		HibernateUtil.shutdown();
-
-	}
 }

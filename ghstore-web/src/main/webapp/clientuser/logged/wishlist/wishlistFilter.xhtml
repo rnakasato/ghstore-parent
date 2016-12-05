@@ -12,6 +12,7 @@
 			id="wishlistFilter"
 			style="height:100%;width:100%">
 			<p:panelGrid
+				id="gridFilter"
 				styleClass="baseGrid"
 				columns="1"
 				style="width:100%">
@@ -21,24 +22,22 @@
 
 				<p:row>
 					<p:watermark
-						for="name"
+						for="inputName"
 						value="Buscar Produto..." />
 					<p:inputText
-						id="name"
+						id="inputName"
 						value="#{wishlistMB.filter.productName}"
 						style="width:75%" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Filtros:" />
-				</p:row>
-
-
-				<p:row>
 					<p:outputLabel
 						id="labelCategory"
+						style="font-weight:bold"
 						for="selectCategory"
 						value="Categoria:" />
+				</p:row>
+				<p:row>
 					<p:selectCheckboxMenu
 						id="selectCategory"
 						converter="defaultConverter"
@@ -52,10 +51,13 @@
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Subcategorias:" />
-
+					<p:outputLabel
+						value="Subcategorias:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectCheckboxMenu
-						id="grid"
+						id="selectSubcategory"
 						label="Subcategorias"
 						value="#{wishlistMB.filter.subcategoryList}"
 						layout="grid"
@@ -65,7 +67,7 @@
 							value="#{wishlistMB.subcategoryList}"
 							var="subcategory"
 							itemLabel="#{subcategory.description}"
-							itemValue="#{subcategory.id}" />
+							itemValue="#{subcategory}" />
 					</p:selectCheckboxMenu>
 				</p:row>
 
@@ -73,10 +75,12 @@
 				<p:row>
 					<p:outputLabel
 						value="Tags:"
-						for="tags"
+						for="inputTag"
 						style="font-weight:bold; width:20% " />
+				</p:row>
+				<p:row>
 					<p:autoComplete
-						id="tags"
+						id="inputTag"
 						multiple="true"
 						value="#{wishlistMB.filter.tagList}"
 						completeMethod="#{wishlistMB.fillTags}"
@@ -90,15 +94,19 @@
 				</p:row>
 
 				<p:row>
-					<p:panelGrid columns="2">
+					<p:panelGrid
+						id="gridButtons"
+						columns="2">
 						<p:commandButton
+							id="btnFind"
 							value="Filtrar"
 							actionListener="#{wishlistMB.listWishlist()}"
 							onstart="PF('loadingDialog').show()"
-							onsuccess="PF('loadingDialog').hide() PF('wishlistTable').filter()"
+							onsuccess="PF('loadingDialog').hide()"
 							update=":form_content:wishlistTable" />
 
 						<p:commandButton
+							id="btnClearFilters"
 							value="Limpar Filtros"
 							actionListener="#{wishlistMB.clearFilter}"
 							update=":form_content:wishlistTable :wishlistFilter" />

@@ -10,8 +10,8 @@
 <h:body>
 	<ui:composition>
 		<p:dataTable
-			var="cartItem"
 			id="shoppingCartTable"
+			var="cartItem"
 			selection="#{userSessionMB.selectedItem}"
 			selectionMode="single"
 			value="#{userSessionMB.cart.shoppingCartList}"
@@ -25,44 +25,67 @@
 					style="font-weight:bold;" />
 			</f:facet>
 			<p:column headerText="Produto">
-				<h:outputText value="#{cartItem.product.name}" />
-				<p:graphicImage
-					value="#{shoppingCartMB.getImagePath(cartItem.product)}"
-					style="width:96px;height:96px" />
+				<p:panelGrid
+					id="gridItem"
+					columns="1">
+					<h:outputText
+						id="outputItemName"
+						value="#{cartItem.product.name}" />
+					<p:graphicImage
+						id="imageItemName"
+						value="#{shoppingCartMB.getImagePath(cartItem.product)}"
+						style="width:96px;height:96px" />
+				</p:panelGrid>
 			</p:column>
 
 			<p:column headerText="Status">
-				<h:outputText value="#{cartItem.product.statusDesc}" />
+				<h:outputText
+					id="outputItemStatus"
+					value="#{cartItem.product.statusDesc}" />
 			</p:column>
 
 			<p:column
 				headerText="Preço unitário"
 				rendered="#{empty cartItem.product.activePromotion}">
-				<h:outputText value="#{formatterMB.formatCurrency(cartItem.product.price)}" />
+				<h:outputText
+					id="outputItemPrice"
+					value="#{formatterMB.formatCurrency(cartItem.product.price)}" />
 			</p:column>
 
 			<p:column
 				headerText="Preço unitário"
 				rendered="#{not empty cartItem.product.activePromotion}">
 				<p:panelGrid
+					id="gridItemPrice"
 					styleClass="baseGrid"
 					columns="1">
-					<h:outputText value="Promoção - #{formatterMB.formatToPercentage(cartItem.product.activePromotion.discountPercentage)}" />
-					<h:outputText value="De: #{formatterMB.formatCurrency(cartItem.product.price)}" />
-					<h:outputText value="Por: #{formatterMB.formatCurrency(cartItem.product.discountPrice)}" />
+					<h:outputText
+						id="outputPromotionValue"
+						value="Promoção - #{formatterMB.formatToPercentage(cartItem.product.activePromotion.discountPercentage)}" />
+					<h:outputText
+						id="outputOriginalPrice"
+						value="De: #{formatterMB.formatCurrency(cartItem.product.price)}" />
+					<h:outputText
+						id="outputPromotionPrice"
+						value="Por: #{formatterMB.formatCurrency(cartItem.product.discountPrice)}" />
 				</p:panelGrid>
 			</p:column>
 
 			<p:column headerText="Quantidade">
-				<h:outputText value="#{cartItem.amount}" />
+				<h:outputText
+					id="outputItemAmount"
+					value="#{cartItem.amount}" />
 			</p:column>
 
 			<p:column headerText="Total do produto">
-				<h:outputText value="#{formatterMB.formatCurrency(cartItem.totalValue)}" />
+				<h:outputText
+					id="outputItemTotal"
+					value="#{formatterMB.formatCurrency(cartItem.totalValue)}" />
 			</p:column>
 
 			<p:column>
 				<p:commandButton
+					id="btnAddAmount"
 					update=":form_content"
 					actionListener="#{userSessionMB.removeItem(cartItem)}"
 					onstart="PF('loadingDialog').show()"
@@ -74,6 +97,7 @@
 
 			<p:column>
 				<p:commandButton
+					id="btnRemoveAmount"
 					update=":form_content:amountDialog"
 					actionListener="#{userSessionMB.setUpdateItem(cartItem)}"
 					oncomplete="PF('amountDialog').show()"

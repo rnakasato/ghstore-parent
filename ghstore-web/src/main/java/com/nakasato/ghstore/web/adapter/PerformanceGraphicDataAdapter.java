@@ -39,7 +39,7 @@ public class PerformanceGraphicDataAdapter implements Adapter < PerformanceGraph
 
 			for( Map.Entry < String, AxisData > entry: axisMap.entrySet() ) {
 				String axisX = getXAxisValue( entry, entity.getFilter(), incrementData );
-				
+
 				series.set( axisX, entry.getValue().getAxisY() );
 			}
 			seriesList.add( series );
@@ -52,14 +52,10 @@ public class PerformanceGraphicDataAdapter implements Adapter < PerformanceGraph
 			boolean incrementData ) {
 		String xAxisData = null;
 
-//		if( filter.isShowOnlyResults() ) {
-//			xAxisData = entry.getKey();
-//		} else {
-			xAxisData = entry.getValue().getAxisX();
-			if( incrementData ) {
-				xAxisData = getIncrementedDate( xAxisData, filter.getAxisX() );
-			}
-//		}
+		xAxisData = entry.getValue().getAxisX();
+		if( incrementData ) {
+			xAxisData = getIncrementedDate( xAxisData, filter.getAxisX() );
+		}
 
 		return xAxisData;
 

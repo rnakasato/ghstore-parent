@@ -20,17 +20,20 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="form_content">
-			<p:panelGrid columns="2">
+			<p:panelGrid
+				id="gridProductPage"
+				columns="2">
 				<p:panelGrid
-					id="operations"
+					id="gridOperations"
 					columns="1">
 					<f:facet name="header">
 						<p:graphicImage
+							id="imageProduct"
 							value="#{productDetailMB.getImagePath(productDetailMB.product)}"
 							style="width:256px;heigth:256px" />
 					</f:facet>
 					<p:commandButton
-						id="addWishlist"
+						id="btnAddWishlist"
 						value="Adicionar à lista de desejos"
 						actionListener="#{productDetailMB.addWishlist()}"
 						rendered="#{ ! productDetailMB.existWishlist() }"
@@ -38,22 +41,24 @@
 						disabled="#{!loginMB.loggedIn}" />
 
 					<p:commandButton
-						id="removeWishlist"
+						id="btnRemoveWishlist"
 						value="Remover da lista de desejos"
 						actionListener="#{productDetailMB.removeWishlist()}"
 						rendered="#{ productDetailMB.existWishlist() }"
-						update=":form_content :messages" 
+						update=":form_content :messages"
 						disabled="#{!loginMB.loggedIn}" />
 
-					<p:panelGrid columns="3">
+					<p:panelGrid
+						id="gridAmount"
+						columns="3">
 						<p:commandButton
-							id="remAmount"
+							id="btnRemAmount"
 							value="-"
 							style="width:60px"
 							actionListener="#{productDetailMB.removeAmount}"
-							update=":form_content:productAmount" />
+							update=":form_content:inputAmount" />
 						<pe:inputNumber
-							id="productAmount"
+							id="inputAmount"
 							value="#{productDetailMB.amount}"
 							minValue="1"
 							maxValue="#{productDetailMB.maxValue}"
@@ -61,52 +66,105 @@
 							styleClass="inputAmount">
 						</pe:inputNumber>
 						<p:commandButton
-							id="addAmount"
+							id="btnAddAmount"
 							value="+"
 							style="width:60px"
 							actionListener="#{productDetailMB.addAmount}"
-							update=":form_content:productAmount" />
+							update=":form_content:inputAmount" />
 					</p:panelGrid>
 					<p:commandButton
-						id="addToCart"
+						id="btnAddToCart"
 						value="Adicionar ao Carrinho"
 						actionListener="#{userSessionMB.addCartItem(productDetailMB.product,productDetailMB.amount)}"
 						update=":messages">
 					</p:commandButton>
 				</p:panelGrid>
 				<p:panelGrid
-					id="information"
+					id="gridInformation"
 					columns="2"
 					styleClass="floatGridContent">
-					<h:outputText value="#{productDetailMB.product.name}" />
+					<h:outputText
+						id="outputName"
+						value="#{productDetailMB.product.name}" />
 					<h:outputText value="" />
 
-					<h:outputText rendered="#{empty productDetailMB.product.activePromotion}"  value="Preço: " />
-					<h:outputText rendered="#{empty productDetailMB.product.activePromotion}" value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
-					
-					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}"  value="Promoção" />
-					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}" value=" - #{formatterMB.formatToPercentage(productDetailMB.product.activePromotion.discountPercentage)}" />
-					
-					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}"  value="Preço original: " />
-					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}" value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
-					
-					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}"  value="Preço promocional: " />
-					<h:outputText rendered="#{not empty productDetailMB.product.activePromotion}" value="#{formatterMB.formatCurrency(productDetailMB.product.discountPrice)}" />
-					
-					
+					<h:outputText
+						rendered="#{empty productDetailMB.product.activePromotion}"
+						value="Preço: " />
+
+					<h:outputText
+						id="outputPrice"
+						rendered="#{empty productDetailMB.product.activePromotion}"
+						value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
+
+					<h:outputText
+						rendered="#{not empty productDetailMB.product.activePromotion}"
+						value="Promoção" />
+					<h:outputText
+						id="outputPromotion"
+						rendered="#{not empty productDetailMB.product.activePromotion}"
+						value=" - #{formatterMB.formatToPercentage(productDetailMB.product.activePromotion.discountPercentage)}" />
+
+					<h:outputText
+						rendered="#{not empty productDetailMB.product.activePromotion}"
+						value="Preço original: " />
+					<h:outputText
+						id="outputOriginalPrice"
+						rendered="#{not empty productDetailMB.product.activePromotion}"
+						value="#{formatterMB.formatCurrency(productDetailMB.product.price)}" />
+
+					<h:outputText
+						rendered="#{not empty productDetailMB.product.activePromotion}"
+						value="Preço promocional: " />
+					<h:outputText
+						id="outputPromotionPrice"
+						rendered="#{not empty productDetailMB.product.activePromotion}"
+						value="#{formatterMB.formatCurrency(productDetailMB.product.discountPrice)}" />
+
+
 					<h:outputText value="Categoria: " />
-					<h:outputText value="#{productDetailMB.product.storeCategory.description}" />
+					<h:outputText
+						id="outputCategory"
+						value="#{productDetailMB.product.storeCategory.description}" />
+
+					<h:outputText
+						rendered="#{productDetailMB.product.storeCategory.description eq 'Colecionáveis'}"
+						value="Fabricante:" />
+
+					<h:outputText
+						rendered="#{productDetailMB.product.storeCategory.description eq 'Acessórios'}"
+						value="Fabricante:" />
+
+					<h:outputText
+						rendered="#{productDetailMB.product.storeCategory.description eq 'HQs'}"
+						value="Editora:" />
+
+					<h:outputText
+						rendered="#{productDetailMB.product.storeCategory.description eq 'Mangás'}"
+						value="Editora:" />
+
+					<h:outputText
+						rendered="#{productDetailMB.product.storeCategory.description eq 'Jogos de Tabuleiro'}"
+						value="Fabricante:" />
+
+					<h:outputText
+						rendered="#{productDetailMB.product.storeCategory.description eq 'Camisas'}"
+						value="Fabricante:" />
+
+					<h:outputText
+						id="outputSubcategory"
+						value="#{productDetailMB.product.subcategory.description}" />
 
 					<h:outputText value="Descrição:" />
 					<h:outputText value="" />
 
-					<h:outputText value="#{productDetailMB.product.subcategory.description}" />
-					<h:outputText value="" />
 
-					<h:outputText value="#{productDetailMB.product.description}" />
+					<h:outputText
+						id="outputDescription"
+						value="#{productDetailMB.product.description}" />
 					<h:outputText value="" />
 					<p:commandButton
-						id="return"
+						id="btnhReturn"
 						value="Voltar"
 						actionListener="#{redirectMB.redirectBack()}" />
 				</p:panelGrid>

@@ -40,8 +40,11 @@
 						value="#{loginMB.password}" />
 				</p:row>
 
-				<p:panelGrid columns="2">
+				<p:panelGrid
+					id="gridButtons"
+					columns="2">
 					<p:commandButton
+						id="btnLogin"
 						value="Login"
 						update=":messages"
 						onstart="PF('loadingDialog').show()"

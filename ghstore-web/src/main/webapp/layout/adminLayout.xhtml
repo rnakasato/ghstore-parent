@@ -11,7 +11,7 @@
 	<h:outputStylesheet
 		name="adminLayout.css"
 		library="css" />
-		<ui:insert name="head"/>
+	<ui:insert name="head" />
 
 
 </h:head>
@@ -45,7 +45,7 @@
             };
         </script>
 	<div id="page">
-		<ui:include src="/public/loading.xhtml" />	
+		<ui:include src="/public/loading.xhtml" />
 		<div id="adminHeader">
 			<ui:insert name="adminHeader">
 				<h:form id="menuBar">
@@ -66,6 +66,7 @@
 
 					<p:menubar>
 						<p:menuitem
+							id="menuHome"
 							value="Inicio"
 							outcome="/admin/adminMain.xhtml"
 							icon="ui-icon-home">
@@ -73,13 +74,15 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuProduct"
 							value="Produtos"
 							outcome="/admin/productSearch.xhtml"
 							icon="ui-icon-gear">
 
 						</p:menuitem>
-						
+
 						<p:menuitem
+							id="menuPromotion"
 							value="Promoções"
 							outcome="/admin/promotionSearch.xhtml"
 							icon="ui-icon-gear">
@@ -87,24 +90,28 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuOrder"
 							value="Pedidos"
 							outcome="/admin/order.xhtml"
 							icon="ui-icon-gear">
 						</p:menuitem>
-						
+
 						<p:menuitem
+							id="menuReturn"
 							value="Devoluções"
 							outcome="/admin/return.xhtml"
 							icon="ui-icon-gear">
 						</p:menuitem>
-						
+
 						<p:menuitem
+							id="menuExchange"
 							value="Trocas"
 							outcome="/admin/exchange.xhtml"
 							icon="ui-icon-gear">
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuGraphic"
 							value="Indicadores"
 							outcome="/admin/performanceGraphic.xhtml"
 							icon="ui-icon-lightbulb">
@@ -112,6 +119,7 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuUser"
 							value="Usuários"
 							outcome="/admin/userSearch.xhtml"
 							icon="ui-icon-gear">
@@ -119,6 +127,7 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuGallery"
 							value="Galeria"
 							outcome="/admin/gallery.xhtml"
 							icon="ui-icon-gear">

@@ -9,7 +9,9 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
 	<ui:composition>
-		<h:form id="form_upload" style="width:100%">
+		<h:form
+			id="form_upload"
+			style="width:100%">
 			<p:panelGrid
 				style="width:100%"
 				styleClass="baseGrid"
@@ -34,10 +36,52 @@
 							fileUploadListener="#{galleryMB.doNewUpload}"
 							label="Procurar..."
 							auto="false"
-							multiple="true">
+							multiple="true"
+							update=":form_upload:newGalleryTable">
 						</p:fileUpload>
 					</p:panelGrid>
 				</p:row>
+
+				<p:dataGrid
+					var="gal"
+					id="newGalleryTable"
+					value="#{galleryMB.newItemList}"
+					paginator="true"
+					rowKey="#{gal.id}"
+					rows="15"
+					columns="2"
+					style="width:100%">
+					<f:facet
+						name="header"
+						style="align:left">
+				            Novos itens
+				        </f:facet>
+
+					<p:panel
+						style="text-align:center"
+						styleClass="baseGrid">
+						<p:panelGrid
+							columns="1"
+							style="width:100%"
+							styleClass="baseGrid">
+
+							<p:graphicImage
+								value="#{galleryMB.getImagePath(gal)}"
+								style="width:192px;heigth:192" />
+
+							<p:commandButton
+								actionListener="#{galleryMB.removeNew(gal)}"
+								value="Remover"
+								id="btnRemove"
+								update=":form_upload:newGalleryTable :messages">
+
+							</p:commandButton>
+
+						</p:panelGrid>
+					</p:panel>
+
+				</p:dataGrid>
+
 
 				<p:row>
 					<p:commandButton

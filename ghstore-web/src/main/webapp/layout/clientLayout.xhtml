@@ -64,15 +64,15 @@
 						<div>colocar Logo</div>
 
 						<p:commandButton
-							id="searchSite"
+							id="btnSearchSite"
 							value="Buscar"
 							actionListener="#{redirectMB.redirectToGlobalSearch(clientProductMB.productName)}" />
 
 						<p:watermark
-							for="pdSearch"
+							for="inputGlobalSearch"
 							value="Buscar Produto..." />
 						<p:inputText
-							id="pdSearch"
+							id="inputGlobalSearch"
 							value="#{clientProductMB.productName}" />
 						<p:button
 							id="btnRedirLogin"
@@ -107,6 +107,7 @@
 
 					<p:menubar>
 						<p:menuitem
+							id="menuHome"
 							value="Inicio"
 							outcome="/clientuser/clientHome.xhtml"
 							icon="ui-icon-home">
@@ -114,6 +115,7 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuActionFigures"
 							value="Colecionáveis"
 							outcome="/clientuser/actionFigures.xhtml"
 							icon="ui-icon-gear">
@@ -121,6 +123,7 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuAccessories"
 							value="Acessórios"
 							outcome="/clientuser/accessory.xhtml"
 							icon="ui-icon-document">
@@ -128,6 +131,7 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuHQs"
 							value="HQs"
 							outcome="/clientuser/hqs.xhtml"
 							icon="ui-icon-lightbulb">
@@ -135,6 +139,7 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuMangas"
 							value="Mangás"
 							outcome="/clientuser/mangas.xhtml"
 							icon="ui-icon-gear">
@@ -142,6 +147,7 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuShirts"
 							value="Camisas"
 							outcome="/clientuser/shirts.xhtml"
 							icon="ui-icon-signal">
@@ -149,20 +155,25 @@
 						</p:menuitem>
 
 						<p:menuitem
+							id="menuBoardGames"
 							value="Jogos de Tabuleiro"
 							outcome="/clientuser/boardGames.xhtml"
 							icon="ui-icon-gear">
 
 						</p:menuitem>
 
+						
+
+					</p:menubar>
+					<!-- ADICIONAR COMO COMPRAR SE SOBRAR TEMPO
 						<p:menuitem
+							rendered="false"
+							id="menuHowToBuy"
 							value="Como comprar"
 							outcome="/clientuser/clientHome.xhtml"
 							icon="ui-icon-gear">
 
-						</p:menuitem>
-
-					</p:menubar>
+						</p:menuitem>-->
 				</h:form>
 				<h:form id="page">
 					<p:panel>

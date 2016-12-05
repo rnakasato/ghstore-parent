@@ -38,8 +38,9 @@ public class PromotionInitializerThread extends Thread {
 						update = true;
 
 						System.out.println( "Encerrando promoção: " + promotion.getDescription() );
-					} else if( promotion.getStartDate().equals( now )
-							|| ( promotion.getStartDate().before( now ) && promotion.getEndDate().after( now ) ) ) {
+					} else if( ( promotion.getStartDate().equals( now )
+							|| promotion.getStartDate().before( now ) && promotion.getEndDate().after( now ) )
+							&& ! promotion.getActive() ) {
 						promotion.setActive( true );
 						update = true;
 
@@ -55,7 +56,7 @@ public class PromotionInitializerThread extends Thread {
 					}
 				}
 
-				getInstance().sleep( 10000 );
+				getInstance().sleep( 60000 );
 
 			}
 		} catch( ClassNotFoundException | InterruptedException e ) {
@@ -63,8 +64,8 @@ public class PromotionInitializerThread extends Thread {
 		}
 
 	}
-	
-	public static void finishThread(){
+
+	public static void finishThread() {
 		thread = null;
 	}
 

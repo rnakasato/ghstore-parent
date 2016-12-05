@@ -15,7 +15,7 @@
 			value="#{returnMB.selectedReturn.returnedItems}"
 			paginator="true"
 			rows="15"
-			style="width:100%">
+			style="width:100%;text-align:center">
 			<f:facet name="header">
 				<p:outputLabel value="Itens do pedido" />
 			</f:facet>
@@ -23,12 +23,20 @@
 			<p:column
 				headerText="Produto"
 				style="width:14%">
-				<p:outputLabel
-					value="#{item.product.name}"
-					title="#{item.product.name}" />
-				<p:graphicImage
-					value="#{returnMB.getImagePath(item.product)}"
-					style="width:96px;height:96px" />
+
+				<p:panelGrid
+					styleClass="baseGrid"
+					id="gridItem"
+					columns="1">
+					<p:outputLabel
+						id="outputItemName"
+						value="#{item.product.name}"
+						title="#{item.product.name}" />
+					<p:graphicImage
+						id="imageItem"
+						value="#{returnMB.getImagePath(item.product)}"
+						style="width:96px;height:96px" />
+				</p:panelGrid>
 			</p:column>
 
 			<p:column
@@ -36,6 +44,7 @@
 				style="width:14%"
 				rendered="#{empty item.product.activePromotion}">
 				<p:outputLabel
+					id="outputItemPrice"
 					value="#{formatterMB.formatCurrency(item.product.price)}"
 					title="#{formatterMB.formatCurrency(item.product.price)}" />
 			</p:column>
@@ -45,10 +54,14 @@
 				style="width:14%"
 				rendered="#{not empty item.product.activePromotion}">
 				<p:panelGrid
+					id="gridPromotion"
 					styleClass="baseGrid"
 					columns="1">
-					<p:outputLabel value="Promoção: - #{formatterMB.formatToPercentage(cartItem.promotion.discountPercentage)}" />
 					<p:outputLabel
+						id="outputPromotion"
+						value="Promoção: - #{formatterMB.formatToPercentage(cartItem.promotion.discountPercentage)}" />
+					<p:outputLabel
+						id="outputItemPromotionPrice"
 						value="Valor: #{formatterMB.formatCurrency(item.product.discountPrice)}"
 						title="#{formatterMB.formatCurrency(item.product.discountPrice)}" />
 				</p:panelGrid>
@@ -58,6 +71,7 @@
 				headerText="Quantidade"
 				style="width:14%">
 				<p:outputLabel
+					id="outputItemAmount"
 					value="#{item.amount}"
 					title="#{item.amount}" />
 			</p:column>
@@ -66,6 +80,7 @@
 				headerText="Valor total"
 				style="width:14%">
 				<p:outputLabel
+					id="outputItemTotal"
 					value="#{formatterMB.formatCurrency(item.totalValue)}"
 					title="#{formatterMB.formatCurrency(item.totalValue)}" />
 			</p:column>

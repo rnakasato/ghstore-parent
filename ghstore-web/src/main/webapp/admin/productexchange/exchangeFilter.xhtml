@@ -12,6 +12,7 @@
 			id="exchangeFilter"
 			style="height:100%;width:100%">
 			<p:panelGrid
+				id="gridFilter"
 				styleClass="baseGrid"
 				columns="1"
 				style="width:100%">
@@ -23,7 +24,10 @@
 					<p:outputLabel
 						id="labelOrderCode"
 						value="Código do pedido: "
-						for="inputOrderCode" />
+						for="inputOrderCode"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputOrderCode"
 						value="#{exchangeMB.filter.codOrder}" />
@@ -33,7 +37,10 @@
 					<p:outputLabel
 						id="labelCustomer"
 						for="selectCustomer"
-						value="Usuário:" />
+						value="Usuário:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectOneMenu
 						id="selectCustomer"
 						value="#{exchangeMB.filter.username}"
@@ -53,7 +60,10 @@
 					<p:outputLabel
 						id="labelExchangeStatus"
 						for="selectExchangeStatus"
-						value="Status:" />
+						value="Status:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectCheckboxMenu
 						id="selectExchangeStatus"
 						label="Status"
@@ -74,6 +84,8 @@
 						for="startExchangeDate"
 						value="Data inicial da devolução:"
 						style="font-weight:bold; width:20%;" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="startExchangeDate"
 						mask="true"
@@ -90,6 +102,8 @@
 						for="endExchangeDate"
 						value="Data final da devolução:"
 						style="font-weight:bold; width:20%;" />
+				</p:row>
+				<p:row>
 					<p:calendar
 						id="endExchangeDate"
 						mask="true"
@@ -104,10 +118,12 @@
 			</p:panelGrid>
 
 			<p:panelGrid
+				id="gridButtons"
 				styleClass="baseGrid"
 				columns="2"
 				style="width:100%">
 				<p:commandButton
+					id="btnFind"
 					icon="ui-icon-search"
 					value="Buscar"
 					actionListener="#{exchangeMB.listProductExchange()}"
@@ -115,6 +131,7 @@
 					onsuccess="PF('loadingDialog').hide()"
 					update=":form_content:exchangeTable :messages" />
 				<p:commandButton
+					id="btnClearFilter"
 					value="Limpar filtros"
 					actionListener="#{exchangeMB.clearFilter}"
 					update=":exchangeFilter" />

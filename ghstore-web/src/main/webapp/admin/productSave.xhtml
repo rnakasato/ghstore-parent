@@ -23,8 +23,10 @@
 		<h:form id="form_content">
 
 			<p:panelGrid
+				id="gridSave"
 				styleClass="baseGrid"
-				columns="1">
+				columns="1"
+				style="width:100%">
 				<f:facet name="header">
 					<p:outputLabel value="Cadastrar Produto" />
 				</f:facet>
@@ -32,61 +34,116 @@
 					<p:outputLabel
 						for="name"
 						value="Nome:"
-						style="font-weight:bold; width:20%;" />
+						style="font-weight:bold; width:20%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="name"
-						value="#{adminProductMB.name}"
+						value="#{adminProductMB.product.name}"
 						maxlength="50"
-						style="width:80%" />
+						style="width:40%;margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						for="category"
 						value="Categoria:"
-						style="font-weight:bold; width:35%" />
+						style="font-weight:bold; width:35%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<p:selectOneMenu
 						id="category"
-						value="#{adminProductMB.category}"
-						style="width:65%">
+						value="#{adminProductMB.product.storeCategory}"
+						converter="defaultConverter"
+						style="width:39%;margin-left:50px">
 						<f:selectItems
 							value="#{adminProductMB.categoryList}"
 							var="cat"
-							itemValue="#{cat.description}"
+							itemValue="#{cat}"
 							itemLabel="#{cat.description}" />
+						<p:ajax
+							event="change"
+							update=":form_content:formSubcategory" />
 					</p:selectOneMenu>
 				</p:row>
 
-				<p:row>
-					<p:outputLabel
-						value="Subcategoria:"
-						for="subcategory"
-						style="font-weight:bold ; width:40%" />
-					<p:autoComplete
-						id="subcategory"
-						dropdown="true"
-						value="#{adminProductMB.subcategory}"
-						maxlength="30"
-						completeMethod="#{adminProductMB.fillSubcategory}"
-						style="width:60%" />
+				<p:row id="rowSubcategory">
+					<p:panelGrid
+						styleClass="baseGrid"
+						id="formSubcategory"
+						style="width:100%;margin-left:50px"
+						columns="1">
+						<p:row>
+							<h:outputText
+								id="outputActionFigure"
+								rendered="#{adminProductMB.product.storeCategory.description eq 'Colecionáveis'}"
+								value="Fabricante:"
+								style="font-weight:bold ; width:40%" />
+
+							<h:outputText
+								id="outputAccessory"
+								rendered="#{(empty adminProductMB.product.storeCategory) or (adminProductMB.product.storeCategory.description eq 'Acessórios')}"
+								value="Fabricante:"
+								style="font-weight:bold ; width:40%" />
+
+							<h:outputText
+								id="outputHQ"
+								rendered="#{adminProductMB.product.storeCategory.description eq 'HQs'}"
+								value="Editora:"
+								style="font-weight:bold ; width:40%" />
+
+							<h:outputText
+								id="outputManga"
+								rendered="#{adminProductMB.product.storeCategory.description eq 'Mangás'}"
+								value="Editora:"
+								style="font-weight:bold ; width:40%" />
+
+							<h:outputText
+								id="outputBoardGame"
+								rendered="#{adminProductMB.product.storeCategory.description eq 'Jogos de Tabuleiro'}"
+								value="Fabricante:"
+								style="font-weight:bold ; width:40%" />
+
+							<h:outputText
+								id="outpuShirt"
+								rendered="#{adminProductMB.product.storeCategory.description eq 'Camisas'}"
+								value="Fabricante:"
+								style="font-weight:bold ; width:40%" />
+						</p:row>
+						<p:row>
+							<p:autoComplete
+								id="subcategory"
+								dropdown="true"
+								value="#{adminProductMB.subcategory}"
+								maxlength="30"
+								completeMethod="#{adminProductMB.fillSubcategory}"
+								style="width:80%" />
+
+						</p:row>
+
+					</p:panelGrid>
+
+
 				</p:row>
 
 				<p:row>
 					<p:outputLabel
 						value="Tags:"
 						for="tags"
-						style="font-weight:bold; width:20% " />
+						style="font-weight:bold; width:20%;margin-left:50px " />
+				</p:row>
+				<p:row>
 					<p:autoComplete
 						id="tags"
 						multiple="true"
-						value="#{adminProductMB.tagList}"
+						value="#{adminProductMB.product.tagList}"
 						completeMethod="#{adminProductMB.fillTags}"
 						forceSelection="false"
 						var="tag"
 						itemLabel="#{tag.description}"
 						itemValue="#{tag}"
 						converter="tagConverter"
-						style="width:80%"
+						style="width:40%;margin-left:50px"
 						maxlength="30" />
 				</p:row>
 
@@ -94,14 +151,15 @@
 					<p:outputLabel
 						for="price"
 						value="Preço (R$):"
-						style="font-weight:bold;width:30%" />
-
+						style="font-weight:bold;width:30%;margin-left:50px" />
+				</p:row>
+				<p:row>
 					<pe:inputNumber
 						id="price"
-						value="#{adminProductMB.price}"
+						value="#{adminProductMB.product.price}"
 						decimalSeparator=","
 						thousandSeparator="."
-						style="width:70%"
+						style="width:40%;margin-left:50px"
 						maxValue="9999.99">
 					</pe:inputNumber>
 				</p:row>
@@ -110,16 +168,18 @@
 					<p:outputLabel
 						for="stock"
 						value="Estoque:"
-						style="font-weight:bold;width:25% " />
+						style="font-weight:bold;width:25%;margin-left:50px " />
+				</p:row>
+				<p:row>
 					<pe:inputNumber
 						id="stock"
-						value="#{adminProductMB.stock}"
+						value="#{adminProductMB.product.stock}"
 						decimalSeparator=","
 						thousandSeparator="."
 						maxValue="999"
 						minValue="0"
 						decimalPlaces="0"
-						style="width:75%">
+						style="width:40%;margin-left:50px">
 					</pe:inputNumber>
 				</p:row>
 
@@ -127,22 +187,27 @@
 					<p:outputLabel
 						for="weight"
 						value="Peso(g):"
-						style="font-weight:bold;width:25% " />
+						style="font-weight:bold;width:25%;margin-left:50px " />
+				</p:row>
+				<p:row>
 					<pe:inputNumber
 						id="weight"
-						value="#{adminProductMB.weight}"
+						value="#{adminProductMB.product.weight}"
 						decimalSeparator=","
 						thousandSeparator="."
 						maxValue="999999.99"
 						minValue="0"
 						decimalPlaces="2"
-						style="width:75%">
+						style="width:40%;margin-left:50px"
+						>
 					</pe:inputNumber>
 				</p:row>
 
 				<p:row>
 					<p:panelGrid
+						id="gridUpload"
 						styleClass="baseGrid"
+						style="margin-left:50px"
 						columns="1">
 						<p:outputLabel
 							for="fileUpload"
@@ -166,37 +231,43 @@
 				<p:row>
 					<p:outputLabel
 						for="description"
-						value="Descrição:" />
+						value="Descrição:"
+						style="font-weight:bold;margin-left:50px" />
 				</p:row>
 				<p:row>
 					<p:inputTextarea
 						id="description"
-						value="#{adminProductMB.description}"
+						value="#{adminProductMB.product.description}"
 						rows="5"
 						cols="40"
 						counter="display"
 						maxlength="250"
 						counterTemplate="{0} caracteres restantes."
-						autoResize="false" />
+						autoResize="false"
+						style="width:40%;margin-left:50px" />
 				</p:row>
 				<p:row>
-					<h:outputText id="display" />
+					<h:outputText
+						id="display"
+						style="margin-left:50px" />
 				</p:row>
 
 				<p:row>
 					<p:commandButton
 						actionListener="#{adminProductMB.save}"
 						value="Confirmar"
-						id="confirm"
-						update=":form_content,:messages">
+						id="btnConfirm"
+						update=":form_content,:messages"
+						style="margin-left:50px">
 						<p:confirm
 							header="Produto"
 							message="Confirmar cadastro?" />
 					</p:commandButton>
 					<p:commandButton
 						value="Cancelar"
-						id="cancel"
-						actionListener="#{redirectMB.redirectToProductSearch}">
+						id="btnCancel"
+						actionListener="#{redirectMB.redirectToProductSearch}"
+						style="margin-left:50px">
 						<p:confirm
 							header="Produto"
 							message="Cancelar cadastro?" />
@@ -204,8 +275,9 @@
 					<p:commandButton
 						value="Limpar Campos"
 						update="form_content"
-						id="clear"
-						actionListener="#{adminProductMB.clearFields}">
+						id="btnClearFields"
+						actionListener="#{adminProductMB.clearFields}"
+						style="margin-left:50px">
 						<p:confirm
 							header="Produto"
 							message="Tem certeza que deseja limpar dodos os campos?" />

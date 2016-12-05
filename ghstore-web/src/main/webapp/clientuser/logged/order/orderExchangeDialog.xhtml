@@ -20,7 +20,7 @@
 			width="1000px"
 			position="center top">
 			<p:panelGrid
-				id="gridReason"
+				id="gridExchangeReason"
 				columns="1"
 				style="width:100%">
 				<p:row>
@@ -28,7 +28,7 @@
 				</p:row>
 				<p:row>
 					<p:inputTextarea
-						id="description"
+						id="outputExchangeReason"
 						style="width:100%"
 						value="#{clientOrderMB.exchangeReason}"
 						rows="5"
@@ -50,6 +50,7 @@
 				columns="1">
 				<p:row>
 					<p:commandButton
+						id="btnFinishExchange"
 						value="Trocar"
 						actionListener="#{clientOrderMB.doExchange()}"
 						disabled="#{empty clientOrderMB.selectedExchangeList}"
@@ -57,6 +58,7 @@
 						onsuccess="PF('loadingDialog').hide(); PF('exchangeDialog').hide();"
 						update=":form_content:orderTable" />
 					<p:commandButton
+						id="btnCloseExchangeDialog"
 						value="Cancelar"
 						onclick="PF('exchangeDialog').hide()" />
 				</p:row>

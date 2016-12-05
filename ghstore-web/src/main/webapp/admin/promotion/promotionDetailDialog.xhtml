@@ -25,7 +25,7 @@
 				<p:panelGrid
 					styleClass="baseGrid"
 					columns="1"
-					rendered="true"
+					rendered="true"					
 					columnClasses="label,value">
 
 					<p:row style="text-align:left">
@@ -43,7 +43,7 @@
 							style="font-weight:bold" />
 						<p:outputLabel value="#{formatterMB.formatDateTime(promotionMB.selectedPromotion.startDate)}" />
 					</p:row>
-					
+
 					<p:row style="text-align:left">
 						<p:outputLabel
 							id="outputEndDate"
@@ -51,14 +51,14 @@
 							style="font-weight:bold" />
 						<p:outputLabel value="#{formatterMB.formatDateTime(promotionMB.selectedPromotion.endDate)}" />
 					</p:row>
-					
+
 					<p:row style="text-align:left">
 						<p:outputLabel
 							id="outputDiscount"
 							value="Desconto: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{formatterMB.formatToPercentage(promotionMB.selectedPromotion.discountPercentage)}" />
-					</p:row>														
+					</p:row>
 
 					<p:row style="text-align:left">
 						<ui:include src="/admin/promotion/promotionItemDataList.xhtml" />

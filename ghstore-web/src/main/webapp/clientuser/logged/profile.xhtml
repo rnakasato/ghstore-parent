@@ -8,47 +8,55 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/layout/clientLayout.xhtml">
-	
+
 	<ui:define name="tabMenu">
-	<h:form id="formTabMenu">
-		<p:tabMenu id="tabMenuProfile" style="height: 30px" activeIndex="#{param.i}">
-			<p:menuitem
-				value="Dados pessoais"
-				outcome="/clientuser/logged/customerUpdate.xhtml"
-				icon="ui-icon-person">
-				<f:param
-					name="i"
-					value="0" />
-			</p:menuitem>
-			<p:menuitem
-				value="Pedidos"
-				outcome="/clientuser/logged/order.xhtml">
-				<f:param
-					name="i"
-					value="1" />
-			</p:menuitem>
-			<p:menuitem
-				value="Lista de desejos"
-				outcome="/clientuser/logged/wishlist.xhtml">
-				<f:param
-					name="i"
-					value="2" />
-			</p:menuitem>
-			<p:menuitem
-				value="Trocas"
-				outcome="/clientuser/logged/exchange.xhtml">
-				<f:param
-					name="i"
-					value="3" />
-			</p:menuitem>
-			<p:menuitem
-				value="Devoluções"
-				outcome="/clientuser/logged/return.xhtml">
-				<f:param
-					name="i"
-					value="4" />
-			</p:menuitem>
-		</p:tabMenu>
+		<h:form id="formTabMenu">
+			<p:tabMenu
+				id="tabMenuProfile"
+				style="height: 30px"
+				activeIndex="#{param.i}">
+				<p:menuitem
+					id="menuPersonalData"
+					value="Dados pessoais"
+					outcome="/clientuser/logged/customerUpdate.xhtml"
+					icon="ui-icon-person">
+					<f:param
+						name="i"
+						value="0" />
+				</p:menuitem>
+				<p:menuitem
+					id="menuOrder"
+					value="Pedidos"
+					outcome="/clientuser/logged/order.xhtml">
+					<f:param
+						name="i"
+						value="1" />
+				</p:menuitem>
+				<p:menuitem
+					id="menuWishList"
+					value="Lista de desejos"
+					outcome="/clientuser/logged/wishlist.xhtml">
+					<f:param
+						name="i"
+						value="2" />
+				</p:menuitem>
+				<p:menuitem
+					id="menuExchange"
+					value="Trocas"
+					outcome="/clientuser/logged/exchange.xhtml">
+					<f:param
+						name="i"
+						value="3" />
+				</p:menuitem>
+				<p:menuitem
+					id="menuReturn"
+					value="Devoluções"
+					outcome="/clientuser/logged/return.xhtml">
+					<f:param
+						name="i"
+						value="4" />
+				</p:menuitem>
+			</p:tabMenu>
 		</h:form>
 	</ui:define>
 </ui:composition>

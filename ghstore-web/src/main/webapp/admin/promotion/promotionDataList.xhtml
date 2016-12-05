@@ -37,7 +37,8 @@
 
 			<p:column
 				headerText="Nome"
-				style="width:14%">
+				style="width:14%"
+				sortBy="#{promo.description}">
 				<!-- row record -->
 				<p:outputLabel
 					value="#{promo.description}"
@@ -46,7 +47,8 @@
 
 			<p:column
 				headerText="Data de início"
-				style="width:14%">
+				style="width:14%"
+				sortBy="#{promo.startDate}">
 				<!-- row record -->
 				<p:outputLabel
 					value="#{formatterMB.formatDateTime(promo.startDate)}"
@@ -55,7 +57,8 @@
 
 			<p:column
 				headerText="Data de fim"
-				style="width:14%">
+				style="width:14%"
+				sortBy="#{promo.endDate}">
 				<p:outputLabel
 					value="#{formatterMB.formatDateTime(promo.endDate)}"
 					title="#{formatterMB.formatDateTime(promo.endDate)}" />
@@ -63,7 +66,8 @@
 
 			<p:column
 				headerText="Desconto"
-				style="width:14%">
+				style="width:14%"
+				sortBy="#{promo.discountPercentage}">
 				<!-- row record -->
 				<p:outputLabel
 					value="#{formatterMB.formatToPercentage(promo.discountPercentage)}"
@@ -72,7 +76,8 @@
 
 			<p:column
 				headerText="Status"
-				style="width:14%">
+				style="width:14%"
+				sortBy="#{promo.activeDescription}">
 				<p:outputLabel
 					value="#{promo.activeDescription}"
 					title="#{promo.activeDescription}" />

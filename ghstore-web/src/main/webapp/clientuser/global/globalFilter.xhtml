@@ -17,26 +17,26 @@
 				columns="1"
 				style="height:100%;width:100%">
 
+				<f:facet name="header">
+					<p:outputLabel value="Filtros" />
+				</f:facet>
+
 				<p:row>
 					<p:watermark
-						for="name"
+						for="inputName"
 						value="Buscar Produto..." />
 					<p:inputText
-						id="name"
+						id="inputName"
 						value="#{globalSearchMB.filter.name}"
 						style="width:75%" />
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Filtros:" />
-				</p:row>
-
-
-				<p:row>
 					<p:outputLabel
 						id="labelCategory"
 						for="selectCategory"
-						value="Categoria:" />
+						value="Categoria:"
+						style="font-weight:bold" />
 					<p:selectCheckboxMenu
 						id="selectCategory"
 						converter="defaultConverter"
@@ -50,29 +50,34 @@
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Subcategorias:" />
+					<p:outputLabel
+						value="Subcategorias:"
+						style="font-weight:bold" />
 
 					<p:selectCheckboxMenu
-						id="grid"
+						id="selectSubcategory"
 						label="Subcategorias"
-						value="#{globalSearchMB.filter.selectedSubcategoryIds}"
+						value="#{globalSearchMB.filter.subcategoryList}"
+						converter="defaultConverter"
 						layout="grid"
 						columns="1">
 						<f:selectItems
 							value="#{globalSearchMB.subcategoryList}"
 							var="subcategory"
 							itemLabel="#{subcategory.description}"
-							itemValue="#{subcategory.id}" />
+							itemValue="#{subcategory}" />
 					</p:selectCheckboxMenu>
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="Faixa de preço:" />
+					<p:outputLabel
+						value="Faixa de preço:"
+						style="font-weight:bold" />
 				</p:row>
 
 				<p:row>
 					<p:selectOneRadio
-						id="radioGroup"
+						id="radioPriceRange"
 						value="#{globalSearchMB.priceRangeOption}"
 						layout="grid"
 						columns="1">
@@ -94,26 +99,30 @@
 						<f:selectItem
 							itemLabel="Personalizado"
 							itemValue="5" />
-						<p:ajax update=":formFilter:startValue" />
-						<p:ajax update=":formFilter:endValue" />
+						<p:ajax update=":formFilter:inputStartValue" />
+						<p:ajax update=":formFilter:inputEndValue" />
 					</p:selectOneRadio>
 				</p:row>
 
 				<p:row>
-					<p:outputLabel value="De: R$" />
+					<p:outputLabel
+						value="De: R$"
+						style="font-weight:bold" />
 					<pe:inputNumber
 						disabled="#{not (globalSearchMB.priceRangeOption eq 5)}"
-						id="startValue"
+						id="inputStartValue"
 						value="#{globalSearchMB.filter.initialValue}"
 						decimalSeparator=","
 						thousandSeparator="."
 						maxValue="9999.99">
 					</pe:inputNumber>
 
-					<p:outputLabel value="Até: R$" />
+					<p:outputLabel
+						value="Até: R$"
+						style="font-weight:bold" />
 					<pe:inputNumber
 						disabled="#{not (globalSearchMB.priceRangeOption eq 5)}"
-						id="endValue"
+						id="inputEndValue"
 						value="#{globalSearchMB.filter.finalValue}"
 						decimalSeparator=","
 						thousandSeparator="."
@@ -124,10 +133,10 @@
 				<p:row>
 					<p:outputLabel
 						value="Tags:"
-						for="tags"
+						for="inputTag"
 						style="font-weight:bold; width:20% " />
 					<p:autoComplete
-						id="tags"
+						id="inputTag"
 						multiple="true"
 						value="#{globalSearchMB.filter.tagList}"
 						completeMethod="#{globalSearchMB.fillTags}"
@@ -142,10 +151,11 @@
 
 				<p:row>
 					<p:outputLabel
-						for="orderby"
+						style="font-weight:bold"
+						for="selectOrder"
 						value="Ordenar por:" />
 					<p:selectOneMenu
-						id="orderby"
+						id="selectOrder"
 						value="#{globalSearchMB.order}">
 						<f:selectItems
 							value="#{globalSearchMB.orderTypeList}"
@@ -154,10 +164,10 @@
 							itemLabel="#{orderP.description}" />
 					</p:selectOneMenu>
 				</p:row>
-				
-				<p:row>				
-					<p:selectOneButton 
-						id="orderGroup"
+
+				<p:row>
+					<p:selectOneButton
+						id="selectOrderGroup"
 						value="#{globalSearchMB.ascendant}"
 						layout="grid"
 						columns="1">
@@ -169,11 +179,14 @@
 							itemValue="#{false}" />
 					</p:selectOneButton>
 				</p:row>
-				
+
 
 				<p:row>
-					<p:panelGrid columns="2">
+					<p:panelGrid
+						id="gridButtons"
+						columns="2">
 						<p:commandButton
+							id="btnFind"
 							value="Filtrar"
 							actionListener="#{globalSearchMB.listProducts}"
 							onstart="PF('loadingDialog').show()"
@@ -181,6 +194,7 @@
 							update=":form_content:productTable" />
 
 						<p:commandButton
+							id="btnClearFilter"
 							value="Limpar Filtros"
 							actionListener="#{globalSearchMB.clearFilter}"
 							update=":form_content:productTable :formFilter" />

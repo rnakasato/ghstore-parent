@@ -23,6 +23,7 @@
 				id="panelDetail"
 				style="align:center">
 				<p:panelGrid
+					id="gridDetail"
 					styleClass="baseGrid"
 					columns="1"
 					rendered="true"
@@ -32,77 +33,99 @@
 						<p:outputLabel
 							value="Código do pedido: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.order.code}" />
+						<p:outputLabel
+							id="outputDetailOrderCode"
+							value="#{returnMB.selectedReturn.order.code}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Status da devolução: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.status.description}" />
+						<p:outputLabel
+							id="outputDetailStatus"
+							value="#{returnMB.selectedReturn.status.description}" />
 					</p:row>
-					
+
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Data da solicitação: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.insertDate}" />
+						<p:outputLabel
+							id="outputDetailInsertDate"
+							value="#{returnMB.selectedReturn.insertDate}" />
 					</p:row>
-					
+
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Data de recebimento: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.deliverDate}" />
+						<p:outputLabel
+							id="outputDetailDeliverDate"
+							value="#{returnMB.selectedReturn.deliverDate}" />
 					</p:row>
-					
+
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Data de entrega: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.returnedDate}" />
+						<p:outputLabel
+							id="outputDetailReturnedDate"
+							value="#{returnMB.selectedReturn.returnedDate}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Comprador: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.order.customer.name}" />
+						<p:outputLabel
+							id="outputDetailCustomerName"
+							value="#{returnMB.selectedReturn.order.customer.name}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Endereço de entrega: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.order.deliverAddress.formattedAddress}" />
+						<p:outputLabel
+							id="outputDetailDeliverAddress"
+							value="#{returnMB.selectedReturn.order.deliverAddress.formattedAddress}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="CEP: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCEP(returnMB.selectedReturn.order.deliverAddress.cep)}" />
+						<p:outputLabel
+							id="outputDetailCEP"
+							value="#{formatterMB.formatCEP(returnMB.selectedReturn.order.deliverAddress.cep)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Nome de usuário: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.order.customer.username}" />
+						<p:outputLabel
+							id="outputDetailUsername"
+							value="#{returnMB.selectedReturn.order.customer.username}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="E-mail: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{returnMB.selectedReturn.order.customer.email}" />
+						<p:outputLabel
+							id="outputDetailEmail"
+							value="#{returnMB.selectedReturn.order.customer.email}" />
 					</p:row>
 
 					<p:row style="text-align:left">
 						<p:outputLabel
 							value="Valor total: "
 							style="font-weight:bold" />
-						<p:outputLabel value="#{formatterMB.formatCurrency(returnMB.selectedReturn.totalValue)}" />
+						<p:outputLabel
+							id="outputDetailTotalValue"
+							value="#{formatterMB.formatCurrency(returnMB.selectedReturn.totalValue)}" />
 					</p:row>
 
 					<p:row style="text-align:left">
@@ -112,6 +135,7 @@
 				</p:panelGrid>
 
 				<p:commandButton
+					id="btnClose"
 					value="Fechar"
 					onclick="PF('returnDialog').hide()" />
 			</p:outputPanel>

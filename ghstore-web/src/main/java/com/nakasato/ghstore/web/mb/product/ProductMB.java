@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 
@@ -43,33 +41,29 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected ProductFilter filter;
-	protected String name;
-	protected String category;
+
 	protected String subcategory;
-	protected Double price;
-	protected Double weight;
 	protected Integer stock;
-	protected String image;
-	protected String description;
+	protected String ImagePath;
+	protected Product product;
+	protected Integer status;
+
 	protected List < StoreCategory > categoryList;
 	protected List < Subcategory > subcategoryList;
 	protected List < Product > productList;
-	protected String ImagePath;
-	protected Integer status;
-	protected Product product;
 	protected List < Tag > tagList;
 
 	protected Integer priceRangeOption;
 
 	protected Integer order;
 	protected List < OrderByType > orderTypeList;
-	
-	protected boolean isAscendant; 
+
+	protected boolean isAscendant;
 
 	public ProductMB() {
 	}
-	
-	protected void initProductOrderType(){
+
+	protected void initProductOrderType() {
 		orderTypeList = new ArrayList<>();
 		orderTypeList.add( new OrderByType( EComparator.PRODUCT_NAME, "Nome" ) );
 		orderTypeList.add( new OrderByType( EComparator.PRODUCT_CATEGORY, "Categoria" ) );
@@ -78,8 +72,8 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 		orderTypeList.add( new OrderByType( EComparator.PRODUCT_STOCK, "Estoque" ) );
 		orderTypeList.add( new OrderByType( EComparator.PRODUCT_INSERTDATE, "Data de inserção" ) );
 	}
-	
-	protected void initStoreCategory(){
+
+	protected void initStoreCategory() {
 		List < AbstractDomainEntity > ctList = null;
 		try {
 			ICommand commandFind = FactoryCommand.build( new StoreCategory(), EOperation.FINDALL );
@@ -96,29 +90,28 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 			}
 		}
 	}
-	
 
 	public List < String > fillSubcategory( String query ) {
-		SubcategoryFilter filter = new SubcategoryFilter();
 		List < String > acSubcategory = null;
-		filter.setDescription( query );
-		StoreCategory sc = new StoreCategory();
-		sc.setDescription( getCategory() );
-		filter.setStoreCategory( sc );
-		try {
-			Command command;
-			command = FactoryCommand.build( filter, EOperation.FIND );
-			List < AbstractDomainEntity > scList = command.execute().getEntityList();
-			acSubcategory = new ArrayList<>();
-			if( ! ListUtils.isEmpty( scList ) ) {
-				for( AbstractDomainEntity e: scList ) {
-					Subcategory s = ( Subcategory ) e;
-					acSubcategory.add( s.getDescription() );
+		if( product != null && product.getStoreCategory() != null ) {
+			SubcategoryFilter filter = new SubcategoryFilter();
+			filter.setDescription( query );
+			filter.setStoreCategory( product.getStoreCategory() );
+			try {
+				Command command;
+				command = FactoryCommand.build( filter, EOperation.FIND );
+				List < AbstractDomainEntity > scList = command.execute().getEntityList();
+				acSubcategory = new ArrayList<>();
+				if( ! ListUtils.isEmpty( scList ) ) {
+					for( AbstractDomainEntity e: scList ) {
+						Subcategory s = ( Subcategory ) e;
+						acSubcategory.add( s.getDescription() );
+					}
 				}
+			} catch( ClassNotFoundException e1 ) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-		} catch( ClassNotFoundException e1 ) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 		return acSubcategory;
 	}
@@ -182,7 +175,8 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 
 		try {
 			ImageUtils.copyImage( event.getFile().getFileName(), event.getFile().getInputstream() );
-			image = event.getFile().getFileName();
+			String image = event.getFile().getFileName();
+			product.setImage( image );
 		} catch( IOException e ) {
 			e.printStackTrace();
 		}
@@ -193,7 +187,7 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 			if( priceRangeOption != null ) {
 				fillPriceRange();
 			}
-			
+
 			Command command;
 			command = FactoryCommand.build( filter, EOperation.FIND );
 			List < Product > products = command.execute().getEntityList();
@@ -211,7 +205,7 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 					}
 				}
 				if( order != null ) {
-					ProductSort.sortProducts( productList, order,isAscendant );
+					ProductSort.sortProducts( productList, order, isAscendant );
 				}
 
 			} else {
@@ -329,130 +323,46 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 	 * @return
 	 */
 	private Product prepareProduct() {
-		Product p = new Product();
-		p.setName( name );
-		p.setDescription( description );
-		p.setImage( image );
-		p.setPrice( price );
-		p.setStock( stock );
-		p.setWeight( weight );
-		p.setTagList( tagList );
-		p.setInsertDate( new Date() );
-		StoreCategory st = new StoreCategory();
-		if( ! StringUtils.isEmpty( category ) ) {
-			st.setDescription( category );
-		}
-
 		Subcategory sc = new Subcategory();
-		if( ! StringUtils.isEmpty( subcategory ) ) {
-			sc.setDescription( subcategory );
-		}
-		sc.setStoreCategory( st );
-		p.setStoreCategory( st );
-		p.setSubcategory( sc );
-		p.setUpdateDate( new Date() );
-		return p;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName( String name ) {
-		this.name = name;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory( String category ) {
-		this.category = category;
-	}
-
-	public String getSubcategory() {
-		return subcategory;
-	}
-
-	public void setSubcategory( String subcategory ) {
-		this.subcategory = subcategory;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice( Double price ) {
-		this.price = price;
-	}
-
-	public Integer getStock() {
-		return stock;
-	}
-
-	public void setStock( Integer stock ) {
-		this.stock = stock;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription( String description ) {
-		this.description = description;
-	}
-
-	public List < StoreCategory > getCategoryList() {
-		return categoryList;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage( String image ) {
-		this.image = image;
+		sc.setDescription( subcategory );
+		sc.setStoreCategory( product.getStoreCategory() );
+		product.setSubcategory( sc );
+		product.setUpdateDate( new Date() );
+		return product;
 	}
 
 	public String getImagePath() {
-		if( image != null ) {
-			ImagePath = SaveDirectory.REQUEST_IMG_DIR + image;
+
+		if( product != null && product.getImage() != null ) {
+			ImagePath = SaveDirectory.REQUEST_IMG_DIR + product.getImage();
 		} else {
-			ImagePath = "default.jpg";
+			ImagePath = SaveDirectory.REQUEST_IMG_DIR + "default.jpg";
 		}
+
 		return ImagePath;
 	}
 
 	public String getImagePath( Product product ) {
 		String path;
-		if( product != null ) {
+		if( product != null && product.getImage() != null ) {
 			path = SaveDirectory.REQUEST_IMG_DIR + product.getImage();
 		} else {
-			path = "default.jpg";
+			path = SaveDirectory.REQUEST_IMG_DIR + "default.jpg";
 		}
 		return path;
 	}
 
 	public String getProductImagePath() {
-		if( StringUtils.isEmpty( image ) && product != null && product.getImage() != null ) {
-			image = product.getImage();
-		}
 		return getImagePath();
 	}
 
 	public void clearFields() {
-		product = null;
 		product = new Product();
-		name = null;
-		category = null;
+		product = new Product();
 		subcategory = null;
-		price = null;
 		stock = null;
-		image = null;
-		description = null;
 		tagList = null;
-		weight = null;
-		priceRangeOption = 0;				
+		priceRangeOption = 0;
 	}
 
 	public List < Product > getProductList() {
@@ -482,7 +392,6 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 	public void setProduct( Product product ) {
 		if( product != null ) {
 			this.product = product;
-			setImage( product.getImage() );
 		}
 	}
 
@@ -530,14 +439,6 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 		this.tagList = tagList;
 	}
 
-	public Double getWeight() {
-		return weight;
-	}
-
-	public void setWeight( Double weight ) {
-		this.weight = weight;
-	}
-
 	public Integer getPriceRangeOption() {
 		return priceRangeOption;
 	}
@@ -553,7 +454,45 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 	public void setAscendant( boolean isAscendant ) {
 		this.isAscendant = isAscendant;
 	}
-	
-	
+
+	public String getSubcategory() {
+		return subcategory;
+	}
+
+	public void setSubcategory( String subcategory ) {
+		this.subcategory = subcategory;
+	}
+
+	public void setCategoryList( List < StoreCategory > categoryList ) {
+		this.categoryList = categoryList;
+	}
+
+	public void setSubcategoryList( List < Subcategory > subcategoryList ) {
+		this.subcategoryList = subcategoryList;
+	}
+
+	public void setProductList( List < Product > productList ) {
+		this.productList = productList;
+	}
+
+	public void setImagePath( String imagePath ) {
+		ImagePath = imagePath;
+	}
+
+	public void setOrderTypeList( List < OrderByType > orderTypeList ) {
+		this.orderTypeList = orderTypeList;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock( Integer stock ) {
+		this.stock = stock;
+	}
+
+	public List < StoreCategory > getCategoryList() {
+		return categoryList;
+	}
 
 }

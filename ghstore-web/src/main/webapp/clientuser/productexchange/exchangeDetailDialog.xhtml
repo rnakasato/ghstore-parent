@@ -23,6 +23,7 @@
 				id="panelDetail"
 				style="align:center">
 				<p:panelGrid
+					id="gridDetail"
 					styleClass="baseGrid"
 					columns="1"
 					rendered="true"
@@ -30,6 +31,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputOrderCodeDetail"
 							value="Código do pedido: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.order.code}" />
@@ -37,6 +39,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputOrderStatusDetail"
 							value="Status da devolução: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.status.description}" />
@@ -44,6 +47,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputInsertDateDetail"
 							value="Data da solicitação: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.insertDate}" />
@@ -51,6 +55,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outpuDeliverDateDetail"
 							value="Data de recebimento: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.deliverDate}" />
@@ -58,6 +63,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputReturnedDateDetail"
 							value="Data de entrega: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.returnedDate}" />
@@ -65,6 +71,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputNameDetail"
 							value="Comprador: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.order.customer.name}" />
@@ -72,6 +79,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputDeliverAddressDetail"
 							value="Endereço de entrega: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.order.deliverAddress.formattedAddress}" />
@@ -79,6 +87,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputCEPDetail"
 							value="CEP: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{formatterMB.formatCEP(customerExchangeMB.selectedExchange.order.deliverAddress.cep)}" />
@@ -86,6 +95,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputUsername"
 							value="Nome de usuário: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.order.customer.username}" />
@@ -93,6 +103,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputEmailDetail"
 							value="E-mail: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{customerExchangeMB.selectedExchange.order.customer.email}" />
@@ -100,6 +111,7 @@
 
 					<p:row style="text-align:left">
 						<p:outputLabel
+							id="outputTotalValueDetail"
 							value="Valor total: "
 							style="font-weight:bold" />
 						<p:outputLabel value="#{formatterMB.formatCurrency(customerExchangeMB.selectedExchange.totalValue)}" />
@@ -112,6 +124,7 @@
 				</p:panelGrid>
 
 				<p:commandButton
+					id="btnCloseDialog"
 					value="Fechar"
 					onclick="PF('exchangeDialog').hide()" />
 			</p:outputPanel>

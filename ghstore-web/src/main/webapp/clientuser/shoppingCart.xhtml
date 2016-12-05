@@ -8,6 +8,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/layout/clientLayout.xhtml">
+
 	<ui:define name="metadate">
 		<f:metadata>
 			<f:event
@@ -21,97 +22,11 @@
 				type="preRenderView" />
 		</f:metadata>
 	</ui:define>
+
 	<ui:define name="content">
 		<h:form id="form_content">
-			<p:panelGrid
-				id="addressGrid"
-				columns="1"
-				style="width:100%">
-				<p:row>
-					<p:outputLabel value="Endereço de entrega: " />
-					<p:selectOneMenu
-						id="selectAddress"
-						converter="defaultConverter"
-						value="#{userSessionMB.cart.address}"
-						disabled="#{empty shoppingCartMB.loggedUser}"
-						style="width:10%;vertical-align:middle;margin-right:10px">
-						<f:selectItems
-							value="#{shoppingCartMB.loggedUser.deliveryAddressList}"
-							var="address"
-							itemValue="#{address}"
-							itemLabel="#{address.formattedAddress}" />
-						<p:ajax
-							event="change"
-							onstart="PF('loadingDialog').show()"
-							onsuccess="PF('loadingDialog').hide()"
-							update=":form_content:gridTotal" />
-					</p:selectOneMenu>
-					<p:commandButton
-						value="+"
-						style="width:50px"
-						actionListener="#{shoppingCartMB.addNewAddress()}"
-						disabled="#{empty shoppingCartMB.loggedUser}"
-						update=":form_content" />
-				</p:row>
-				<p:row>
-					<p:outputLabel
-						id="lblInfo"
-						style="vertical-align:middle"
-						value="Necessário realizar Login para finalizar a compra"
-						rendered="#{empty shoppingCartMB.loggedUser}" />
-				</p:row>
-				<p:row>
-					<p:outputLabel
-						disabled="#{not empty shoppingCartMB.loggedUser}"
-						value="Cupons de devolução disponíveis(10% de desconto): " />
-					<p:outputLabel value="#{userSessionMB.couponTotal()}" />
-				</p:row>
-				<p:row>
-					<p:outputLabel value="OBS: Pode ser utilizado apenas um cupom por compra" />
-				</p:row>
-				<p:row>
-					<p:outputLabel value="Usar cupom: " />
-					<p:selectBooleanCheckbox
-						disabled="#{userSessionMB.couponTotal() le 0}"
-						value="#{userSessionMB.useCoupon}">
-						<p:ajax
-							update=":form_content:gridTotal"
-							onstart="PF('loadingDialog').show()"
-							onsuccess="PF('loadingDialog').hide()"
-							listener="#{userSessionMB.setDiscount()}" />
-					</p:selectBooleanCheckbox>
-				</p:row>
-			</p:panelGrid>
 
-			<ui:include src="/clientuser/cart/cartDataTable.xhtml" />
-
-			<p:panelGrid
-				id="gridTotal"
-				columns="2">
-				<p:outputLabel value="Total da compra: " />
-				<p:outputLabel value="#{formatterMB.formatCurrency(userSessionMB.cart.totalValue)}" />
-				<p:outputLabel value="Frete: " />
-				<p:outputLabel value="#{formatterMB.formatCurrency(paymentMB.getShippingCost(userSessionMB.cart))}" />
-
-				<p:outputLabel
-					rendered="#{not userSessionMB.useCoupon}"
-					value="Total da compra + Frete" />
-				<p:outputLabel
-					rendered="#{userSessionMB.useCoupon}"
-					value="(Total da compra - 10% ) + Frete" />
-				<p:outputLabel value="#{formatterMB.formatCurrency(paymentMB.getTotalPayment(userSessionMB.cart))}" />
-			</p:panelGrid>
-			<p:outputLabel />
-
-			<ui:include src="/clientuser/cart/amountDialog.xhtml" />
-
-			<p:commandButton
-				value="Finalizar Compra"
-				disabled="#{empty userSessionMB.loggedUser}"
-				onstart="PF('loadingDialog').show()"
-				onsuccess="PF('loadingDialog').hide()"
-				actionListener="#{userSessionMB.finishPayment()}" />
-
+			<ui:include src="/clientuser/cart/cartData.xhtml" />
 
 			<ui:include src="/clientuser/cart/addressDialog.xhtml" />
 

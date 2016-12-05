@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition>
+		<p:dataGrid
+			var="rec"
+			id="recommendedTable"
+			value="#{homePageMB.carrier.recommendedProducts}"
+			paginator="false"
+			selection="#{homePageMB.selectedRecommended}"
+			rowKey="#{rec.product.id}"
+			rows="1"
+			columns="5"
+			style="width:100%"
+			rendered="#{loginMB.loggedIn}">
+			<!--  Trocar para verificar usuário logado -->
+			<f:facet
+				name="header"
+				style="align:left">
+				            Recomendações
+				        </f:facet>
+
+			<p:panel
+				id="panelRecommended"
+				style="text-align:center">
+				<h:panelGrid
+					id="gridRecommended"
+					columns="1"
+					style="width:100%">
+					<p:commandLink
+						id="linkRecommendedProduct"
+						actionListener="#{redirectMB.redirectToProductPage(rec.product)}">
+						<p:graphicImage
+							id="imageRecommendedProduct"
+							value="#{homePageMB.getImagePath(rec.product)}"
+							style="width:192px;heigth:192" />
+						<f:setPropertyActionListener
+							value="#{rec.product}"
+							target="#{homePageMB.selectedRecommended}" />
+					</p:commandLink>
+
+					<p:commandButton
+						id="btnComprarRecommended"
+						value="Comprar"
+						actionListener="#{redirectMB.redirectToProductPage(rec.product)}" />
+
+					<h:outputText
+						id="outputRecommendedName"
+						value="#{rec.product.name}" />
+					<h:outputText
+						id="outputRecommendedPrice"
+						rendered="#{empty rec.product.activePromotion}"
+						value="#{formatterMB.formatCurrency(rec.product.price)}" />
+					<h:outputText
+						id="outputRecommendedPromotion"
+						rendered="#{not empty rec.product.activePromotion}"
+						value="Promoção: - #{formatterMB.formatToPercentage(rec.product.activePromotion.discountPercentage)}" />
+					<h:outputText
+						id="outputRecommendedOrignalPrice"
+						rendered="#{not empty rec.product.activePromotion}"
+						value="De: #{formatterMB.formatCurrency(rec.product.price)}" />
+					<h:outputText
+						id="outputRecommendedPromoPrice"
+						rendered="#{not empty rec.product.activePromotion}"
+						value="Por: #{formatterMB.formatCurrency(rec.product.discountPrice)}" />
+					<h:outputText value="#{rec.product.statusDesc}" />
+				</h:panelGrid>
+			</p:panel>
+		</p:dataGrid>
+	</ui:composition>
+</h:body>
+</html>

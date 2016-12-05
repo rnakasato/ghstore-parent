@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import com.nakasato.core.util.enums.EOperation;
@@ -16,12 +17,17 @@ import com.nakasato.ghstore.domain.productexchange.ExchangeStatus;
 import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 import com.nakasato.ghstore.domain.productreturn.ReturnStatus;
 import com.nakasato.ghstore.domain.user.Customer;
+import com.nakasato.ghstore.domain.user.User;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghstore.web.mb.BaseMB;
+import com.nakasato.ghstore.web.mb.user.LoginMB;
 
 @ManagedBean( name = "exchangeMB" )
 @ViewScoped
 public class ExchangeMB extends BaseMB {
+	@ManagedProperty( value = "#{loginMB}" )
+	private LoginMB loginMB;
+
 	protected ProductExchangeFilter filter;
 	protected List < ProductExchange > exchangeResults;
 	protected List < ExchangeStatus > exchangeStatusList;
@@ -29,12 +35,20 @@ public class ExchangeMB extends BaseMB {
 
 	private List < Customer > customerList;
 
+	private Customer customer;
+
 	// Inicialização
 	@PostConstruct
 	public void init() {
 		filter = new ProductExchangeFilter();
 		initExchangeStatus();
 		initCustomerList();
+
+		User user = ( User ) loginMB.getLoggedUser();
+		if( user instanceof Customer ) {
+			customer = ( Customer ) user;
+			filter.setCustomer( customer );
+		}
 	}
 
 	protected void initCustomerList() {
@@ -53,6 +67,7 @@ public class ExchangeMB extends BaseMB {
 			if( filter != null ) {
 				hasError = validateDates();
 			}
+
 			if( ! hasError ) {
 				ICommand command;
 				command = FactoryCommand.build( filter, EOperation.FIND );
@@ -137,6 +152,9 @@ public class ExchangeMB extends BaseMB {
 	@Override
 	public void clearFilter() {
 		filter = new ProductExchangeFilter();
+		if( customer != null ) {
+			filter.setCustomer( customer );
+		}
 	}
 
 	public String getImagePath( Product product ) {
@@ -187,6 +205,14 @@ public class ExchangeMB extends BaseMB {
 
 	public void setCustomerList( List < Customer > customerList ) {
 		this.customerList = customerList;
+	}
+
+	public LoginMB getLoginMB() {
+		return loginMB;
+	}
+
+	public void setLoginMB( LoginMB loginMB ) {
+		this.loginMB = loginMB;
 	}
 
 }

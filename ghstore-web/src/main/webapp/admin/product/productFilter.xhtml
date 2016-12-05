@@ -17,7 +17,7 @@
 			<p:panelGrid
 				styleClass="baseGrid"
 				columns="1"
-				style="width:100%">
+				style="width:100%;font-weight:bold">
 				<f:facet name="header">
 					<p:outputLabel value="Filtros" />
 				</f:facet>
@@ -26,7 +26,10 @@
 					<p:outputLabel
 						id="labelName"
 						value="Nome: "
-						for="inputName" />
+						for="inputName"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputName"
 						value="#{adminProductMB.filter.name}" />
@@ -36,7 +39,10 @@
 					<p:outputLabel
 						id="labelCode"
 						value="Código do produto: "
-						for="inputCode" />
+						for="inputCode"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:inputText
 						id="inputCode"
 						value="#{adminProductMB.filter.code}" />
@@ -46,7 +52,10 @@
 					<p:outputLabel
 						id="labelCategory"
 						for="selectCategory"
-						value="Categoria:" />
+						value="Categoria:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectOneMenu
 						id="selectCategory"
 						value="#{adminProductMB.filter.category.description}">
@@ -65,7 +74,10 @@
 					<p:outputLabel
 						id="labelSubcategory"
 						value="Subcategoria:"
-						for="inputSubcategory" />
+						for="inputSubcategory"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:autoComplete
 						id="inputSubcategory"
 						dropdown="true"
@@ -77,10 +89,12 @@
 					<p:outputLabel
 						id="labelStatus"
 						for="selectStatus"
-						value="Status:" />
+						value="Status:"
+						style="font-weight:bold" />
 					<p:selectOneRadio
 						id="selectStatus"
-						value="#{adminProductMB.filter.status}">
+						value="#{adminProductMB.filter.status}"
+						style="font-weight:normal">
 						<f:selectItem
 							itemLabel="Disponível"
 							itemValue="1" />
@@ -96,10 +110,14 @@
 				<p:row>
 					<p:outputLabel
 						for="orderby"
-						value="Ordenar por:" />
+						value="Ordenar por:"
+						style="font-weight:bold" />
+				</p:row>
+				<p:row>
 					<p:selectOneMenu
 						id="orderby"
-						value="#{adminProductMB.order}">
+						value="#{adminProductMB.order}"
+						style="font-weight:normal">
 						<f:selectItems
 							value="#{adminProductMB.orderTypeList}"
 							var="orderP"
@@ -113,6 +131,7 @@
 						id="orderGroup"
 						value="#{adminProductMB.ascendant}"
 						layout="grid"
+						style="font-weight:normal"
 						columns="1">
 						<f:selectItem
 							itemLabel="Crescente"

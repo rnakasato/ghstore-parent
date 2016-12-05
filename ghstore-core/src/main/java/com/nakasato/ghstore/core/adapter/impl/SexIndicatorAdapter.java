@@ -20,7 +20,8 @@ import com.nakasato.ghstore.domain.order.OrderItem;
 import com.nakasato.ghstore.domain.performance.graphic.AxisData;
 import com.nakasato.ghstore.domain.performance.graphic.PerformanceGraphicData;
 
-public class SexIndicatorAdapter extends DefaultIndicatorAdapter implements Adapter < PerformanceGraphicCarrier, List < PerformanceGraphicData > > {
+public class SexIndicatorAdapter extends DefaultIndicatorAdapter
+		implements Adapter < PerformanceGraphicCarrier, List < PerformanceGraphicData > > {
 
 	@Override
 	public List < PerformanceGraphicData > adapt( PerformanceGraphicCarrier carrier ) {
@@ -56,24 +57,4 @@ public class SexIndicatorAdapter extends DefaultIndicatorAdapter implements Adap
 		return dataList;
 	}
 
-	public static void main( String[] args ) throws Exception {
-		PerformanceGraphicCarrier carrier = new PerformanceGraphicCarrier();
-		PerformanceGraphicFilter filter = new PerformanceGraphicFilter();
-		filter.setAxisX( EAxisX.DAYS.getCode() );
-		filter.setAxisY( EAxisY.SOLD_AMOUNT.getCode() );
-		carrier.setFilter( filter );
-
-		OrderDAO dao = new OrderDAO();
-		List < Order > orderList = dao.find( new OrderFilter() );
-		carrier.setOrderList( orderList );
-
-		List < PerformanceGraphicData > dataList = new SexIndicatorAdapter().adapt( carrier );
-
-		for( PerformanceGraphicData p: dataList ) {
-			System.out.println( p.getDescription() );
-		}
-
-		HibernateUtil.shutdown();
-
-	}
 }
