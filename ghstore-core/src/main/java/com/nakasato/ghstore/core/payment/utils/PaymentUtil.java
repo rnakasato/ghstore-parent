@@ -18,9 +18,7 @@ import br.com.uol.pagseguro.exception.PagSeguroServiceException;
 import br.com.uol.pagseguro.properties.PagSeguroConfig;
 
 public class PaymentUtil {
-	private static final String CEP_ORIGEM = "08751300";
-	private static final String PESO = "10.000"; // alterar posteriormente
-
+	
 	public static Double getTotalPayment( ShoppingCart shoppingCart ) {
 		Double totalPayment = shoppingCart.getTotalValue();
 		try {

@@ -2,6 +2,8 @@ package com.nakasato.ghtstore.core.business.validator;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.product.Promotion;
 import com.nakasato.ghtstore.core.business.Validator;
@@ -24,7 +26,7 @@ public class PromotionPeriodValidator extends Validator < Promotion > {
 
 		// caso não seja uma operação de desativação o período deve ser validado
 		if( ( promotion.getDisable() == null || ! promotion.getDisable() )
-				&& ( promotion.getCancel() == null || ! promotion.getCancel() )) {
+				&& ( promotion.getCancel() == null || ! promotion.getCancel() ) ) {
 			for( Product product: productList ) {
 				List < Promotion > promotionList = product.getPromotionList();
 				for( Promotion promo: promotionList ) {
@@ -36,12 +38,15 @@ public class PromotionPeriodValidator extends Validator < Promotion > {
 					// - A data de fim da promoção exista dentro do período de
 					// outra
 					// promoção
-					if( promo != promotion
+					if( ! promo.equals( promotion )
 							&& ( promotion.getStartDate().after( promo.getStartDate() )
 									&& promotion.getStartDate().before( promo.getEndDate() ) )
 							|| ( promotion.getEndDate().after( promo.getStartDate() )
 									&& promotion.getEndDate().before( promo.getEndDate() ) ) ) {
 						msg = "Já existe uma promoção neste período para um ou mais produtos selecionados";
+						break;
+					}
+					if( StringUtils.isNotEmpty( msg ) ) {
 						break;
 					}
 				}

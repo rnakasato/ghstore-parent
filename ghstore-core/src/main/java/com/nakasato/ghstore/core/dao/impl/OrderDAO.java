@@ -12,7 +12,7 @@ import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
 import com.nakasato.ghstore.domain.filter.impl.PerformanceGraphicFilter;
 import com.nakasato.ghstore.domain.order.Order;
 
-public class OrderDAO extends AbstractDAO < Order > {
+public class OrderDAO extends DomainSpecificEntityDAO < Order > {
 
 	@Override
 	public List < Order > find( AbstractDomainEntity filter ) throws Exception {
@@ -49,7 +49,7 @@ public class OrderDAO extends AbstractDAO < Order > {
 			if( orderFilter.getStartDate() != null && orderFilter.getEndDate() != null ) {
 				jpql.append( " AND o.insertDate BETWEEN :startDate AND :endDate " );
 			}
-			
+
 			jpql.append( " ORDER BY o.insertDate desc " );
 
 			Query query = session.createQuery( jpql.toString() );
@@ -74,7 +74,7 @@ public class OrderDAO extends AbstractDAO < Order > {
 				query.setParameter( "startDate", orderFilter.getStartDate() );
 				query.setParameter( "endDate", orderFilter.getEndDate() );
 			}
-			
+
 			jpql.append( " ORDER BY o.insertDate desc " );
 
 			orderList = query.getResultList();

@@ -5,14 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.nakasato.ghstore.core.adapter.Adapter;
 import com.nakasato.ghstore.domain.carrier.PerformanceGraphicCarrier;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.order.OrderItem;
 import com.nakasato.ghstore.domain.performance.graphic.PerformanceGraphicData;
 
-public class CityIndicatorAdapter extends DefaultIndicatorAdapter
-		implements Adapter < PerformanceGraphicCarrier, List < PerformanceGraphicData > > {
+public class CityIndicatorAdapter extends DefaultIndicatorAdapter {
 
 	@Override
 	public List < PerformanceGraphicData > adapt( PerformanceGraphicCarrier carrier ) {

@@ -171,6 +171,7 @@ public class WishlistMB extends BaseMB {
 		return path;
 	}
 
+	// Getters e Setters
 	public WishlistFilter getFilter() {
 		return filter;
 	}

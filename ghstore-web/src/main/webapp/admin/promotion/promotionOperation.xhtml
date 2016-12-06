@@ -24,14 +24,14 @@
 				id="btnUpdatePromotion"
 				value="Alterar promoção"
 				update=":messages "
-				disabled="#{promotionMB.isSelected == null || promotionMB.isSelected == false || promotionMB.notAllowUpdate() }"
+				disabled="#{promotionMB.isSelected == null || not promotionMB.isSelected || promotionMB.notAllowUpdate() }"
 				actionListener="#{redirectMB.redirectToUpdatePromotion(promotionMB.selectedPromotion)}" />
 
 			<p:commandButton
 				id="btnDisable"
 				value="Cancelar promoção"
 				update="promotionTable, :form_content:gridButtons,:messages"
-				disabled="#{promotionMB.isSelected == null || promotionMB.isSelected == false || promotionMB.notAllowUpdate()}"
+				disabled="#{promotionMB.isSelected == null || not promotionMB.isSelected || promotionMB.notAllowUpdate()}"
 				actionListener="#{promotionMB.cancel()}">
 				<p:confirm
 					header="Promoção"

@@ -14,7 +14,6 @@ import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.EntityCarrier;
-import com.nakasato.ghstore.factory.impl.FactoryCustomStrategy;
 import com.nakasato.ghstore.factory.impl.FactoryDAO;
 import com.nakasato.ghstore.factory.impl.FactoryStrategy;
 
@@ -144,7 +143,7 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 		return result;
 	}
 
-	private String runRules( T entity, String operation ) {
+	public String runRules( T entity, String operation ) {
 		StringBuilder msg = null;
 		List < IStrategy > rules = FactoryStrategy.build( entity, operation );
 		if( rules != null ) {
@@ -187,32 +186,6 @@ public class Facade < T extends AbstractDomainEntity > implements IFacade < T > 
 
 		}
 
-		return result;
-	}
-
-	@Override
-	public Result < T > doRules( T entity, String ruleName ) {
-		Result < T > result = new Result < T >();
-		String classNm = entity.getClass().getName();
-
-		StringBuilder msg = null;
-		List < IStrategy > rules = FactoryCustomStrategy.build( entity.getClass(), ruleName );
-		if( rules != null ) {
-			msg = new StringBuilder();
-			for( IStrategy s: rules ) {
-				String m = s.process( entity );
-				if( m != null ) {
-					msg.append( m );
-					break;
-				}
-			}
-		}
-		String messages = null;
-		if( msg != null && msg.length() > 0 ) {
-			messages = msg.toString();
-		}
-
-		result.setMsg( messages );
 		return result;
 	}
 

@@ -17,8 +17,6 @@ public class CustomerExchangeMB extends ExchangeMB {
 	@ManagedProperty( value = "#{loginMB}" )
 	private LoginMB loginMB;
 
-	private Customer customer;
-
 	@PostConstruct
 	public void init() {
 		customer = ( Customer ) loginMB.getLoggedUser();

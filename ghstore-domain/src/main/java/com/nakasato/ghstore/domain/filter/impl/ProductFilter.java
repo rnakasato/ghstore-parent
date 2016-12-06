@@ -32,8 +32,6 @@ public class ProductFilter extends Filter {
 
 	private Boolean newProducts;
 
-	private Integer resultAmount;
-
 	private Double initialValue;
 	private Double finalValue;
 
@@ -181,14 +179,6 @@ public class ProductFilter extends Filter {
 
 	public void setNewProducts( Boolean newProducts ) {
 		this.newProducts = newProducts;
-	}
-
-	public Integer getResultAmount() {
-		return resultAmount;
-	}
-
-	public void setResultAmount( Integer resultAmount ) {
-		this.resultAmount = resultAmount;
 	}
 
 	public Integer getMaxResults() {

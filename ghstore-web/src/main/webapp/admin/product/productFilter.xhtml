@@ -148,6 +148,7 @@
 				columns="2"
 				style="width:100%">
 				<p:commandButton
+					id="btnFind"
 					icon="ui-icon-search"
 					value="Buscar"
 					actionListener="#{adminProductMB.listProducts}"
@@ -155,6 +156,7 @@
 					onsuccess="PF('loadingDialog').hide()"
 					update=":form_content:productTable" />
 				<p:commandButton
+					id="btnClearFilter"
 					value="Limpar filtros"
 					actionListener="#{adminProductMB.clearFilter}"
 					update=":productFilter" />

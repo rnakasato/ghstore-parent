@@ -86,6 +86,7 @@ public class HomePageMB extends BaseMB {
 		return path;
 	}
 
+	// Getters e Setters
 	public LoginMB getLoginMB() {
 		return loginMB;
 	}

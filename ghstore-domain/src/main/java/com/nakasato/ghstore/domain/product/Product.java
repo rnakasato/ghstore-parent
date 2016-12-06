@@ -25,7 +25,6 @@ public class Product extends DomainSpecificEntity implements Serializable {
 
 	private String name;
 	private Double price;
-	private Double soldAmount;
 	private Integer stock;
 	private String image;
 	private Date updateDate;
@@ -160,13 +159,6 @@ public class Product extends DomainSpecificEntity implements Serializable {
 		this.promotionList = promotionList;
 	}
 
-	public Double getSoldAmount() {
-		return soldAmount;
-	}
-
-	public void setSoldAmount( Double soldAmount ) {
-		this.soldAmount = soldAmount;
-	}
 
 	public Promotion getActivePromotion() {
 		Promotion promotion = null;

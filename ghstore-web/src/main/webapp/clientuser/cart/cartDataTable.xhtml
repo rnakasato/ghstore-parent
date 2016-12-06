@@ -85,7 +85,7 @@
 
 			<p:column>
 				<p:commandButton
-					id="btnAddAmount"
+					id="btnRemoveItem"
 					update=":form_content"
 					actionListener="#{userSessionMB.removeItem(cartItem)}"
 					onstart="PF('loadingDialog').show()"
@@ -97,7 +97,7 @@
 
 			<p:column>
 				<p:commandButton
-					id="btnRemoveAmount"
+					id="btnUpdateAmount"
 					update=":form_content:amountDialog"
 					actionListener="#{userSessionMB.setUpdateItem(cartItem)}"
 					oncomplete="PF('amountDialog').show()"

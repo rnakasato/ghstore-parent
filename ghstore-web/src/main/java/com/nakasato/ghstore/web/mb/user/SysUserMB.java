@@ -23,7 +23,6 @@ import com.nakasato.ghstore.domain.filter.impl.CityFilter;
 import com.nakasato.ghstore.domain.filter.impl.OperatorFilter;
 import com.nakasato.ghstore.domain.filter.impl.SysUserFilter;
 import com.nakasato.ghstore.domain.filter.impl.UserTypeFilter;
-import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.user.Address;
 import com.nakasato.ghstore.domain.user.Administrator;
 import com.nakasato.ghstore.domain.user.City;
@@ -36,7 +35,6 @@ import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghstore.web.adapter.UserToAdmininistratorAdapter;
 import com.nakasato.ghstore.web.adapter.UserToOperatorAdapter;
 import com.nakasato.ghstore.web.mb.BaseMB;
-import com.nakasato.ghstore.web.mb.util.RedirectMB;
 import com.nakasato.web.util.Redirector;
 
 @ManagedBean( name = "sysUserMB" )
@@ -87,10 +85,10 @@ public class SysUserMB extends BaseMB {
 
 		newAddress = new Address();
 		newAddress.setCity( new City() );
-		
+
 		selectedUser = ( User ) FacesContext.getCurrentInstance().getExternalContext().getFlash().get( "user" );
-		
-		if(selectedUser != null){
+
+		if( selectedUser != null ) {
 			newPhone = selectedUser.getPhoneList().get( 0 );
 		}
 
@@ -107,7 +105,7 @@ public class SysUserMB extends BaseMB {
 				filter.setActive( true );
 			}
 		}
-		
+
 		List < User > admList = findAdministrators();
 		List < User > opList = findOperators();
 
@@ -219,7 +217,7 @@ public class SysUserMB extends BaseMB {
 				}
 
 			}
-			
+
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			Redirector.redirectTo( ctx.getExternalContext(), "/admin/userSearch.jsf?faces-redirect=true" );
 
@@ -251,7 +249,7 @@ public class SysUserMB extends BaseMB {
 					addMessage( msg );
 				} else {
 					addMessage( "Dados alterados com sucesso!" );
-					
+
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					Redirector.redirectTo( ctx.getExternalContext(), "/admin/userSearch.jsf?faces-redirect=true" );
 				}
@@ -391,6 +389,7 @@ public class SysUserMB extends BaseMB {
 		status = null;
 	}
 
+	// Getters e Setters
 	public User getNewUser() {
 		return newUser;
 	}

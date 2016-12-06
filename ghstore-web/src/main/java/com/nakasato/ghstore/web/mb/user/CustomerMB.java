@@ -192,6 +192,7 @@ public class CustomerMB extends BaseMB {
 		return same;
 	}
 
+	// Getters e Setters
 	public Customer getCustomer() {
 		return customer;
 	}

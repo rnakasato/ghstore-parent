@@ -1,4 +1,4 @@
-package com.nakasato.ghstore.core.util;
+package com.nakasato.ghstore.core.adapter.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,8 +6,10 @@ import java.util.List;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
+import com.nakasato.ghstore.core.adapter.Adapter;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.payment.utils.FreteUtil;
+import com.nakasato.ghstore.core.util.CSPRNGUtil;
 import com.nakasato.ghstore.domain.filter.impl.OrderStatusFilter;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.order.OrderItem;
@@ -16,7 +18,7 @@ import com.nakasato.ghstore.domain.shopping.cart.ShoppingCart;
 import com.nakasato.ghstore.domain.shopping.cart.ShoppingCartItem;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
-public class Parser {
+public class ShoppingCartToOrderAdapter implements Adapter < ShoppingCart, Order > {
 
 	/**
 	 * Converte um objeto ShoppingCart para Order, caso o valor total do
@@ -25,7 +27,9 @@ public class Parser {
 	 * @param shoppingCart
 	 * @return
 	 */
-	public static Order parseShoppingCartToOrder( ShoppingCart shoppingCart ) {
+
+	@Override
+	public Order adapt( ShoppingCart shoppingCart ) {
 		Order order = null;
 
 		if( shoppingCart.getTotalValue() != null && shoppingCart.getTotalValue() > 0 ) {
@@ -42,8 +46,8 @@ public class Parser {
 					status = statusList.get( 0 );
 				}
 				Double totalValue = 0D;
-				Double shippingCost =  FreteUtil.getShippingCost( shoppingCart );
-				
+				Double shippingCost = FreteUtil.getShippingCost( shoppingCart );
+
 				order.setShippingCost( shippingCost );
 				order.setDiscountValue( shoppingCart.getDiscountValue() );
 				totalValue += shippingCost;

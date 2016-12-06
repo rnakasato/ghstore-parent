@@ -13,7 +13,7 @@ import com.nakasato.ghstore.domain.filter.impl.OrderStatusFilter;
 import com.nakasato.ghstore.domain.order.OrderStatus;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
 
-public class OrderStatusDAO extends AbstractDAO < OrderStatus > {
+public class OrderStatusDAO extends DomainSpecificEntityDAO < OrderStatus > {
 
 	@Override
 	public List < OrderStatus > find( AbstractDomainEntity filter ) throws Exception {

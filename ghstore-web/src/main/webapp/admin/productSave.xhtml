@@ -219,8 +219,10 @@
 							fileUploadListener="#{adminProductMB.doUpload}"
 							label="Procurar..."
 							auto="false"
-							update="img">
+							update="img imageHidden">
 						</p:fileUpload>
+						
+						<h:inputHidden id="imageHidden" value="#{adminProductMB.product.image}" /> 
 						<p:graphicImage
 							id="img"
 							url="#{adminProductMB.imagePath}"

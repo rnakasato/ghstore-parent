@@ -1,6 +1,10 @@
 package com.nakasato.ghstore.core.adapter.impl;
 
+import java.util.List;
+
+import com.nakasato.ghstore.core.adapter.Adapter;
 import com.nakasato.ghstore.core.util.DateFormatUtils;
+import com.nakasato.ghstore.domain.carrier.PerformanceGraphicCarrier;
 import com.nakasato.ghstore.domain.enums.EAxisX;
 import com.nakasato.ghstore.domain.enums.EAxisY;
 import com.nakasato.ghstore.domain.filter.impl.PerformanceGraphicFilter;
@@ -9,16 +13,15 @@ import com.nakasato.ghstore.domain.order.OrderItem;
 import com.nakasato.ghstore.domain.performance.graphic.AxisData;
 import com.nakasato.ghstore.domain.performance.graphic.PerformanceGraphicData;
 
-public abstract class DefaultIndicatorAdapter {
+public abstract class DefaultIndicatorAdapter
+		implements Adapter < PerformanceGraphicCarrier, List < PerformanceGraphicData > > {
 
 	protected void fillAxisData( PerformanceGraphicData data, PerformanceGraphicFilter filter, Order order,
 			OrderItem item ) {
 		String axisXValue = null;
 		Number axisYValue = null;
 
-		
-		
-		String dataKey = null; 
+		String dataKey = null;
 		if( filter.getAxisX().equals( EAxisX.DAYS.getCode() ) ) {
 			dataKey = DateFormatUtils.formatDateToDay( order.getInsertDate() );
 			axisXValue = DateFormatUtils.formatDateToReverseDay( order.getInsertDate() );
@@ -51,14 +54,14 @@ public abstract class DefaultIndicatorAdapter {
 			if( axisYValue instanceof Double ) {
 				Double axisY = axisYValue.doubleValue() + dt.getAxisY().doubleValue();
 				dt.setAxisY( axisY );
-				
+
 				Double dataTotal = data.getAxisTotal().doubleValue() + dt.getAxisY().doubleValue();
 				data.setAxisTotal( dataTotal );
-				
+
 			} else {
 				Integer axisY = axisYValue.intValue() + dt.getAxisY().intValue();
 				dt.setAxisY( axisY );
-				
+
 				Integer dataTotal = data.getAxisTotal().intValue() + dt.getAxisY().intValue();
 				data.setAxisTotal( dataTotal );
 			}

@@ -23,6 +23,20 @@
 
 				<p:row>
 					<p:outputLabel
+						value="Nome da promoção:"
+						style="font-weight:bold;" />
+				</p:row>
+				<p:row>
+					<p:inputText
+						id="inputPromotionName"
+						value="#{promotionMB.filter.description}"
+						style="font-weight:normal">
+
+					</p:inputText>
+				</p:row>
+
+				<p:row>
+					<p:outputLabel
 						value="Produtos:"
 						style="font-weight:bold;" />
 				</p:row>
@@ -214,6 +228,7 @@
 				columns="2"
 				style="width:100%">
 				<p:commandButton
+					id="btnFind"
 					icon="ui-icon-search"
 					value="Buscar"
 					actionListener="#{promotionMB.listPromotion()}"
@@ -221,6 +236,7 @@
 					onsuccess="PF('loadingDialog').hide()"
 					update=":form_content:promotionTable" />
 				<p:commandButton
+					id="btnClearFilter"
 					value="Limpar filtros"
 					actionListener="#{promotionMB.clearFilter}"
 					update=":promotionFilter" />

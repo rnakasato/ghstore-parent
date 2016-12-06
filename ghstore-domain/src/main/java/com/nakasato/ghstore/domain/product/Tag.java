@@ -1,7 +1,5 @@
 package com.nakasato.ghstore.domain.product;
 
-import java.util.List;
-
 import com.nakasato.ghstore.domain.AbstractDomainEntity;
 
 /**

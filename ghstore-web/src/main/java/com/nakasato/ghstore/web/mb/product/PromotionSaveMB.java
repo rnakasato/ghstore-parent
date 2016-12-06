@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.FacesComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.StringUtils;

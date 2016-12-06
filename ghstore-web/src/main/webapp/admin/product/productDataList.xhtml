@@ -67,7 +67,7 @@
 			</p:column>
 			<p:column
 				headerText="Estoque"
-				style="width:14%">
+				style="width:8%">
 				<!-- row record -->
 				<p:outputLabel
 					value="#{prod.stock}"
@@ -75,6 +75,7 @@
 			</p:column>
 
 			<p:column
+				style="width:14%"
 				headerText="Preço unitário"
 				rendered="#{empty prod.activePromotion}">
 				<h:outputText value="#{formatterMB.formatCurrency(prod.price)}" />
@@ -82,7 +83,9 @@
 
 			<p:column
 				headerText="Preço unitário"
-				rendered="#{not empty prod.activePromotion}">
+				rendered="#{not empty prod.activePromotion}"
+				style="width:14%">
+
 				<p:panelGrid
 					styleClass="baseGrid"
 					columns="1">

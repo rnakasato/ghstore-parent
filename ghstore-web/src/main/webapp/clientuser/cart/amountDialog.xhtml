@@ -26,6 +26,7 @@
 					style="text-align:center;width:500px">
 					<p:row>
 						<p:commandButton
+							id="btnSub"
 							value="-"
 							style="width:50px"
 							actionListener="#{userSessionMB.removeAmount()}"
@@ -37,6 +38,7 @@
 							value="#{userSessionMB.newAmount}" />
 
 						<p:commandButton
+							id="btnAdd"
 							value="+"
 							style="width:50px"
 							actionListener="#{userSessionMB.addAmount()}"
@@ -45,6 +47,7 @@
 					</p:row>
 					<p:row>
 						<p:commandButton
+							id="btnUpdateAmountDialog"
 							value="Alterar"
 							style="width:120px;padding-right:10px"
 							actionListener="#{userSessionMB.saveNewItemAmount()}"
@@ -54,6 +57,7 @@
 						</p:commandButton>
 
 						<p:commandButton
+							id="btnCloseAmountDialog"
 							value="Cancelar"
 							style="width:120px"
 							onclick="PF('amountDialog').hide()"

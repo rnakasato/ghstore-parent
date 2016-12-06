@@ -16,8 +16,6 @@ public class CustomerReturnMB extends ReturnMB {
 	@ManagedProperty( value = "#{loginMB}" )
 	private LoginMB loginMB;
 
-	private Customer customer;
-
 	@PostConstruct
 	public void init() {
 		customer = ( Customer ) loginMB.getLoggedUser();

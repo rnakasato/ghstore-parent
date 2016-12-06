@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.lang3.StringUtils;
-import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
 import com.nakasato.core.util.enums.EOperation;
@@ -131,7 +130,7 @@ public class PromotionMB extends BaseMB {
 	
 	public boolean notAllowUpdate() {
 		boolean notAllow = true;
-		if( selectedPromotion == null || selectedPromotion.getEndDate().after( getToday() ) ) {
+		if( selectedPromotion != null && selectedPromotion.getEndDate().after( getToday() ) ) {
 			notAllow = false;
 		}
 		return notAllow;
@@ -176,6 +175,7 @@ public class PromotionMB extends BaseMB {
 		filter = new PromotionFilter();
 	}
 
+	// Getters e Setters
 	public PromotionFilter getFilter() {
 		return filter;
 	}

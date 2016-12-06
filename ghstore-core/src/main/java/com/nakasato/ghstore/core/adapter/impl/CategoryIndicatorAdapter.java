@@ -5,23 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.nakasato.ghstore.core.adapter.Adapter;
-import com.nakasato.ghstore.core.dao.impl.OrderDAO;
 import com.nakasato.ghstore.core.dao.impl.StoreCategoryDAO;
-import com.nakasato.ghstore.core.hibernate.HibernateUtil;
 import com.nakasato.ghstore.core.hibernate.SessionThreadLocal;
 import com.nakasato.ghstore.domain.carrier.PerformanceGraphicCarrier;
-import com.nakasato.ghstore.domain.enums.EAxisX;
-import com.nakasato.ghstore.domain.enums.EAxisY;
-import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
-import com.nakasato.ghstore.domain.filter.impl.PerformanceGraphicFilter;
 import com.nakasato.ghstore.domain.order.Order;
 import com.nakasato.ghstore.domain.order.OrderItem;
 import com.nakasato.ghstore.domain.performance.graphic.PerformanceGraphicData;
 import com.nakasato.ghstore.domain.product.StoreCategory;
 
-public class CategoryIndicatorAdapter extends DefaultIndicatorAdapter
-		implements Adapter < PerformanceGraphicCarrier, List < PerformanceGraphicData > > {
+public class CategoryIndicatorAdapter extends DefaultIndicatorAdapter {
 
 	@Override
 	public List < PerformanceGraphicData > adapt( PerformanceGraphicCarrier carrier ) {

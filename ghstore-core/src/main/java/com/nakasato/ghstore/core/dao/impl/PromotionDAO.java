@@ -33,6 +33,10 @@ public class PromotionDAO extends AbstractDAO < Promotion > {
 			jpql.append( " LEFT JOIN p.storeCategory sc " );
 			jpql.append( " WHERE 1=1 " );
 
+			if( StringUtils.isNotEmpty( filter.getDescription() ) ) {
+				jpql.append( " AND pm.description like :description" );
+			}
+
 			if( filter.getId() != null ) {
 				jpql.append( " AND pm.id = :id" );
 			}
@@ -72,13 +76,17 @@ public class PromotionDAO extends AbstractDAO < Promotion > {
 			if( StringUtils.isNotEmpty( filter.getDescription() ) ) {
 				jpql.append( " AND UPPER(pm.description) like :description" );
 			}
-			
+
 			jpql.append( " ORDER BY pm.startDate asc " );
 
 			Query query = session.createQuery( jpql.toString() );
+			
+			if( StringUtils.isNotEmpty( filter.getDescription() ) ) {
+				query.setParameter( "description", "%" + filter.getDescription().toUpperCase() + "%" );
+			}
 
 			if( filter.getId() != null ) {
-				query.setParameter( "id", filter.getId() );
+				
 			}
 
 			if( ListUtils.isNotEmpty( filter.getProductList() ) ) {
@@ -149,7 +157,7 @@ public class PromotionDAO extends AbstractDAO < Promotion > {
 		ProductDAO dao = new ProductDAO();
 		dao.setSession( SessionThreadLocal.getSession() );
 		ProductFilter ft = new ProductFilter();
-//		productList = dao.find( ft );
+		// productList = dao.find( ft );
 
 		List < Product > promotionProducts = new ArrayList<>();
 

@@ -19,16 +19,18 @@ import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghstore.domain.user.Wishlist;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
+import com.nakasato.ghstore.web.mb.BaseMB;
 import com.nakasato.ghstore.web.mb.user.LoginMB;
 
 @ManagedBean( name = "productDetailMB" )
 @ViewScoped
-public class ProductDetailMB extends ProductMB {
+public class ProductDetailMB extends BaseMB{
 
 	@ManagedProperty( value = "#{loginMB}" )
 	private LoginMB loginMB;
 
 	private Customer customer;
+	private Product product;
 
 	/**
 	 * 
@@ -99,8 +101,8 @@ public class ProductDetailMB extends ProductMB {
 					Wishlist wish = new Wishlist();
 					wish.setProduct( product );
 					wish.setCustomer( customer );
-					
-					List<Wishlist> wishList = customer.getWishList();
+
+					List < Wishlist > wishList = customer.getWishList();
 					wishList.add( wish );
 
 					ICommand commandUpdate = FactoryCommand.build( customer, EOperation.UPDATE );
@@ -170,6 +172,7 @@ public class ProductDetailMB extends ProductMB {
 	}
 
 	public void removeAmount() {
+
 		if( amount == null ) {
 			amount = 1;
 		}
@@ -177,6 +180,8 @@ public class ProductDetailMB extends ProductMB {
 			amount -= 1;
 		}
 	}
+	
+	// Getters e Setters
 
 	public Integer getAmount() {
 		return amount;
@@ -214,10 +219,18 @@ public class ProductDetailMB extends ProductMB {
 		this.loginMB = loginMB;
 	}
 
-	@Override
-	public void fillPriceRange() {
-		// TODO Auto-generated method stub
+	public Product getProduct() {
+		return product;
+	}
 
+	public void setProduct( Product product ) {
+		this.product = product;
+	}
+
+	@Override
+	public void clearFilter() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

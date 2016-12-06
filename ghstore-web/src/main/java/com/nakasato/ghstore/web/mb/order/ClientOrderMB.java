@@ -228,6 +228,8 @@ public class ClientOrderMB extends OrderMB {
 		}
 	}
 
+	// Getters e Setters
+	
 	public LoginMB getLoginMB() {
 		return loginMB;
 	}

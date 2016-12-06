@@ -3,7 +3,6 @@ package com.nakasato.ghstore.web.mb.product.graphic;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -11,14 +10,12 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.DateAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
-import org.primefaces.model.chart.LinearAxis;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
@@ -28,7 +25,6 @@ import com.nakasato.ghstore.domain.enums.EAxisX;
 import com.nakasato.ghstore.domain.enums.EAxisY;
 import com.nakasato.ghstore.domain.filter.impl.CityFilter;
 import com.nakasato.ghstore.domain.filter.impl.PerformanceGraphicFilter;
-import com.nakasato.ghstore.domain.performance.graphic.AxisData;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.product.StoreCategory;
 import com.nakasato.ghstore.domain.user.City;
@@ -146,14 +142,6 @@ public class PerformanceGraphicMB extends BaseMB {
 		return xAxis;
 	}
 
-//	private Axis getShowOnlyResultAxis( PerformanceGraphicFilter filter ) {
-//		Axis xAxis = new CategoryAxis();
-//		String xLabel = EAxisX.getValue( filter.getAxisX() ).getDescription();
-//		xAxis.setLabel( xLabel );
-//		xAxis.setTickFormat( "%" );
-//		return xAxis;
-//	}
-
 	private void initEmptyChart() {
 		chartModel = new LineChartModel();
 
@@ -215,6 +203,7 @@ public class PerformanceGraphicMB extends BaseMB {
 		filter = new PerformanceGraphicFilter();
 	}
 
+	// Getters e Setters
 	public List < StoreCategory > getCategoryList() {
 		return categoryList;
 	}

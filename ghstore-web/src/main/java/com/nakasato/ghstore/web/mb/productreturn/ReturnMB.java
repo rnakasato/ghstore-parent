@@ -34,8 +34,8 @@ public class ReturnMB extends BaseMB {
 	protected ProductReturn selectedReturn;
 
 	private List < Customer > customerList;
-	
-	private Customer customer;
+
+	protected Customer customer;
 
 	// Inicialização
 	@PostConstruct
@@ -43,10 +43,10 @@ public class ReturnMB extends BaseMB {
 		filter = new ProductReturnFilter();
 		initReturnStatus();
 		initCustomerList();
-		
-		User user= ( User ) loginMB.getLoggedUser();
-		if( user instanceof Customer) {
-			customer = (Customer) user;
+
+		User user = ( User ) loginMB.getLoggedUser();
+		if( user instanceof Customer ) {
+			customer = ( Customer ) user;
 			filter.setCustomer( customer );
 		}
 	}
@@ -152,12 +152,13 @@ public class ReturnMB extends BaseMB {
 	@Override
 	public void clearFilter() {
 		filter = new ProductReturnFilter();
-		
-		if( customer != null) {
+
+		if( customer != null ) {
 			filter.setCustomer( customer );
 		}
 	}
 
+	// Getters e Setters
 	public String getImagePath( Product product ) {
 		String path;
 		if( product != null ) {

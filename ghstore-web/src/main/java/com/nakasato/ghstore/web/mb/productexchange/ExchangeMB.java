@@ -15,7 +15,6 @@ import com.nakasato.ghstore.domain.filter.impl.ProductExchangeFilter;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.productexchange.ExchangeStatus;
 import com.nakasato.ghstore.domain.productexchange.ProductExchange;
-import com.nakasato.ghstore.domain.productreturn.ReturnStatus;
 import com.nakasato.ghstore.domain.user.Customer;
 import com.nakasato.ghstore.domain.user.User;
 import com.nakasato.ghstore.factory.impl.FactoryCommand;
@@ -35,7 +34,7 @@ public class ExchangeMB extends BaseMB {
 
 	private List < Customer > customerList;
 
-	private Customer customer;
+	protected Customer customer;
 
 	// Inicialização
 	@PostConstruct
@@ -157,6 +156,7 @@ public class ExchangeMB extends BaseMB {
 		}
 	}
 
+	// Getters e Setters
 	public String getImagePath( Product product ) {
 		String path;
 		if( product != null ) {

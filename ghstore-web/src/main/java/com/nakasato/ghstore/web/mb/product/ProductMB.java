@@ -331,6 +331,7 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 		return product;
 	}
 
+	// Getters e Setters
 	public String getImagePath() {
 
 		if( product != null && product.getImage() != null ) {

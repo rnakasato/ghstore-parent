@@ -14,5 +14,4 @@ public interface IFacade < T extends AbstractDomainEntity > {
 
 	public Result < T > findAll( T entity );
 
-	public Result < T > doRules( T entity, String ruleName );
 }

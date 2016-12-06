@@ -9,7 +9,6 @@ import com.nakasato.ghstore.core.product.comparator.CompareProductByCat;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByInsertDate;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByName;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByPrice;
-import com.nakasato.ghstore.core.product.comparator.CompareProductBySell;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByStatus;
 import com.nakasato.ghstore.core.product.comparator.CompareProductByStock;
 
@@ -24,7 +23,6 @@ public class FactoryComparator {
 			comparatorMap.put( EComparator.PRODUCT_PRICE, new CompareProductByPrice() );
 			comparatorMap.put( EComparator.PRODUCT_STATUS, new CompareProductByStatus() );
 			comparatorMap.put( EComparator.PRODUCT_STOCK, new CompareProductByStock() );
-			comparatorMap.put( EComparator.PRODUCT_SELL, new CompareProductBySell() );
 			comparatorMap.put( EComparator.PRODUCT_INSERTDATE, new CompareProductByInsertDate() );			
 		}
 	}

@@ -8,8 +8,6 @@ import com.nakasato.ghstore.domain.filter.Filter;
 public abstract class Command < T extends AbstractDomainEntity > implements ICommand < T > {
 	protected IFacade facade;
 	protected AbstractDomainEntity entity;
-	protected Filter filter;
-	protected Integer parameter;
 
 	public IFacade getFacade() {
 		return facade;
@@ -25,22 +23,6 @@ public abstract class Command < T extends AbstractDomainEntity > implements ICom
 
 	public void setEntity( AbstractDomainEntity entity ) {
 		this.entity = entity;
-	}
-
-	public Integer getParameter() {
-		return parameter;
-	}
-
-	public void setParameter( Integer parameter ) {
-		this.parameter = parameter;
-	}
-
-	public Filter getFilter() {
-		return filter;
-	}
-
-	public void setFilter( Filter filter ) {
-		this.filter = filter;
 	}
 
 }

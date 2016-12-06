@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hibernate.Session;
-import org.hibernate.boot.spi.AdditionalJaxbMappingProducer;
 
 import com.nakasato.ghstore.core.IDAO;
 import com.nakasato.ghstore.core.dao.impl.AddressDAO;
@@ -23,7 +22,6 @@ import com.nakasato.ghstore.core.dao.impl.ProductExchangeDAO;
 import com.nakasato.ghstore.core.dao.impl.ProductReturnDAO;
 import com.nakasato.ghstore.core.dao.impl.PromotionDAO;
 import com.nakasato.ghstore.core.dao.impl.ReturnStatusDAO;
-import com.nakasato.ghstore.core.dao.impl.ShoppingCartDAO;
 import com.nakasato.ghstore.core.dao.impl.StateDAO;
 import com.nakasato.ghstore.core.dao.impl.StoreCategoryDAO;
 import com.nakasato.ghstore.core.dao.impl.SubcategoryDAO;
@@ -112,7 +110,6 @@ public class FactoryDAO {
 			daoMap.put( ExchangeStatus.class.getName(), new ExchangeStatusDAO() );
 			
 			// Outros DAOs
-			daoMap.put( ShoppingCart.class.getName(), new ShoppingCartDAO() );
 			daoMap.put( Wishlist.class.getName(), new WishlistDAO() );
 			daoMap.put( GalleryItem.class.getName(), new GalleryItemDAO() );
 

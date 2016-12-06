@@ -10,7 +10,7 @@ import com.nakasato.ghstore.domain.AbstractDomainEntity;
 import com.nakasato.ghstore.domain.filter.impl.ExchangeStatusFilter;
 import com.nakasato.ghstore.domain.productexchange.ExchangeStatus;
 
-public class ExchangeStatusDAO extends AbstractDAO < ExchangeStatus > {
+public class ExchangeStatusDAO extends DomainSpecificEntityDAO  < ExchangeStatus > {
 
 	@Override
 	public List < ExchangeStatus > find( AbstractDomainEntity filter ) throws Exception {

@@ -14,9 +14,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
+import com.nakasato.ghstore.core.adapter.impl.ShoppingCartToOrderAdapter;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.util.ListUtils;
-import com.nakasato.ghstore.core.util.Parser;
 import com.nakasato.ghstore.domain.carrier.PaymentCreationCarrier;
 import com.nakasato.ghstore.domain.filter.impl.DiscountCouponFilter;
 import com.nakasato.ghstore.domain.order.Order;
@@ -59,8 +59,11 @@ public class UserSessionMB extends BaseMB {
 	// total sem desconto para caso desmarque opção de desconto
 	private Double temporaryTotal;
 
+	private ShoppingCartToOrderAdapter cartToOrderadapter;
+
 	@PostConstruct
 	public void init() {
+		cartToOrderadapter = new ShoppingCartToOrderAdapter();
 		if( cart == null ) {
 			cart = new ShoppingCart();
 			cart.setShoppingCartList( new ArrayList<>() );
@@ -218,7 +221,7 @@ public class UserSessionMB extends BaseMB {
 
 		if( StringUtils.isNotEmpty( transactionCode ) && cart.isProcess() ) {
 			try {
-				Order order = Parser.parseShoppingCartToOrder( cart );
+				Order order = cartToOrderadapter.adapt( cart );
 				order.setTransactionCode( transactionCode );
 				ICommand commandSave = FactoryCommand.build( order, EOperation.SAVE );
 				Result result = commandSave.execute();
@@ -254,7 +257,7 @@ public class UserSessionMB extends BaseMB {
 			List < ShoppingCartItem > itemList = cart.getShoppingCartList();
 			boolean alreadyExists = false;
 			int index = 0;
-			
+
 			// verifica se o item já existe
 			for( ShoppingCartItem item: itemList ) {
 				if( item.getProduct().getId() == product.getId() ) {
@@ -339,6 +342,7 @@ public class UserSessionMB extends BaseMB {
 		return total;
 	}
 
+	// Getters e Setter
 	public ShoppingCart getCart() {
 		return cart;
 	}

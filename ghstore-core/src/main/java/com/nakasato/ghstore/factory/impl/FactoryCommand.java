@@ -29,32 +29,6 @@ public class FactoryCommand {
 		return command;
 	}
 
-	public static Command build( AbstractDomainEntity entity, String operation, int parameter )
-			throws ClassNotFoundException {
-		if( commandMap == null ) {
-			initCommands();
-		}
-		Command command = commandMap.get( operation );
-		if( command != null ) {
-			if( operation.equals( EOperation.FIND ) ) {
-				if( entity instanceof Filter ) {
-					Filter filter = ( Filter ) entity;
-					command.setFilter( filter );
-				} else {
-					throw new ClassNotFoundException();
-				}
-
-			} else {
-				command.setEntity( entity );
-			}
-
-			command.setParameter( parameter );
-		} else {
-			throw new ClassNotFoundException();
-		}
-		return command;
-	}
-
 	private static void initCommands() {
 		commandMap = new HashMap<>();
 		commandMap.put( EOperation.SAVE, new CommandSave() );

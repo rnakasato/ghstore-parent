@@ -158,6 +158,7 @@ public class ShoppingCartMB extends BaseMB {
 		ctx.execute( "PF('addressDialog').hide()" );
 	}
 
+	// Getters e Setters
 	public Customer getCustomer() {
 		return loggedUser;
 	}
