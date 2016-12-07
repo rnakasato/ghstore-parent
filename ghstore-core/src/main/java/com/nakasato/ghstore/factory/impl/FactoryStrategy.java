@@ -13,6 +13,7 @@ import com.nakasato.ghstore.domain.carrier.PaymentCreationCarrier;
 import com.nakasato.ghstore.domain.carrier.PerformanceGraphicCarrier;
 import com.nakasato.ghstore.domain.filter.impl.AdministratorFilter;
 import com.nakasato.ghstore.domain.filter.impl.CustomerFilter;
+import com.nakasato.ghstore.domain.filter.impl.OperatorFilter;
 import com.nakasato.ghstore.domain.filter.impl.OrderFilter;
 import com.nakasato.ghstore.domain.filter.impl.ProductExchangeFilter;
 import com.nakasato.ghstore.domain.filter.impl.ProductFilter;
@@ -25,6 +26,7 @@ import com.nakasato.ghstore.domain.productexchange.ProductExchange;
 import com.nakasato.ghstore.domain.productreturn.ProductReturn;
 import com.nakasato.ghstore.domain.user.Administrator;
 import com.nakasato.ghstore.domain.user.Customer;
+import com.nakasato.ghstore.domain.user.Operator;
 import com.nakasato.ghtstore.core.business.complementor.ComplementAxisData;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCityAxisData;
 import com.nakasato.ghtstore.core.business.complementor.ComplementCustomer;
@@ -57,6 +59,7 @@ import com.nakasato.ghtstore.core.business.validator.CustomerCEPValidator;
 import com.nakasato.ghtstore.core.business.validator.EmailValidator;
 import com.nakasato.ghtstore.core.business.validator.PriceValidator;
 import com.nakasato.ghtstore.core.business.validator.ProductExchangeAmountValidator;
+import com.nakasato.ghtstore.core.business.validator.ProductNameValidator;
 import com.nakasato.ghtstore.core.business.validator.ProductReturnAmountValidator;
 import com.nakasato.ghtstore.core.business.validator.ProductUpdateValidator;
 import com.nakasato.ghtstore.core.business.validator.PromotionDiscountValidator;
@@ -140,8 +143,8 @@ public class FactoryStrategy {
 		initAdministratorRns();
 
 		rnsOperator = new HashMap<>();
-		rns.put( Administrator.class.getName(), rnsOperator );
-		rns.put( AdministratorFilter.class.getName(), rnsOperator );
+		rns.put( Operator.class.getName(), rnsOperator );
+		rns.put( OperatorFilter.class.getName(), rnsOperator );
 		initOperatorRns();
 
 		rnsOrder = new HashMap<>();
@@ -419,6 +422,7 @@ public class FactoryStrategy {
 
 		// Adicionando regras de negócio para salvar um Product
 		rnsSave.add( new ProductRequiredFieldsValidator() );
+		rnsSave.add( new ProductNameValidator() );		
 		rnsSave.add( new StockValidator() );
 		rnsSave.add( new PriceValidator() );
 		rnsSave.add( new StoreCategoryValidator() );
@@ -431,6 +435,7 @@ public class FactoryStrategy {
 
 		// Adicionando regras de negócio para alterar um Product
 		rnsUpdate.add( new ProductRequiredFieldsValidator() );
+		rnsUpdate.add( new ProductNameValidator() );
 		rnsUpdate.add( new StockValidator() );
 		rnsUpdate.add( new PriceValidator() );
 		rnsUpdate.add( new StoreCategoryValidator() );

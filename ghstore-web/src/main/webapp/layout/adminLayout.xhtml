@@ -51,17 +51,31 @@
 				<h:form id="menuBar">
 					<p:panelGrid
 						id="gridUserBar"
-						cols="6">
-						<div>colocar Logo</div>
-
-						<p:commandButton
-							id="btnRedirLogout"
-							value="Logout"
-							update=":menuBar:gridUserBar"
-							rendered="#{loginMB.loggedIn}"
-							actionListener="#{loginMB.doLogout()}">
-						</p:commandButton>
-
+						columns="1"
+						styleClass="baseGrid"
+						style="background-color:white;width:100%">
+						<p:column>
+							<p:row>
+								<p:outputLabel
+									style="background-color:white"
+									rendered="#{loginMB.loggedIn}"
+									value="Bem vindo: " />
+								<p:outputLabel
+									style="background-color:white"
+									id="ouputLoggedUser"
+									rendered="#{loginMB.loggedIn}"
+									value="#{loginMB.loggedUser.username}" />
+							</p:row>
+							<p:row>
+								<p:commandButton
+									id="btnRedirLogout"
+									value="Logout"
+									update=":menuBar:gridUserBar"
+									rendered="#{loginMB.loggedIn}"
+									actionListener="#{loginMB.doLogout()}">
+								</p:commandButton>
+							</p:row>
+						</p:column>
 					</p:panelGrid>
 
 					<p:menubar>

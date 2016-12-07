@@ -56,7 +56,7 @@ public class AdministratorDAO extends AbstractDAO < Administrator > {
 			}
 
 			if( StringUtils.isNotEmpty( adminFilter.getLoginUserName() ) ) {
-				query.setParameter( "username", adminFilter.getUserName() );
+				query.setParameter( "username", adminFilter.getLoginUserName() );
 			}
 
 			if( StringUtils.isNotEmpty( adminFilter.getCpf() ) ) {

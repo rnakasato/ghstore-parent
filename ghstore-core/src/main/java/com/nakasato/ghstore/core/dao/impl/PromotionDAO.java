@@ -80,13 +80,13 @@ public class PromotionDAO extends AbstractDAO < Promotion > {
 			jpql.append( " ORDER BY pm.startDate asc " );
 
 			Query query = session.createQuery( jpql.toString() );
-			
+
 			if( StringUtils.isNotEmpty( filter.getDescription() ) ) {
 				query.setParameter( "description", "%" + filter.getDescription().toUpperCase() + "%" );
 			}
 
 			if( filter.getId() != null ) {
-				
+
 			}
 
 			if( ListUtils.isNotEmpty( filter.getProductList() ) ) {
@@ -136,19 +136,15 @@ public class PromotionDAO extends AbstractDAO < Promotion > {
 	@Override
 	public List < Promotion > findAll() throws Exception {
 		List < Promotion > promotionList = null;
-		try {
 
-			StringBuilder jpql = new StringBuilder();
-			jpql.append( " FROM Promotion pm" );
-			jpql.append( " ORDER BY pm.startDate asc " );
+		StringBuilder jpql = new StringBuilder();
+		jpql.append( " FROM Promotion pm" );
+		jpql.append( " ORDER BY pm.startDate asc " );
 
-			Query query = session.createQuery( jpql.toString() );
+		Query query = session.createQuery( jpql.toString() );
 
-			promotionList = query.getResultList();
+		promotionList = query.getResultList();
 
-		} catch( RuntimeException e ) {
-
-		}
 		return promotionList;
 	}
 

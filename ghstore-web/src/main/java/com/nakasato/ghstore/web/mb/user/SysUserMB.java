@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -35,11 +36,16 @@ import com.nakasato.ghstore.factory.impl.FactoryCommand;
 import com.nakasato.ghstore.web.adapter.UserToAdmininistratorAdapter;
 import com.nakasato.ghstore.web.adapter.UserToOperatorAdapter;
 import com.nakasato.ghstore.web.mb.BaseMB;
+import com.nakasato.ghstore.web.mb.util.RedirectMB;
 import com.nakasato.web.util.Redirector;
 
 @ManagedBean( name = "sysUserMB" )
 @ViewScoped
 public class SysUserMB extends BaseMB {
+
+	@ManagedProperty( value = "#{loginMB}" )
+	private LoginMB loginMB;
+
 	private User newUser;
 	private User selectedUser;
 	private SysUserFilter filter;
@@ -86,7 +92,16 @@ public class SysUserMB extends BaseMB {
 		newAddress = new Address();
 		newAddress.setCity( new City() );
 
-		selectedUser = ( User ) FacesContext.getCurrentInstance().getExternalContext().getFlash().get( "user" );
+		FacesContext context = FacesContext.getCurrentInstance();
+		selectedUser = ( User ) context.getExternalContext().getFlash().get( "user" );
+
+		String currentPage = context.getViewRoot().getViewId();
+		if( currentPage.contains( "userSearch" ) && loginMB.getLoggedUser() instanceof Operator ) {
+			RedirectMB redirectMB = new RedirectMB();
+			redirectMB.redirectToUpdate( loginMB.getLoggedUser() );
+		} else if( currentPage.contains( "userUpdate" ) && loginMB.getLoggedUser() instanceof Operator ) {
+			selectedUser = loginMB.getLoggedUser();
+		}
 
 		if( selectedUser != null ) {
 			newPhone = selectedUser.getPhoneList().get( 0 );
@@ -214,12 +229,12 @@ public class SysUserMB extends BaseMB {
 				String msg = command.execute().getMsg();
 				if( StringUtils.isNotEmpty( msg ) ) {
 					addMessage( msg );
+				} else {
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					Redirector.redirectTo( ctx.getExternalContext(), "/admin/userSearch.jsf?faces-redirect=true" );
 				}
 
 			}
-
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			Redirector.redirectTo( ctx.getExternalContext(), "/admin/userSearch.jsf?faces-redirect=true" );
 
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
@@ -500,6 +515,14 @@ public class SysUserMB extends BaseMB {
 
 	public void setStatus( String status ) {
 		this.status = status;
+	}
+
+	public LoginMB getLoginMB() {
+		return loginMB;
+	}
+
+	public void setLoginMB( LoginMB loginMB ) {
+		this.loginMB = loginMB;
 	}
 
 }

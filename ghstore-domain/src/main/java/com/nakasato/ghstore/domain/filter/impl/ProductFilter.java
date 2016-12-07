@@ -16,6 +16,7 @@ public class ProductFilter extends Filter {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name;
+	private String exactlyName;
 	private String code;
 	private StoreCategory category;
 	private Subcategory subcategory;
@@ -187,6 +188,14 @@ public class ProductFilter extends Filter {
 
 	public void setMaxResults( Integer maxResults ) {
 		this.maxResults = maxResults;
+	}
+
+	public String getExactlyName() {
+		return exactlyName;
+	}
+
+	public void setExactlyName( String exactlyName ) {
+		this.exactlyName = exactlyName;
 	}
 
 }

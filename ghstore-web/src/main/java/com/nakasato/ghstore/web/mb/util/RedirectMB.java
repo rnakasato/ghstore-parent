@@ -96,6 +96,7 @@ public class RedirectMB {
 		String url = "/admin/promotionSave.jsf?faces-redirect=true";
 		Redirector.redirectTo( context, url );
 	}
+
 	public void redirectToPromotionSearch() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext context = ctx.getExternalContext();

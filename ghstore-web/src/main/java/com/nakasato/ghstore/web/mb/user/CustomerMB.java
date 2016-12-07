@@ -81,12 +81,14 @@ public class CustomerMB extends BaseMB {
 				String msg = command.execute().getMsg();
 				if( StringUtils.isNotEmpty( msg ) ) {
 					addMessage( msg );
+				} else {
+					FacesContext context = FacesContext.getCurrentInstance();
+
+					Redirector.redirectTo( context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
+
 				}
 
 			}
-			FacesContext context = FacesContext.getCurrentInstance();
-
-			Redirector.redirectTo( context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
 
 		} catch( ClassNotFoundException e ) {
 			e.printStackTrace();
@@ -101,7 +103,7 @@ public class CustomerMB extends BaseMB {
 			} else {
 				customer.setPhoneList( new LinkedList<>() );
 				addPhone();
-				
+
 				ICommand command = FactoryCommand.build( customer, EOperation.UPDATE );
 				String msg = command.execute().getMsg();
 				if( StringUtils.isNotEmpty( msg ) ) {

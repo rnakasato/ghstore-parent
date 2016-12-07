@@ -14,6 +14,7 @@ import com.nakasato.core.util.enums.EOperation;
 import com.nakasato.ghstore.core.ICommand;
 import com.nakasato.ghstore.core.application.Result;
 import com.nakasato.ghstore.core.util.ListUtils;
+import com.nakasato.ghstore.core.util.SaveDirectory;
 import com.nakasato.ghstore.domain.filter.impl.ProductFilter;
 import com.nakasato.ghstore.domain.product.Product;
 import com.nakasato.ghstore.domain.user.Customer;
@@ -24,7 +25,7 @@ import com.nakasato.ghstore.web.mb.user.LoginMB;
 
 @ManagedBean( name = "productDetailMB" )
 @ViewScoped
-public class ProductDetailMB extends BaseMB{
+public class ProductDetailMB extends BaseMB {
 
 	@ManagedProperty( value = "#{loginMB}" )
 	private LoginMB loginMB;
@@ -180,7 +181,16 @@ public class ProductDetailMB extends BaseMB{
 			amount -= 1;
 		}
 	}
-	
+
+	public String getImagePath( Product product ) {
+		String path;
+		if( product != null && product.getImage() != null ) {
+			path = SaveDirectory.REQUEST_IMG_DIR + product.getImage();
+		} else {
+			path = SaveDirectory.REQUEST_IMG_DIR + "default.jpg";
+		}
+		return path;
+	}
 	// Getters e Setters
 
 	public Integer getAmount() {
@@ -230,7 +240,7 @@ public class ProductDetailMB extends BaseMB{
 	@Override
 	public void clearFilter() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

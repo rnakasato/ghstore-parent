@@ -58,7 +58,7 @@ public class OperatorDAO extends AbstractDAO < Operator > {
 			}
 
 			if( StringUtils.isNotEmpty( operatorFilter.getLoginUserName() ) ) {
-				query.setParameter( "username", operatorFilter.getUserName() );
+				query.setParameter( "username", operatorFilter.getLoginUserName() );
 			}
 
 			if( StringUtils.isNotEmpty( operatorFilter.getName() ) ) {

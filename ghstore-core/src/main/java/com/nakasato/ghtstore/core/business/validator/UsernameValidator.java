@@ -40,7 +40,9 @@ public class UsernameValidator extends Validator < User > {
 			List < Customer > customerList = customerDAO.find( customerFilter );
 
 			if( ListUtils.isNotEmpty( customerList ) ) {
-				exists = true;
+				if( ! customerList.get( 0 ).equals( user ) ) {
+					exists = true;
+				}
 			}
 
 			if( ! exists ) {
@@ -56,7 +58,9 @@ public class UsernameValidator extends Validator < User > {
 				List < Administrator > adminList = adminDAO.find( adminFilter );
 
 				if( ListUtils.isNotEmpty( adminList ) ) {
-					exists = true;
+					if( ! adminList.get( 0 ).equals( user ) ) {
+						exists = true;
+					}
 				}
 			}
 
@@ -70,14 +74,16 @@ public class UsernameValidator extends Validator < User > {
 				opFilter.setLoginUserName( user.getUsername() );
 
 				List < Operator > opList = operatorDAO.find( opFilter );
-
 				if( ListUtils.isNotEmpty( opList ) ) {
-					exists = true;
+					if( ! opList.get( 0 ).equals( user ) ) {
+						exists = true;
+					}
 				}
+
 			}
 
 			if( exists ) {
-				msg = "O nome de usuário " + user.getUsername() + "já está sendo utilizado";
+				msg = "O nome de usuário " + user.getUsername() + " já está sendo utilizado";
 			}
 
 		} catch(

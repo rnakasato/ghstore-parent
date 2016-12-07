@@ -9,8 +9,8 @@ public class PromotionDiscountValidator extends Validator < Promotion > {
 	public String validate( Promotion promotion ) {
 		msg = null;
 		if( ( promotion.getDiscountPercentage() != null
-				&& ( promotion.getDiscountPercentage() <= 0D || promotion.getDiscountPercentage() >= 100 ) ) ) {
-			msg = "O valor do desconto deve ser acima de 1 e inferior a 100";
+				&& ( promotion.getDiscountPercentage() <= 0D || promotion.getDiscountPercentage() > 90 ) ) ) {
+			msg = "O valor do desconto deve ser entre 1 e 90";
 		}
 
 		return msg;

@@ -183,7 +183,7 @@ public class LoginMB extends BaseMB {
 		String redirectPage = null;
 		FacesContext context = FacesContext.getCurrentInstance();
 		User user = ( User ) context.getExternalContext().getSessionMap().get( User.LOGGED_USER );
-		if( user != null && user instanceof Administrator ) {
+		if( user != null && (user instanceof Administrator || user instanceof Operator)) {
 			redirectPage = "/admin/login.jsf?faces-redirect=true";
 		} else {
 			redirectPage = "/clientuser/login.jsf?faces-redirect=true";

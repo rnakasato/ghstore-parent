@@ -10,6 +10,7 @@ public class ComplementPromotionCancel extends Validator < Promotion > {
 	@Override
 	public String validate( Promotion promotion ) {
 		if( promotion.getCancel() != null && promotion.getCancel() ) {
+			promotion.setStartDate( new Date() );
 			promotion.setEndDate( new Date() );
 		}
 		return null;
