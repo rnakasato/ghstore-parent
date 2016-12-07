@@ -125,6 +125,8 @@ public class PromotionMB extends BaseMB {
 				&& ( promotionStatus.equals( "true" ) || promotionStatus.equals( "false" ) ) ) {
 			Boolean status = Boolean.valueOf( promotionStatus );
 			filter.setActive( status );
+		}else{
+			filter.setActive( null );
 		}
 	}
 	

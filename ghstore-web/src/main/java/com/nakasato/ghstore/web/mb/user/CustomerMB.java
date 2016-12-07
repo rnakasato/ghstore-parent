@@ -5,9 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.commons.lang3.StringUtils;
@@ -82,9 +84,13 @@ public class CustomerMB extends BaseMB {
 				if( StringUtils.isNotEmpty( msg ) ) {
 					addMessage( msg );
 				} else {
-					FacesContext context = FacesContext.getCurrentInstance();
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					ctx.addMessage( null, new FacesMessage( "Usuário \"" + customer.getUsername() + "\" cadastrado com sucesso! " ) );
+					Flash flash = ctx.getExternalContext().getFlash();
+					flash.setKeepMessages( true );
+					flash.setRedirect( true );
 
-					Redirector.redirectTo( context.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
+					Redirector.redirectTo( ctx.getExternalContext(), "/clientuser/login.jsf?faces-redirect=true" );
 
 				}
 

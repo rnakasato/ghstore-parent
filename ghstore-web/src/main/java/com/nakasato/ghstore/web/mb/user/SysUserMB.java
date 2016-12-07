@@ -6,10 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.commons.lang3.StringUtils;
@@ -231,6 +233,11 @@ public class SysUserMB extends BaseMB {
 					addMessage( msg );
 				} else {
 					FacesContext ctx = FacesContext.getCurrentInstance();
+					ctx.addMessage( null, new FacesMessage( "Usuário " + newUser.getUsername() + " cadastrado com sucesso! " ) );
+					Flash flash = ctx.getExternalContext().getFlash();
+					flash.setKeepMessages( true );
+					flash.setRedirect( true );
+					
 					Redirector.redirectTo( ctx.getExternalContext(), "/admin/userSearch.jsf?faces-redirect=true" );
 				}
 
@@ -263,9 +270,12 @@ public class SysUserMB extends BaseMB {
 				if( StringUtils.isNotEmpty( msg ) ) {
 					addMessage( msg );
 				} else {
-					addMessage( "Dados alterados com sucesso!" );
-
 					FacesContext ctx = FacesContext.getCurrentInstance();
+					ctx.addMessage( null, new FacesMessage( "Usuário " + selectedUser.getUsername() + " alterado com sucesso! " ) );
+					Flash flash = ctx.getExternalContext().getFlash();
+					flash.setKeepMessages( true );
+					flash.setRedirect( true );
+
 					Redirector.redirectTo( ctx.getExternalContext(), "/admin/userSearch.jsf?faces-redirect=true" );
 				}
 

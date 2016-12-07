@@ -159,7 +159,6 @@ public class Product extends DomainSpecificEntity implements Serializable {
 		this.promotionList = promotionList;
 	}
 
-
 	public Promotion getActivePromotion() {
 		Promotion promotion = null;
 		if( promotionList != null && ! promotionList.isEmpty() ) {
@@ -172,6 +171,18 @@ public class Product extends DomainSpecificEntity implements Serializable {
 		}
 
 		return promotion;
+	}
+
+	public String getActiveDescription() {
+		String desc = null;
+		if( active != null ) {
+			if( active ) {
+				desc = "Ativo";
+			} else {
+				desc = "Inativo";
+			}
+		}
+		return desc;
 	}
 
 	@Override

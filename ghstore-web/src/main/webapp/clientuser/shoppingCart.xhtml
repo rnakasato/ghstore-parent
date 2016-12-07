@@ -8,7 +8,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/layout/clientLayout.xhtml">
-
+	<ui:define name="head">
+		<title>GHStore - Carrinho de compras</title>
+		<h:outputStylesheet
+			name="crudStyles.css"
+			library="css" />
+	</ui:define>
+	
 	<ui:define name="metadate">
 		<f:metadata>
 			<f:event

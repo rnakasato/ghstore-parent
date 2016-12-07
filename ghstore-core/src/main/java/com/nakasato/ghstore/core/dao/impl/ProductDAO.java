@@ -26,7 +26,13 @@ public class ProductDAO extends AbstractDAO < Product > {
 		jpql.append( " LEFT JOIN p.tagList t " );
 		jpql.append( " LEFT JOIN p.storeCategory sc " );
 		jpql.append( " LEFT JOIN p.subcategory sb " );
-		jpql.append( " WHERE 1=1 AND p.active = true " );
+		jpql.append( " WHERE 1=1 " );
+
+		if( filter.getStatus() == null || filter.getStatus() == 1 ) {
+			jpql.append( " AND p.active = true " );
+		}else if(filter.getStatus() == 2){
+			jpql.append( " AND p.active = false " );
+		}
 
 		if( filter.getId() != null ) {
 			jpql.append( " AND p.id = :id" );
@@ -156,7 +162,7 @@ public class ProductDAO extends AbstractDAO < Product > {
 		}
 
 		if( StringUtils.isNotEmpty( filter.getExactlyName() ) ) {
-			query.setParameter( "name", filter.getExactlyName() );
+			query.setParameter( "exactlyName", filter.getExactlyName() );
 		}
 
 		if( StringUtils.isNotEmpty( filter.getCode() ) ) {

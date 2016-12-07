@@ -192,18 +192,9 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 			command = FactoryCommand.build( filter, EOperation.FIND );
 			List < Product > products = command.execute().getEntityList();
 
+			productList = products;
+
 			if( products != null && ! products.isEmpty() ) {
-				productList = new ArrayList<>();
-				for( AbstractDomainEntity e: products ) {
-					Product pr = ( Product ) e;
-					if( status != null && status != 0 ) {
-						if( pr.getStatus() == status ) {
-							productList.add( pr );
-						}
-					} else {
-						productList.add( pr );
-					}
-				}
 				if( order != null ) {
 					ProductSort.sortProducts( productList, order, isAscendant );
 				}
@@ -213,6 +204,12 @@ public abstract class ProductMB extends BaseMB implements Serializable {
 			}
 		} catch( ClassNotFoundException e1 ) {
 			e1.printStackTrace();
+		}
+	}
+
+	protected void setBooleanFilter() {
+		if( status != null && ( status == 0 || status == 1 || status == 2 ) ) {
+			filter.setStatus( status );
 		}
 	}
 

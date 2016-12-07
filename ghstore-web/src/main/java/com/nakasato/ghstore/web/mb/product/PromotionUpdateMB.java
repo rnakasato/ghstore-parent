@@ -3,9 +3,11 @@ package com.nakasato.ghstore.web.mb.product;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.DualListModel;
@@ -45,9 +47,15 @@ public class PromotionUpdateMB extends PromotionMB {
 			String msg = commandUpdate.execute().getMsg();
 			if( StringUtils.isNotEmpty( msg ) ) {
 				addMessage( msg );
+			}else{
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				ctx.addMessage( null, new FacesMessage( "Promoção \"" + newPromotion.getDescription() + "\" alterada com sucesso! " ) );
+				Flash flash = ctx.getExternalContext().getFlash();
+				flash.setKeepMessages( true );
+				flash.setRedirect( true );
+				
+				Redirector.redirectTo( ctx.getExternalContext(), "/admin/promotionSearch.jsf?faces-redirect=true" );
 			}
-			FacesContext context = FacesContext.getCurrentInstance();
-			Redirector.redirectTo( context.getExternalContext(), "/admin/promotionSearch.jsf?faces-redirect=true" );
 			// Criar validador de campos obrigatórios de promoção
 		} catch( ClassNotFoundException e ) {
 			// TODO Auto-generated catch block

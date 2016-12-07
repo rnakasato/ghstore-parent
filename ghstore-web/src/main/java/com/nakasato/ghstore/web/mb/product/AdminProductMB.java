@@ -22,6 +22,8 @@ public class AdminProductMB extends ProductMB {
 		setBaseFilter( new ProductFilter() );
 		filter = ( ProductFilter ) getBaseFilter();
 		setAscendant( true );
+		
+		status = 2;
 
 		super.initStoreCategory();
 		super.initProductOrderType();

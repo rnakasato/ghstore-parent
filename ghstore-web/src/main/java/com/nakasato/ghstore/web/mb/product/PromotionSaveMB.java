@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.DualListModel;
@@ -43,9 +45,14 @@ public class PromotionSaveMB extends PromotionMB {
 			if( StringUtils.isNotEmpty( msg ) ) {
 				addMessage( msg );
 			}else{
-				addMessage("Promoção agendada com sucesso");
-				FacesContext context = FacesContext.getCurrentInstance();
-				Redirector.redirectTo( context.getExternalContext(), "/admin/promotionSearch.jsf?faces-redirect=true" );
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				ctx.addMessage( null, new FacesMessage( "Promoção \"" + newPromotion.getDescription() + "\" agendada com sucesso! " ) );
+				Flash flash = ctx.getExternalContext().getFlash();
+				flash.setKeepMessages( true );
+				flash.setRedirect( true );
+				
+				
+				Redirector.redirectTo( ctx.getExternalContext(), "/admin/promotionSearch.jsf?faces-redirect=true" );
 			}
 		} catch( ClassNotFoundException e ) {
 			// TODO Auto-generated catch block

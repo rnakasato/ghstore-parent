@@ -60,49 +60,57 @@
 				<h:form id="formUserBar">
 					<p:panelGrid
 						id="gridUserBar"
-						cols="6">
-						<div>colocar Logo</div>
+						columns="1"
+						styleClass="baseGrid"
+						style="background-color:white;width:100%">
 
-						<p:commandButton
-							id="btnSearchSite"
-							value="Buscar"
-							actionListener="#{redirectMB.redirectToGlobalSearch(clientProductMB.productName)}" />
+						<p:row>
 
-						<p:watermark
-							for="inputGlobalSearch"
-							value="Buscar Produto..." />
-						<p:inputText
-							id="inputGlobalSearch"
-							value="#{clientProductMB.productName}" />
-						<p:button
-							id="btnRedirLogin"
-							value="Login"
-							rendered="#{!loginMB.loggedIn}"
-							outcome="/clientuser/login.xhtml" />
-						<p:commandButton
-							id="btnRedirLogout"
-							value="Logout"
-							update=":formUserBar"
-							rendered="#{loginMB.loggedIn}"
-							actionListener="#{loginMB.doLogout()}">
-						</p:commandButton>
-						<p:button
-							id="btnRedirSignUp"
-							value="Cadastre-se"
-							rendered="#{!loginMB.loggedIn}"
-							outcome="/clientuser/signup/customerSave.xhtml" />
-						<p:button
-							id="btnShoppingCart"
-							value="Carrinho de compras"
-							onstart="PF('loadingDialog').show()"
-							onsuccess="PF('loadingDialog').hide()"
-							outcome="/clientuser/shoppingCart.xhtml" />
+							<p:button
+								id="btnRedirLogin"
+								value="Login"
+								rendered="#{!loginMB.loggedIn}"								
+								outcome="/clientuser/login.xhtml" />
+							<p:commandButton
+								id="btnRedirLogout"
+								value="Logout"
+								update=":formUserBar"
+								rendered="#{loginMB.loggedIn}"
+								actionListener="#{loginMB.doLogout()}">
+							</p:commandButton>
+							<p:button
+								id="btnRedirSignUp"
+								value="Cadastre-se"
+								rendered="#{!loginMB.loggedIn}"
+								outcome="/clientuser/signup/customerSave.xhtml" />
+							<p:button
+								id="btnShoppingCart"
+								value="Carrinho de compras"
+								onstart="PF('loadingDialog').show()"
+								onsuccess="PF('loadingDialog').hide()"
+								outcome="/clientuser/shoppingCart.xhtml" />
 
-						<p:button
-							id="btnProfile"
-							value="Perfil"
-							rendered="#{loginMB.loggedIn}"
-							outcome="/clientuser/logged/customerUpdate.xhtml" />
+							<p:button
+								id="btnProfile"
+								value="Perfil"
+								rendered="#{loginMB.loggedIn}"
+								outcome="/clientuser/logged/customerUpdate.xhtml" />
+
+							<p:commandButton
+								id="btnSearchSite"
+								style="margin-left:300px"
+								value="Buscar"
+								actionListener="#{redirectMB.redirectToGlobalSearch(clientProductMB.productName)}" />
+
+							<p:watermark
+								for="inputGlobalSearch"
+								value="Buscar Produto no site..." />
+							<p:inputText
+								id="inputGlobalSearch"
+								style="width:20%"
+								value="#{clientProductMB.productName}" />
+
+						</p:row>
 					</p:panelGrid>
 
 					<p:menubar>
@@ -162,7 +170,7 @@
 
 						</p:menuitem>
 
-						
+
 
 					</p:menubar>
 					<!-- ADICIONAR COMO COMPRAR SE SOBRAR TEMPO
